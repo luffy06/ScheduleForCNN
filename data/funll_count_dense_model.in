@@ -1,0 +1,1949 @@
+727 1221
+0 is_training/Initializer/Const Const 0
+1 is_training VariableV2 32
+2 is_training/Assign Assign 0
+3 is_training/read Identity 7
+4 Assign/value Const 0
+5 Assign Assign 0
+6 Assign_1/value Const 0
+7 Assign_1 Assign 0
+8 InputData/X Placeholder 0
+9 FullyConnected/W/Initializer/truncated_normal/shape Const 0
+10 FullyConnected/W/Initializer/truncated_normal/mean Const 0
+11 FullyConnected/W/Initializer/truncated_normal/stddev Const 0
+12 FullyConnected/W/Initializer/truncated_normal/TruncatedNormal TruncatedNormal 0
+13 FullyConnected/W/Initializer/truncated_normal/mul Mul 0
+14 FullyConnected/W/Initializer/truncated_normal Add 0
+15 FullyConnected/W VariableV2 32
+16 FullyConnected/W/Assign Assign 0
+17 FullyConnected/W/read Identity 9
+18 FullyConnected/W/Regularizer/L2Loss L2Loss 74
+19 FullyConnected/W/Regularizer/L2-Loss/y Const 7
+20 FullyConnected/W/Regularizer/L2-Loss Mul 15
+21 FullyConnected/b/Initializer/Const Const 0
+22 FullyConnected/b VariableV2 10
+23 FullyConnected/b/Assign Assign 0
+24 FullyConnected/b/read Identity 6
+25 FullyConnected/MatMul MatMul 817
+26 FullyConnected/BiasAdd BiasAdd 25
+27 FullyConnected/Tanh Tanh 34
+28 Dropout/cond/Switch Switch 6
+29 Dropout/cond/switch_t Identity 5
+30 Dropout/cond/switch_f Identity 0
+31 Dropout/cond/pred_id Identity 43
+32 Dropout/cond/dropout/keep_prob Const 6
+33 Dropout/cond/dropout/Shape/Switch Switch 8
+34 Dropout/cond/dropout/Shape Shape 9
+35 Dropout/cond/dropout/random_uniform/min Const 5
+36 Dropout/cond/dropout/random_uniform/max Const 0
+37 Dropout/cond/dropout/random_uniform/RandomUniform RandomUniform 89
+38 Dropout/cond/dropout/random_uniform/sub Sub 0
+39 Dropout/cond/dropout/random_uniform/mul Mul 18
+40 Dropout/cond/dropout/random_uniform Add 12
+41 Dropout/cond/dropout/add Add 21
+42 Dropout/cond/dropout/Floor Floor 36
+43 Dropout/cond/dropout/div RealDiv 20
+44 Dropout/cond/dropout/mul Mul 16
+45 Dropout/cond/Switch_1 Switch 0
+46 Dropout/cond/Merge Merge 8
+47 FullyConnected_1/W/Initializer/truncated_normal/shape Const 0
+48 FullyConnected_1/W/Initializer/truncated_normal/mean Const 0
+49 FullyConnected_1/W/Initializer/truncated_normal/stddev Const 0
+50 FullyConnected_1/W/Initializer/truncated_normal/TruncatedNormal TruncatedNormal 0
+51 FullyConnected_1/W/Initializer/truncated_normal/mul Mul 0
+52 FullyConnected_1/W/Initializer/truncated_normal Add 0
+53 FullyConnected_1/W VariableV2 11
+54 FullyConnected_1/W/Assign Assign 0
+55 FullyConnected_1/W/read Identity 7
+56 FullyConnected_1/W/Regularizer/L2Loss L2Loss 12
+57 FullyConnected_1/W/Regularizer/L2-Loss/y Const 5
+58 FullyConnected_1/W/Regularizer/L2-Loss Mul 7
+59 FullyConnected_1/b/Initializer/Const Const 0
+60 FullyConnected_1/b VariableV2 8
+61 FullyConnected_1/b/Assign Assign 0
+62 FullyConnected_1/b/read Identity 6
+63 FullyConnected_1/MatMul MatMul 100
+64 FullyConnected_1/BiasAdd BiasAdd 19
+65 FullyConnected_1/Tanh Tanh 31
+66 Dropout_1/cond/Switch Switch 0
+67 Dropout_1/cond/switch_t Identity 0
+68 Dropout_1/cond/switch_f Identity 0
+69 Dropout_1/cond/pred_id Identity 0
+70 Dropout_1/cond/dropout/keep_prob Const 0
+71 Dropout_1/cond/dropout/Shape/Switch Switch 6
+72 Dropout_1/cond/dropout/Shape Shape 5
+73 Dropout_1/cond/dropout/random_uniform/min Const 0
+74 Dropout_1/cond/dropout/random_uniform/max Const 0
+75 Dropout_1/cond/dropout/random_uniform/RandomUniform RandomUniform 83
+76 Dropout_1/cond/dropout/random_uniform/sub Sub 0
+77 Dropout_1/cond/dropout/random_uniform/mul Mul 17
+78 Dropout_1/cond/dropout/random_uniform Add 11
+79 Dropout_1/cond/dropout/add Add 10
+80 Dropout_1/cond/dropout/Floor Floor 35
+81 Dropout_1/cond/dropout/div RealDiv 43
+82 Dropout_1/cond/dropout/mul Mul 11
+83 Dropout_1/cond/Switch_1 Switch 0
+84 Dropout_1/cond/Merge Merge 8
+85 FullyConnected_2/W/Initializer/truncated_normal/shape Const 0
+86 FullyConnected_2/W/Initializer/truncated_normal/mean Const 0
+87 FullyConnected_2/W/Initializer/truncated_normal/stddev Const 0
+88 FullyConnected_2/W/Initializer/truncated_normal/TruncatedNormal TruncatedNormal 0
+89 FullyConnected_2/W/Initializer/truncated_normal/mul Mul 0
+90 FullyConnected_2/W/Initializer/truncated_normal Add 0
+91 FullyConnected_2/W VariableV2 9
+92 FullyConnected_2/W/Assign Assign 0
+93 FullyConnected_2/W/read Identity 7
+94 FullyConnected_2/b/Initializer/Const Const 0
+95 FullyConnected_2/b VariableV2 8
+96 FullyConnected_2/b/Assign Assign 0
+97 FullyConnected_2/b/read Identity 5
+98 FullyConnected_2/MatMul MatMul 31
+99 FullyConnected_2/BiasAdd BiasAdd 10
+100 FullyConnected_2/Softmax Softmax 81
+101 TargetsData/Y Placeholder 0
+102 Training_step/initial_value Const 0
+103 Training_step VariableV2 8
+104 Training_step/Assign Assign 0
+105 Training_step/read Identity 6
+106 ExponentialDecay/learning_rate Const 5
+107 ExponentialDecay/Cast_1/x Const 0
+108 ExponentialDecay/Cast_1 Cast 0
+109 ExponentialDecay/Cast_2/x Const 5
+110 ExponentialDecay/truediv RealDiv 17
+111 ExponentialDecay/Pow Pow 10
+112 ExponentialDecay Mul 9
+113 Top_3/Cast Cast 14
+114 Top_3/ArgMax/dimension Const 5
+115 Top_3/ArgMax ArgMax 24
+116 Top_3/InTopK InTopK 35
+117 Top_3/Cast_1 Cast 11
+118 Top_3/Const Const 5
+119 Top_3/Mean Mean 17
+120 Crossentropy/Sum/reduction_indices Const 0
+121 Crossentropy/Sum Sum 21
+122 Crossentropy/truediv RealDiv 100
+123 Crossentropy/Cast/x Const 5
+124 Crossentropy/Cast_1/x Const 5
+125 Crossentropy/clip_by_value/Minimum Minimum 9
+126 Crossentropy/clip_by_value Maximum 10
+127 Crossentropy/Log Log 12
+128 Crossentropy/mul Mul 9
+129 Crossentropy/Sum_1/reduction_indices Const 0
+130 Crossentropy/Sum_1 Sum 11
+131 Crossentropy/Neg Neg 8
+132 Crossentropy/Const Const 0
+133 Crossentropy/Mean Mean 11
+134 Global_Step/initial_value Const 0
+135 Global_Step VariableV2 0
+136 Global_Step/Assign Assign 0
+137 Global_Step/read Identity 0
+138 Add/y Const 0
+139 Add Add 0
+140 Assign_2 Assign 0
+141 val_loss/initial_value Const 0
+142 val_loss VariableV2 0
+143 val_loss/Assign Assign 0
+144 val_loss/read Identity 0
+145 val_acc/initial_value Const 0
+146 val_acc VariableV2 0
+147 val_acc/Assign Assign 0
+148 val_acc/read Identity 0
+149 placeholder/val_loss Placeholder 0
+150 placeholder/val_acc Placeholder 0
+151 assign/val_loss Assign 0
+152 assign/val_acc Assign 0
+153 Top_3/Mean/moving_avg/Initializer/zeros Const 0
+154 Top_3/Mean/moving_avg VariableV2 8
+155 Top_3/Mean/moving_avg/Assign Assign 0
+156 Top_3/Mean/moving_avg/read Identity 5
+157 moving_avg/decay Const 5
+158 moving_avg/add/x Const 5
+159 moving_avg/add Add 13
+160 moving_avg/add_1/x Const 5
+161 moving_avg/add_1 Add 7
+162 moving_avg/truediv RealDiv 11
+163 moving_avg/Minimum Minimum 8
+164 moving_avg/AssignMovingAvg/sub/x Const 5
+165 moving_avg/AssignMovingAvg/sub Sub 7
+166 moving_avg/AssignMovingAvg/sub_1 Sub 12
+167 moving_avg/AssignMovingAvg/mul Mul 8
+168 moving_avg/AssignMovingAvg AssignSub 9
+169 moving_avg NoOp 10
+170 SGD/Total_Loss AddN 17
+171 SGD/Total_Loss/moving_avg/Initializer/zeros Const 0
+172 SGD/Total_Loss/moving_avg VariableV2 8
+173 SGD/Total_Loss/moving_avg/Assign Assign 0
+174 SGD/Total_Loss/moving_avg/read Identity 6
+175 Crossentropy/Mean/moving_avg/Initializer/zeros Const 0
+176 Crossentropy/Mean/moving_avg VariableV2 8
+177 Crossentropy/Mean/moving_avg/Assign Assign 0
+178 Crossentropy/Mean/moving_avg/read Identity 4
+179 FullyConnected/W/Regularizer/L2-Loss/moving_avg/Initializer/zeros Const 0
+180 FullyConnected/W/Regularizer/L2-Loss/moving_avg VariableV2 7
+181 FullyConnected/W/Regularizer/L2-Loss/moving_avg/Assign Assign 0
+182 FullyConnected/W/Regularizer/L2-Loss/moving_avg/read Identity 5
+183 FullyConnected_1/W/Regularizer/L2-Loss/moving_avg/Initializer/zeros Const 0
+184 FullyConnected_1/W/Regularizer/L2-Loss/moving_avg VariableV2 7
+185 FullyConnected_1/W/Regularizer/L2-Loss/moving_avg/Assign Assign 0
+186 FullyConnected_1/W/Regularizer/L2-Loss/moving_avg/read Identity 6
+187 SGD/moving_avg/decay Const 0
+188 SGD/moving_avg/add/x Const 5
+189 SGD/moving_avg/add Add 9
+190 SGD/moving_avg/add_1/x Const 0
+191 SGD/moving_avg/add_1 Add 0
+192 SGD/moving_avg/truediv RealDiv 8
+193 SGD/moving_avg/Minimum Minimum 8
+194 SGD/moving_avg/AssignMovingAvg/sub/x Const 83
+195 SGD/moving_avg/AssignMovingAvg/sub Sub 6
+196 SGD/moving_avg/AssignMovingAvg/sub_1 Sub 8
+197 SGD/moving_avg/AssignMovingAvg/mul Mul 7
+198 SGD/moving_avg/AssignMovingAvg AssignSub 8
+199 SGD/moving_avg/AssignMovingAvg_1/sub/x Const 20
+200 SGD/moving_avg/AssignMovingAvg_1/sub Sub 8
+201 SGD/moving_avg/AssignMovingAvg_1/sub_1 Sub 8
+202 SGD/moving_avg/AssignMovingAvg_1/mul Mul 9
+203 SGD/moving_avg/AssignMovingAvg_1 AssignSub 12
+204 SGD/moving_avg/AssignMovingAvg_2/sub/x Const 7
+205 SGD/moving_avg/AssignMovingAvg_2/sub Sub 6
+206 SGD/moving_avg/AssignMovingAvg_2/sub_1 Sub 8
+207 SGD/moving_avg/AssignMovingAvg_2/mul Mul 8
+208 SGD/moving_avg/AssignMovingAvg_2 AssignSub 9
+209 SGD/moving_avg/AssignMovingAvg_3/sub/x Const 5
+210 SGD/moving_avg/AssignMovingAvg_3/sub Sub 9
+211 SGD/moving_avg/AssignMovingAvg_3/sub_1 Sub 8
+212 SGD/moving_avg/AssignMovingAvg_3/mul Mul 8
+213 SGD/moving_avg/AssignMovingAvg_3 AssignSub 9
+214 SGD/moving_avg NoOp 7
+215 Loss_var_loss/tags Const 7
+216 Loss_var_loss ScalarSummary 20
+217 SGD/Loss_var_loss/raw/tags Const 6
+218 SGD/Loss_var_loss/raw ScalarSummary 9
+219 Loss/tags Const 5
+220 Loss ScalarSummary 8
+221 SGD/Loss/raw/tags Const 6
+222 SGD/Loss/raw ScalarSummary 38
+223 SGD/FullyConnected/W/Regularizer/L2-Loss/tags Const 6
+224 SGD/FullyConnected/W/Regularizer/L2-Loss ScalarSummary 8
+225 SGD/FullyConnected/W/Regularizer/L2-Lossraw/tags Const 5
+226 SGD/FullyConnected/W/Regularizer/L2-Lossraw ScalarSummary 8
+227 SGD/FullyConnected_1/W/Regularizer/L2-Loss/tags Const 5
+228 SGD/FullyConnected_1/W/Regularizer/L2-Loss ScalarSummary 8
+229 SGD/FullyConnected_1/W/Regularizer/L2-Lossraw/tags Const 5
+230 SGD/FullyConnected_1/W/Regularizer/L2-Lossraw ScalarSummary 8
+231 SGD/gradients/Shape Const 0
+232 SGD/gradients/Const Const 0
+233 SGD/gradients/Fill Fill 0
+234 SGD/gradients/Crossentropy/Mean_grad/Reshape/shape Const 0
+235 SGD/gradients/Crossentropy/Mean_grad/Reshape Reshape 0
+236 SGD/gradients/Crossentropy/Mean_grad/Shape Shape 9
+237 SGD/gradients/Crossentropy/Mean_grad/Tile Tile 16
+238 SGD/gradients/Crossentropy/Mean_grad/Shape_1 Shape 0
+239 SGD/gradients/Crossentropy/Mean_grad/Shape_2 Const 0
+240 SGD/gradients/Crossentropy/Mean_grad/Const Const 5
+241 SGD/gradients/Crossentropy/Mean_grad/Prod Prod 10
+242 SGD/gradients/Crossentropy/Mean_grad/Const_1 Const 0
+243 SGD/gradients/Crossentropy/Mean_grad/Prod_1 Prod 0
+244 SGD/gradients/Crossentropy/Mean_grad/Maximum/y Const 0
+245 SGD/gradients/Crossentropy/Mean_grad/Maximum Maximum 0
+246 SGD/gradients/Crossentropy/Mean_grad/floordiv FloorDiv 10
+247 SGD/gradients/Crossentropy/Mean_grad/Cast Cast 11
+248 SGD/gradients/Crossentropy/Mean_grad/truediv RealDiv 9
+249 SGD/gradients/FullyConnected/W/Regularizer/L2-Loss_grad/Shape Const 0
+250 SGD/gradients/FullyConnected/W/Regularizer/L2-Loss_grad/Shape_1 Const 0
+251 SGD/gradients/FullyConnected/W/Regularizer/L2-Loss_grad/BroadcastGradientArgs BroadcastGradientArgs 0
+252 SGD/gradients/FullyConnected/W/Regularizer/L2-Loss_grad/mul Mul 0
+253 SGD/gradients/FullyConnected/W/Regularizer/L2-Loss_grad/Sum Sum 0
+254 SGD/gradients/FullyConnected/W/Regularizer/L2-Loss_grad/Reshape Reshape 0
+255 SGD/gradients/FullyConnected/W/Regularizer/L2-Loss_grad/mul_1 Mul 0
+256 SGD/gradients/FullyConnected/W/Regularizer/L2-Loss_grad/Sum_1 Sum 0
+257 SGD/gradients/FullyConnected/W/Regularizer/L2-Loss_grad/Reshape_1 Reshape 0
+258 SGD/gradients/FullyConnected_1/W/Regularizer/L2-Loss_grad/Shape Const 0
+259 SGD/gradients/FullyConnected_1/W/Regularizer/L2-Loss_grad/Shape_1 Const 0
+260 SGD/gradients/FullyConnected_1/W/Regularizer/L2-Loss_grad/BroadcastGradientArgs BroadcastGradientArgs 0
+261 SGD/gradients/FullyConnected_1/W/Regularizer/L2-Loss_grad/mul Mul 0
+262 SGD/gradients/FullyConnected_1/W/Regularizer/L2-Loss_grad/Sum Sum 0
+263 SGD/gradients/FullyConnected_1/W/Regularizer/L2-Loss_grad/Reshape Reshape 0
+264 SGD/gradients/FullyConnected_1/W/Regularizer/L2-Loss_grad/mul_1 Mul 0
+265 SGD/gradients/FullyConnected_1/W/Regularizer/L2-Loss_grad/Sum_1 Sum 0
+266 SGD/gradients/FullyConnected_1/W/Regularizer/L2-Loss_grad/Reshape_1 Reshape 0
+267 SGD/gradients/Crossentropy/Neg_grad/Neg Neg 6
+268 SGD/gradients/FullyConnected/W/Regularizer/L2Loss_grad/mul Mul 117
+269 SGD/gradients/FullyConnected_1/W/Regularizer/L2Loss_grad/mul Mul 46
+270 SGD/gradients/Crossentropy/Sum_1_grad/Shape Shape 9
+271 SGD/gradients/Crossentropy/Sum_1_grad/Size Const 0
+272 SGD/gradients/Crossentropy/Sum_1_grad/add Add 0
+273 SGD/gradients/Crossentropy/Sum_1_grad/mod FloorMod 0
+274 SGD/gradients/Crossentropy/Sum_1_grad/Shape_1 Const 0
+275 SGD/gradients/Crossentropy/Sum_1_grad/range/start Const 0
+276 SGD/gradients/Crossentropy/Sum_1_grad/range/delta Const 0
+277 SGD/gradients/Crossentropy/Sum_1_grad/range Range 0
+278 SGD/gradients/Crossentropy/Sum_1_grad/Fill/value Const 0
+279 SGD/gradients/Crossentropy/Sum_1_grad/Fill Fill 0
+280 SGD/gradients/Crossentropy/Sum_1_grad/DynamicStitch DynamicStitch 18
+281 SGD/gradients/Crossentropy/Sum_1_grad/Maximum/y Const 6
+282 SGD/gradients/Crossentropy/Sum_1_grad/Maximum Maximum 11
+283 SGD/gradients/Crossentropy/Sum_1_grad/floordiv FloorDiv 11
+284 SGD/gradients/Crossentropy/Sum_1_grad/Reshape Reshape 9
+285 SGD/gradients/Crossentropy/Sum_1_grad/Tile Tile 74
+286 SGD/gradients/Crossentropy/mul_grad/Shape Shape 7
+287 SGD/gradients/Crossentropy/mul_grad/Shape_1 Shape 7
+288 SGD/gradients/Crossentropy/mul_grad/BroadcastGradientArgs BroadcastGradientArgs 11
+289 SGD/gradients/Crossentropy/mul_grad/mul Mul 0
+290 SGD/gradients/Crossentropy/mul_grad/Sum Sum 0
+291 SGD/gradients/Crossentropy/mul_grad/Reshape Reshape 0
+292 SGD/gradients/Crossentropy/mul_grad/mul_1 Mul 9
+293 SGD/gradients/Crossentropy/mul_grad/Sum_1 Sum 26
+294 SGD/gradients/Crossentropy/mul_grad/Reshape_1 Reshape 12
+295 SGD/gradients/Crossentropy/Log_grad/Reciprocal Reciprocal 12
+296 SGD/gradients/Crossentropy/Log_grad/mul Mul 22
+297 SGD/gradients/Crossentropy/clip_by_value_grad/Shape Shape 10
+298 SGD/gradients/Crossentropy/clip_by_value_grad/Shape_1 Const 0
+299 SGD/gradients/Crossentropy/clip_by_value_grad/Shape_2 Shape 9
+300 SGD/gradients/Crossentropy/clip_by_value_grad/zeros/Const Const 6
+301 SGD/gradients/Crossentropy/clip_by_value_grad/zeros Fill 10
+302 SGD/gradients/Crossentropy/clip_by_value_grad/GreaterEqual GreaterEqual 36
+303 SGD/gradients/Crossentropy/clip_by_value_grad/BroadcastGradientArgs BroadcastGradientArgs 8
+304 SGD/gradients/Crossentropy/clip_by_value_grad/Select Select 24
+305 SGD/gradients/Crossentropy/clip_by_value_grad/LogicalNot LogicalNot 0
+306 SGD/gradients/Crossentropy/clip_by_value_grad/Select_1 Select 0
+307 SGD/gradients/Crossentropy/clip_by_value_grad/Sum Sum 6
+308 SGD/gradients/Crossentropy/clip_by_value_grad/Reshape Reshape 6
+309 SGD/gradients/Crossentropy/clip_by_value_grad/Sum_1 Sum 0
+310 SGD/gradients/Crossentropy/clip_by_value_grad/Reshape_1 Reshape 0
+311 SGD/gradients/Crossentropy/clip_by_value/Minimum_grad/Shape Shape 8
+312 SGD/gradients/Crossentropy/clip_by_value/Minimum_grad/Shape_1 Const 0
+313 SGD/gradients/Crossentropy/clip_by_value/Minimum_grad/Shape_2 Shape 7
+314 SGD/gradients/Crossentropy/clip_by_value/Minimum_grad/zeros/Const Const 5
+315 SGD/gradients/Crossentropy/clip_by_value/Minimum_grad/zeros Fill 8
+316 SGD/gradients/Crossentropy/clip_by_value/Minimum_grad/LessEqual LessEqual 33
+317 SGD/gradients/Crossentropy/clip_by_value/Minimum_grad/BroadcastGradientArgs BroadcastGradientArgs 10
+318 SGD/gradients/Crossentropy/clip_by_value/Minimum_grad/Select Select 13
+319 SGD/gradients/Crossentropy/clip_by_value/Minimum_grad/LogicalNot LogicalNot 0
+320 SGD/gradients/Crossentropy/clip_by_value/Minimum_grad/Select_1 Select 0
+321 SGD/gradients/Crossentropy/clip_by_value/Minimum_grad/Sum Sum 6
+322 SGD/gradients/Crossentropy/clip_by_value/Minimum_grad/Reshape Reshape 9
+323 SGD/gradients/Crossentropy/clip_by_value/Minimum_grad/Sum_1 Sum 0
+324 SGD/gradients/Crossentropy/clip_by_value/Minimum_grad/Reshape_1 Reshape 0
+325 SGD/gradients/Crossentropy/truediv_grad/Shape Shape 6
+326 SGD/gradients/Crossentropy/truediv_grad/Shape_1 Shape 5
+327 SGD/gradients/Crossentropy/truediv_grad/BroadcastGradientArgs BroadcastGradientArgs 14
+328 SGD/gradients/Crossentropy/truediv_grad/RealDiv RealDiv 126
+329 SGD/gradients/Crossentropy/truediv_grad/Sum Sum 10
+330 SGD/gradients/Crossentropy/truediv_grad/Reshape Reshape 8
+331 SGD/gradients/Crossentropy/truediv_grad/Neg Neg 16
+332 SGD/gradients/Crossentropy/truediv_grad/RealDiv_1 RealDiv 103
+333 SGD/gradients/Crossentropy/truediv_grad/RealDiv_2 RealDiv 95
+334 SGD/gradients/Crossentropy/truediv_grad/mul Mul 9
+335 SGD/gradients/Crossentropy/truediv_grad/Sum_1 Sum 18
+336 SGD/gradients/Crossentropy/truediv_grad/Reshape_1 Reshape 6
+337 SGD/gradients/Crossentropy/Sum_grad/Shape Shape 0
+338 SGD/gradients/Crossentropy/Sum_grad/Size Const 0
+339 SGD/gradients/Crossentropy/Sum_grad/add Add 0
+340 SGD/gradients/Crossentropy/Sum_grad/mod FloorMod 0
+341 SGD/gradients/Crossentropy/Sum_grad/Shape_1 Const 0
+342 SGD/gradients/Crossentropy/Sum_grad/range/start Const 0
+343 SGD/gradients/Crossentropy/Sum_grad/range/delta Const 0
+344 SGD/gradients/Crossentropy/Sum_grad/range Range 0
+345 SGD/gradients/Crossentropy/Sum_grad/Fill/value Const 0
+346 SGD/gradients/Crossentropy/Sum_grad/Fill Fill 0
+347 SGD/gradients/Crossentropy/Sum_grad/DynamicStitch DynamicStitch 10
+348 SGD/gradients/Crossentropy/Sum_grad/Maximum/y Const 5
+349 SGD/gradients/Crossentropy/Sum_grad/Maximum Maximum 9
+350 SGD/gradients/Crossentropy/Sum_grad/floordiv FloorDiv 7
+351 SGD/gradients/Crossentropy/Sum_grad/Reshape Reshape 6
+352 SGD/gradients/Crossentropy/Sum_grad/Tile Tile 73
+353 SGD/gradients/AddN AddN 13
+354 SGD/gradients/FullyConnected_2/Softmax_grad/mul Mul 12
+355 SGD/gradients/FullyConnected_2/Softmax_grad/Sum/reduction_indices Const 4
+356 SGD/gradients/FullyConnected_2/Softmax_grad/Sum Sum 17
+357 SGD/gradients/FullyConnected_2/Softmax_grad/Reshape/shape Const 6
+358 SGD/gradients/FullyConnected_2/Softmax_grad/Reshape Reshape 8
+359 SGD/gradients/FullyConnected_2/Softmax_grad/sub Sub 33
+360 SGD/gradients/FullyConnected_2/Softmax_grad/mul_1 Mul 8
+361 SGD/gradients/FullyConnected_2/BiasAdd_grad/BiasAddGrad BiasAddGrad 43
+362 SGD/gradients/FullyConnected_2/MatMul_grad/MatMul MatMul 33
+363 SGD/gradients/FullyConnected_2/MatMul_grad/MatMul_1 MatMul 82
+364 SGD/gradients/Dropout_1/cond/Merge_grad/cond_grad Switch 7
+365 SGD/gradients/Switch Switch 7
+366 SGD/gradients/Shape_1 Shape 6
+367 SGD/gradients/zeros/Const Const 5
+368 SGD/gradients/zeros Fill 39
+369 SGD/gradients/Dropout_1/cond/Switch_1_grad/cond_grad Merge 10
+370 SGD/gradients/Dropout_1/cond/dropout/mul_grad/Shape Shape 7
+371 SGD/gradients/Dropout_1/cond/dropout/mul_grad/Shape_1 Shape 6
+372 SGD/gradients/Dropout_1/cond/dropout/mul_grad/BroadcastGradientArgs BroadcastGradientArgs 8
+373 SGD/gradients/Dropout_1/cond/dropout/mul_grad/mul Mul 11
+374 SGD/gradients/Dropout_1/cond/dropout/mul_grad/Sum Sum 6
+375 SGD/gradients/Dropout_1/cond/dropout/mul_grad/Reshape Reshape 7
+376 SGD/gradients/Dropout_1/cond/dropout/mul_grad/mul_1 Mul 0
+377 SGD/gradients/Dropout_1/cond/dropout/mul_grad/Sum_1 Sum 0
+378 SGD/gradients/Dropout_1/cond/dropout/mul_grad/Reshape_1 Reshape 0
+379 SGD/gradients/Dropout_1/cond/dropout/div_grad/Shape Shape 6
+380 SGD/gradients/Dropout_1/cond/dropout/div_grad/Shape_1 Const 0
+381 SGD/gradients/Dropout_1/cond/dropout/div_grad/BroadcastGradientArgs BroadcastGradientArgs 10
+382 SGD/gradients/Dropout_1/cond/dropout/div_grad/RealDiv RealDiv 13
+383 SGD/gradients/Dropout_1/cond/dropout/div_grad/Sum Sum 6
+384 SGD/gradients/Dropout_1/cond/dropout/div_grad/Reshape Reshape 7
+385 SGD/gradients/Dropout_1/cond/dropout/div_grad/Neg Neg 0
+386 SGD/gradients/Dropout_1/cond/dropout/div_grad/RealDiv_1 RealDiv 0
+387 SGD/gradients/Dropout_1/cond/dropout/div_grad/RealDiv_2 RealDiv 0
+388 SGD/gradients/Dropout_1/cond/dropout/div_grad/mul Mul 0
+389 SGD/gradients/Dropout_1/cond/dropout/div_grad/Sum_1 Sum 0
+390 SGD/gradients/Dropout_1/cond/dropout/div_grad/Reshape_1 Reshape 0
+391 SGD/gradients/Switch_1 Switch 0
+392 SGD/gradients/Shape_2 Shape 0
+393 SGD/gradients/zeros_1/Const Const 4
+394 SGD/gradients/zeros_1 Fill 0
+395 SGD/gradients/Dropout_1/cond/dropout/Shape/Switch_grad/cond_grad Merge 8
+396 SGD/gradients/AddN_1 AddN 10
+397 SGD/gradients/FullyConnected_1/Tanh_grad/TanhGrad TanhGrad 13
+398 SGD/gradients/FullyConnected_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 25
+399 SGD/gradients/FullyConnected_1/MatMul_grad/MatMul MatMul 174
+400 SGD/gradients/FullyConnected_1/MatMul_grad/MatMul_1 MatMul 119
+401 SGD/gradients/Dropout/cond/Merge_grad/cond_grad Switch 8
+402 SGD/gradients/AddN_2 AddN 12
+403 SGD/gradients/Switch_2 Switch 0
+404 SGD/gradients/Shape_3 Shape 6
+405 SGD/gradients/zeros_2/Const Const 5
+406 SGD/gradients/zeros_2 Fill 16
+407 SGD/gradients/Dropout/cond/Switch_1_grad/cond_grad Merge 8
+408 SGD/gradients/Dropout/cond/dropout/mul_grad/Shape Shape 15
+409 SGD/gradients/Dropout/cond/dropout/mul_grad/Shape_1 Shape 7
+410 SGD/gradients/Dropout/cond/dropout/mul_grad/BroadcastGradientArgs BroadcastGradientArgs 10
+411 SGD/gradients/Dropout/cond/dropout/mul_grad/mul Mul 17
+412 SGD/gradients/Dropout/cond/dropout/mul_grad/Sum Sum 8
+413 SGD/gradients/Dropout/cond/dropout/mul_grad/Reshape Reshape 8
+414 SGD/gradients/Dropout/cond/dropout/mul_grad/mul_1 Mul 0
+415 SGD/gradients/Dropout/cond/dropout/mul_grad/Sum_1 Sum 0
+416 SGD/gradients/Dropout/cond/dropout/mul_grad/Reshape_1 Reshape 0
+417 SGD/gradients/Dropout/cond/dropout/div_grad/Shape Shape 8
+418 SGD/gradients/Dropout/cond/dropout/div_grad/Shape_1 Const 5
+419 SGD/gradients/Dropout/cond/dropout/div_grad/BroadcastGradientArgs BroadcastGradientArgs 9
+420 SGD/gradients/Dropout/cond/dropout/div_grad/RealDiv RealDiv 14
+421 SGD/gradients/Dropout/cond/dropout/div_grad/Sum Sum 6
+422 SGD/gradients/Dropout/cond/dropout/div_grad/Reshape Reshape 7
+423 SGD/gradients/Dropout/cond/dropout/div_grad/Neg Neg 0
+424 SGD/gradients/Dropout/cond/dropout/div_grad/RealDiv_1 RealDiv 0
+425 SGD/gradients/Dropout/cond/dropout/div_grad/RealDiv_2 RealDiv 0
+426 SGD/gradients/Dropout/cond/dropout/div_grad/mul Mul 0
+427 SGD/gradients/Dropout/cond/dropout/div_grad/Sum_1 Sum 0
+428 SGD/gradients/Dropout/cond/dropout/div_grad/Reshape_1 Reshape 0
+429 SGD/gradients/Switch_3 Switch 9
+430 SGD/gradients/Shape_4 Shape 0
+431 SGD/gradients/zeros_3/Const Const 5
+432 SGD/gradients/zeros_3 Fill 0
+433 SGD/gradients/Dropout/cond/dropout/Shape/Switch_grad/cond_grad Merge 9
+434 SGD/gradients/AddN_3 AddN 14
+435 SGD/gradients/FullyConnected/Tanh_grad/TanhGrad TanhGrad 12
+436 SGD/gradients/FullyConnected/BiasAdd_grad/BiasAddGrad BiasAddGrad 43
+437 SGD/gradients/FullyConnected/MatMul_grad/MatMul MatMul 0
+438 SGD/gradients/FullyConnected/MatMul_grad/MatMul_1 MatMul 768
+439 SGD/gradients/AddN_4 AddN 61
+440 SGD/global_norm/L2Loss L2Loss 67
+441 SGD/global_norm/L2Loss_1 L2Loss 7
+442 SGD/global_norm/L2Loss_2 L2Loss 11
+443 SGD/global_norm/L2Loss_3 L2Loss 6
+444 SGD/global_norm/L2Loss_4 L2Loss 8
+445 SGD/global_norm/L2Loss_5 L2Loss 8
+446 SGD/global_norm/stack Pack 26
+447 SGD/global_norm/Const Const 4
+448 SGD/global_norm/Sum Sum 17
+449 SGD/global_norm/Const_1 Const 4
+450 SGD/global_norm/mul Mul 11
+451 SGD/global_norm/global_norm Sqrt 7
+452 SGD/clip_by_global_norm/truediv/x Const 7
+453 SGD/clip_by_global_norm/truediv RealDiv 7
+454 SGD/clip_by_global_norm/Const Const 0
+455 SGD/clip_by_global_norm/truediv_1/y Const 0
+456 SGD/clip_by_global_norm/truediv_1 RealDiv 0
+457 SGD/clip_by_global_norm/Minimum Minimum 6
+458 SGD/clip_by_global_norm/mul/x Const 4
+459 SGD/clip_by_global_norm/mul Mul 6
+460 SGD/clip_by_global_norm/mul_1 Mul 52
+461 SGD/clip_by_global_norm/SGD/clip_by_global_norm/_0 Identity 5
+462 SGD/clip_by_global_norm/mul_2 Mul 8
+463 SGD/clip_by_global_norm/SGD/clip_by_global_norm/_1 Identity 6
+464 SGD/clip_by_global_norm/mul_3 Mul 19
+465 SGD/clip_by_global_norm/SGD/clip_by_global_norm/_2 Identity 6
+466 SGD/clip_by_global_norm/mul_4 Mul 35
+467 SGD/clip_by_global_norm/SGD/clip_by_global_norm/_3 Identity 8
+468 SGD/clip_by_global_norm/mul_5 Mul 35
+469 SGD/clip_by_global_norm/SGD/clip_by_global_norm/_4 Identity 8
+470 SGD/clip_by_global_norm/mul_6 Mul 33
+471 SGD/clip_by_global_norm/SGD/clip_by_global_norm/_5 Identity 7
+472 SGD/apply_grad_op_0/update_FullyConnected/W/ApplyGradientDescent ApplyGradientDescent 51
+473 SGD/apply_grad_op_0/update_FullyConnected/b/ApplyGradientDescent ApplyGradientDescent 9
+474 SGD/apply_grad_op_0/update_FullyConnected_1/W/ApplyGradientDescent ApplyGradientDescent 17
+475 SGD/apply_grad_op_0/update_FullyConnected_1/b/ApplyGradientDescent ApplyGradientDescent 13
+476 SGD/apply_grad_op_0/update_FullyConnected_2/W/ApplyGradientDescent ApplyGradientDescent 16
+477 SGD/apply_grad_op_0/update_FullyConnected_2/b/ApplyGradientDescent ApplyGradientDescent 12
+478 SGD/apply_grad_op_0/update NoOp 6
+479 SGD/apply_grad_op_0/value Const 6
+480 SGD/apply_grad_op_0 AssignAdd 8
+481 SGD/Merge/MergeSummary MergeSummary 0
+482 SGD/train_op_0 NoOp 14
+483 save/Const Const 0
+484 save/SaveV2/tensor_names Const 0
+485 save/SaveV2/shape_and_slices Const 0
+486 save/SaveV2 SaveV2 0
+487 save/control_dependency Identity 0
+488 save/RestoreV2/tensor_names Const 0
+489 save/RestoreV2/shape_and_slices Const 0
+490 save/RestoreV2 RestoreV2 0
+491 save/Assign Assign 0
+492 save/RestoreV2_1/tensor_names Const 0
+493 save/RestoreV2_1/shape_and_slices Const 0
+494 save/RestoreV2_1 RestoreV2 0
+495 save/Assign_1 Assign 0
+496 save/RestoreV2_2/tensor_names Const 0
+497 save/RestoreV2_2/shape_and_slices Const 0
+498 save/RestoreV2_2 RestoreV2 0
+499 save/Assign_2 Assign 0
+500 save/RestoreV2_3/tensor_names Const 0
+501 save/RestoreV2_3/shape_and_slices Const 0
+502 save/RestoreV2_3 RestoreV2 0
+503 save/Assign_3 Assign 0
+504 save/RestoreV2_4/tensor_names Const 0
+505 save/RestoreV2_4/shape_and_slices Const 0
+506 save/RestoreV2_4 RestoreV2 0
+507 save/Assign_4 Assign 0
+508 save/RestoreV2_5/tensor_names Const 0
+509 save/RestoreV2_5/shape_and_slices Const 0
+510 save/RestoreV2_5 RestoreV2 0
+511 save/Assign_5 Assign 0
+512 save/RestoreV2_6/tensor_names Const 0
+513 save/RestoreV2_6/shape_and_slices Const 0
+514 save/RestoreV2_6 RestoreV2 0
+515 save/Assign_6 Assign 0
+516 save/RestoreV2_7/tensor_names Const 0
+517 save/RestoreV2_7/shape_and_slices Const 0
+518 save/RestoreV2_7 RestoreV2 0
+519 save/Assign_7 Assign 0
+520 save/RestoreV2_8/tensor_names Const 0
+521 save/RestoreV2_8/shape_and_slices Const 0
+522 save/RestoreV2_8 RestoreV2 0
+523 save/Assign_8 Assign 0
+524 save/RestoreV2_9/tensor_names Const 0
+525 save/RestoreV2_9/shape_and_slices Const 0
+526 save/RestoreV2_9 RestoreV2 0
+527 save/Assign_9 Assign 0
+528 save/RestoreV2_10/tensor_names Const 0
+529 save/RestoreV2_10/shape_and_slices Const 0
+530 save/RestoreV2_10 RestoreV2 0
+531 save/Assign_10 Assign 0
+532 save/RestoreV2_11/tensor_names Const 0
+533 save/RestoreV2_11/shape_and_slices Const 0
+534 save/RestoreV2_11 RestoreV2 0
+535 save/Assign_11 Assign 0
+536 save/RestoreV2_12/tensor_names Const 0
+537 save/RestoreV2_12/shape_and_slices Const 0
+538 save/RestoreV2_12 RestoreV2 0
+539 save/Assign_12 Assign 0
+540 save/RestoreV2_13/tensor_names Const 0
+541 save/RestoreV2_13/shape_and_slices Const 0
+542 save/RestoreV2_13 RestoreV2 0
+543 save/Assign_13 Assign 0
+544 save/RestoreV2_14/tensor_names Const 0
+545 save/RestoreV2_14/shape_and_slices Const 0
+546 save/RestoreV2_14 RestoreV2 0
+547 save/Assign_14 Assign 0
+548 save/RestoreV2_15/tensor_names Const 0
+549 save/RestoreV2_15/shape_and_slices Const 0
+550 save/RestoreV2_15 RestoreV2 0
+551 save/Assign_15 Assign 0
+552 save/restore_all NoOp 0
+553 save_1/Const Const 0
+554 save_1/SaveV2/tensor_names Const 0
+555 save_1/SaveV2/shape_and_slices Const 0
+556 save_1/SaveV2 SaveV2 0
+557 save_1/control_dependency Identity 0
+558 save_1/RestoreV2/tensor_names Const 0
+559 save_1/RestoreV2/shape_and_slices Const 0
+560 save_1/RestoreV2 RestoreV2 0
+561 save_1/Assign Assign 0
+562 save_1/RestoreV2_1/tensor_names Const 0
+563 save_1/RestoreV2_1/shape_and_slices Const 0
+564 save_1/RestoreV2_1 RestoreV2 0
+565 save_1/Assign_1 Assign 0
+566 save_1/RestoreV2_2/tensor_names Const 0
+567 save_1/RestoreV2_2/shape_and_slices Const 0
+568 save_1/RestoreV2_2 RestoreV2 0
+569 save_1/Assign_2 Assign 0
+570 save_1/RestoreV2_3/tensor_names Const 0
+571 save_1/RestoreV2_3/shape_and_slices Const 0
+572 save_1/RestoreV2_3 RestoreV2 0
+573 save_1/Assign_3 Assign 0
+574 save_1/RestoreV2_4/tensor_names Const 0
+575 save_1/RestoreV2_4/shape_and_slices Const 0
+576 save_1/RestoreV2_4 RestoreV2 0
+577 save_1/Assign_4 Assign 0
+578 save_1/RestoreV2_5/tensor_names Const 0
+579 save_1/RestoreV2_5/shape_and_slices Const 0
+580 save_1/RestoreV2_5 RestoreV2 0
+581 save_1/Assign_5 Assign 0
+582 save_1/RestoreV2_6/tensor_names Const 0
+583 save_1/RestoreV2_6/shape_and_slices Const 0
+584 save_1/RestoreV2_6 RestoreV2 0
+585 save_1/Assign_6 Assign 0
+586 save_1/RestoreV2_7/tensor_names Const 0
+587 save_1/RestoreV2_7/shape_and_slices Const 0
+588 save_1/RestoreV2_7 RestoreV2 0
+589 save_1/Assign_7 Assign 0
+590 save_1/RestoreV2_8/tensor_names Const 0
+591 save_1/RestoreV2_8/shape_and_slices Const 0
+592 save_1/RestoreV2_8 RestoreV2 0
+593 save_1/Assign_8 Assign 0
+594 save_1/RestoreV2_9/tensor_names Const 0
+595 save_1/RestoreV2_9/shape_and_slices Const 0
+596 save_1/RestoreV2_9 RestoreV2 0
+597 save_1/Assign_9 Assign 0
+598 save_1/RestoreV2_10/tensor_names Const 0
+599 save_1/RestoreV2_10/shape_and_slices Const 0
+600 save_1/RestoreV2_10 RestoreV2 0
+601 save_1/Assign_10 Assign 0
+602 save_1/RestoreV2_11/tensor_names Const 0
+603 save_1/RestoreV2_11/shape_and_slices Const 0
+604 save_1/RestoreV2_11 RestoreV2 0
+605 save_1/Assign_11 Assign 0
+606 save_1/RestoreV2_12/tensor_names Const 0
+607 save_1/RestoreV2_12/shape_and_slices Const 0
+608 save_1/RestoreV2_12 RestoreV2 0
+609 save_1/Assign_12 Assign 0
+610 save_1/RestoreV2_13/tensor_names Const 0
+611 save_1/RestoreV2_13/shape_and_slices Const 0
+612 save_1/RestoreV2_13 RestoreV2 0
+613 save_1/Assign_13 Assign 0
+614 save_1/RestoreV2_14/tensor_names Const 0
+615 save_1/RestoreV2_14/shape_and_slices Const 0
+616 save_1/RestoreV2_14 RestoreV2 0
+617 save_1/Assign_14 Assign 0
+618 save_1/RestoreV2_15/tensor_names Const 0
+619 save_1/RestoreV2_15/shape_and_slices Const 0
+620 save_1/RestoreV2_15 RestoreV2 0
+621 save_1/Assign_15 Assign 0
+622 save_1/restore_all NoOp 0
+623 save_2/Const Const 0
+624 save_2/SaveV2/tensor_names Const 0
+625 save_2/SaveV2/shape_and_slices Const 0
+626 save_2/SaveV2 SaveV2 0
+627 save_2/control_dependency Identity 0
+628 save_2/RestoreV2/tensor_names Const 0
+629 save_2/RestoreV2/shape_and_slices Const 0
+630 save_2/RestoreV2 RestoreV2 0
+631 save_2/Assign Assign 0
+632 save_2/RestoreV2_1/tensor_names Const 0
+633 save_2/RestoreV2_1/shape_and_slices Const 0
+634 save_2/RestoreV2_1 RestoreV2 0
+635 save_2/Assign_1 Assign 0
+636 save_2/RestoreV2_2/tensor_names Const 0
+637 save_2/RestoreV2_2/shape_and_slices Const 0
+638 save_2/RestoreV2_2 RestoreV2 0
+639 save_2/Assign_2 Assign 0
+640 save_2/RestoreV2_3/tensor_names Const 0
+641 save_2/RestoreV2_3/shape_and_slices Const 0
+642 save_2/RestoreV2_3 RestoreV2 0
+643 save_2/Assign_3 Assign 0
+644 save_2/RestoreV2_4/tensor_names Const 0
+645 save_2/RestoreV2_4/shape_and_slices Const 0
+646 save_2/RestoreV2_4 RestoreV2 0
+647 save_2/Assign_4 Assign 0
+648 save_2/RestoreV2_5/tensor_names Const 0
+649 save_2/RestoreV2_5/shape_and_slices Const 0
+650 save_2/RestoreV2_5 RestoreV2 0
+651 save_2/Assign_5 Assign 0
+652 save_2/restore_all NoOp 0
+653 init NoOp 0
+654 init_1 NoOp 0
+655 group_deps NoOp 0
+656 init_2 NoOp 0
+657 save_3/Const Const 0
+658 save_3/SaveV2/tensor_names Const 0
+659 save_3/SaveV2/shape_and_slices Const 0
+660 save_3/SaveV2 SaveV2 0
+661 save_3/control_dependency Identity 0
+662 save_3/RestoreV2/tensor_names Const 0
+663 save_3/RestoreV2/shape_and_slices Const 0
+664 save_3/RestoreV2 RestoreV2 0
+665 save_3/Assign Assign 0
+666 save_3/RestoreV2_1/tensor_names Const 0
+667 save_3/RestoreV2_1/shape_and_slices Const 0
+668 save_3/RestoreV2_1 RestoreV2 0
+669 save_3/Assign_1 Assign 0
+670 save_3/RestoreV2_2/tensor_names Const 0
+671 save_3/RestoreV2_2/shape_and_slices Const 0
+672 save_3/RestoreV2_2 RestoreV2 0
+673 save_3/Assign_2 Assign 0
+674 save_3/RestoreV2_3/tensor_names Const 0
+675 save_3/RestoreV2_3/shape_and_slices Const 0
+676 save_3/RestoreV2_3 RestoreV2 0
+677 save_3/Assign_3 Assign 0
+678 save_3/RestoreV2_4/tensor_names Const 0
+679 save_3/RestoreV2_4/shape_and_slices Const 0
+680 save_3/RestoreV2_4 RestoreV2 0
+681 save_3/Assign_4 Assign 0
+682 save_3/RestoreV2_5/tensor_names Const 0
+683 save_3/RestoreV2_5/shape_and_slices Const 0
+684 save_3/RestoreV2_5 RestoreV2 0
+685 save_3/Assign_5 Assign 0
+686 save_3/RestoreV2_6/tensor_names Const 0
+687 save_3/RestoreV2_6/shape_and_slices Const 0
+688 save_3/RestoreV2_6 RestoreV2 0
+689 save_3/Assign_6 Assign 0
+690 save_3/RestoreV2_7/tensor_names Const 0
+691 save_3/RestoreV2_7/shape_and_slices Const 0
+692 save_3/RestoreV2_7 RestoreV2 0
+693 save_3/Assign_7 Assign 0
+694 save_3/RestoreV2_8/tensor_names Const 0
+695 save_3/RestoreV2_8/shape_and_slices Const 0
+696 save_3/RestoreV2_8 RestoreV2 0
+697 save_3/Assign_8 Assign 0
+698 save_3/RestoreV2_9/tensor_names Const 0
+699 save_3/RestoreV2_9/shape_and_slices Const 0
+700 save_3/RestoreV2_9 RestoreV2 0
+701 save_3/Assign_9 Assign 0
+702 save_3/RestoreV2_10/tensor_names Const 0
+703 save_3/RestoreV2_10/shape_and_slices Const 0
+704 save_3/RestoreV2_10 RestoreV2 0
+705 save_3/Assign_10 Assign 0
+706 save_3/RestoreV2_11/tensor_names Const 0
+707 save_3/RestoreV2_11/shape_and_slices Const 0
+708 save_3/RestoreV2_11 RestoreV2 0
+709 save_3/Assign_11 Assign 0
+710 save_3/RestoreV2_12/tensor_names Const 0
+711 save_3/RestoreV2_12/shape_and_slices Const 0
+712 save_3/RestoreV2_12 RestoreV2 0
+713 save_3/Assign_12 Assign 0
+714 save_3/RestoreV2_13/tensor_names Const 0
+715 save_3/RestoreV2_13/shape_and_slices Const 0
+716 save_3/RestoreV2_13 RestoreV2 0
+717 save_3/Assign_13 Assign 0
+718 save_3/RestoreV2_14/tensor_names Const 0
+719 save_3/RestoreV2_14/shape_and_slices Const 0
+720 save_3/RestoreV2_14 RestoreV2 0
+721 save_3/Assign_14 Assign 0
+722 save_3/RestoreV2_15/tensor_names Const 0
+723 save_3/RestoreV2_15/shape_and_slices Const 0
+724 save_3/RestoreV2_15 RestoreV2 0
+725 save_3/Assign_15 Assign 0
+726 save_3/restore_all NoOp 0
+1 2 1
+0 2 0
+1 3 1
+1 5 1
+4 5 0
+1 7 1
+6 7 0
+9 12 0
+12 13 0
+11 13 0
+13 14 0
+10 14 0
+15 16 200704
+14 16 0
+15 17 200704
+17 18 200704
+18 20 4
+19 20 4
+22 23 256
+21 23 0
+22 24 256
+8 25 0
+17 25 200704
+25 26 16384
+24 26 256
+26 27 16384
+1 28 1
+3 28 1
+28 29 1
+28 30 1
+3 31 1
+29 32 1
+27 33 16384
+31 33 1
+33 34 16384
+29 35 1
+29 36 1
+34 37 8
+36 38 0
+35 38 4
+37 39 16384
+38 39 0
+39 40 16384
+35 40 4
+32 41 4
+40 41 16384
+41 42 16384
+33 43 16384
+32 43 4
+43 44 16384
+42 44 16384
+27 45 16384
+31 45 1
+45 46 0
+44 46 16384
+47 50 0
+50 51 0
+49 51 0
+51 52 0
+48 52 0
+53 54 16384
+52 54 0
+53 55 16384
+55 56 16384
+56 58 4
+57 58 4
+60 61 256
+59 61 0
+60 62 256
+46 63 4
+55 63 16384
+63 64 16384
+62 64 256
+64 65 16384
+1 66 1
+3 66 1
+66 67 0
+66 68 0
+3 69 1
+67 70 0
+65 71 16384
+69 71 0
+71 72 16384
+67 73 0
+67 74 0
+72 75 8
+74 76 0
+73 76 0
+75 77 16384
+76 77 0
+77 78 16384
+73 78 0
+70 79 0
+78 79 16384
+79 80 16384
+71 81 16384
+70 81 0
+81 82 16384
+80 82 16384
+65 83 16384
+69 83 0
+83 84 0
+82 84 16384
+85 88 0
+88 89 0
+87 89 0
+89 90 0
+86 90 0
+91 92 2560
+90 92 0
+91 93 2560
+95 96 40
+94 96 0
+95 97 40
+84 98 4
+93 98 2560
+98 99 2560
+97 99 40
+99 100 2560
+103 104 4
+102 104 0
+103 105 4
+107 108 0
+105 110 4
+108 110 0
+109 111 4
+110 111 4
+106 112 4
+111 112 4
+101 113 0
+113 115 2560
+114 115 4
+100 116 2560
+115 116 512
+116 117 64
+117 119 256
+118 119 4
+100 121 2560
+120 121 0
+100 122 2560
+121 122 256
+122 125 2560
+124 125 4
+125 126 2560
+123 126 4
+126 127 2560
+101 128 0
+127 128 2560
+128 130 2560
+129 130 0
+130 131 256
+131 133 256
+132 133 0
+135 136 0
+134 136 0
+135 137 0
+137 139 0
+138 139 0
+135 140 0
+139 140 0
+142 143 0
+141 143 0
+142 144 0
+146 147 0
+145 147 0
+146 148 0
+142 151 0
+149 151 0
+146 152 0
+150 152 0
+154 155 4
+153 155 0
+154 156 4
+158 159 4
+105 159 4
+160 161 4
+105 161 4
+159 162 4
+161 162 4
+157 163 4
+162 163 4
+164 165 4
+163 165 4
+156 166 4
+119 166 4
+166 167 4
+165 167 4
+154 168 4
+167 168 4
+168 169 4
+133 170 4
+20 170 4
+58 170 4
+172 173 4
+171 173 0
+172 174 4
+176 177 4
+175 177 0
+176 178 4
+180 181 4
+179 181 0
+180 182 4
+184 185 4
+183 185 0
+184 186 4
+188 189 4
+105 189 4
+190 191 0
+105 191 4
+189 192 4
+191 192 0
+187 193 0
+192 193 4
+194 195 4
+193 195 4
+174 196 4
+170 196 4
+196 197 4
+195 197 4
+172 198 4
+197 198 4
+199 200 4
+193 200 4
+178 201 4
+133 201 4
+201 202 4
+200 202 4
+176 203 4
+202 203 4
+204 205 4
+193 205 4
+182 206 4
+20 206 4
+206 207 4
+205 207 4
+180 208 4
+207 208 4
+209 210 4
+193 210 4
+186 211 4
+58 211 4
+211 212 4
+210 212 4
+184 213 4
+212 213 4
+198 214 4
+203 214 4
+208 214 4
+213 214 4
+215 216 8
+174 216 4
+217 218 8
+170 218 4
+219 220 8
+178 220 4
+221 222 8
+133 222 4
+223 224 8
+182 224 4
+225 226 8
+20 226 4
+227 228 8
+186 228 4
+229 230 8
+58 230 4
+214 231 0
+169 231 0
+214 232 0
+169 232 0
+231 233 0
+232 233 0
+214 234 0
+169 234 0
+233 235 0
+234 235 0
+131 236 256
+214 236 0
+169 236 0
+235 237 0
+236 237 4
+131 238 256
+214 238 0
+169 238 0
+214 239 0
+169 239 0
+214 240 0
+169 240 0
+238 241 0
+240 241 4
+214 242 0
+169 242 0
+239 243 0
+242 243 0
+214 244 0
+169 244 0
+243 245 0
+244 245 0
+241 246 4
+245 246 0
+246 247 4
+237 248 256
+247 248 4
+214 249 0
+169 249 0
+214 250 0
+169 250 0
+249 251 0
+250 251 0
+233 252 0
+19 252 4
+252 253 0
+251 253 0
+253 254 0
+249 254 0
+18 255 4
+233 255 0
+255 256 0
+251 256 0
+256 257 0
+250 257 0
+214 258 0
+169 258 0
+214 259 0
+169 259 0
+258 260 0
+259 260 0
+233 261 0
+57 261 4
+261 262 0
+260 262 0
+262 263 0
+258 263 0
+56 264 4
+233 264 0
+264 265 0
+260 265 0
+265 266 0
+259 266 0
+248 267 256
+17 268 200704
+254 268 0
+55 269 16384
+263 269 0
+128 270 2560
+214 270 0
+169 270 0
+214 271 0
+169 271 0
+129 272 0
+271 272 0
+272 273 0
+271 273 0
+214 274 0
+169 274 0
+214 275 0
+169 275 0
+214 276 0
+169 276 0
+275 277 0
+271 277 0
+276 277 0
+214 278 0
+169 278 0
+274 279 0
+278 279 0
+277 280 0
+273 280 0
+270 280 8
+279 280 0
+214 281 0
+169 281 0
+280 282 8
+281 282 4
+270 283 8
+282 283 8
+267 284 256
+280 284 8
+284 285 256
+283 285 8
+101 286 0
+214 286 0
+169 286 0
+127 287 2560
+214 287 0
+169 287 0
+286 288 8
+287 288 8
+285 289 2560
+127 289 2560
+289 290 0
+288 290 0
+290 291 0
+286 291 8
+101 292 0
+285 292 2560
+292 293 2560
+288 293 0
+293 294 2560
+287 294 8
+126 295 2560
+214 295 0
+169 295 0
+294 295 2560
+294 296 2560
+295 296 2560
+125 297 2560
+214 297 0
+169 297 0
+214 298 0
+169 298 0
+296 299 2560
+214 300 0
+169 300 0
+299 301 8
+300 301 4
+125 302 2560
+123 302 4
+214 302 0
+169 302 0
+297 303 8
+298 303 0
+302 304 640
+296 304 2560
+301 304 2560
+302 305 640
+305 306 0
+296 306 2560
+301 306 2560
+304 307 2560
+303 307 8
+307 308 2560
+297 308 8
+306 309 0
+303 309 8
+309 310 0
+298 310 0
+122 311 2560
+214 311 0
+169 311 0
+214 312 0
+169 312 0
+308 313 2560
+214 314 0
+169 314 0
+313 315 8
+314 315 4
+122 316 2560
+124 316 4
+214 316 0
+169 316 0
+311 317 8
+312 317 0
+316 318 640
+308 318 2560
+315 318 2560
+316 319 640
+319 320 0
+308 320 2560
+315 320 2560
+318 321 2560
+317 321 8
+321 322 2560
+311 322 8
+320 323 0
+317 323 8
+323 324 0
+312 324 0
+100 325 2560
+214 325 0
+169 325 0
+121 326 256
+214 326 0
+169 326 0
+325 327 8
+326 327 8
+322 328 2560
+121 328 256
+328 329 2560
+327 329 4
+329 330 2560
+325 330 8
+100 331 2560
+214 331 0
+169 331 0
+331 332 2560
+121 332 256
+332 333 2560
+121 333 256
+322 334 2560
+333 334 2560
+334 335 2560
+327 335 4
+335 336 256
+326 336 8
+100 337 2560
+214 337 0
+169 337 0
+214 338 0
+169 338 0
+120 339 0
+338 339 0
+339 340 0
+338 340 0
+214 341 0
+169 341 0
+214 342 0
+169 342 0
+214 343 0
+169 343 0
+342 344 0
+338 344 0
+343 344 0
+214 345 0
+169 345 0
+341 346 0
+345 346 0
+344 347 0
+340 347 0
+337 347 0
+346 347 0
+214 348 0
+169 348 0
+347 349 8
+348 349 4
+337 350 0
+349 350 8
+336 351 256
+347 351 8
+351 352 256
+350 352 8
+330 353 2560
+352 353 2560
+353 354 2560
+100 354 2560
+214 355 0
+169 355 0
+354 356 2560
+355 356 4
+214 357 0
+169 357 0
+356 358 256
+357 358 8
+353 359 2560
+358 359 256
+359 360 2560
+100 360 2560
+360 361 2560
+360 362 2560
+93 362 2560
+84 363 4
+360 363 2560
+362 364 16384
+69 364 0
+65 365 16384
+69 365 0
+214 365 0
+169 365 0
+365 366 16384
+214 367 0
+169 367 0
+366 368 8
+367 368 4
+364 369 16384
+368 369 16384
+81 370 16384
+214 370 0
+169 370 0
+80 371 16384
+214 371 0
+169 371 0
+370 372 8
+371 372 8
+364 373 16384
+80 373 16384
+373 374 16384
+372 374 0
+374 375 16384
+370 375 8
+81 376 16384
+364 376 16384
+376 377 0
+372 377 0
+377 378 0
+371 378 8
+71 379 16384
+214 379 0
+169 379 0
+214 380 0
+169 380 0
+379 381 8
+380 381 0
+375 382 16384
+70 382 0
+382 383 16384
+381 383 8
+383 384 16384
+379 384 8
+71 385 16384
+214 385 0
+169 385 0
+385 386 0
+70 386 0
+386 387 0
+70 387 0
+375 388 16384
+387 388 0
+388 389 0
+381 389 8
+389 390 0
+380 390 0
+65 391 16384
+69 391 0
+214 391 0
+169 391 0
+391 392 0
+214 393 0
+169 393 0
+392 394 0
+393 394 4
+384 395 16384
+394 395 0
+369 396 4
+395 396 4
+65 397 16384
+396 397 16384
+397 398 16384
+397 399 16384
+55 399 16384
+46 400 4
+397 400 16384
+399 401 16384
+31 401 1
+269 402 16384
+400 402 16384
+27 403 16384
+31 403 1
+214 403 0
+169 403 0
+403 404 0
+214 405 0
+169 405 0
+404 406 8
+405 406 4
+401 407 16384
+406 407 16384
+43 408 16384
+214 408 0
+169 408 0
+42 409 16384
+214 409 0
+169 409 0
+408 410 8
+409 410 8
+401 411 16384
+42 411 16384
+411 412 16384
+410 412 0
+412 413 16384
+408 413 8
+43 414 16384
+401 414 16384
+414 415 0
+410 415 0
+415 416 0
+409 416 8
+33 417 16384
+214 417 0
+169 417 0
+214 418 0
+169 418 0
+417 419 8
+418 419 0
+413 420 16384
+32 420 4
+420 421 16384
+419 421 8
+421 422 16384
+417 422 8
+33 423 16384
+214 423 0
+169 423 0
+423 424 0
+32 424 4
+424 425 0
+32 425 4
+413 426 16384
+425 426 0
+426 427 0
+419 427 8
+427 428 0
+418 428 0
+27 429 16384
+31 429 1
+214 429 0
+169 429 0
+429 430 16384
+214 431 0
+169 431 0
+430 432 0
+431 432 4
+422 433 16384
+432 433 0
+407 434 4
+433 434 4
+27 435 16384
+434 435 16384
+435 436 16384
+435 437 16384
+17 437 200704
+8 438 0
+435 438 16384
+268 439 200704
+438 439 200704
+439 440 200704
+436 441 256
+402 442 16384
+398 443 256
+363 444 2560
+361 445 40
+440 446 4
+441 446 4
+442 446 4
+443 446 4
+444 446 4
+445 446 4
+214 447 0
+169 447 0
+446 448 24
+447 448 4
+214 449 0
+169 449 0
+448 450 4
+449 450 4
+450 451 4
+214 452 0
+169 452 0
+452 453 4
+451 453 4
+214 454 0
+169 454 0
+214 455 0
+169 455 0
+454 456 0
+455 456 0
+453 457 4
+456 457 0
+214 458 0
+169 458 0
+458 459 4
+457 459 4
+439 460 200704
+459 460 4
+460 461 200704
+436 462 256
+459 462 4
+462 463 256
+402 464 16384
+459 464 4
+464 465 16384
+398 466 256
+459 466 4
+466 467 256
+363 468 2560
+459 468 4
+468 469 2560
+361 470 40
+459 470 4
+470 471 40
+15 472 200704
+112 472 4
+461 472 200704
+22 473 256
+112 473 4
+463 473 256
+53 474 16384
+112 474 4
+465 474 16384
+60 475 256
+112 475 4
+467 475 256
+91 476 2560
+112 476 4
+469 476 2560
+95 477 40
+112 477 4
+471 477 40
+472 478 200704
+473 478 256
+474 478 16384
+475 478 256
+476 478 2560
+477 478 40
+478 479 0
+103 480 4
+479 480 4
+216 481 8
+218 481 8
+220 481 8
+222 481 8
+224 481 8
+226 481 8
+228 481 8
+230 481 8
+480 482 4
+483 486 0
+484 486 0
+485 486 0
+176 486 4
+15 486 200704
+180 486 4
+22 486 256
+53 486 16384
+184 486 4
+60 486 256
+91 486 2560
+95 486 40
+135 486 0
+172 486 4
+154 486 4
+103 486 4
+1 486 1
+146 486 0
+142 486 0
+483 487 0
+486 487 0
+483 490 0
+488 490 0
+489 490 0
+176 491 4
+490 491 0
+483 494 0
+492 494 0
+493 494 0
+15 495 200704
+494 495 0
+483 498 0
+496 498 0
+497 498 0
+180 499 4
+498 499 0
+483 502 0
+500 502 0
+501 502 0
+22 503 256
+502 503 0
+483 506 0
+504 506 0
+505 506 0
+53 507 16384
+506 507 0
+483 510 0
+508 510 0
+509 510 0
+184 511 4
+510 511 0
+483 514 0
+512 514 0
+513 514 0
+60 515 256
+514 515 0
+483 518 0
+516 518 0
+517 518 0
+91 519 2560
+518 519 0
+483 522 0
+520 522 0
+521 522 0
+95 523 40
+522 523 0
+483 526 0
+524 526 0
+525 526 0
+135 527 0
+526 527 0
+483 530 0
+528 530 0
+529 530 0
+172 531 4
+530 531 0
+483 534 0
+532 534 0
+533 534 0
+154 535 4
+534 535 0
+483 538 0
+536 538 0
+537 538 0
+103 539 4
+538 539 0
+483 542 0
+540 542 0
+541 542 0
+1 543 1
+542 543 0
+483 546 0
+544 546 0
+545 546 0
+146 547 0
+546 547 0
+483 550 0
+548 550 0
+549 550 0
+142 551 0
+550 551 0
+491 552 0
+495 552 0
+499 552 0
+503 552 0
+507 552 0
+511 552 0
+515 552 0
+519 552 0
+523 552 0
+527 552 0
+531 552 0
+535 552 0
+539 552 0
+543 552 0
+547 552 0
+551 552 0
+553 556 0
+554 556 0
+555 556 0
+176 556 4
+15 556 200704
+180 556 4
+22 556 256
+53 556 16384
+184 556 4
+60 556 256
+91 556 2560
+95 556 40
+135 556 0
+172 556 4
+154 556 4
+103 556 4
+1 556 1
+146 556 0
+142 556 0
+553 557 0
+556 557 0
+553 560 0
+558 560 0
+559 560 0
+176 561 4
+560 561 0
+553 564 0
+562 564 0
+563 564 0
+15 565 200704
+564 565 0
+553 568 0
+566 568 0
+567 568 0
+180 569 4
+568 569 0
+553 572 0
+570 572 0
+571 572 0
+22 573 256
+572 573 0
+553 576 0
+574 576 0
+575 576 0
+53 577 16384
+576 577 0
+553 580 0
+578 580 0
+579 580 0
+184 581 4
+580 581 0
+553 584 0
+582 584 0
+583 584 0
+60 585 256
+584 585 0
+553 588 0
+586 588 0
+587 588 0
+91 589 2560
+588 589 0
+553 592 0
+590 592 0
+591 592 0
+95 593 40
+592 593 0
+553 596 0
+594 596 0
+595 596 0
+135 597 0
+596 597 0
+553 600 0
+598 600 0
+599 600 0
+172 601 4
+600 601 0
+553 604 0
+602 604 0
+603 604 0
+154 605 4
+604 605 0
+553 608 0
+606 608 0
+607 608 0
+103 609 4
+608 609 0
+553 612 0
+610 612 0
+611 612 0
+1 613 1
+612 613 0
+553 616 0
+614 616 0
+615 616 0
+146 617 0
+616 617 0
+553 620 0
+618 620 0
+619 620 0
+142 621 0
+620 621 0
+561 622 0
+565 622 0
+569 622 0
+573 622 0
+577 622 0
+581 622 0
+585 622 0
+589 622 0
+593 622 0
+597 622 0
+601 622 0
+605 622 0
+609 622 0
+613 622 0
+617 622 0
+621 622 0
+623 626 0
+624 626 0
+625 626 0
+15 626 200704
+22 626 256
+53 626 16384
+60 626 256
+91 626 2560
+95 626 40
+623 627 0
+626 627 0
+623 630 0
+628 630 0
+629 630 0
+15 631 200704
+630 631 0
+623 634 0
+632 634 0
+633 634 0
+22 635 256
+634 635 0
+623 638 0
+636 638 0
+637 638 0
+53 639 16384
+638 639 0
+623 642 0
+640 642 0
+641 642 0
+60 643 256
+642 643 0
+623 646 0
+644 646 0
+645 646 0
+91 647 2560
+646 647 0
+623 650 0
+648 650 0
+649 650 0
+95 651 40
+650 651 0
+631 652 0
+635 652 0
+639 652 0
+643 652 0
+647 652 0
+651 652 0
+2 653 0
+16 653 0
+23 653 0
+54 653 0
+61 653 0
+92 653 0
+96 653 0
+104 653 0
+136 653 0
+143 653 0
+147 653 0
+155 653 0
+173 653 0
+177 653 0
+181 653 0
+185 653 0
+653 655 0
+654 655 0
+2 656 0
+657 660 0
+658 660 0
+659 660 0
+176 660 4
+15 660 200704
+180 660 4
+22 660 256
+53 660 16384
+184 660 4
+60 660 256
+91 660 2560
+95 660 40
+135 660 0
+172 660 4
+154 660 4
+103 660 4
+1 660 1
+146 660 0
+142 660 0
+657 661 0
+660 661 0
+657 664 0
+662 664 0
+663 664 0
+176 665 4
+664 665 0
+657 668 0
+666 668 0
+667 668 0
+15 669 200704
+668 669 0
+657 672 0
+670 672 0
+671 672 0
+180 673 4
+672 673 0
+657 676 0
+674 676 0
+675 676 0
+22 677 256
+676 677 0
+657 680 0
+678 680 0
+679 680 0
+53 681 16384
+680 681 0
+657 684 0
+682 684 0
+683 684 0
+184 685 4
+684 685 0
+657 688 0
+686 688 0
+687 688 0
+60 689 256
+688 689 0
+657 692 0
+690 692 0
+691 692 0
+91 693 2560
+692 693 0
+657 696 0
+694 696 0
+695 696 0
+95 697 40
+696 697 0
+657 700 0
+698 700 0
+699 700 0
+135 701 0
+700 701 0
+657 704 0
+702 704 0
+703 704 0
+172 705 4
+704 705 0
+657 708 0
+706 708 0
+707 708 0
+154 709 4
+708 709 0
+657 712 0
+710 712 0
+711 712 0
+103 713 4
+712 713 0
+657 716 0
+714 716 0
+715 716 0
+1 717 1
+716 717 0
+657 720 0
+718 720 0
+719 720 0
+146 721 0
+720 721 0
+657 724 0
+722 724 0
+723 724 0
+142 725 0
+724 725 0
+665 726 0
+669 726 0
+673 726 0
+677 726 0
+681 726 0
+685 726 0
+689 726 0
+693 726 0
+697 726 0
+701 726 0
+705 726 0
+709 726 0
+713 726 0
+717 726 0
+721 726 0
+725 726 0
