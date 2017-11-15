@@ -15,19 +15,19 @@
   Step 1: calculate the cost of time and PE for one period 
   Step 2: calculate the total time using all PEs
 */
-#include <stdio.h>
+#include <cstdio>
 #include <iostream>
 #include <vector>
 #include <queue>
 #include <algorithm>
+#include <cassert>
 
 using namespace std;
 
-#define MAXN 1000
+#define MAXN 50000
+#define MAXE 90000
 #define MINN 50
 #define MOD 100
-
-typedef pair<double, int> P;
 
 struct Node {
   int id;
@@ -70,7 +70,7 @@ struct Edge {
   }
 };
 
-vector<Edge> edgelist[MAXN];
+vector<Edge> edgelist[MAXE];
 Node nodelist[MAXN];
 bool vis[MAXN];
 int degree[MAXN];
@@ -88,7 +88,7 @@ void init() {
   }
 }
 
-P solveOnce(int pe_upbound) {
+Result solveOnce(int pe_upbound) {
   double total_time = 0;
   int pecount = 0, node_count = 0;
   priority_queue<Node> perunning;
@@ -161,16 +161,22 @@ P solveOnce(int pe_upbound) {
 
   }
 
-  return make_pair(total_time, pecount);
+  double up = 0;
+  for (int i = 1; i <= total_node; i++)
+    up = up + nodelist[i].cost;
+  double down = pecount * total_time;
+  assert(down != 0);
+  double cpuratio = up / down;
+  return Result(total_time, pecount, cpuratio);
 }
 
 void solve(int total_pe, int period_times) {
   init();
-  P res = solveOnce(total_pe);
-  int meanwhile_period = total_pe / res.second;
+  Result res = solveOnce(total_pe);
+  int meanwhile_period = total_pe / res.pecount;
   int total_turn = (period_times % meanwhile_period == 0 ? period_times / meanwhile_period : period_times / meanwhile_period + 1);
-  double total_time = total_turn * res.first;
-  printf("Total PE:\t%d\nTotal time:\t%.3f\n", res.second, total_time);
+  double total_time = total_turn * res.totaltime;
+  printf("Total PE:\t%d\nTotal time:\t%.3f\nCPU Used Ratio:\t%.3f\n", res.pecount, total_time, res.cpuratio);
   // for (int i = 1; i <= total_node; i++) {
   //   printf("ID:%d PE:%d StartTime:%d EndTime:%d Cost:%d\n", nodelist[i].id, nodelist[i].peid, nodelist[i].starttime, nodelist[i].endtime, nodelist[i].cost);
   // }
