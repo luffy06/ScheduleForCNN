@@ -40,8 +40,8 @@
     round: 1, 2, 3, ...
   
 */
-#include <stdio.h>
-#include <assert.h>
+#include <cstdio>
+#include <cassert>
 #include <iostream>
 #include <vector>
 #include <queue>
@@ -49,10 +49,10 @@
 
 using namespace std;
 
-#define MAXE 3000
-#define MAXN 2000
-#define MINN 300
-#define MINR 10
+#define MAXN 6600           // the number of node
+#define MINN 50             // the number of total pe
+#define MINR 5              // the iteration time in one period
+#define MAXR 500
 #define LIMITEDRATIO 0.9
 
 typedef pair<int, int> P;
@@ -259,17 +259,16 @@ struct Edge {
   }
 };
 
-vector<Edge> edgelist[MAXE];
+vector<Edge> edgelist[MAXN];
 Node nodelist[MAXN];
 NodeGenerator ng_nor, ng_res;
-bool vis[MAXN];
 int topology[MAXN];
 int degree[MAXN];
 int total_node;
 int maxpe;
 int upround;
-double edtable[MINN];
-double edtable_res[MINN];
+double edtable[MAXR];
+double edtable_res[MAXR];
 bool hasrest;
 
 /*
@@ -282,13 +281,7 @@ void getTopology() {
   queue<Node> q;
   for (int i = 1; i <= total_node; i++) {
     if (degree[i] == 0) {
-      if (!vis[i]) {        
-        q.push(nodelist[i]);
-        vis[i] = true;        
-      }
-      else {
-        return;
-      }
+      q.push(nodelist[i]);
     }
   }
   count = maxpe = q.size();
@@ -305,15 +298,7 @@ void getTopology() {
       Edge e = edgelist[f.id][i];
       degree[e.to] = degree[e.to] - 1;
       if (degree[e.to] == 0) {
-        if (!vis[e.to]) {
-          q.push(nodelist[e.to]);
-          vis[e.to] = true;
-        }
-        else {
-          maxpe = 0;
-          memset(topology, 0, sizeof(topology));
-          return;
-        }
+        q.push(nodelist[e.to]);
       }
     }
 
@@ -325,7 +310,6 @@ void getTopology() {
 }
 
 void init(int total_pe) {
-  memset(vis, false, sizeof(vis));
   memset(topology, 0, sizeof(topology));
   memset(degree, 0, sizeof(degree));
   memset(edtable, 0, sizeof(edtable));
@@ -339,18 +323,16 @@ void init(int total_pe) {
   }
 
   getTopology();
-  printf("Get Topology Order Succeed\n");
   // maxpe = maxpe + 1;
-  ng_nor = NodeGenerator(total_node, maxpe, upround, nodelist);
-  printf("Init Normal NodeGenerator Succeed\n");
+  if (total_pe >= maxpe) {
+    ng_nor = NodeGenerator(total_node, maxpe, upround, nodelist);
+    // printf("Nor: Max PE:%d UpBound:%.3f UpRound:%d\n", maxpe, ng_nor.upbound, ng_nor.upround);
+  }
   hasrest = (total_pe % maxpe != 0 ? true : false);
   if (hasrest) {
     ng_res = NodeGenerator(total_node, total_pe % maxpe, upround, nodelist);
-    printf("Init Res NodeGenerator Succeed\n");
-    printf("Res: Max PE:%d UpBound:%.3f UpRound:%d\n", maxpe, ng_res.upbound, ng_res.upround);
+    // printf("Res: Max PE:%d UpBound:%.3f UpRound:%d\n", maxpe, ng_res.upbound, ng_res.upround);
   }
-  printf("Create NodeGenerator Succeed\n");
-  printf("Init Succeed\nNor: Max PE:%d UpBound:%.3f UpRound:%d\n", maxpe, ng_nor.upbound, ng_nor.upround);
 }
 
 
@@ -369,33 +351,26 @@ void getEndtimeTable(NodeGenerator ng, int totalround, bool tag) {
   for (int r = 1; r <= totalround; r++) {
     for (int j = 0; j < total_node; j++) {
       int node_id = topology[j];
-      // printf("node_id:%d %d\n", node_id, nodelist[node_id].id);
       nodelist[node_id].copy(ng.generateNextNode(nodelist[node_id]));
-      printf("ID:%4d\tRound:%4d\tST:%4f\tED:%4f\n", node_id, r, nodelist[node_id].starttime, nodelist[node_id].endtime);
       endtime = max(nodelist[node_id].endtime, endtime);
       for (int i = 0; i < edgelist[node_id].size(); i++) {
         Edge e = edgelist[node_id][i];
-        // printf("Edge:%d-->%d\n", e.from, e.to);
         double starttime = nodelist[node_id].endtime + e.cost;
         Node nowNode = Node();
         Node nextNode = Node();
         nextNode.copy(nodelist[e.to]);
         nowNode.copy(nodelist[e.to]);
-        // printf("Next ID:%4d\tNeeded ST:%4d\tNow ST:%4d\n", e.to, starttime, nodelist[e.to].starttime);
         for (; nextNode.starttime < starttime; nextNode.copy(ng.generateNextNode(nextNode))) {
-          // printf("\t\tNeeded ST:%4d\tNow ST:%4d\tNext ID:%d\n", starttime, nextNode.starttime, nextNode.id);
           nowNode.copy(nextNode);
         }
-        // printf("Next ID:%4d\tNeeded ST:%4d\tNow ST:%4d\tNext ST:%d\n", e.to, starttime, nowNode.starttime, nextNode.starttime);
         nodelist[e.to].copy(nowNode);
       }
     }
-    // printf("%d\n", endtime);
     if (tag)
       edtable[r] = endtime;
     else
       edtable_res[r] = endtime;
-  }  
+  }
 }
 
 void solve(int total_pe, int period_times) {
@@ -406,6 +381,8 @@ void solve(int total_pe, int period_times) {
   int multiple = total_pe / maxpe;
   int round = period_times; 
   if (multiple > 0) {
+    for (int i = 1; i <= total_node; i++)
+      nodelist[i].numbinq = 0;
     round = (period_times % multiple == 0 ? period_times / multiple : period_times / multiple + 1);
     getEndtimeTable(ng_nor, round, true);
   }
@@ -433,7 +410,16 @@ void solve(int total_pe, int period_times) {
     total_time = edtable[round];
   }
   else {
-    total_pe = edtable_res[period_times];
+    total_time = edtable_res[period_times];
   }
-  printf("Total PE:\t%d\nTotal time:\t%lf\n", total_pe, total_time);
+
+  double up = 0;
+  for (int i = 1; i <= total_node; i++) {
+    up = up + nodelist[i].cost;
+  }
+  up = up * period_times;
+  double down = total_time * total_pe;
+  assert(down != 0);
+  double cpuratio = up / down;
+  printf("Total PE:\t%d\nTotal time:\t%.3f\nCPU Used Ratio:\t%.3f\n", total_pe, total_time, cpuratio);
 }

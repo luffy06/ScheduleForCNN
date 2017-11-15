@@ -16,7 +16,7 @@ struct Result {
 
 #define theory 3
 #define experiment 1
-const double rate = 0.18;
+const double rate = 0.7;
 
 #if theory == 1
   #include "theory1.h"
@@ -67,7 +67,6 @@ void input() {
     cost = nodelist[from].cost * rate;
     edgelist[from].push_back(Edge(from, to, cost, memory));
   }
-  // printf("Input Succeed\n");
 }
 
 bool checkLoop() {
@@ -75,7 +74,6 @@ bool checkLoop() {
 }
 
 int main() {
-  // freopen("../data/Input/alexnet_oxflowers17.in", "r", stdin);
   input();
   if (checkLoop()) {
     solve(total_pe, period_times);

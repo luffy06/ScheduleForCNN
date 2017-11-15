@@ -25,7 +25,6 @@
 using namespace std;
 
 #define MAXN 50000
-#define MAXE 90000
 #define MINN 50
 #define MOD 100
 
@@ -70,7 +69,7 @@ struct Edge {
   }
 };
 
-vector<Edge> edgelist[MAXE];
+vector<Edge> edgelist[MAXN];
 Node nodelist[MAXN];
 bool vis[MAXN];
 int degree[MAXN];

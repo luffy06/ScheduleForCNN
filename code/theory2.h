@@ -23,7 +23,6 @@
 
 using namespace std;
 
-#define MAXE 90000
 #define MAXN 50000
 #define MINN 50
 #define MAXR 500
