@@ -14,7 +14,7 @@ struct Result {
   }
 };
 
-#define theory 2
+#define theory 3
 #define experiment 1
 const double rate = 0.18;
 

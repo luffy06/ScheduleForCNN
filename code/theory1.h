@@ -175,8 +175,9 @@ void solve(int total_pe, int period_times) {
   Result res = solveOnce(total_pe);
   int meanwhile_period = total_pe / res.pecount;
   int total_turn = (period_times % meanwhile_period == 0 ? period_times / meanwhile_period : period_times / meanwhile_period + 1);
-  double total_time = total_turn * res.totaltime;
-  printf("Total PE:\t%d\nTotal time:\t%.3f\nCPU Used Ratio:\t%.3f\n", res.pecount, total_time, res.cpuratio);
+  res.totaltime = total_turn * res.totaltime;
+  res.cpuratio = res.cpuratio * period_times / (meanwhile_period * total_turn);
+  printf("Total PE:\t%d\nTotal time:\t%.3f\nCPU Used Ratio:\t%.3f\n", res.pecount, res.totaltime, res.cpuratio);
   // for (int i = 1; i <= total_node; i++) {
   //   printf("ID:%d PE:%d StartTime:%d EndTime:%d Cost:%d\n", nodelist[i].id, nodelist[i].peid, nodelist[i].starttime, nodelist[i].endtime, nodelist[i].cost);
   // }

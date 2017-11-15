@@ -14,18 +14,19 @@
 
 
 */
-#include <stdio.h>
+#include <cstdio>
 #include <iostream>
 #include <vector>
 #include <queue>
 #include <algorithm>
-
+#include <cassert>
 
 using namespace std;
 
-#define MAXE 10000
-#define MAXN 2000
+#define MAXE 90000
+#define MAXN 50000
 #define MINN 50
+#define MAXR 500
 #define MOD 100
 
 #define LZD 0
@@ -88,8 +89,8 @@ struct Edge {
 
 vector<Edge> edgelist[MAXN];
 RunningNode nodelist[MAXN];
-bool vis[MAXN][MAXN];
-int degree[MAXN][MAXN];
+bool vis[MAXN][MAXR];
+int degree[MAXN][MAXR];
 int total_node;
 
 void init(int period_times) {
@@ -163,7 +164,6 @@ void solve(int total_pe, int period_times) {
     #if LZD == 1
       printf("%d %.3lf %.3lf %d\n", top.id, top.starttime, top.cost, top.peid);
     #endif
-    printf("%d %d %.3lf %.3lf %d\n", top.id, top.round, top.starttime, top.cost, top.peid);
     total_time = max(top.endtime, total_time);
     // free PE
     freepe.push(top.peid);
@@ -209,6 +209,15 @@ void solve(int total_pe, int period_times) {
     }
   }
 
+  double up = 0;
+  for (int i = 1; i <= total_node; i++) {
+    up = up + nodelist[i].cost;
+  }
+  up = up * period_times;
+  double down = total_time * (pecount + 1);
+  assert(down != 0);
+  double cpuratio = up / down;
+
   #if LZD == 1
     for (int i = 1; i <= total_node; i++) {
       for (int j = 0; j < edgelist[i].size(); j++)
@@ -216,6 +225,6 @@ void solve(int total_pe, int period_times) {
     }
     printf("%d %d\n", pecount + 1, total_node);
   #else
-    printf("Total PE:\t%d\nTotal time:\t%lf\n", pecount + 1, total_time);
+    printf("Total PE:\t%d\nTotal time:\t%.3f\nCPU Used Ratio:\t%.3f\n", pecount + 1, total_time, cpuratio);
   #endif
 }

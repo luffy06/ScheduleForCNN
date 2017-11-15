@@ -3,12 +3,13 @@ suffix=".in"
 if [[ -f 'result.out' ]]; then
   rm 'result.out'
 fi
-for (( i = 1; i <= 3; i++ )); do
-  echo '######### Using Theory'$i'#########' >> result.out
-  for file in ${datafolder}/*${suffix}; do
+for file in ${datafolder}/*${suffix}; do
+  echo 'Dealing with '$filename >> result.out
+  for (( i = 1; i <= 3; i++ )); do
+    echo '######### Using Theory'$i' #########' >> result.out
     filename=`basename $file`
-    echo 'Dealing with '$filename >> result.out
     echo `./run$i < $datafolder/$filename` >> result.out
-    echo '' >> result.out
+    echo '######### End #########' >> result.out
   done
+  echo '' >> result.out
 done
