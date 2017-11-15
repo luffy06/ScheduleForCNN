@@ -1,5 +1,21 @@
 
-#define theory 1
+
+struct Result {
+  double totaltime;
+  int pecount;
+  double cpuratio;
+
+  Result() {}
+
+  Result(double a, int b, double c) {
+    totaltime = a;
+    pecount = b;
+    cpuratio = c;
+  }
+};
+
+#define theory 2
+#define experiment 1
 const double rate = 0.18;
 
 #if theory == 1
@@ -15,7 +31,14 @@ int total_pe, period_times;
 void input() {
   srand((unsigned int)time(NULL));
   int line, trash;
-#if theory == 3
+#if experiment == 1
+  scanf("%d%d", &total_node, &line);
+  total_pe = 16;
+  period_times = 500;
+  #if theory == 3
+    upround = 4;
+  #endif
+#elif theory == 3
   scanf("%d%d%d%d%d", &total_node, &line, &total_pe, &period_times, &upround);
 #else
   scanf("%d%d%d%d%d", &total_node, &line, &total_pe, &period_times, &trash);
