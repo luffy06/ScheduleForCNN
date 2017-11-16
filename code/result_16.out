@@ -1,0 +1,209 @@
+Dealing with LeNet.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 96.39 CPU Used Ratio: 0.08
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 9.10 CPU Used Ratio: 0.87
+######### End #########
+######### Using Theory3 #########
+Total PE: 16 Total time: 10.65 CPU Used Ratio: 0.74
+######### End #########
+
+Dealing with alexnet_mnist.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 1847.50 CPU Used Ratio: 0.13
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 261.70 CPU Used Ratio: 0.90
+######### End #########
+######### Using Theory3 #########
+Total PE: 16 Total time: 339.66 CPU Used Ratio: 0.69
+######### End #########
+
+Dealing with alexnet_oxflowers17.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 6810.19 CPU Used Ratio: 0.10
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 794.63 CPU Used Ratio: 0.87
+######### End #########
+######### Using Theory3 #########
+Total PE: 16 Total time: 1090.55 CPU Used Ratio: 0.63
+######### End #########
+
+Dealing with cnn_sentence_classif.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 64.29 CPU Used Ratio: 0.12
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 9.27 CPU Used Ratio: 0.84
+######### End #########
+######### Using Theory3 #########
+Total PE: 16 Total time: 10.67 CPU Used Ratio: 0.73
+######### End #########
+
+Dealing with convnet_highway_mnist.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 80.18 CPU Used Ratio: 0.11
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 10.16 CPU Used Ratio: 0.84
+######### End #########
+######### Using Theory3 #########
+Total PE: 16 Total time: 13.60 CPU Used Ratio: 0.63
+######### End #########
+
+Dealing with funll_count_dense_model.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 2.32 CPU Used Ratio: 0.09
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 0.24 CPU Used Ratio: 0.85
+######### End #########
+######### Using Theory3 #########
+Total PE: 16 Total time: 0.26 CPU Used Ratio: 0.80
+######### End #########
+
+Dealing with googlenet_oxflowers17.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 6818.81 CPU Used Ratio: 0.15
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 1196.91 CPU Used Ratio: 0.85
+######### End #########
+######### Using Theory3 #########
+Total PE: 16 Total time: 1554.69 CPU Used Ratio: 0.66
+######### End #########
+
+Dealing with resnet_cifar110.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 5280.71 CPU Used Ratio: 0.12
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 740.37 CPU Used Ratio: 0.84
+######### End #########
+######### Using Theory3 #########
+
+######### End #########
+
+Dealing with resnet_cifar18.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 1846.12 CPU Used Ratio: 0.11
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 251.86 CPU Used Ratio: 0.84
+######### End #########
+######### Using Theory3 #########
+
+######### End #########
+
+Dealing with resnet_cifar56.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 2556.80 CPU Used Ratio: 0.12
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 365.00 CPU Used Ratio: 0.84
+######### End #########
+######### Using Theory3 #########
+
+######### End #########
+
+Dealing with resnet_mnist.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 2962.74 CPU Used Ratio: 0.11
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 405.30 CPU Used Ratio: 0.84
+######### End #########
+######### Using Theory3 #########
+
+######### End #########
+
+Dealing with resnet_mnist_10.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 3861.31 CPU Used Ratio: 0.11
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 522.98 CPU Used Ratio: 0.84
+######### End #########
+######### Using Theory3 #########
+
+######### End #########
+
+Dealing with vgg_A-LEN.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 20790.05 CPU Used Ratio: 0.11
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 2799.10 CPU Used Ratio: 0.83
+######### End #########
+######### Using Theory3 #########
+Total PE: 16 Total time: 3412.55 CPU Used Ratio: 0.68
+######### End #########
+
+Dealing with vgg_A.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 11040.80 CPU Used Ratio: 0.10
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 1344.29 CPU Used Ratio: 0.83
+######### End #########
+######### Using Theory3 #########
+Total PE: 16 Total time: 1811.51 CPU Used Ratio: 0.62
+######### End #########
+
+Dealing with vgg_B.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 16365.96 CPU Used Ratio: 0.11
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 2136.93 CPU Used Ratio: 0.83
+######### End #########
+######### Using Theory3 #########
+Total PE: 16 Total time: 2628.01 CPU Used Ratio: 0.68
+######### End #########
+
+Dealing with vgg_C.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 16990.43 CPU Used Ratio: 0.11
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 2226.51 CPU Used Ratio: 0.83
+######### End #########
+######### Using Theory3 #########
+Total PE: 16 Total time: 2782.23 CPU Used Ratio: 0.67
+######### End #########
+
+Dealing with vgg_D.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 23227.73 CPU Used Ratio: 0.11
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 3047.15 CPU Used Ratio: 0.83
+######### End #########
+######### Using Theory3 #########
+Total PE: 16 Total time: 3849.51 CPU Used Ratio: 0.66
+######### End #########
+
+Dealing with vgg_E.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 27759.41 CPU Used Ratio: 0.11
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 3575.48 CPU Used Ratio: 0.83
+######### End #########
+######### Using Theory3 #########
+Total PE: 16 Total time: 4140.98 CPU Used Ratio: 0.72
+######### End #########
+
+Dealing with vgg_defoult.in
+######### Using Theory1 #########
+Total PE: 16 Total time: 22445.93 CPU Used Ratio: 0.11
+######### End #########
+######### Using Theory2 #########
+Total PE: 16 Total time: 2914.49 CPU Used Ratio: 0.83
+######### End #########
+######### Using Theory3 #########
+Total PE: 16 Total time: 3573.60 CPU Used Ratio: 0.68
+######### End #########
+

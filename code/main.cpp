@@ -16,7 +16,7 @@ struct Result {
 
 #define theory 3
 #define experiment 1
-const double rate = 0.7;
+const double rate = 0.2;
 
 #if theory == 1
   #include "theory1.h"
@@ -36,7 +36,7 @@ void input() {
   total_pe = 16;
   period_times = 500;
   #if theory == 3
-    upround = 4;
+    upround = 100;
   #endif
 #elif theory == 3
   scanf("%d%d%d%d%d", &total_node, &line, &total_pe, &period_times, &upround);

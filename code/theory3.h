@@ -49,13 +49,14 @@
 
 using namespace std;
 
-#define MAXN 6600           // the number of node
-#define MINN 50             // the number of total pe
-#define MINR 5              // the iteration time in one period
+#define MAXN 50000            // the number of node
+#define MINN 70               // the number of total pe
+#define MINR 100              // the iteration time in one period
 #define MAXR 500
 #define LIMITEDRATIO 0.9
 
 typedef pair<int, int> P;
+typedef pair<double, int> PP;
 
 struct Node {
   int id;
@@ -101,6 +102,8 @@ struct Node {
 
 };
 
+int maptopoloy[MAXN];
+
 struct NodeComparation {
   bool operator() (const Node &a, const Node &b) const {
     if (a.endtime != b.endtime)
@@ -119,12 +122,19 @@ bool cmpById(Node a, Node b) {
   return a.id < b.id;
 }
 
+bool cmpByPE(Node a, Node b) {
+  if (a.peid != b.peid)
+    return a.peid < b.peid;
+  else if (maptopoloy[a.id] != maptopoloy[b.id])
+    return maptopoloy[a.id] < maptopoloy[b.id];
+  return a.round < b.round;
+}
+
 struct NodeGenerator {
   int totalnode;
   int maxpe;
   double upbound;
   int upround;
-  Node starttable[MINR][MAXN];
 
   NodeGenerator() {
     totalnode = 0;
@@ -135,27 +145,23 @@ struct NodeGenerator {
   NodeGenerator(int a, int b, int maxround, Node nodelist[MAXN]) {
     totalnode = a;
     maxpe = b;
+    upbound = 0;
     calcBound(maxround, nodelist);
   }
 
-  double initStartTable(int round, Node nodelist[MAXN]) {
+  double init(Node nodelist[MAXN]) {
     priority_queue<Node, std::vector<Node>, NodeComparation> q;
-    assert(maxpe <= MINN);
-    double edpe[MINN];
     for (int i = 0; i < maxpe; i++) {
       Node n = Node(0, 0);
       n.peid = i;
       n.setTime(0, 0);
       q.push(n);
-      edpe[i] = 0;
     }
     sort(nodelist + 1, nodelist + totalnode + 1, cmpByCost);
     for (int i = 1; i <= totalnode; i++) {
-      for (int j = 1; j <= round; j++) {
+      for (int j = 1; j <= upround; j++) {
         Node emp = q.top();
         q.pop();
-        starttable[j][emp.id].copy(emp);
-        edpe[emp.peid] = max(edpe[emp.peid], emp.endtime);
         upbound = max(upbound, emp.endtime);
 
         Node n = Node();
@@ -169,16 +175,7 @@ struct NodeGenerator {
     while (!q.empty()) {
       Node emp = q.top();
       q.pop();
-      starttable[round][emp.id].copy(emp);
-      edpe[emp.peid] = max(edpe[emp.peid], emp.endtime);
       upbound = max(upbound, emp.endtime);
-    }
-    for (int i = 1; i <= totalnode; i++) {
-      for (int j = 1; j <= round; j++) {
-        int st = edpe[starttable[j][i].peid] - starttable[j][i].endtime;
-        int ed = st + starttable[j][i].cost;
-        starttable[j][i].setTime(st, ed);
-      }
     }
     // calculate the use ratio of cpu
     assert(upbound != 0);
@@ -187,11 +184,66 @@ struct NodeGenerator {
     for (int i = 1; i <= totalnode; i++) {
       up = up + nodelist[i].cost;
     }
-    up = up * round;
+    up = up * upround;
     sort(nodelist + 1, nodelist + totalnode + 1, cmpById);
     assert(down != 0);
     double res = up / down;
+    printf("%.3f %.3f %.3f\n", up, down, res);
+    assert(1 == 0);
     return res;
+  }
+
+  PP getStartTime(int id, int numb, Node nodelist[MAXN]) {
+    priority_queue<Node, std::vector<Node>, NodeComparation> q;
+    assert(maxpe <= MINN);
+    vector<Node> tmp;
+    double targetstarttime = -1;
+    int targetpeid = -1;
+    for (int i = 0; i < maxpe; i++) {
+      Node n = Node(0, 0);
+      n.peid = i;
+      n.setTime(0, 0);
+      q.push(n);
+    }
+    sort(nodelist + 1, nodelist + totalnode + 1, cmpByCost);
+    for (int i = 1; i <= totalnode; i++) {
+      for (int j = 1; j <= upround; j++) {
+        Node emp = q.top();
+        q.pop();
+
+        Node n = Node();
+        n.copy(nodelist[i]);
+        n.round = j;
+        n.peid = emp.peid;
+        n.setTime(emp.endtime, emp.endtime + n.cost);
+        q.push(n);
+        tmp.push_back(n);
+      }
+    }
+    while (!q.empty()) {
+      Node emp = q.top();
+      q.pop();
+    }
+    sort(nodelist + 1, nodelist + totalnode + 1, cmpById);
+    sort(tmp.begin(), tmp.end(), cmpByPE);
+    int nowpeid = -1, nowtime = 0;
+    for (int i = 0; i < tmp.size(); i++) {
+      Node k = tmp[i];
+      if (k.peid != nowpeid) {
+        nowpeid = k.peid;
+        nowtime = 0;
+      }
+      k.setTime(nowtime, nowtime + k.cost);
+      nowtime = k.endtime;
+      tmp[i].copy(k);
+      if (k.id == id && k.round == numb) {
+        targetstarttime = k.starttime;
+        targetpeid = k.peid;
+        break;
+      }
+    }
+    assert(targetstarttime >= 0);
+    return make_pair(targetstarttime, targetpeid);
   }
 
   /*
@@ -202,7 +254,8 @@ struct NodeGenerator {
     double maxratio = 0;
     for (int i = 1; i <= totalnode; i++)
     for (upround = 1; upround <= maxround; upround ++) {
-      double useratio = initStartTable(upround, nodelist);
+      double useratio = init(nodelist);
+      printf("%.3f\n", useratio);
       if (useratio >= LIMITEDRATIO) {
         return ;
       }
@@ -212,18 +265,19 @@ struct NodeGenerator {
       }
     }
     upround = targetround;
-    initStartTable(targetround, nodelist);
   }
 
-  Node generateNextNode(Node n) {
+  Node generateNextNode(Node n, Node nodelist[MAXN]) {
     Node res = Node(n.id, n.cost);
-    res.peid = (n.peid + totalnode) % maxpe;
     res.round = n.round;
     res.numbinq = n.numbinq + 1;
     assert(upround != 0);
     int base = (res.numbinq % upround == 0 ? res.numbinq / upround - 1 : res.numbinq / upround);
-    res.starttime = base * upbound + starttable[((res.numbinq - 1) % upround) + 1][res.id].starttime;
+    int numb = (res.numbinq - 1) % upround + 1;
+    PP p = getStartTime(res.id, numb, nodelist);
+    res.starttime = base * upbound + p.first;
     res.endtime = res.starttime + res.cost;
+    res.peid = p.second;
     return res;
   }
 
@@ -231,10 +285,12 @@ struct NodeGenerator {
     int test_round = 9;
     for (int j = 1; j <= totalnode; j++) {
       Node st = Node();
-      st.copy(starttable[1][j]);
-      printf("TEST Node:%d Cost:%.3f\n", j, nodelist[j].cost);
+      st.copy(nodelist[j]);
+      st.setTime(0, 0);
+      st.numbinq = 0;
+      printf("TEST Node:%d Cost:%.3f\n", nodelist[j].id, nodelist[j].cost);
       for (int i = 0; i < test_round; i++) {
-        st.copy(generateNextNode(st));
+        st.copy(generateNextNode(st, nodelist));
         printf("Numb:%d\tST:%.3f\tED:%.3f\tPE:%d\n", st.numbinq, st.starttime, st.endtime, st.peid);
       }
       printf("\n");
@@ -290,6 +346,7 @@ void getTopology() {
     Node f = q.front();
     q.pop();
     topology[iter] = f.id;
+    maptopoloy[f.id] = iter;
 
     iter = iter + 1;
     count = count - 1;
@@ -326,21 +383,21 @@ void init(int total_pe) {
   // maxpe = maxpe + 1;
   if (total_pe >= maxpe) {
     ng_nor = NodeGenerator(total_node, maxpe, upround, nodelist);
-    // printf("Nor: Max PE:%d UpBound:%.3f UpRound:%d\n", maxpe, ng_nor.upbound, ng_nor.upround);
+    printf("Nor: Max PE:%d UpBound:%.3f UpRound:%d\n", maxpe, ng_nor.upbound, ng_nor.upround);
   }
   hasrest = (total_pe % maxpe != 0 ? true : false);
   if (hasrest) {
     ng_res = NodeGenerator(total_node, total_pe % maxpe, upround, nodelist);
-    // printf("Res: Max PE:%d UpBound:%.3f UpRound:%d\n", maxpe, ng_res.upbound, ng_res.upround);
+    printf("Res: Max PE:%d UpBound:%.3f UpRound:%d\n", maxpe, ng_res.upbound, ng_res.upround);
   }
 }
 
 
 void test(int total_pe) {
   init(total_pe);
-  // printf("TEST NOR\n");
+  printf("TEST NOR\n");
   ng_nor.test(nodelist);
-  // printf("TEST RES\n");
+  printf("TEST RES\n");
   for (int i = 1; i <= total_node; i++)
     nodelist[i].numbinq = 0;
   ng_res.test(nodelist);
@@ -351,7 +408,8 @@ void getEndtimeTable(NodeGenerator ng, int totalround, bool tag) {
   for (int r = 1; r <= totalround; r++) {
     for (int j = 0; j < total_node; j++) {
       int node_id = topology[j];
-      nodelist[node_id].copy(ng.generateNextNode(nodelist[node_id]));
+      assert(node_id == nodelist[node_id].id);
+      nodelist[node_id].copy(ng.generateNextNode(nodelist[node_id], nodelist));
       endtime = max(nodelist[node_id].endtime, endtime);
       for (int i = 0; i < edgelist[node_id].size(); i++) {
         Edge e = edgelist[node_id][i];
@@ -360,7 +418,7 @@ void getEndtimeTable(NodeGenerator ng, int totalround, bool tag) {
         Node nextNode = Node();
         nextNode.copy(nodelist[e.to]);
         nowNode.copy(nodelist[e.to]);
-        for (; nextNode.starttime < starttime; nextNode.copy(ng.generateNextNode(nextNode))) {
+        for (; nextNode.starttime < starttime; nextNode.copy(ng.generateNextNode(nextNode, nodelist))) {
           nowNode.copy(nextNode);
         }
         nodelist[e.to].copy(nowNode);
@@ -421,5 +479,5 @@ void solve(int total_pe, int period_times) {
   double down = total_time * total_pe;
   assert(down != 0);
   double cpuratio = up / down;
-  printf("Total PE:\t%d\nTotal time:\t%.3f\nCPU Used Ratio:\t%.3f\n", total_pe, total_time, cpuratio);
+  printf("Total PE:\t%d\nTotal time:\t%.2f\nCPU Used Ratio:\t%.2f\n", total_pe, (total_time) / (1e6), cpuratio);
 }

@@ -25,7 +25,7 @@
 using namespace std;
 
 #define MAXN 50000
-#define MINN 50
+#define MINN 70
 #define MOD 100
 
 struct Node {
@@ -172,11 +172,12 @@ Result solveOnce(int pe_upbound) {
 void solve(int total_pe, int period_times) {
   init();
   Result res = solveOnce(total_pe);
+  
   int meanwhile_period = total_pe / res.pecount;
   int total_turn = (period_times % meanwhile_period == 0 ? period_times / meanwhile_period : period_times / meanwhile_period + 1);
-  res.totaltime = total_turn * res.totaltime;
+  res.totaltime = total_turn * res.totaltime / (1e6);
   res.cpuratio = res.cpuratio * period_times / (meanwhile_period * total_turn);
-  printf("Total PE:\t%d\nTotal time:\t%.3f\nCPU Used Ratio:\t%.3f\n", res.pecount, res.totaltime, res.cpuratio);
+  printf("Total PE:\t%d\nTotal time:\t%.2f\nCPU Used Ratio:\t%.2f\n", res.pecount, res.totaltime, res.cpuratio);
   // for (int i = 1; i <= total_node; i++) {
   //   printf("ID:%d PE:%d StartTime:%d EndTime:%d Cost:%d\n", nodelist[i].id, nodelist[i].peid, nodelist[i].starttime, nodelist[i].endtime, nodelist[i].cost);
   // }

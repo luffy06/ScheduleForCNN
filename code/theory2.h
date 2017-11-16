@@ -24,7 +24,7 @@
 using namespace std;
 
 #define MAXN 50000
-#define MINN 50
+#define MINN 70
 #define MAXR 500
 #define MOD 100
 
@@ -91,10 +91,12 @@ RunningNode nodelist[MAXN];
 bool vis[MAXN][MAXR];
 int degree[MAXN][MAXR];
 int total_node;
+double edpe[MINN];
 
 void init(int period_times) {
   memset(vis, false, sizeof(vis));
   memset(degree, 0, sizeof(degree));
+  memset(edpe, 0, sizeof(edpe));
 
   for (int i = 1; i <= total_node; i++) {
     for (int j = 0; j < edgelist[i].size(); j++) {
@@ -164,6 +166,7 @@ void solve(int total_pe, int period_times) {
       printf("%d %.3lf %.3lf %d\n", top.id, top.starttime, top.cost, top.peid);
     #endif
     total_time = max(top.endtime, total_time);
+    edpe[top.peid] = max(edpe[top.peid], top.endtime);
     // free PE
     freepe.push(top.peid);
 
@@ -213,7 +216,10 @@ void solve(int total_pe, int period_times) {
     up = up + nodelist[i].cost;
   }
   up = up * period_times;
-  double down = total_time * (pecount + 1);
+  double down = 0;
+  for (int i = 0; i <= pecount; i++) {
+    down = down + edpe[i];
+  }
   assert(down != 0);
   double cpuratio = up / down;
 
@@ -224,6 +230,6 @@ void solve(int total_pe, int period_times) {
     }
     printf("%d %d\n", pecount + 1, total_node);
   #else
-    printf("Total PE:\t%d\nTotal time:\t%.3f\nCPU Used Ratio:\t%.3f\n", pecount + 1, total_time, cpuratio);
+    printf("Total PE:\t%d\nTotal time:\t%.2f\nCPU Used Ratio:\t%.2f\n", pecount + 1, (total_time) / (1e6), cpuratio);
   #endif
 }
