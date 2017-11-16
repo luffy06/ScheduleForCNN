@@ -28,9 +28,14 @@ using namespace std;
 #define MAXR 500
 #define MOD 100
 
-#define LZD 0
+#define LZD 1
 
 typedef pair<int, int> P;
+
+void testInput() {
+  int t;
+  scanf("%d", &t);
+}
 
 struct RunningNode {
   int id;
@@ -54,7 +59,9 @@ struct RunningNode {
   }
 
   friend bool operator< (RunningNode a, RunningNode b) {
-    return a.endtime > b.endtime;
+    if (a.endtime != b.endtime)
+      return a.endtime > b.endtime;
+    return a.peid > b.peid;
   }
 };
 
@@ -64,8 +71,13 @@ struct WaitingNode {
 
   int round;
   double starttime;
+  double comparevalue;
+  int topologyorder;
 
   friend bool operator< (WaitingNode a, WaitingNode b) {
+    if (a.topologyorder != b.topologyorder)
+      return a.topologyorder > b.topologyorder;
+    // return a.comparevalue < b.comparevalue;
     return a.cost > b.cost;
   }
 };
@@ -92,19 +104,62 @@ bool vis[MAXN][MAXR];
 int degree[MAXN][MAXR];
 int total_node;
 double edpe[MINN];
+double nextvalue[MAXN];
+int indegree[MAXN];
+int maptopology[MAXN];
+
+void initTopologyMap() {
+  int count = 0, iter = 0;
+  queue<RunningNode> q;
+  for (int i = 1; i <= total_node; i++) {
+    if (indegree[i] == 0) {
+      q.push(nodelist[i]);
+    }
+  }
+  count = q.size();
+
+  while (!q.empty()) {
+    RunningNode f = q.front();
+    q.pop();
+    maptopology[f.id] = iter;
+
+    iter = iter + 1;
+    count = count - 1;
+
+    for (int i = 0; i < edgelist[f.id].size(); i++) {
+      Edge e = edgelist[f.id][i];
+      indegree[e.to] = indegree[e.to] - 1;
+      if (indegree[e.to] == 0) {
+        q.push(nodelist[e.to]);
+      }
+    }
+
+    if (count == 0) {
+      count = q.size();
+    }
+  }
+}
 
 void init(int period_times) {
   memset(vis, false, sizeof(vis));
   memset(degree, 0, sizeof(degree));
   memset(edpe, 0, sizeof(edpe));
+  memset(nextvalue, 0, sizeof(nextvalue));
+  memset(indegree, 0, sizeof(indegree));
 
   for (int i = 1; i <= total_node; i++) {
+    double maxvalue = 0;
     for (int j = 0; j < edgelist[i].size(); j++) {
       Edge e = edgelist[i][j];
+      maxvalue = max(e.cost, maxvalue);
       for (int k = 1; k <= period_times; k++)
         degree[e.to][k] = degree[e.to][k] + 1;
+        indegree[e.to] = indegree[e.to] + 1;
     }
+    nextvalue[i] = maxvalue;
   }
+
+  initTopologyMap();
 }
 
 
@@ -144,6 +199,8 @@ void solve(int total_pe, int period_times) {
           wn.cost = n.cost;
           wn.round = j;
           wn.starttime = 0;
+          wn.comparevalue = wn.cost + nextvalue[wn.id];
+          wn.topologyorder = maptopology[wn.id];
           nodewaiting.push(wn);
         }
         vis[n.id][j] = true;
@@ -163,7 +220,7 @@ void solve(int total_pe, int period_times) {
     RunningNode top = perunning.top();
     perunning.pop();
     #if LZD == 1
-      printf("%d %.3lf %.3lf %d\n", top.id, top.starttime, top.cost, top.peid);
+      printf("%c%d\t%d\t%.3lf\t%.3lf\n", (top.id + 'A' - 1), top.round, top.peid, top.starttime, top.endtime);
     #endif
     total_time = max(top.endtime, total_time);
     edpe[top.peid] = max(edpe[top.peid], top.endtime);
@@ -181,6 +238,8 @@ void solve(int total_pe, int period_times) {
           wn.cost = nodelist[e.to].cost;
           wn.starttime = top.endtime + e.cost;
           wn.round = top.round;
+          wn.comparevalue = wn.cost + nextvalue[wn.id];
+          wn.topologyorder = maptopology[wn.id];
           nodewaiting.push(wn);
           vis[e.to][top.round] = true;
         }
@@ -229,7 +288,8 @@ void solve(int total_pe, int period_times) {
         printf("%d %d %.3lf\n", edgelist[i][j].from, edgelist[i][j].to, edgelist[i][j].memory);
     }
     printf("%d %d\n", pecount + 1, total_node);
+    printf("Total PE:\t%d\nTotal time:\t%.2f\nCPU Used Ratio:\t%.2f\n", pecount + 1, (total_time) / (1), cpuratio);
   #else
-    printf("Total PE:\t%d\nTotal time:\t%.2f\nCPU Used Ratio:\t%.2f\n", pecount + 1, (total_time) / (1e6), cpuratio);
+    printf("Total PE:\t%d\nTotal time:\t%.2f\nCPU Used Ratio:\t%.2f\n", pecount + 1, (total_time) / (1), cpuratio);
   #endif
 }
