@@ -126,7 +126,6 @@ void initTopologyMap() {
     q.pop();
     maptopology[f.id] = iter;
 
-    iter = iter + 1;
     count = count - 1;
 
     for (int i = 0; i < edgelist[f.id].size(); i++) {
@@ -139,6 +138,7 @@ void initTopologyMap() {
 
     if (count == 0) {
       count = q.size();
+      iter = iter + 1;
     }
   }
 }
