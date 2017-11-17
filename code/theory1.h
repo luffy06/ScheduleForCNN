@@ -172,7 +172,6 @@ Result solveOnce(int pe_upbound) {
 void solve(int total_pe, int period_times) {
   init();
   Result res = solveOnce(total_pe);
-  
   int meanwhile_period = total_pe / res.pecount;
   int total_turn = (period_times % meanwhile_period == 0 ? period_times / meanwhile_period : period_times / meanwhile_period + 1);
   res.totaltime = total_turn * res.totaltime / (1e6);

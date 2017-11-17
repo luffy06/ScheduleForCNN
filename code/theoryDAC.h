@@ -50,6 +50,7 @@
 using namespace std;
 
 #define MAXN 50000            // the number of node
+#define MINN 70               // the number of total pe
 #define MINR 100              // the iteration time in one period
 #define MAXR 500
 #define LIMITEDRATIO 0.9
@@ -187,11 +188,14 @@ struct NodeGenerator {
     sort(nodelist + 1, nodelist + totalnode + 1, cmpById);
     assert(down != 0);
     double res = up / down;
+    printf("%.3f %.3f %.3f\n", up, down, res);
+    assert(1 == 0);
     return res;
   }
 
   PP getStartTime(int id, int numb, Node nodelist[MAXN]) {
     priority_queue<Node, std::vector<Node>, NodeComparation> q;
+    assert(maxpe <= MINN);
     vector<Node> tmp;
     double targetstarttime = -1;
     int targetpeid = -1;
@@ -251,6 +255,7 @@ struct NodeGenerator {
     for (int i = 1; i <= totalnode; i++)
     for (upround = 1; upround <= maxround; upround ++) {
       double useratio = init(nodelist);
+      printf("%.3f\n", useratio);
       if (useratio >= LIMITEDRATIO) {
         return ;
       }
@@ -378,12 +383,12 @@ void init(int total_pe) {
   // maxpe = maxpe + 1;
   if (total_pe >= maxpe) {
     ng_nor = NodeGenerator(total_node, maxpe, upround, nodelist);
-    // printf("Nor: Max PE:%d UpBound:%.3f UpRound:%d\n", maxpe, ng_nor.upbound, ng_nor.upround);
+    printf("Nor: Max PE:%d UpBound:%.3f UpRound:%d\n", maxpe, ng_nor.upbound, ng_nor.upround);
   }
   hasrest = (total_pe % maxpe != 0 ? true : false);
   if (hasrest) {
     ng_res = NodeGenerator(total_node, total_pe % maxpe, upround, nodelist);
-    // printf("Res: Max PE:%d UpBound:%.3f UpRound:%d\n", maxpe, ng_res.upbound, ng_res.upround);
+    printf("Res: Max PE:%d UpBound:%.3f UpRound:%d\n", maxpe, ng_res.upbound, ng_res.upround);
   }
 }
 

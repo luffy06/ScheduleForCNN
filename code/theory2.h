@@ -28,7 +28,7 @@ using namespace std;
 #define MAXR 500
 #define MOD 100
 
-#define LZD 1
+#define LZD 0
 
 typedef pair<int, int> P;
 
@@ -77,8 +77,11 @@ struct WaitingNode {
   friend bool operator< (WaitingNode a, WaitingNode b) {
     if (a.topologyorder != b.topologyorder)
       return a.topologyorder > b.topologyorder;
-    // return a.comparevalue < b.comparevalue;
-    return a.cost > b.cost;
+    // if (a.comparevalue != b.comparevalue)
+    //   return a.comparevalue < b.comparevalue;
+    if (a.cost != b.cost)
+      return a.cost > b.cost;
+    return a.round > b.round;
   }
 };
 
@@ -290,6 +293,6 @@ void solve(int total_pe, int period_times) {
     printf("%d %d\n", pecount + 1, total_node);
     printf("Total PE:\t%d\nTotal time:\t%.2f\nCPU Used Ratio:\t%.2f\n", pecount + 1, (total_time) / (1), cpuratio);
   #else
-    printf("Total PE:\t%d\nTotal time:\t%.2f\nCPU Used Ratio:\t%.2f\n", pecount + 1, (total_time) / (1), cpuratio);
+    printf("Total PE:\t%d\nTotal time:\t%.2f\nCPU Used Ratio:\t%.2f\n", pecount + 1, (total_time) / (1e6), cpuratio);
   #endif
 }

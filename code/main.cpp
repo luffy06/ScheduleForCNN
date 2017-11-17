@@ -33,7 +33,7 @@ void input() {
   int line, trash;
 #if experiment == 1
   scanf("%d%d", &total_node, &line);
-  total_pe = 16;
+  total_pe = 256;
   period_times = 500;
   #if theory == 3
     upround = 100;
@@ -45,7 +45,7 @@ void input() {
 #endif
 
 #if LZD == 1
-  period_times = 1;
+  period_times = 8;
 #endif
 
   for (int i = 1; i <= total_node; i++) {
@@ -65,6 +65,7 @@ void input() {
     from = from + 1;
     to = to + 1;
     cost = nodelist[from].cost * rate;
+    // cost = memory;
     edgelist[from].push_back(Edge(from, to, cost, memory));
   }
 }
