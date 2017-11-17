@@ -149,8 +149,8 @@ struct NodeGenerator {
         starttable.push_back(n);
       }
     }
-    for (int i = 0; i < starttable.size(); i++)
-      starttable[i].show();
+    // for (int i = 0; i < starttable.size(); i++)
+    //   starttable[i].show();
     sort(starttable.begin(), starttable.end(), cmpById);
     // calculate the use ratio of cpu
     assert(upbound != 0);
@@ -319,7 +319,7 @@ void init(int total_pe) {
 
   getTopology();
   ng = NodeGenerator(total_node, total_pe, upround, nodelist);
-  printf("Max PE:%d UpBound:%.3f UpRound:%d\n", ng.maxpe, ng.upbound, ng.upround);
+  // printf("Max PE:%d UpBound:%.3f UpRound:%d\n", ng.maxpe, ng.upbound, ng.upround);
 }
 
 void test(int total_pe) {
@@ -351,9 +351,8 @@ void solve(int total_pe, int period_times) {
       for (; nodelist[e.to].starttime < starttime; nodelist[e.to].copy(ng.generateNextNode(nodelist[e.to], nodelist)));
     }
   }
-
-  for (int i = 1; i <= total_node; i++)
-    nodelist[i].show();
+  // for (int i = 1; i <= total_node; i++)
+  //   nodelist[i].show();
 
   assert(lastid > 0 && lastid <= total_node);
   int firstid = topology[0];
@@ -371,5 +370,5 @@ void solve(int total_pe, int period_times) {
   double down = total_time * total_pe;
   assert(down != 0);
   double cpuratio = up / down;
-  printf("Total PE:\t%d\nTotal time:\t%.2f\nCPU Used Ratio:\t%.2f\tPrelogue:%d\n", total_pe, (total_time) / (1), cpuratio, prelogue);
+  printf("Total PE:\t%d\nTotal time:\t%.2f\nCPU Used Ratio:\t%.2f\tPrelogue:%d\n", total_pe, (total_time) / (1e6), cpuratio, prelogue);
 }

@@ -54,7 +54,6 @@ using namespace std;
 #define LIMITEDRATIO 0.9
 
 typedef pair<int, int> P;
-typedef pair<double, int> PP;
 
 void testInput() {
   int t;
@@ -219,54 +218,6 @@ struct NodeGenerator {
     double res = up / down;
     return res;
   }
-
-  // PP getStartTime(int id, int numb, Node nodelist[MAXN]) {
-  //   priority_queue<Node, std::vector<Node>, NodeComparation> q;
-  //   vector<Node> tmp;
-  //   double targetstarttime = -1;
-  //   int targetpeid = -1;
-  //   for (int i = 0; i < maxpe; i++) {
-  //     Node n = Node(0, 0);
-  //     n.peid = i;
-  //     n.setTime(0, 0);
-  //     q.push(n);
-  //   }
-  //   sort(nodelist + 1, nodelist + totalnode + 1, cmpByCost);
-  //   for (int i = 1; i <= totalnode; i++) {
-  //     for (int j = 1; j <= upround; j++) {
-  //       Node emp = q.top();
-  //       q.pop();
-
-  //       Node n = Node();
-  //       n.copy(nodelist[i]);
-  //       n.round = j;
-  //       n.peid = emp.peid;
-  //       n.setTime(emp.endtime, emp.endtime + n.cost);
-  //       q.push(n);
-  //       tmp.push_back(n);
-  //     }
-  //   }
-  //   sort(nodelist + 1, nodelist + totalnode + 1, cmpById);
-  //   sort(tmp.begin(), tmp.end(), cmpByPE);
-  //   int nowpeid = -1, nowtime = 0;
-  //   for (int i = 0; i < tmp.size(); i++) {
-  //     Node k = tmp[i];
-  //     if (k.peid != nowpeid) {
-  //       nowpeid = k.peid;
-  //       nowtime = 0;
-  //     }
-  //     k.setTime(nowtime, nowtime + k.cost);
-  //     nowtime = k.endtime;
-  //     tmp[i].copy(k);
-  //     if (k.id == id && k.round == numb) {
-  //       targetstarttime = k.starttime;
-  //       targetpeid = k.peid;
-  //       break;
-  //     }
-  //   }
-  //   assert(targetstarttime >= 0);
-  //   return make_pair(targetstarttime, targetpeid);
-  // }
 
   /*
   * calculate group
