@@ -14,7 +14,7 @@ struct Result {
   }
 };
 
-#define theory 3
+#define theory 4
 #define experiment 1
 const double rate = 0.2;
 
@@ -22,22 +22,28 @@ const double rate = 0.2;
   #include "theory1.h"
 #elif theory == 2
   #include "theory2.h"
-#else
+#elif theory == 3
   #include "theory3.h"
+#else
+  #include "theoryDAC.h"
 #endif
 
 int total_pe, period_times;
 
 void input() {
   srand((unsigned int)time(NULL));
-  int line, trash;
+  int line, trash, datatest;
 #if experiment == 1
   scanf("%d%d", &total_node, &line);
-  total_pe = 256;
-  period_times = 500;
-  #if theory == 3
-    upround = 100;
+  FILE* fp = fopen("config.in", "r");
+  char op[20];
+  fscanf(fp, "%s%d", op, &datatest);
+  fscanf(fp, "%s%d", op, &total_pe);
+  fscanf(fp, "%s%d", op, &period_times);
+  #if theory > 3
+    fscanf(fp, "%s%d", op, &upround);
   #endif
+  fclose(fp);
 #elif theory == 3
   scanf("%d%d%d%d%d", &total_node, &line, &total_pe, &period_times, &upround);
 #else
@@ -64,8 +70,10 @@ void input() {
     // memory = rand() % 100 + 100;
     from = from + 1;
     to = to + 1;
-    cost = nodelist[from].cost * rate;
-    // cost = memory;
+    if (datatest == 0)
+      cost = nodelist[from].cost * rate;
+    else
+      cost = memory;
     edgelist[from].push_back(Edge(from, to, cost, memory));
   }
 }
