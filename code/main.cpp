@@ -40,7 +40,9 @@ void input() {
   fscanf(fp, "%s%d", op, &datatest);
   fscanf(fp, "%s%d", op, &total_pe);
   fscanf(fp, "%s%d", op, &period_times);
-  #if theory > 3
+  #if theory == 3
+    fscanf(fp, "%s%d", op, &upround);
+  #elif theory == 4
     fscanf(fp, "%s%d", op, &upround);
   #endif
   fclose(fp);
