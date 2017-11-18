@@ -12,7 +12,7 @@ using namespace std;
 
 #define MAXN 6600             // the number of node
 #define MAXR 505
-#define LIMITEDRATIO 0.9
+#define LIMITEDRATIO 0.1
 
 typedef pair<int, int> P;
 
