@@ -52,10 +52,6 @@ void input() {
   scanf("%d%d%d%d%d", &total_node, &line, &total_pe, &period_times, &trash);
 #endif
 
-#if LZD == 1
-  period_times = 8;
-#endif
-
   for (int i = 1; i <= total_node; i++) {
     double cost;
     char name[200];

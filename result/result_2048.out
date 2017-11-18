@@ -1,0 +1,153 @@
+Dealing with LeNet.in
+######### Using Theory2 #########
+Total PE: 2048 Total time: 0.19 CPU Used Ratio: 0.45
+######### End #########
+######### Using Theory3 #########
+Total PE: 2048 Total time: 1.65 CPU Used Ratio: 0.04 NOR Prelogue:27 RES Prelogue:41
+######### End #########
+######### Using TheoryDAC #########
+Total PE: 2048 Total time: 2.74 CPU Used Ratio: 0.02 Prelogue:21
+######### End #########
+
+Dealing with alexnet_mnist.in
+######### Using Theory2 #########
+Total PE: 2048 Total time: 3.86 CPU Used Ratio: 0.51
+######### End #########
+######### Using Theory3 #########
+Total PE: 2048 Total time: 53.18 CPU Used Ratio: 0.03 NOR Prelogue:57 RES Prelogue:53
+######### End #########
+######### Using TheoryDAC #########
+Total PE: 2048 Total time: 106.82 CPU Used Ratio: 0.02 Prelogue:44
+######### End #########
+
+Dealing with alexnet_oxflowers17.in
+######### Using Theory2 #########
+Total PE: 2048 Total time: 13.73 CPU Used Ratio: 0.43
+######### End #########
+######### Using Theory3 #########
+Total PE: 2048 Total time: 219.54 CPU Used Ratio: 0.02 NOR Prelogue:65 RES Prelogue:60
+######### End #########
+######### Using TheoryDAC #########
+Total PE: 2048 Total time: 320.87 CPU Used Ratio: 0.02 Prelogue:40
+######### End #########
+
+Dealing with cnn_sentence_classif.in
+######### Using Theory2 #########
+Total PE: 2048 Total time: 0.14 CPU Used Ratio: 0.43
+######### End #########
+######### Using Theory3 #########
+Total PE: 2048 Total time: 1.45 CPU Used Ratio: 0.04 NOR Prelogue:51 RES Prelogue:53
+######### End #########
+######### Using TheoryDAC #########
+Total PE: 2048 Total time: 2.18 CPU Used Ratio: 0.03 Prelogue:24
+######### End #########
+
+Dealing with convnet_highway_mnist.in
+######### Using Theory2 #########
+Total PE: 2048 Total time: 0.16 CPU Used Ratio: 0.41
+######### End #########
+######### Using Theory3 #########
+Total PE: 2048 Total time: 3.51 CPU Used Ratio: 0.02 NOR Prelogue:202 RES Prelogue:185
+######### End #########
+######### Using TheoryDAC #########
+Total PE: 2048 Total time: 4.90 CPU Used Ratio: 0.01 Prelogue:94
+######### End #########
+
+Dealing with funll_count_dense_model.in
+######### Using Theory2 #########
+Total PE: 2048 Total time: 0.00 CPU Used Ratio: 0.33
+######### End #########
+######### Using Theory3 #########
+Total PE: 2048 Total time: 0.03 CPU Used Ratio: 0.05 NOR Prelogue:40 RES Prelogue:36
+######### End #########
+######### Using TheoryDAC #########
+Total PE: 2048 Total time: 0.06 CPU Used Ratio: 0.03 Prelogue:30
+######### End #########
+
+Dealing with googlenet_oxflowers17.in
+######### Using Theory2 #########
+Total PE: 2048 Total time: 15.08 CPU Used Ratio: 0.53
+######### End #########
+######### Using Theory3 #########
+Total PE: 2048 Total time: 163.36 CPU Used Ratio: 0.05 RES Prelogue:80
+######### End #########
+######### Using TheoryDAC #########
+Total PE: 2048 Total time: 337.13 CPU Used Ratio: 0.02 Prelogue:60
+######### End #########
+
+Dealing with vgg_A-LEN.in
+######### Using Theory2 #########
+Total PE: 2048 Total time: 41.84 CPU Used Ratio: 0.44
+######### End #########
+######### Using Theory3 #########
+Total PE: 2048 Total time: 500.07 CPU Used Ratio: 0.04 NOR Prelogue:73 RES Prelogue:54
+######### End #########
+######### Using TheoryDAC #########
+Total PE: 2048 Total time: 732.33 CPU Used Ratio: 0.02 Prelogue:47
+######### End #########
+
+Dealing with vgg_A.in
+######### Using Theory2 #########
+Total PE: 2048 Total time: 22.35 CPU Used Ratio: 0.40
+######### End #########
+######### Using Theory3 #########
+Total PE: 2048 Total time: 301.36 CPU Used Ratio: 0.03 NOR Prelogue:76 RES Prelogue:68
+######### End #########
+######### Using TheoryDAC #########
+Total PE: 2048 Total time: 403.35 CPU Used Ratio: 0.02 Prelogue:48
+######### End #########
+
+Dealing with vgg_B.in
+######### Using Theory2 #########
+Total PE: 2048 Total time: 33.55 CPU Used Ratio: 0.42
+######### End #########
+######### Using Theory3 #########
+Total PE: 2048 Total time: 507.82 CPU Used Ratio: 0.03 NOR Prelogue:90 RES Prelogue:60
+######### End #########
+######### Using TheoryDAC #########
+Total PE: 2048 Total time: 589.55 CPU Used Ratio: 0.02 Prelogue:47
+######### End #########
+
+Dealing with vgg_C.in
+######### Using Theory2 #########
+Total PE: 2048 Total time: 34.90 CPU Used Ratio: 0.42
+######### End #########
+######### Using Theory3 #########
+Total PE: 2048 Total time: 640.91 CPU Used Ratio: 0.02 NOR Prelogue:105 RES Prelogue:110
+######### End #########
+######### Using TheoryDAC #########
+Total PE: 2048 Total time: 697.45 CPU Used Ratio: 0.02 Prelogue:54
+######### End #########
+
+Dealing with vgg_D.in
+######### Using Theory2 #########
+Total PE: 2048 Total time: 47.40 CPU Used Ratio: 0.42
+######### End #########
+######### Using Theory3 #########
+Total PE: 2048 Total time: 662.98 CPU Used Ratio: 0.03 NOR Prelogue:87 RES Prelogue:91
+######### End #########
+######### Using TheoryDAC #########
+Total PE: 2048 Total time: 903.51 CPU Used Ratio: 0.02 Prelogue:56
+######### End #########
+
+Dealing with vgg_E.in
+######### Using Theory2 #########
+Total PE: 2048 Total time: 56.29 CPU Used Ratio: 0.42
+######### End #########
+######### Using Theory3 #########
+Total PE: 2048 Total time: 392.06 CPU Used Ratio: 0.06 NOR Prelogue:75 RES Prelogue:73
+######### End #########
+######### Using TheoryDAC #########
+Total PE: 2048 Total time: 1002.86 CPU Used Ratio: 0.02 Prelogue:54
+######### End #########
+
+Dealing with vgg_defoult.in
+######### Using Theory2 #########
+Total PE: 2048 Total time: 45.78 CPU Used Ratio: 0.42
+######### End #########
+######### Using Theory3 #########
+Total PE: 2048 Total time: 450.64 CPU Used Ratio: 0.04 NOR Prelogue:75 RES Prelogue:61
+######### End #########
+######### Using TheoryDAC #########
+Total PE: 2048 Total time: 948.37 CPU Used Ratio: 0.02 Prelogue:52
+######### End #########
