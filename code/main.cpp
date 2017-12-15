@@ -52,6 +52,7 @@ void input() {
   scanf("%d%d%d%d%d", &total_node, &line, &total_pe, &period_times, &trash);
 #endif
 
+  double max_edge = -1;
   for (int i = 1; i <= total_node; i++) {
     double cost;
     char name[200];
@@ -59,7 +60,9 @@ void input() {
     scanf("%d%s%s%lf", &nodelist[i].id, name, op, &cost);
     nodelist[i].id = nodelist[i].id + 1;
     nodelist[i].cost = cost;
+    max_edge = max(max_edge, cost);
   }
+  printf("%.3f\n", max_edge);
 
   for (int i = 0; i < line; i++) {
     int from, to;
