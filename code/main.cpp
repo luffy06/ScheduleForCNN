@@ -18,6 +18,7 @@ struct Result {
 #define EXPERIMENT 1
 const double DRAMSPEED = 10;
 const double CACHESPEED = 100;
+const double CACHESIZE = 1000;
 
 #if THEORY == 1
   #include "theory.h"

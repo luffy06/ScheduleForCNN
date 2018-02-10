@@ -12,7 +12,7 @@ using namespace std;
 
 #define MAXN 6600             // the number of node
 #define MAXR 505
-#define LIMITEDRATIO 0.1
+#define LIMITEDRATIO 0.8
 
 typedef pair<int, int> P;
 
@@ -182,6 +182,7 @@ struct NodeGenerator {
       }
     }
     UpRound = TargetRound;
+    Init(NodeList);
   }
 
   Node FindInStartTable(int Numb, int Id) {
@@ -318,17 +319,16 @@ void Init(int TotalPE, int UpRound) {
 
   GetTopology();
   ng = NodeGenerator(TotalNode, TotalPE, UpRound, NodeList);
-  // printf("Max PE:%d UpBound:%.3f UpRound:%d\n", ng.maxpe, ng.upbound, ng.upround);
+  // printf("Max PE:%d UpBound:%.3f UpRound:%d\n", ng.MaxPE, ng.UpBound, ng.UpRound);
 }
 
 void test(int TotalPE, int UpRound) {
   Init(TotalPE, UpRound);
-  printf("TEST NOR\n");
   ng.test(NodeList);
 }
 
 void Solve(int TotalPE, int PeriodTimes, int UpRound) {
-  // test(TotalPE);
+  // test(TotalPE, UpRound);
   Init(TotalPE, UpRound);
   double TotalTime = 0;
 
@@ -350,8 +350,6 @@ void Solve(int TotalPE, int PeriodTimes, int UpRound) {
       for (; NodeList[e.To].StartTime < StartTime; NodeList[e.To].Copy(ng.GenerateNextNode(NodeList[e.To], NodeList)));
     }
   }
-  // for (int i = 1; i <= TotalNode; i++)
-  //   NodeList[i].show();
 
   assert(LastId > 0 && LastId <= TotalNode);
   int FirstId = Topology[0];
@@ -369,5 +367,5 @@ void Solve(int TotalPE, int PeriodTimes, int UpRound) {
   double Down = TotalTime * TotalPE;
   assert(Down != 0);
   double CPURatio = Up / Down;
-  printf("Total PE:\t%d\nTotal time:\t%.2f\nCPU Used Ratio:\t%.2f\tPrelogue:%d\n", TotalPE, (TotalTime) / (1e6), CPURatio, Prelogue);
+  printf("Total PE:\t%d\nTotal time:\t%.2f\nCPU Used Ratio:\t%.2f\tPrelogue:%d\n", TotalPE, TotalTime, CPURatio, Prelogue);
 }
