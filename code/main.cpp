@@ -1,4 +1,11 @@
+#include <cstdio>
+#include <cassert>
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
 
+using namespace std;
 
 struct Result {
   double totaltime;
@@ -16,9 +23,19 @@ struct Result {
 
 #define THEORY 2
 #define EXPERIMENT 1
+#define MAXN 6600             // the number of node
+#define MAXR 505
+#define LIMITEDRATIO 0.8
 const double DRAMSPEED = 10;
 const double CACHESPEED = 100;
 const double CACHESIZE = 1000;
+
+typedef pair<int, int> P;
+
+void TestInput() {
+  int t;
+  scanf("%d", &t);
+}
 
 #if THEORY == 1
   #include "theory.h"

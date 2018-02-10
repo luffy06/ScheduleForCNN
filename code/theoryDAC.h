@@ -1,27 +1,6 @@
 /*
   Exploiting_Parallelism_for_Convolutional_Connections_in_Processing-In-Memory_Architecture.pdf  
 */
-#include <cstdio>
-#include <cassert>
-#include <iostream>
-#include <vector>
-#include <queue>
-#include <algorithm>
-
-using namespace std;
-
-#define MAXN 6600             // the number of node
-#define MAXR 505
-#define LIMITEDRATIO 0.8
-
-typedef pair<int, int> P;
-
-void testInput() {
-  int t;
-  scanf("%d", &t);
-}
-
-
 struct Node {
   int Id;
   double Cost;
