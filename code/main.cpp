@@ -14,82 +14,64 @@ struct Result {
   }
 };
 
-#define theory 4
-#define experiment 1
-const double rate = 0.2;
+#define THEORY 2
+#define EXPERIMENT 1
+const double DRAMSPEED = 10;
+const double CACHESPEED = 100;
 
-#if theory == 1
-  #include "theory1.h"
-#elif theory == 2
-  #include "theory2.h"
-#elif theory == 3
-  #include "theory3.h"
-#else
+#if THEORY == 1
+  #include "theory.h"
+#elif THEORY == 2
   #include "theoryDAC.h"
+#elif THEORY == 3
+  #include "theoryLCTES.h"
 #endif
 
-int total_pe, period_times;
+int TotalPE, PeriodTimes, UpRound;
 
-void input() {
-  srand((unsigned int)time(NULL));
-  int line, trash, datatest;
-#if experiment == 1
-  scanf("%d%d", &total_node, &line);
-  FILE* fp = fopen("config.in", "r");
-  char op[20];
-  fscanf(fp, "%s%d", op, &datatest);
-  fscanf(fp, "%s%d", op, &total_pe);
-  fscanf(fp, "%s%d", op, &period_times);
-  #if theory == 3
-    fscanf(fp, "%s%d", op, &upround);
-  #elif theory == 4
-    fscanf(fp, "%s%d", op, &upround);
-  #endif
-  fclose(fp);
-#elif theory == 3
-  scanf("%d%d%d%d%d", &total_node, &line, &total_pe, &period_times, &upround);
-#else
-  scanf("%d%d%d%d%d", &total_node, &line, &total_pe, &period_times, &trash);
-#endif
-
-  double max_edge = -1;
-  for (int i = 1; i <= total_node; i++) {
-    double cost;
-    char name[200];
-    char op[200];
-    scanf("%d%s%s%lf", &nodelist[i].id, name, op, &cost);
-    nodelist[i].id = nodelist[i].id + 1;
-    nodelist[i].cost = cost;
-    max_edge = max(max_edge, cost);
-  }
-  printf("%.3f\n", max_edge);
-
-  for (int i = 0; i < line; i++) {
-    int from, to;
-    double cost, memory;
-    scanf("%d%d%lf", &from, &to, &memory);
-    // memory = rand() % 100 + 100;
-    from = from + 1;
-    to = to + 1;
-    if (datatest == 0)
-      cost = nodelist[from].cost * rate;
-    else
-      cost = memory;
-    edgelist[from].push_back(Edge(from, to, cost, memory));
-  }
+void ReadConfig() {
+  FILE* Fp = fopen("config.in", "r");
+  char Op[20];
+  fscanf(Fp, "%s%d", Op, &TotalPE);
+  fscanf(Fp, "%s%d", Op, &PeriodTimes);
+  fscanf(Fp, "%s%d", Op, &UpRound);
+  fclose(Fp);  
 }
 
-bool checkLoop() {
-  return true;
+void Input() {
+  srand((unsigned int)time(NULL));
+  int Line;
+#if EXPERIMENT == 1
+  scanf("%d%d", &TotalNode, &Line);
+  ReadConfig();
+#else
+  scanf("%d%d%d%d%d", &TotalNode, &Line, &TotalPE, &PeriodTimes, &UpRound);
+#endif
+
+  double MaxCost = -1;
+  for (int i = 1; i <= TotalNode; i++) {
+    double Cost;
+    char Name[200];
+    char Op[200];
+    scanf("%d%s%s%lf", &NodeList[i].Id, Name, Op, &Cost);
+    NodeList[i].Id = NodeList[i].Id + 1;
+    NodeList[i].Cost = Cost;
+    MaxCost = max(MaxCost, Cost);
+  }
+  printf("Max Edge:%.3f\n", MaxCost);
+
+  for (int i = 0; i < Line; i++) {
+    int From, To;
+    double Cost, Memory;
+    scanf("%d%d%lf", &From, &To, &Memory);
+    From = From + 1;
+    To = To + 1;
+    EdgeList[From].push_back(Edge(From, To, Cost, Memory));
+  }
 }
 
 int main() {
-  input();
-  if (checkLoop()) {
-    solve(total_pe, period_times);
-  }
-  else {
-    printf("There are some loops in this graph\n");
-  }
+  Input();
+  Solve(TotalPE, PeriodTimes, UpRound);
   return 0;
 }
