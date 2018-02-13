@@ -16,7 +16,14 @@ struct FinalResult {
   int RunOnDRAM;
   double CPURatio;
 
-  FinalResult() {}
+  FinalResult() {
+    TotalTime = 0;
+    Prelogue = 0;
+    Retiming = 0;
+    RunOnCache = 0;
+    RunOnDRAM = 0;
+    CPURatio = 0;
+  }
 
   FinalResult(int a, int b, int c, int d, int e, double f) {
     TotalTime = a;
@@ -25,6 +32,11 @@ struct FinalResult {
     RunOnCache = d;
     RunOnDRAM = e;
     CPURatio = f;
+  }
+
+  void Show() {
+    printf("TotalTime:%d\nPrelogue:%d\nRetiming:%d\nRunOnCache:%d\nRunOnDRAM:%d\nCPURatio:%.3f\n", 
+            TotalTime, Prelogue, Retiming, RunOnCache, RunOnDRAM, CPURatio);
   }
 };
 
@@ -39,10 +51,11 @@ struct FinalResult {
 const int INF = 0x3f3f3f3f;
 const double DRAMSPEED = 10;
 const double CACHESPEED = 100;
-const double CACHESIZE = 1000;
+const double CACHESIZE = 4;
 
 typedef pair<int, int> TwoInt;
 typedef pair<int, TwoInt> ThreeInt;
+typedef pair<TwoInt, TwoInt> FourInt;
 typedef pair<double, double> TowDouble;
 
 void TestInput() {
@@ -101,6 +114,7 @@ void Input() {
 
 int main() {
   Input();
-  Solve(TotalPE, PeriodTimes, UpRound);
+  FinalResult FR = Solve(TotalPE, PeriodTimes, UpRound);
+  FR.Show();
   return 0;
 }
