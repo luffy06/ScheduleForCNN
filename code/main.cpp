@@ -51,7 +51,7 @@ struct FinalResult {
 const int INF = 0x3f3f3f3f;
 const double DRAMSPEED = 10;
 const double CACHESPEED = 100;
-const double CACHESIZE = 4;
+const double CACHESIZE = 2;
 
 typedef pair<int, int> TwoInt;
 typedef pair<int, TwoInt> ThreeInt;
@@ -100,6 +100,10 @@ void Input() {
     NodeList[i].Cost = Cost;
     MaxCost = max(MaxCost, Cost);
   }
+
+  // for (int i = 1; i <= TotalNode; i++) {
+  //   NodeList[i].Cost = ceil((NodeList[i].Cost * 1.0 / MaxCost) * MAXM / 2);
+  // }
 
   for (int i = 0; i < Line; i++) {
     int From, To;

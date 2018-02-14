@@ -43,7 +43,10 @@ struct Node {
   }
 };
 
+Node NodeList[MAXN];
+
 typedef pair<Node, int> NodeInt;
+typedef pair<NodeInt, int> NodeTwoInt;
 
 struct Edge {
   int From;
@@ -103,6 +106,18 @@ bool CmpFourInt(FourInt a, FourInt b) {
   return a.second.second < b.second.second;
 }
 
+bool CmpEdgeByFromCost(Edge a, Edge b) {
+  if (NodeList[a.From].Cost != NodeList[b.From].Cost)
+    return NodeList[a.From].Cost > NodeList[b.From].Cost;
+  return a.From < b.From;
+}
+
+bool CmpEdgeByToCost(Edge a, Edge b) {
+  if (NodeList[a.To].Cost != NodeList[b.To].Cost)
+    return NodeList[a.To].Cost > NodeList[b.To].Cost;
+  return a.To < b.To;
+}
+
 struct NodeComparationByEndTime {
   bool operator() (const Node &a, const Node &b) const {
     if (a.EndTime != b.EndTime)
@@ -160,7 +175,7 @@ struct NodeGenerator {
   int Prelogue;
   int Retiming;
   vector<Node> StartTable;
-  vector<FourInt> Relations;
+  // vector<FourInt> Relations;
   int PELoc[MAXPE];
 
   NodeGenerator() {
@@ -328,7 +343,7 @@ struct NodeGenerator {
     return Node();
   }
 
-  bool HasUnCertainedNodes() {
+  bool HasUncertainedNodes() {
     for (int i = 0; i < StartTable.size(); ++ i)
       if (StartTable[i].StartTime == -1)
         return true;
@@ -346,64 +361,20 @@ struct NodeGenerator {
     Prelogue = (MaxRetiming - MinRetiming + 1) * UpBound;
   }
 
-  void PutRelation(int IdA, int RoundA, int IdB, int RoundB) {
-    Relations.push_back(make_pair(make_pair(IdA, RoundA), make_pair(IdB, RoundB)));
-  }
+  vector<Node> GetUncertainedNodes() {
+    vector<Node> UncertainedNodes;
+    for (int i = 0; i < StartTable.size(); ++ i)
+      if (StartTable[i].StartTime == -1)
+        UncertainedNodes.push_back(StartTable[i]);
 
-  void SortRelations() {
-    sort(Relations.begin(), Relations.end(), CmpFourInt);
-  }
-
-  bool ExistRelation(int IdA, int RoundA, int IdB) {
-    int L = 0;
-    int R = Relations.size() - 1;
-    assert(Relations[L].first.first <= IdA);
-    if (Relations[L].first.first < IdA) {
-      while (R - L > 1) {
-        int M = (L + R) >> 1;
-        if (Relations[M].first.first < IdA)
-          L = M;
-        else
-          R = M;
-      }
-      assert(Relations[R].first.first == IdA);
-      L = R;
-      R = Relations.size() - 1;
-    }
-    assert(Relations[L].first.second <= RoundA);
-    if (Relations[L].first.second < RoundA) {
-      while (R - L > 1) {
-        int M = (L + R) >> 1;
-        if (Relations[M].first.second < RoundA)
-          L = M;
-        else
-          R = M;
-      }
-      assert(Relations[R].first.second == RoundA);
-      L = R;
-      R = Relations.size() - 1;
-    }
-    if (Relations[L].second.first > IdB)
-      return false;
-    if (Relations[L].first.second == IdB)
-      return true;
-    while (R - L > 1) {
-      int M = (L + R) >> 1;
-      if (Relations[M].second.first < IdB)
-        L = M;
-      else
-        R = M;
-    }
-    if (Relations[R].second.first == IdB)
-      return true;
-    return false;
+    return UncertainedNodes;
   }
 
   void Show() {
     sort(StartTable.begin(), StartTable.end(), CmpByPE);
     int LastPEId = -1;
     int LastEndTime = 0;
-    printf("\nArrangement");
+    printf("Arrangement");
     for (int i = 0; i < StartTable.size(); ++ i) {
       if (StartTable[i].PEId != LastPEId) {
         if (LastEndTime != UpBound && LastPEId != -1) {
@@ -428,7 +399,7 @@ struct NodeGenerator {
       for (int j = LastEndTime; j < UpBound; ++ j)
         printf("-");
     }
-    printf("\n");
+    printf("\n\n");
   }
 };
 
@@ -439,7 +410,6 @@ int TotalNode;
 int TotalPE, PeriodTimes, UpRound;
 vector<Edge> EdgeList[MAXN];
 vector<Edge> ReEdgeList[MAXN];
-Node NodeList[MAXN];
 int DP[MAXN];
 TwoInt Trace[MAXN];
 vector<PEInterval> PEIntervals[MAXPE];
@@ -601,7 +571,6 @@ vector<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
   int Sum = 0;
   for (int i = 0; i < Goods.size(); ++ i)
     Sum = Sum + Goods[i];
-  printf("SS:%d\n", Sum);
   if (Sum <= BinSize) {
     for (int i = 0; i < Goods.size(); ++ i)
       ArrangedGoods.push_back(i);
@@ -630,10 +599,10 @@ vector<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
   sort(ArrangedGoods.begin(), ArrangedGoods.end());
   return ArrangedGoods;  
 }
-
-bool ArrangeConnectedNode(int FromNodeId, int KeyNodeTime, int KeyNodePEId, int KeyNodeRetiming, int Direction, int CacheCost, int DRAMCost, NodeGenerator &ng, Node &FromNode) {
+   
+bool ArrangeConnectedNode(int NodeId, int KeyNodeTime, int KeyNodePEId, int KeyNodeRetiming, int Direction, int CacheCost, int DRAMCost, NodeGenerator &ng, NodeInt &ArNode, int Condition) {
   assert(Direction == 1 || Direction == -1);
-  vector<int> Rounds = ng.GetNodeInRounds(FromNodeId, 1, Checked);
+  vector<int> Rounds = ng.GetNodeInRounds(NodeId, Condition, Checked);
   if (Rounds.size() == 0)
     return false;
 
@@ -647,12 +616,12 @@ bool ArrangeConnectedNode(int FromNodeId, int KeyNodeTime, int KeyNodePEId, int 
   int PeriodTime = ng.UpBound;
   // 选取最近的PE
   for (int j = 0; j < Rounds.size(); ++ j) {
-    Node FromNode = ng.GetNode(FromNodeId, Rounds[j]);
-    int PEId = FromNode.PEId;
+    Node ArNode = ng.GetNode(NodeId, Rounds[j]);
+    int PEId = ArNode.PEId;
     int Retiming = 0;
 
-    int StartTime = KeyNodeTime - Direction * (CacheCost + NodeList[FromNodeId].Cost);
-    int EndTime = StartTime + Direction * NodeList[FromNodeId].Cost;
+    int StartTime = KeyNodeTime - Direction * (CacheCost + NodeList[NodeId].Cost);
+    int EndTime = StartTime + Direction * NodeList[NodeId].Cost;
     if (StartTime > EndTime)
       swap(StartTime, EndTime);
     
@@ -664,7 +633,6 @@ bool ArrangeConnectedNode(int FromNodeId, int KeyNodeTime, int KeyNodePEId, int 
       for (int k = StartTime; k >= PeriodTime; k = k - PeriodTime)
         Retiming = Retiming + 1;
     }
-    printf("%d %d %d\n", Retiming, StartTime, EndTime);
     int Int = -1;
     for (int k = 0; k < PEIntervals[PEId].size(); ++ k) {
       if (PEIntervals[PEId][k].StartTime + Retiming * PeriodTime <= StartTime 
@@ -678,7 +646,7 @@ bool ArrangeConnectedNode(int FromNodeId, int KeyNodeTime, int KeyNodePEId, int 
       for (int i = 0; i < 2; ++ i) {
         if (Direction == 1) {
           for (int k = PEIntervals[PEId].size() - 1; k >= 0 ; -- k) {
-            if (PEIntervals[PEId][k].EndTime - PEIntervals[PEId][k].StartTime >= NodeList[FromNodeId].Cost
+            if (PEIntervals[PEId][k].EndTime - PEIntervals[PEId][k].StartTime >= NodeList[NodeId].Cost
               && PEIntervals[PEId][k].EndTime + (Retiming - i) * PeriodTime <= StartTime) {
                 Retiming = Retiming - i;
                 Int = k;
@@ -688,7 +656,7 @@ bool ArrangeConnectedNode(int FromNodeId, int KeyNodeTime, int KeyNodePEId, int 
         }
         else {
           for (int k = 0; k < PEIntervals[PEId].size(); ++ k) {
-            if (PEIntervals[PEId][k].EndTime - PEIntervals[PEId][k].StartTime >= NodeList[FromNodeId].Cost
+            if (PEIntervals[PEId][k].EndTime - PEIntervals[PEId][k].StartTime >= NodeList[NodeId].Cost
              && PEIntervals[PEId][k].StartTime + (Retiming + i) * PeriodTime >= EndTime) {
               Retiming = Retiming + i;
               Int = k;
@@ -701,22 +669,20 @@ bool ArrangeConnectedNode(int FromNodeId, int KeyNodeTime, int KeyNodePEId, int 
       assert(Int != -1);
       if (Direction == 1) {
         EndTime = PEIntervals[PEId][Int].EndTime + Retiming * PeriodTime;
-        StartTime = EndTime - NodeList[FromNodeId].Cost;
+        StartTime = EndTime - NodeList[NodeId].Cost;
       }
       else {
         StartTime = PEIntervals[PEId][Int].StartTime + Retiming * PeriodTime;
-        EndTime = StartTime + NodeList[FromNodeId].Cost;
+        EndTime = StartTime + NodeList[NodeId].Cost;
       }
     }
     
-    printf("%d %d %d\n", Retiming, StartTime, EndTime);
-    ng.Show();    
     int BinSize = 0;
     if (Direction == 1)
       BinSize = StartTime - PEIntervals[PEId][Int].StartTime - Retiming * PeriodTime;
     else
-      BinSize = PEIntervals[PEId][Int].EndTime + Retiming * PeriodTime - StartTime - NodeList[FromNodeId].Cost;
-    vector<Node> SamePENodes = ng.GetSamePEOtherNodes(PEId, FromNodeId, Rounds[j]);
+      BinSize = PEIntervals[PEId][Int].EndTime + Retiming * PeriodTime - StartTime - NodeList[NodeId].Cost;
+    vector<Node> SamePENodes = ng.GetSamePEOtherNodes(PEId, NodeId, Rounds[j]);
   
     vector<int> NodeSizes;
     for (int k = 0; k < SamePENodes.size(); ++ k)
@@ -727,17 +693,15 @@ bool ArrangeConnectedNode(int FromNodeId, int KeyNodeTime, int KeyNodePEId, int 
     for (int k = 0; k < ArrangedSet.size(); ++ k)
       Sum = Sum + NodeSizes[ArrangedSet[k]];
 
-    printf("%d\n", Sum);
     assert(Sum <= BinSize);
     if (Direction == 1) {
       StartTime = PEIntervals[PEId][Int].StartTime + Retiming * PeriodTime + Sum;
-      EndTime = StartTime + NodeList[FromNodeId].Cost;
+      EndTime = StartTime + NodeList[NodeId].Cost;
     }
     else {
       EndTime = PEIntervals[PEId][Int].EndTime + Retiming * PeriodTime - Sum;
-      StartTime = EndTime - NodeList[FromNodeId].Cost;
+      StartTime = EndTime - NodeList[NodeId].Cost;
     }
-    printf("%d %d %d\n", Retiming, StartTime, EndTime);
 
     if (Direction == 1 && (TargetStartTime == -1 || StartTime > TargetStartTime)) {
       TargetStartTime = StartTime;
@@ -757,27 +721,24 @@ bool ArrangeConnectedNode(int FromNodeId, int KeyNodeTime, int KeyNodePEId, int 
 
   assert(TargetRound != -1);
   if (Direction == 1)
-    PlaceInCache = (KeyNodeTime - (TargetStartTime - TargetRetiming * PeriodTime) - NodeList[FromNodeId].Cost) < DRAMCost;
+    PlaceInCache = (KeyNodeTime - (TargetStartTime - TargetRetiming * PeriodTime) - NodeList[NodeId].Cost) < DRAMCost;
   else
     PlaceInCache = ((TargetStartTime - TargetRetiming * PeriodTime) - KeyNodeTime) < DRAMCost;
-  FromNode = ng.GetNode(FromNodeId, TargetRound);
+  ArNode.first = ng.GetNode(NodeId, TargetRound);
+  ArNode.second = -1;
   if (KeyNodePEId != -1 && TargetPEId != KeyNodePEId)
     return false;
-  if (PEIntervals[TargetPEId][TargetInt].StartTime < TargetStartTime - TargetRetiming * PeriodTime)
-    PEIntervals[TargetPEId].push_back(PEInterval(TargetPEId, PEIntervals[TargetPEId][TargetInt].StartTime, TargetStartTime - TargetRetiming * PeriodTime));
-  if (TargetStartTime - TargetRetiming * PeriodTime + NodeList[FromNodeId].Cost < PEIntervals[TargetPEId][TargetInt].EndTime)
-    PEIntervals[TargetPEId].push_back(PEInterval(TargetPEId, TargetStartTime - TargetRetiming * PeriodTime + NodeList[FromNodeId].Cost, PEIntervals[TargetPEId][TargetInt].EndTime));
-  PEIntervals[TargetPEId].erase(PEIntervals[TargetPEId].begin() + TargetInt);
-  sort(PEIntervals[TargetPEId].begin(), PEIntervals[TargetPEId].end());
+  Checked[NodeId][TargetRound] = true;
 
-  Checked[FromNodeId][TargetRound] = true;
-  ng.SetNodeTime(FromNodeId, TargetRound, TargetRetiming + KeyNodeRetiming, TargetStartTime - TargetRetiming * PeriodTime, TargetStartTime  - TargetRetiming * PeriodTime + NodeList[FromNodeId].Cost);
-  FromNode = ng.GetNode(FromNodeId, TargetRound);
+  ArNode.first.Round = TargetRound;
+  ArNode.first.Retiming = TargetRetiming;
+  ArNode.first.SetTime(TargetStartTime, TargetStartTime + NodeList[NodeId].Cost);
+  ArNode.second = TargetInt;
   return PlaceInCache;
 }
 
 queue<Node> ArrangeKeyNode(Node KeyNode, NodeGenerator &ng) {
-  printf("Arrange KeyNode:%d\tRound:%d\tPEId:%d\n", KeyNode.Id, KeyNode.Round, KeyNode.PEId);
+  // printf("Arrange KeyNode:%d\tRound:%d\tPEId:%d\n", KeyNode.Id, KeyNode.Round, KeyNode.PEId);
   assert(KeyNode.PEId > 0 && KeyNode.PEId <= ng.NeedPE);
   Visit.push_back(KeyNode);
   queue<Node> CertainedNodes;
@@ -811,22 +772,25 @@ queue<Node> ArrangeKeyNode(Node KeyNode, NodeGenerator &ng) {
   assert(Placed == true); 
 
   vector<Edge> Edges;
-  vector<NodeInt> ReadyForCache;
+  vector<NodeTwoInt> ReadyForCache;
   int PeriodTime = ng.UpBound;
   int LCost = 0;
   int RCost = 0;
   int MaxRetiming = 0;
   // deal with in edge
   Edges = ReEdgeList[KeyNode.Id];
+  sort(Edges.begin(), Edges.end(), CmpEdgeByFromCost);
   for (int i = 0; i < Edges.size(); ++ i) {
     int FromNodeId = Edges[i].From;
-    printf("Arrange In-Edge:%d %d\n", FromNodeId, KeyNode.Id);
-    Node FromNode = Node();
-    if (ArrangeConnectedNode(FromNodeId, KeyNodeStartTime, -1, KeyNode.Retiming, 1, Edges[i].CacheTimeCost, Edges[i].DRAMTimeCost, ng, FromNode)) {
+    // printf("Arrange In-Edge:%d %d\n", FromNodeId, KeyNode.Id);
+    NodeInt FromNode = make_pair(Node(), -1);
+    if (ArrangeConnectedNode(FromNodeId, KeyNodeStartTime, -1, KeyNode.Retiming, 1, Edges[i].CacheTimeCost, Edges[i].DRAMTimeCost, ng, FromNode, 1)) {
+      if (FromNode.second == -1)
+        continue;
       ReadyForCache.push_back(make_pair(FromNode, Edges[i].Memory));
-      MaxRetiming = max(MaxRetiming, FromNode.Retiming);
+      MaxRetiming = max(MaxRetiming, FromNode.first.Retiming);
 
-      int Dis = KeyNodeStartTime - FromNode.StartTime - FromNode.Retiming * PeriodTime - NodeList[FromNodeId].Cost;
+      int Dis = KeyNodeStartTime - FromNode.first.StartTime - FromNode.first.Retiming * PeriodTime - NodeList[FromNodeId].Cost;
       int NLCost = min(KeyNodeStartTime, Dis);
       int NRCost = (Dis <= KeyNodeStartTime ? 0 : Dis - KeyNodeStartTime);
       while (NRCost >= PeriodTime)
@@ -854,16 +818,24 @@ queue<Node> ArrangeKeyNode(Node KeyNode, NodeGenerator &ng) {
 
     vector<int> NodeSizes;
     for (int i = 0; i < ReadyForCache.size(); ++ i) {
-      NodeSizes.push_back(NodeList[ReadyForCache[i].first.Id].Cost);
+      NodeSizes.push_back(NodeList[ReadyForCache[i].first.first.Id].Cost);
     }
     vector<int> ArrangedSet = ArrangeInFixedSize(NodeSizes, BinSize);
     RunOnCache = RunOnCache + ArrangedSet.size();
     RunOnDRAM = RunOnDRAM + ReadyForCache.size() - ArrangedSet.size();
 
     for (int i = ArrangedSet.size() - 1; i >= 0; -- i) {
-      Node ArNode = ReadyForCache[ArrangedSet[i]].first;
-      ng.PutRelation(ArNode.Id, ArNode.Round, KeyNode.Id, KeyNode.Round);
+      Node ArNode = ReadyForCache[ArrangedSet[i]].first.first;
+      int TargetInt = ReadyForCache[ArrangedSet[i]].first.second;
       CertainedNodes.push(ArNode);
+
+      if (PEIntervals[ArNode.PEId][TargetInt].StartTime < ArNode.StartTime - ArNode.Retiming * PeriodTime)
+        PEIntervals[ArNode.PEId].push_back(PEInterval(ArNode.PEId, PEIntervals[ArNode.PEId][TargetInt].StartTime, ArNode.StartTime - ArNode.Retiming * PeriodTime));
+      if (ArNode.StartTime - ArNode.Retiming * PeriodTime + NodeList[ArNode.Id].Cost < PEIntervals[ArNode.PEId][TargetInt].EndTime)
+        PEIntervals[ArNode.PEId].push_back(PEInterval(ArNode.PEId, ArNode.StartTime - ArNode.Retiming * PeriodTime + NodeList[ArNode.Id].Cost, PEIntervals[ArNode.PEId][TargetInt].EndTime));
+      PEIntervals[ArNode.PEId].erase(PEIntervals[ArNode.PEId].begin() + TargetInt);
+      sort(PEIntervals[ArNode.PEId].begin(), PEIntervals[ArNode.PEId].end());
+      ng.SetNodeTime(ArNode.Id, ArNode.Round, ArNode.Retiming + KeyNode.Retiming, ArNode.StartTime - ArNode.Retiming * PeriodTime, ArNode.StartTime  - ArNode.Retiming * PeriodTime + NodeList[ArNode.Id].Cost);
 
       int Memory = ReadyForCache[ArrangedSet[i]].second;
       int Dis = KeyNodeStartTime - ArNode.StartTime - ArNode.Retiming * PeriodTime - ArNode.Cost;
@@ -882,7 +854,7 @@ queue<Node> ArrangeKeyNode(Node KeyNode, NodeGenerator &ng) {
       ReadyForCache.erase(ReadyForCache.begin() + ArrangedSet[i]);
     }
     for (int i = 0; i < ReadyForCache.size(); ++ i) {
-      Node ArNode = ReadyForCache[i].first;
+      Node ArNode = ReadyForCache[i].first.first;
       Checked[ArNode.Id][ArNode.Round] = true;
       ng.SetNodeTime(ArNode.Id, ArNode.Round, 0, -1, -1);
     }
@@ -895,15 +867,18 @@ queue<Node> ArrangeKeyNode(Node KeyNode, NodeGenerator &ng) {
   RCost = 0;
   MaxRetiming = 0;
   Edges = EdgeList[KeyNode.Id];
+  sort(Edges.begin(), Edges.end(), CmpEdgeByToCost);
   for (int i = 0; i < Edges.size(); ++ i) {
     int ToNodeId = Edges[i].To;
-    printf("Arrange Out-Edge:%d %d\n", ToNodeId, KeyNode.Id);
-    Node ToNode = Node();
-    if (ArrangeConnectedNode(ToNodeId, KeyNodeEndTime, KeyNodePEId, KeyNode.Retiming, -1, Edges[i].CacheTimeCost, Edges[i].DRAMTimeCost, ng, ToNode)) {
+    // printf("Arrange Out-Edge:%d %d\n", ToNodeId, KeyNode.Id);
+    NodeInt ToNode = make_pair(Node(), -1);
+    if (ArrangeConnectedNode(ToNodeId, KeyNodeEndTime, KeyNodePEId, KeyNode.Retiming, -1, Edges[i].CacheTimeCost, Edges[i].DRAMTimeCost, ng, ToNode, 1)) {
+      if (ToNode.second == -1)
+        continue;
       ReadyForCache.push_back(make_pair(ToNode, Edges[i].Memory));
-      MaxRetiming = max(MaxRetiming, ToNode.Retiming);
+      MaxRetiming = max(MaxRetiming, ToNode.first.Retiming);
 
-      int Dis = ToNode.StartTime - KeyNodeEndTime;
+      int Dis = ToNode.first.StartTime - KeyNodeEndTime;
       int NRCost = min(PeriodTime - KeyNodeEndTime, Dis);
       int NLCost = (Dis <= PeriodTime - KeyNodeEndTime ? 0 : Dis - PeriodTime + KeyNodeEndTime);
       while (NLCost >= PeriodTime)
@@ -929,16 +904,24 @@ queue<Node> ArrangeKeyNode(Node KeyNode, NodeGenerator &ng) {
     
     vector<int> NodeSizes;
     for (int i = 0; i < ReadyForCache.size(); ++ i) {
-      NodeSizes.push_back(NodeList[ReadyForCache[i].first.Id].Cost);
+      NodeSizes.push_back(NodeList[ReadyForCache[i].first.first.Id].Cost);
     }
     vector<int> ArrangedSet = ArrangeInFixedSize(NodeSizes, BinSize);
     RunOnCache = RunOnCache + ArrangedSet.size();
     RunOnDRAM = RunOnDRAM + ReadyForCache.size() - ArrangedSet.size();
 
     for (int i = ArrangedSet.size() - 1; i >= 0; -- i) {
-      Node ArNode = ReadyForCache[ArrangedSet[i]].first;
-      ng.PutRelation(KeyNode.Id, KeyNode.Round, ArNode.Id, ArNode.Round);
+      Node ArNode = ReadyForCache[ArrangedSet[i]].first.first;
+      int TargetInt = ReadyForCache[ArrangedSet[i]].first.second;
       CertainedNodes.push(ArNode);
+
+      if (PEIntervals[ArNode.PEId][TargetInt].StartTime < ArNode.StartTime - ArNode.Retiming * PeriodTime)
+        PEIntervals[ArNode.PEId].push_back(PEInterval(ArNode.PEId, PEIntervals[ArNode.PEId][TargetInt].StartTime, ArNode.StartTime - ArNode.Retiming * PeriodTime));
+      if (ArNode.StartTime - ArNode.Retiming * PeriodTime + NodeList[ArNode.Id].Cost < PEIntervals[ArNode.PEId][TargetInt].EndTime)
+        PEIntervals[ArNode.PEId].push_back(PEInterval(ArNode.PEId, ArNode.StartTime - ArNode.Retiming * PeriodTime + NodeList[ArNode.Id].Cost, PEIntervals[ArNode.PEId][TargetInt].EndTime));
+      PEIntervals[ArNode.PEId].erase(PEIntervals[ArNode.PEId].begin() + TargetInt);
+      sort(PEIntervals[ArNode.PEId].begin(), PEIntervals[ArNode.PEId].end());
+      ng.SetNodeTime(ArNode.Id, ArNode.Round, ArNode.Retiming + KeyNode.Retiming, ArNode.StartTime - ArNode.Retiming * PeriodTime, ArNode.StartTime  - ArNode.Retiming * PeriodTime + NodeList[ArNode.Id].Cost);
 
       int Memory = ReadyForCache[ArrangedSet[i]].second;
       int Dis = ArNode.StartTime - KeyNodeEndTime;
@@ -958,12 +941,11 @@ queue<Node> ArrangeKeyNode(Node KeyNode, NodeGenerator &ng) {
     }
 
     for (int i = 0; i < ReadyForCache.size(); ++ i) {
-      Node ArNode = ReadyForCache[i].first;
+      Node ArNode = ReadyForCache[i].first.first;
       Checked[ArNode.Id][ArNode.Round] = true;
       ng.SetNodeTime(ArNode.Id, ArNode.Round, 0, -1, -1);
     }
   }
-  ng.Show();
   return CertainedNodes;
 }
 
@@ -1014,9 +996,17 @@ void SpreadKeyNodeSet(vector<Node> KeyNodeSet, NodeGenerator &ng) {
   }
 }
 
+bool CheckIfUncertain(int NodeId, vector<Node> UncertainedNodes) {
+  for (int i = 0; i < UncertainedNodes.size(); ++ i) 
+    if (UncertainedNodes[i].Id == NodeId)
+      return true;
+  return false;
+}
+
 void AscertainNodes(NodeGenerator &ng) {
-  if (!ng.HasUnCertainedNodes())
+  if (!ng.HasUncertainedNodes())
     return ;
+  vector<Node> UncertainedNodes = ng.GetUncertainedNodes();
 
   int PeriodTime = ng.UpBound;
   for (int i = 0; i < Visit.size(); ++ i) {
@@ -1024,30 +1014,68 @@ void AscertainNodes(NodeGenerator &ng) {
 
     vector<Edge> Edges;
     Edges = ReEdgeList[KeyNode.Id];
-    for (int i = 0; i < Edges.size(); i++) {
-      int FromNodeId = Edges[i].From;
-      if (ng.ExistRelation(KeyNode.Id, KeyNode.Round, FromNodeId))
+    sort(Edges.begin(), Edges.end(), CmpEdgeByFromCost);
+    for (int j = 0; j < Edges.size(); ++ j) {
+      int FromNodeId = Edges[j].From;
+      if (!CheckIfUncertain(FromNodeId, UncertainedNodes))
         continue;
-      vector<int> Rounds = ng.GetNodeInRounds(FromNodeId, 2, Checked);
-      assert(Rounds.size() > 0);
+      NodeInt FromNode = make_pair(Node(), -1);
+      ArrangeConnectedNode(FromNodeId, KeyNode.StartTime, -1, KeyNode.Retiming, 1, Edges[i].CacheTimeCost, Edges[i].DRAMTimeCost, ng, FromNode, 2);
+      assert(FromNode.second != -1);
 
-      int TargetRound = -1;
-      int TargetStartTime = -1;
-      for (int i = 0; i < Rounds.size(); ++ i) {
-        int StartTime = KeyNode.StartTime - Edges[i].CacheTimeCost - NodeList[FromNodeId].Cost;
-        int EndTime = StartTime + NodeList[FromNodeId].Cost;
-        int Retiming = 0;
+      Node ArNode = FromNode.first;
+      int TargetInt = FromNode.second;
+      if (PEIntervals[ArNode.PEId][TargetInt].StartTime < ArNode.StartTime - ArNode.Retiming * PeriodTime)
+        PEIntervals[ArNode.PEId].push_back(PEInterval(ArNode.PEId, PEIntervals[ArNode.PEId][TargetInt].StartTime, ArNode.StartTime - ArNode.Retiming * PeriodTime));
+      if (ArNode.StartTime - ArNode.Retiming * PeriodTime + NodeList[ArNode.Id].Cost < PEIntervals[ArNode.PEId][TargetInt].EndTime)
+        PEIntervals[ArNode.PEId].push_back(PEInterval(ArNode.PEId, ArNode.StartTime - ArNode.Retiming * PeriodTime + NodeList[ArNode.Id].Cost, PEIntervals[ArNode.PEId][TargetInt].EndTime));
+      PEIntervals[ArNode.PEId].erase(PEIntervals[ArNode.PEId].begin() + TargetInt);
+      sort(PEIntervals[ArNode.PEId].begin(), PEIntervals[ArNode.PEId].end());
+      ng.SetNodeTime(ArNode.Id, ArNode.Round, ArNode.Retiming + KeyNode.Retiming, ArNode.StartTime - ArNode.Retiming * PeriodTime, ArNode.StartTime  - ArNode.Retiming * PeriodTime + NodeList[ArNode.Id].Cost);
     
-        if (StartTime < 0) {
-          for (int k = StartTime; k < 0; k = k + PeriodTime)
-            Retiming = Retiming - 1;
+      bool Found = false;
+      for (int k = 0; k < UncertainedNodes.size(); ++ k) {
+        if (UncertainedNodes[k].Id == ArNode.Id && UncertainedNodes[k].Round == ArNode.Round) {
+          UncertainedNodes.erase(UncertainedNodes.begin() + k);
+          Found = true;
+          break;
         }
-        // TODO
-
-
       }
+      assert(Found == true);
+    }
+
+    Edges = EdgeList[KeyNode.Id];
+    sort(Edges.begin(), Edges.end(), CmpEdgeByToCost);
+    for (int j = 0; j < Edges.size(); j++) {
+      int ToNodeId = Edges[j].To;
+      if (!CheckIfUncertain(ToNodeId, UncertainedNodes))
+        continue;
+      NodeInt ToNode = make_pair(Node(), -1);
+      ArrangeConnectedNode(ToNodeId, KeyNode.EndTime, KeyNode.PEId, KeyNode.Retiming, -1, Edges[i].CacheTimeCost, Edges[i].DRAMTimeCost, ng, ToNode, 2);
+      assert(ToNode.second != -1);
+
+      Node ArNode = ToNode.first;
+      int TargetInt = ToNode.second;
+      if (PEIntervals[ArNode.PEId][TargetInt].StartTime < ArNode.StartTime - ArNode.Retiming * PeriodTime)
+        PEIntervals[ArNode.PEId].push_back(PEInterval(ArNode.PEId, PEIntervals[ArNode.PEId][TargetInt].StartTime, ArNode.StartTime - ArNode.Retiming * PeriodTime));
+      if (ArNode.StartTime - ArNode.Retiming * PeriodTime + NodeList[ArNode.Id].Cost < PEIntervals[ArNode.PEId][TargetInt].EndTime)
+        PEIntervals[ArNode.PEId].push_back(PEInterval(ArNode.PEId, ArNode.StartTime - ArNode.Retiming * PeriodTime + NodeList[ArNode.Id].Cost, PEIntervals[ArNode.PEId][TargetInt].EndTime));
+      PEIntervals[ArNode.PEId].erase(PEIntervals[ArNode.PEId].begin() + TargetInt);
+      sort(PEIntervals[ArNode.PEId].begin(), PEIntervals[ArNode.PEId].end());
+      ng.SetNodeTime(ArNode.Id, ArNode.Round, ArNode.Retiming + KeyNode.Retiming, ArNode.StartTime - ArNode.Retiming * PeriodTime, ArNode.StartTime  - ArNode.Retiming * PeriodTime + NodeList[ArNode.Id].Cost);
+
+      bool Found = false;
+      for (int k = 0; k < UncertainedNodes.size(); ++ k) {
+        if (UncertainedNodes[k].Id == ArNode.Id && UncertainedNodes[k].Round == ArNode.Round) {
+          UncertainedNodes.erase(UncertainedNodes.begin() + k);
+          Found = true;
+          break;
+        }
+      }
+      assert(Found == true);
     }
   }
+  assert(ng.HasUncertainedNodes() == false);
 }
 
 int CalcTotalTime(int Prelogue, int PeriodTime, int UpRound, int UpBound) {
@@ -1065,9 +1093,10 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
     printf("UpBound:%d\n", NgList[i].UpBound);
     NgList[i].Show();
     SpreadKeyNodeSet(KeyNodeSet, NgList[i]);
-    NgList[i].SortRelations();
+    printf("Spread KeyNode Set\n");
     NgList[i].Show();
     AscertainNodes(NgList[i]);
+    printf("Ascertain Nodes\n");
     NgList[i].Show();
     NgList[i].CalcPrelogue();
   }
