@@ -410,8 +410,7 @@ int TotalNode;
 int TotalPE, PeriodTimes, UpRound;
 vector<Edge> EdgeList[MAXN];
 vector<Edge> ReEdgeList[MAXN];
-int DP[MAXN];
-TwoInt Trace[MAXN];
+int DP[MAXN][CACHESIZE];
 vector<PEInterval> PEIntervals[MAXPE];
 bool Checked[MAXN][MAXR];
 int Cache[MAXPE][MAXM << 2];
@@ -452,18 +451,20 @@ void PushDown(int p, int rt) {
 }
 
 void Build(int p, int l, int r, int rt) {
+  assert(l <= r);
   if (l == r) {
     Cache[p][rt] = 0;
     return ;
   }
   Lazy[p][rt] = 0;
-  int m = (l + r) << 1;
+  int m = (l + r) >> 1;
   Build(p, l, m, rt << 1);
   Build(p, m + 1, r, rt << 1 | 1);
   PushUp(p, rt);
 }
 
 void Update(int p, int l, int r, int rt, int L, int R, int add) {
+  assert(l <= r);
   if (L <= l && r <= R) {
     Cache[p][rt] = Cache[p][rt] + add;
     Lazy[p][rt] = add;
@@ -479,6 +480,7 @@ void Update(int p, int l, int r, int rt, int L, int R, int add) {
 }
 
 int Query(int p, int l, int r, int rt, int L, int R) {
+  assert(l <= r);
   if (L <= l && r <= R) {
     return Cache[p][rt];
   }
@@ -576,34 +578,43 @@ vector<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
       ArrangedGoods.push_back(i);
     return ArrangedGoods;
   }
-  for (int i = 0; i <= BinSize; ++ i) {
-    DP[i] = 0;
-    Trace[i] = make_pair(i, i);
-  }
+
+  memset(DP, 0, sizeof(DP));
 
   for (int i = 0; i < Goods.size(); ++ i) {
-    for (int j = BinSize; j >= Goods[i]; -- j) {
-      if (DP[j - Goods[i]] + Goods[i] > DP[j]) {
-        DP[j] = DP[j - Goods[i]] + Goods[i];
-        Trace[j] = make_pair(j - Goods[i], i);
-      }
+    if (Goods[i] == 0) {
+      ArrangedGoods.push_back(i);
+      continue;
+    }
+    for (int j = BinSize; j >= 0; -- j) {
+      if (DP[i - 1][j - Goods[i]] + Goods[i] > DP[i][j] && j >= Goods[i])
+        DP[i][j] = DP[i - 1][j - Goods[i]] + Goods[i];
+      else
+        DP[i][j] = DP[i - 1][j];
     }
   }
   int k = BinSize;
-  while (Trace[k].first != k) {
-    ArrangedGoods.push_back(Trace[k].second);
-    k = Trace[k].first;
+  for (int i = Goods.size() - 1; i > 0; -- i) {
+    if (Goods[i] == 0)
+      continue;
+    if (k >= Goods[i] && DP[i][k] == DP[i - 1][k - Goods[i]] + Goods[i]) {
+      k = k - Goods[i];
+      ArrangedGoods.push_back(i);
+    }
   }
 
-  assert(ArrangedGoods.size() <= Goods.size());
   sort(ArrangedGoods.begin(), ArrangedGoods.end());
+  assert(ArrangedGoods.size() <= Goods.size());
   return ArrangedGoods;  
 }
    
+/*
+* MAXROUND * TotalNode
+*/
 bool ArrangeConnectedNode(int NodeId, int KeyNodeTime, int KeyNodePEId, int KeyNodeRetiming, int Direction, int CacheCost, int DRAMCost, NodeGenerator &ng, NodeInt &ArNode, int Condition) {
   assert(Direction == 1 || Direction == -1);
   vector<int> Rounds = ng.GetNodeInRounds(NodeId, Condition, Checked);
-  if (Rounds.size() == 0)
+  if (Condition == 1 && Rounds.size() == 0)
     return false;
 
   bool PlaceInCache = true;
@@ -726,7 +737,7 @@ bool ArrangeConnectedNode(int NodeId, int KeyNodeTime, int KeyNodePEId, int KeyN
     PlaceInCache = ((TargetStartTime - TargetRetiming * PeriodTime) - KeyNodeTime) < DRAMCost;
   ArNode.first = ng.GetNode(NodeId, TargetRound);
   ArNode.second = -1;
-  if (KeyNodePEId != -1 && TargetPEId != KeyNodePEId)
+  if (Condition == 1 && KeyNodePEId != -1 && TargetPEId != KeyNodePEId)
     return false;
   Checked[NodeId][TargetRound] = true;
 
@@ -846,7 +857,7 @@ queue<Node> ArrangeKeyNode(Node KeyNode, NodeGenerator &ng) {
 
       for (int j = 0; j < abs(ArNode.Retiming); ++ j)
         Update(KeyNode.PEId, 1, PeriodTime, 1, 1, PeriodTime, Memory);
-      if (NLCost > 0)
+      if (NLCost > 0) 
         Update(KeyNode.PEId, 1, PeriodTime, 1, KeyNodeStartTime - NLCost + 1, KeyNodeStartTime, Memory);
       if (NRCost > 0)
         Update(KeyNode.PEId, 1, PeriodTime, 1, PeriodTime - NRCost + 1, PeriodTime, Memory);
@@ -962,6 +973,7 @@ void SpreadKeyNodeSet(vector<Node> KeyNodeSet, NodeGenerator &ng) {
       CertainedNodes = ArrangeKeyNode(KeyNode, ng);
     }
   }
+  printf("KeyNodeSet Finished\n");
   priority_queue<Node, vector<Node>, NodeComparationByCost> q;
   for (int i = 1; i <= TotalNode; ++ i) {
     bool IsKeyNode = false;
@@ -979,6 +991,8 @@ void SpreadKeyNodeSet(vector<Node> KeyNodeSet, NodeGenerator &ng) {
     }
   }
   while (!q.empty()) {
+    if (!CertainedNodes.empty())
+      printf("Deal Certained Nodes:%lu\n",CertainedNodes.size());
     while (!CertainedNodes.empty()) {
       Node KeyNode = CertainedNodes.front();
       CertainedNodes.pop();
@@ -1088,16 +1102,21 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
   Init(TotalPE, UpRound);
   vector<Node> KeyNodeSet = GetKeyNodeSet();
   for (int i = 0; i < NgList.size(); ++ i) {
+    printf("UpBound:%d\n", NgList[i].UpBound);
+    assert(NgList[i].UpBound <= MAXM);
     memset(Checked, false, sizeof(Checked));
     Visit.clear();
-    printf("UpBound:%d\n", NgList[i].UpBound);
-    NgList[i].Show();
+    for (int j = 1; j <= NgList[i].NeedPE; ++ j) {
+      Build(j, 1, NgList[i].UpBound, 1);
+    }
+
+    // NgList[i].Show();
     SpreadKeyNodeSet(KeyNodeSet, NgList[i]);
     printf("Spread KeyNode Set\n");
-    NgList[i].Show();
+    // NgList[i].Show();
     AscertainNodes(NgList[i]);
     printf("Ascertain Nodes\n");
-    NgList[i].Show();
+    // NgList[i].Show();
     NgList[i].CalcPrelogue();
   }
 

@@ -51,7 +51,12 @@ struct FinalResult {
 const int INF = 0x3f3f3f3f;
 const double DRAMSPEED = 10;
 const double CACHESPEED = 100;
-const double CACHESIZE = 2;
+const int CACHESIZE = 3000;
+
+#pragma comment(linker, "/STACK:1024000000,1024000000")
+
+// const int main_stack=16;
+// char my_stack[128<<20];
 
 typedef pair<int, int> TwoInt;
 typedef pair<int, TwoInt> ThreeInt;
@@ -101,9 +106,11 @@ void Input() {
     MaxCost = max(MaxCost, Cost);
   }
 
-  // for (int i = 1; i <= TotalNode; i++) {
-  //   NodeList[i].Cost = ceil((NodeList[i].Cost * 1.0 / MaxCost) * MAXM / 2);
-  // }
+  if (MaxCost > MAXM) {
+    for (int i = 1; i <= TotalNode; i++) {
+      NodeList[i].Cost = ceil((NodeList[i].Cost * 1.0 / MaxCost) * MAXM / 2);
+    }
+  }
 
   for (int i = 0; i < Line; i++) {
     int From, To;
@@ -117,8 +124,11 @@ void Input() {
 }
 
 int main() {
+  // __asm__("movl %%esp, (%%eax);\n"::"a"(my_stack):"memory");
+  // __asm__("movl %%eax, %%esp;\n"::"a"(my_stack+sizeof(my_stack)-main_stack):"%esp");
   Input();
   FinalResult FR = Solve(TotalPE, PeriodTimes, UpRound);
   FR.Show();
+  // __asm__("movl (%%eax), %%esp;\n"::"a"(my_stack):"%esp");
   return 0;
 }
