@@ -9,15 +9,15 @@
 using namespace std;
 
 struct FinalResult {
-  int TotalTime;
-  int Prelogue;
+  long long TotalTime;
+  long long Prelogue;
   int Retiming;
   int RunOnCache;
   int RunOnDRAM;
   double CPURatio;
 
   FinalResult() {
-    TotalTime = 0;
+    TotalTime = -1;
     Prelogue = 0;
     Retiming = 0;
     RunOnCache = 0;
@@ -35,7 +35,7 @@ struct FinalResult {
   }
 
   void Show() {
-    printf("TotalTime:%d\nPrelogue:%d\nRetiming:%d\nRunOnCache:%d\nRunOnDRAM:%d\nCPURatio:%.3f\n", 
+    printf("TotalTime:%lld\nPrelogue:%lld\nRetiming:%d\nRunOnCache:%d\nRunOnDRAM:%d\nCPURatio:%.6f\n", 
             TotalTime, Prelogue, Retiming, RunOnCache, RunOnDRAM, CPURatio);
   }
 };
@@ -44,19 +44,16 @@ struct FinalResult {
 #define EXPERIMENT 1
 #define MAXM 70000
 #define MAXN 6600             // the number of node
+#define MAXSIZE 30000
 #define MAXPE 600
 #define MAXR 505
+#define PLUS 10
 #define LIMITEDRATIO 0.9
 #define ALPHA 0.8
 const int INF = 0x3f3f3f3f;
-const double DRAMSPEED = 10;
-const double CACHESPEED = 100;
-const int CACHESIZE = 3000;
-
-#pragma comment(linker, "/STACK:1024000000,1024000000")
-
-// const int main_stack=16;
-// char my_stack[128<<20];
+const double DRAMSPEED = 1;
+const double CACHESPEED = 2;
+const int CACHESIZE = 3;
 
 typedef pair<int, int> TwoInt;
 typedef pair<int, TwoInt> ThreeInt;
@@ -102,11 +99,13 @@ void Input() {
     char Op[200];
     scanf("%d%s%s%d", &NodeList[i].Id, Name, Op, &Cost);
     NodeList[i].Id = NodeList[i].Id + 1;
+    // Cost = Cost + 1;
     NodeList[i].Cost = Cost;
     MaxCost = max(MaxCost, Cost);
   }
 
-  if (MaxCost > MAXM) {
+  if (MaxCost >= MAXM) {
+    printf("Reduce Cost\n");
     for (int i = 1; i <= TotalNode; i++) {
       NodeList[i].Cost = ceil((NodeList[i].Cost * 1.0 / MaxCost) * MAXM / 2);
     }
@@ -124,11 +123,8 @@ void Input() {
 }
 
 int main() {
-  // __asm__("movl %%esp, (%%eax);\n"::"a"(my_stack):"memory");
-  // __asm__("movl %%eax, %%esp;\n"::"a"(my_stack+sizeof(my_stack)-main_stack):"%esp");
   Input();
   FinalResult FR = Solve(TotalPE, PeriodTimes, UpRound);
   FR.Show();
-  // __asm__("movl (%%eax), %%esp;\n"::"a"(my_stack):"%esp");
   return 0;
 }
