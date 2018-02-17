@@ -1,183 +1,258 @@
-/*
-  Graph: 
-    A -> B
-    A -> C
-    B -> D
-    C -> D
-  
-  Schedule:
-    1 A B D A B D ..
-    2   C     C   ..
-    3 A B D A B D ..
-    4   C     C   ..
-    5
-
-  Step 1: calculate the cost of time and PE for one period 
-  Step 2: calculate the total time using all PEs
-*/
-#include <cstdio>
-#include <iostream>
-#include <vector>
-#include <queue>
-#include <algorithm>
-#include <cassert>
-
-using namespace std;
-
-#define MAXN 50000
-#define MINN 70
-#define MOD 100
-
 struct Node {
-  int id;
-  char name[2 * MINN];
-  char op[2 * MINN];
-  double cost;
+  int Id;
+  int Cost;
 
-  int peid;       // run on which pe
-  double starttime;
-  double endtime;
+  int InDegree;
+  int OutDegree;
+  int TopoOrder;
+
+  int PEId;
+  int Round;
+  int Retiming;
+  int StartTime;
+  int EndTime;
 
   Node() {
-    peid = -1;
-    starttime = endtime = -1;
+    Id = -1;
+    Cost = 0;
+    InDegree = OutDegree = 0;
+    TopoOrder = -1;
+    PEId = -1;
+    Round = -1;
+    Retiming = 0;
+    StartTime = EndTime = -1;
   }
 
-  void setTime(double st, double ed) {
-    starttime = st;
-    endtime = ed;
+  void SetTime(int st) {
+    StartTime = st;
+    EndTime = StartTime + Cost;
+    assert(StartTime <= EndTime);
   }
 
-  friend bool operator< (Node a, Node b) {
-    return a.endtime > b.endtime;
+  void Copy(Node t) {
+    Id = t.Id;
+    Cost = t.Cost;
+    InDegree = t.InDegree;
+    OutDegree = t.OutDegree;
+    TopoOrder = t.TopoOrder;
+    PEId = t.PEId;
+    Round = t.Round;
+    Retiming = t.Retiming;
+    StartTime = t.StartTime;
+    EndTime = t.EndTime;
   }
 };
 
 struct Edge {
-  int from;
-  int to;
-  double cost;
-  double memory;
+  int From;
+  int To;
+  int Memory;
+  int CacheTimeCost;
+  int DRAMTimeCost;
 
   Edge() { }
 
-  Edge(int a, int b, double c, double d) {
-    from = a;
-    to = b;
-    cost = c;
-    memory = d;
+  Edge(int a, int b, int c) {
+    From = a;
+    To = b;
+    Memory = c;
+    CacheTimeCost = ceil(1.0 * Memory / CACHESPEED);
+    DRAMTimeCost = ceil(1.0 * Memory / DRAMSPEED);
   }
 };
 
-vector<Edge> edgelist[MAXN];
-Node nodelist[MAXN];
-bool vis[MAXN];
-int degree[MAXN];
-int total_node;
+struct Phase {
+  int PENumb;
+  vector<Node> PELine[MAXPE];
+  int PEEndTime[MAXPE];
+  int PEStartTime[MAXPE];
 
-void init() {
-  memset(vis, false, sizeof(vis));
-  memset(degree, 0, sizeof(degree));
+  Phase() { }
 
-  for (int i = 1; i <= total_node; i++) {
-    for (int j = 0; j < edgelist[i].size(); j++) {
-      Edge e = edgelist[i][j];
-      degree[e.to] = degree[e.to] + 1; 
-    }
-  }
-}
-
-Result solveOnce(int pe_upbound) {
-  double total_time = 0;
-  int pecount = 0, node_count = 0;
-  priority_queue<Node> perunning;
-  queue<Node> nodewaiting;
-  priority_queue<int, vector<int>, greater<int> > freepe;
-  // init free PE queue
-  for (int i = 1; i <= pe_upbound; i++)
-    freepe.push(i);
-
-  // first calculate those nodes whose indegree is zero
-  // if PE is not enough, push those nodes into nodewaiting queue
-  for (int i = 1; i <= total_node; i++) {
-    if (degree[i] == 0) {
-      if (!freepe.empty()) {
-        int peid = freepe.top();
-        freepe.pop();
-        pecount = max(pecount, peid);
-        nodelist[i].setTime(0, nodelist[i].cost);
-        nodelist[i].peid = peid;
-        perunning.push(nodelist[i]);
-      }
-      else {
-        nodelist[i].peid = -1;
-        nodewaiting.push(nodelist[i]);
-      }
-      vis[nodelist[i].id] = true;
-    }
+  Phase(int a, int TotalNode, Node NodeList[MAXN], int OutMaxCost[MAXN]) {
+    PENumb = a;
+    Init(TotalNode, NodeList, OutMaxCost);
   }
 
-  // then calculate those running nodes
-  while (!perunning.empty()) {
-    // finish the top node
-    Node top = perunning.top();
-    perunning.pop();
-    total_time = max(top.endtime, total_time);
-    // free PE
-    freepe.push(top.peid);
+  void Init(int TotalNode, Node NodeList[MAXN], int OutMaxCost[MAXN]) {
+    int NowOrder = 0;
+    int PEIter = 1;
+    int NowStartTime = 0;
+    int NextStartTime = 0;
+    for (int i = 1; i <= PENumb; ++ i) {
+      PEStartTime[i] = INF;
+      PEEndTime[i] = 0;
+    }
+    for (int i = 1; i <= TotalNode; ++ i) {
+      Node node = NodeList[i];
+      if (node.TopoOrder != NowOrder) {
+        PEIter = 1;
+        NowStartTime = NextStartTime;
+        NowOrder = node.TopoOrder;
+      }
+      node.Round = 0;
+      node.SetTime(NowStartTime);
+      PELine[PEIter].push_back(node);
+      PEStartTime[PEIter] = min(PEStartTime[PEIter], node.StartTime);
+      node.Round = 1;
+      node.SetTime(node.EndTime);
+      PELine[PEIter].push_back(node);
+      NextStartTime = max(NextStartTime, node.EndTime + OutMaxCost[node.Id]);
+      PEEndTime[PEIter] = max(PEEndTime[PEIter], node.EndTime);
+      PEIter = PEIter + 1;
+      if (PEIter == PENumb + 1) {
+        PEIter = 1;
+        NowStartTime = NextStartTime;
+      }
+    }
+  }
 
-    // minus the indegree of those dependent nodes 
-    for (int i = 0; i < edgelist[top.id].size(); i++) {
-      Edge e = edgelist[top.id][i];
-      if (!vis[e.to]) {
-        degree[e.to] = degree[e.to] - 1;
-        if (degree[e.to] == 0) {
-          nodelist[e.to].peid = -1;
-          nodelist[e.to].starttime = top.endtime + e.cost;
-          nodewaiting.push(nodelist[e.to]);
-          vis[e.to] = true;
+  void Show() {
+    for (int i = 1; i <= PENumb; ++ i) {
+      printf("PE:%d\t", i);
+      int LastStartTime = 0;
+      for (int j = 0; j < PELine[i].size(); ++ j) {
+        Node node = PELine[i][j];
+        if (node.StartTime > LastStartTime) {
+          for (int k = LastStartTime; k < node.StartTime; ++ k)
+            printf("-");
+        }
+        for (int k = node.StartTime; k < node.EndTime; ++ k) {
+          printf("%c", ('A' + node.Id - 1));
+        }
+        LastStartTime = node.EndTime;
+      }
+      printf("\n");
+    }
+  }
+};
+
+struct Iteration {
+  
+  vector<Phase> PhaseGroup;
+  vector<int> Moves;
+
+  Iteration(Phase phase) {
+    PhaseGroup.push_back(phase);
+    PhaseGroup.push_back(phase);
+
+    for (int i = 1; i <= phase.PENumb; ++ i)
+      printf("%d %d\n", phase.PEStartTime[i], phase.PEEndTime[i]);
+
+    Moves.push_back(phase.PEStartTime[phase.PENumb]);
+    for (int i = 2; i <= phase.PENumb; ++ i) {
+      int j = phase.PENumb + 2 - i;
+      int Offset = max(Moves[Moves.size() - 1], phase.PEEndTime[j] - phase.PEStartTime[i]);
+      printf("i:%d %d\n", i, Offset);
+      Moves.push_back(Offset);
+    }
+  }
+
+  void Show() {
+    int PENumb = PhaseGroup[0].PENumb;
+    for (int i = 1; i <= PENumb + 1; ++ i) {
+      printf("PE:%d\t", i);
+      int LastStartTime = 0;
+      if (i <= PENumb) {
+        for (int j = 0; j < PhaseGroup[0].PELine[i].size(); ++ j) {
+          Node node = PhaseGroup[0].PELine[i][j];
+          int StartTime = node.StartTime;
+          int EndTime = node.EndTime;
+          if (StartTime > LastStartTime) {
+            for (int k = LastStartTime; k < StartTime; ++ k)
+              printf("-");
+          }
+          for (int k = StartTime; k < EndTime; ++ k)
+            printf("%c", ('A' + node.Id - 1));
+          LastStartTime = EndTime;
         }
       }
+      if (i > 1) {
+        int Offset = Moves[PENumb - i + 1];
+        for (int j = 0; j < PhaseGroup[1].PELine[PENumb - i + 2].size(); ++ j) {
+          Node node = PhaseGroup[1].PELine[PENumb - i + 2][j];
+          int StartTime = node.StartTime + Offset;
+          int EndTime = node.EndTime + Offset;
+          if (StartTime > LastStartTime) {
+            for (int k = LastStartTime; k < StartTime; ++ k)
+              printf("-");
+          }
+          for (int k = StartTime; k < EndTime; ++ k)
+            printf("%c", ('A' + node.Id - 1));
+          LastStartTime = EndTime;
+        }
+      }
+      printf("\n");
     }
-
-    // calculate waiting nodes
-    while (!nodewaiting.empty()) {
-      if (freepe.empty())
-        break;
-      
-      Node waited = nodewaiting.front();
-      nodewaiting.pop();
-
-      int peid = freepe.top();
-      freepe.pop();
-      pecount = max(pecount, peid);
-
-      int starttime = max(top.endtime, waited.starttime);
-      nodelist[waited.id].peid = peid;
-      nodelist[waited.id].setTime(starttime, starttime + waited.cost);
-      perunning.push(nodelist[waited.id]);
-    }
-
   }
+};
 
-  double up = 0;
-  for (int i = 1; i <= total_node; i++)
-    up = up + nodelist[i].cost;
-  double down = pecount * total_time;
-  assert(down != 0);
-  double cpuratio = up / down;
-  return Result(total_time, pecount, cpuratio);
+vector<Edge> EdgeList[MAXN];
+Node NodeList[MAXN];
+int OutMaxCost[MAXN];
+int Degree[MAXN];
+int TotalNode;
+int TotalPE, PeriodTimes, UpRound;
+int RunOnDRAM;
+int RunOnCache;
+
+int GetTopology() {
+  int Count = 0, Order = 0;
+  int NeedPE = 0;
+  queue<Node> q;
+  for (int i = 1; i <= TotalNode; ++ i) {
+    if (Degree[i] == 0) {
+      q.push(NodeList[i]);
+    }
+  }
+  Count = NeedPE = q.size();
+
+  while (!q.empty()) {
+    Node f = q.front();
+    q.pop();
+    NodeList[f.Id].TopoOrder = Order;
+
+    Count = Count - 1;
+
+    for (int i = 0; i < EdgeList[f.Id].size(); ++ i) {
+      Edge e = EdgeList[f.Id][i];
+      Degree[e.To] = Degree[e.To] - 1;
+      if (Degree[e.To] == 0) {
+        q.push(NodeList[e.To]);
+      }
+    }
+
+    if (Count == 0) {
+      NeedPE = max((int)q.size(), NeedPE);
+      Count = q.size();
+      Order = Order + 1;
+    }
+  }
+  return NeedPE;
 }
 
-void solve(int total_pe, int period_times) {
-  init();
-  Result res = solveOnce(total_pe);
-  int meanwhile_period = total_pe / res.pecount;
-  int total_turn = (period_times % meanwhile_period == 0 ? period_times / meanwhile_period : period_times / meanwhile_period + 1);
-  res.totaltime = total_turn * res.totaltime / (1e6);
-  res.cpuratio = res.cpuratio * period_times / (meanwhile_period * total_turn);
-  printf("Total PE:\t%d\nTotal time:\t%.2f\nCPU Used Ratio:\t%.2f\n", res.pecount, res.totaltime, res.cpuratio);
-  // for (int i = 1; i <= total_node; i++) {
-  //   printf("ID:%d PE:%d StartTime:%d EndTime:%d Cost:%d\n", nodelist[i].id, nodelist[i].peid, nodelist[i].starttime, nodelist[i].endtime, nodelist[i].cost);
-  // }
+void Init(int TotalPE) {
+  memset(Degree, 0, sizeof(Degree));
+
+  for (int i = 1; i <= TotalNode; ++ i) {
+    OutMaxCost[i] = 0;
+    for (int j = 0; j < EdgeList[i].size(); ++ j) {
+      Edge e = EdgeList[i][j];
+      Degree[e.To] = Degree[e.To] + 1;
+      OutMaxCost[i] = max(OutMaxCost[i], e.CacheTimeCost);
+    }
+  }
+
+  RunOnDRAM = RunOnCache = 0;
+  int NeedPE = GetTopology();
+  Phase phase = Phase(min(NeedPE, TotalPE), TotalNode, NodeList, OutMaxCost);
+  Iteration iteration = Iteration(phase);
+  iteration.Show();
+}
+
+FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
+  Init(TotalPE);
+  
+  FinalResult FR = FinalResult();
+  return FR;
 }
