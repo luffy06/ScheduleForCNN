@@ -40,7 +40,7 @@ struct FinalResult {
   }
 };
 
-#define THEORY 1
+#define THEORY 3
 #define EXPERIMENT 1
 #define MAXM 70000
 #define MAXN 6600             // the number of node
@@ -63,6 +63,12 @@ typedef pair<double, double> TowDouble;
 void TestInput() {
   int t;
   scanf("%d", &t);
+}
+
+int Ceil(int a, int b) {
+  if (a % b == 0)
+    return a / b;
+  return a / b + 1;
 }
 
 #if THEORY == 1
@@ -117,6 +123,8 @@ void Input() {
     scanf("%d%d%d", &From, &To, &Memory);
     From = From + 1;
     To = To + 1;
+    NodeList[From].OutDegree = NodeList[From].OutDegree + 1;
+    NodeList[To].InDegree = NodeList[To].InDegree + 1;
     EdgeList[From].push_back(Edge(From, To, Memory));
     ReEdgeList[To].push_back(Edge(From, To, Memory));
   }
