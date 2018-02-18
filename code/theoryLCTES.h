@@ -405,8 +405,8 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
     int IterationTimes = Ceil(Ceil(PeriodTimes, Launches), 4);
     FR.Prelogue = 0;
     FR.Retiming = 0;
-    FR.RunOnCache = IterationTimes * iteration.RunOnCache;
-    FR.RunOnDRAM = IterationTimes * iteration.RunOnDRAM;
+    FR.RunOnCache = IterationTimes * iteration.RunOnCache * Launches;
+    FR.RunOnDRAM = IterationTimes * iteration.RunOnDRAM * Launches;
     FR.TotalTime = CalcTotalTime(PeriodTimes, iteration.Cost, Launches, iteration.Cross);
     if (TotalPE % IterationPE > 0) {
       Iteration iterationrest = InitIteration(TotalPE % IterationPE, TotalPE % IterationPE);
@@ -414,10 +414,14 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
         int EachY = PeriodTimes - EachX;
         long long TotalTimeX = CalcTotalTime(EachX, iteration.Cost, Launches, iteration.Cross);
         long long TotalTimeY = CalcTotalTime(EachY, iterationrest.Cost, 1, iterationrest.Cross);
-        if (FR.TotalTime == -1)
-          FR.TotalTime = max(TotalTimeX, TotalTimeY);
-        else
-          FR.TotalTime = min(FR.TotalTime, max(TotalTimeX, TotalTimeY));
+        long long TotalTime = max(TotalTimeX, TotalTimeY);
+        if (FR.TotalTime == -1 || TotalTime < FR.TotalTime) {
+          FR.TotalTime = TotalTime;
+          int IterationTimesX = Ceil(Ceil(EachX, Launches), 4);
+          int IterationTimesY = Ceil(Ceil(EachY, Launches), 4);
+          FR.RunOnCache = iteration.RunOnCache * IterationTimesX * Launches + iterationrest.RunOnCache * IterationTimesY;
+          FR.RunOnDRAM = iteration.RunOnDRAM * IterationTimesX * Launches + iterationrest.RunOnDRAM * IterationTimesY;
+        }
         if (TotalTimeX > TotalTimeY)
           break;
       }
