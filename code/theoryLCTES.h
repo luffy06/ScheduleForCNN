@@ -407,8 +407,6 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
   if (TotalPE >= IterationPE) {
     int Launches = TotalPE / IterationPE;
     Iteration iteration = InitIteration(NeedPE, IterationPE);
-    iteration.Show();
-    printf("%lld %d\n", iteration.Cost, iteration.Cross);
     int IterationTimes = Ceil(Ceil(PeriodTimes, Launches), 4);
     FR.Prelogue = 0;
     FR.Retiming = 0;
