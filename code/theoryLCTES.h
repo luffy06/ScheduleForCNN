@@ -41,6 +41,10 @@ struct Node {
     StartTime = t.StartTime;
     EndTime = t.EndTime;
   }
+
+  void Show() {
+    printf("ID:%d\tPE:%d\tRound:%d\tRetiming:%d\tST:%d\tED:%d\tCost:%d\n", Id, PEId, Round, Retiming, StartTime, EndTime, Cost);
+  }
 };
 
 struct Edge {
@@ -337,8 +341,9 @@ void InitPhase(Phase &phase) {
 
         for (int j = ArrangeSet.size() - 1; j >= 0; -- j) {
           Edge e = Edges[ArrangeSet[j]];
+
           StartTime = max(StartTime, e.CacheTimeCost + NodeTime[k][e.From].EndTime);
-          Edges.erase(Edges.begin() + j);
+          Edges.erase(Edges.begin() + ArrangeSet[j]);
         }
 
         for (int j = 0; j < Edges.size(); ++ j) {
@@ -402,6 +407,8 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
   if (TotalPE >= IterationPE) {
     int Launches = TotalPE / IterationPE;
     Iteration iteration = InitIteration(NeedPE, IterationPE);
+    iteration.Show();
+    printf("%lld %d\n", iteration.Cost, iteration.Cross);
     int IterationTimes = Ceil(Ceil(PeriodTimes, Launches), 4);
     FR.Prelogue = 0;
     FR.Retiming = 0;
