@@ -713,7 +713,7 @@ vector<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
 /*
 * MAXROUND * TotalNode
 */
-bool ArrangeConnectedNode(Edge e, Node KeyNode, int Direction, NodeGenerator &ng, Node &ArNode, int &Int, int Condition) {
+bool ArrangeConnectedNode(Edge e, Node KeyNode, int Direction, NodeGenerator &ng, Node &ArNode, int &TargetInt, int Condition) {
   assert(Direction == 1 || Direction == -1);
   int NodeId = (Direction == -1 ? e.From : e.To);
   vector<int> Rounds = ng.GetNodeInRounds(NodeId, Condition, Checked);
@@ -722,7 +722,7 @@ bool ArrangeConnectedNode(Edge e, Node KeyNode, int Direction, NodeGenerator &ng
 
   bool PlaceInCache = true;
 
-  int TargetInt = -1;
+  TargetInt = -1;
   int PeriodTime = ng.UpBound;
   // 选取最近的PE
   for (int j = 0; j < Rounds.size(); ++ j) {
@@ -740,7 +740,7 @@ bool ArrangeConnectedNode(Edge e, Node KeyNode, int Direction, NodeGenerator &ng
       Retiming = EndTime / PeriodTime;
     }
 
-    Int = -1;
+    int Int = -1;
     for (int k = 0; k < PEIntervals[PEId].size(); ++ k) {
       if (PEIntervals[PEId][k].StartTime + Retiming * PeriodTime <= StartTime 
         && PEIntervals[PEId][k].EndTime + Retiming * PeriodTime >= EndTime) {
@@ -911,6 +911,7 @@ bool ArrangeConnectedNode(Edge e, Node KeyNode, int Direction, NodeGenerator &ng
 }
 
 void DeleteInterval(int PEId, int Int, int StartTime, int EndTime) {
+  assert(Int >= 0 && Int < PEIntervals[PEId].size());
   if (PEIntervals[PEId][Int].StartTime < StartTime)
     PEIntervals[PEId].push_back(PEInterval(PEId, PEIntervals[PEId][Int].StartTime, StartTime));
   if (EndTime < PEIntervals[PEId][Int].EndTime)
