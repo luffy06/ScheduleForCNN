@@ -199,8 +199,6 @@ int Degree[MAXN];
 int DP[MAXN][MAXSIZE];
 int TotalNode;
 int TotalPE, PeriodTimes, UpRound;
-int RunOnDRAM;
-int RunOnCache;
 
 int GetTopology() {
   int Count = 0, Order = 0;
@@ -298,16 +296,6 @@ vector<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
     return UnArrangedGoods;
   }
 
-  // printf("MAXDP:%d\n", DP[Goods.size()][BinSize]);
-  // for (int i = 0; i <= Goods.size(); ++ i) {
-  //   if (i == 0)
-  //     printf("0\t\t");
-  //   else
-  //     printf("%d\t\t", Goods[i - 1]);
-  //   for (int j = 0; j <= BinSize; ++ j)
-  //     printf("%d\t", DP[i][j]);
-  //   printf("\n");
-  // }
   sort(ArrangedGoods.begin(), ArrangedGoods.end());
   return ArrangedGoods;  
 }
@@ -380,7 +368,6 @@ int Init(int TotalPE) {
     }
   }
 
-  RunOnDRAM = RunOnCache = 0;
   int NeedPE = GetTopology();
   return NeedPE;
 }
