@@ -35,16 +35,16 @@ struct FinalResult {
   }
 
   void Show() {
-    printf("TotalTime:%lld\nPrelogue:%lld\nRetiming:%d\nRunOnCache:%d\nRunOnDRAM:%d\nCPURatio:%.6f\n", 
+    printf("\nTotalTime:%lld\nPrelogue:%lld\nRetiming:%d\nRunOnCache:%d\nRunOnDRAM:%d\nCPURatio:%.6f\n", 
             TotalTime, Prelogue, Retiming, RunOnCache, RunOnDRAM, CPURatio);
   }
 };
 
-#define THEORY 3
+#define THEORY 1
 #define EXPERIMENT 1
 #define MAXM 70000
 #define MAXN 6600             // the number of node
-#define MAXSIZE 30000
+#define MAXSIZE 40000
 #define MAXPE 600
 #define MAXR 505
 #define PLUS 10
@@ -53,7 +53,7 @@ struct FinalResult {
 const int INF = 0x3f3f3f3f;
 const double DRAMSPEED = 1;
 const double CACHESPEED = 2;
-const int CACHESIZE = 3;
+const int CACHESIZE = 20480;
 
 typedef pair<int, int> TwoInt;
 typedef pair<int, TwoInt> ThreeInt;
@@ -71,12 +71,18 @@ int Ceil(int a, int b) {
   return a / b + 1;
 }
 
+int Floor(int a, int b) {
+  if (a % b == 0)
+    return a / b;
+  return a / b - 1;
+}
+
 #if THEORY == 1
   #include "theory.h"
 #elif THEORY == 2
-  #include "theoryDAC.h"
-#elif THEORY == 3
   #include "theoryLCTES.h"
+#elif THEORY == 3
+  #include "theoryDAC.h"
 #endif
 
 void ReadConfig() {

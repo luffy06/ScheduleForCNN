@@ -12,9 +12,9 @@ for (( pe = 64; pe <= 1024; pe=pe*2)); do
     filename=`basename $file`
     echo 'Dealing with '$filename >> ${resultfolder}/result${pe}.out
     for (( i = 1; i <= 2; i++ )); do
-      echo '######### Using Theory'$i' #########' >> result${pe}.out
-      echo `./run$i < $datafolder/$filename` >> result${pe}.out
-      echo '######### End #########' >> result${pe}.out
+      echo '######### Using Theory'$i' #########' >> ${resultfolder}/result${pe}.out
+      echo `./run$i < $datafolder/$filename` >> ${resultfolder}/result${pe}.out
+      echo '######### End #########' >> ${resultfolder}/result${pe}.out
     done
   done
 done
