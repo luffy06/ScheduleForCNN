@@ -44,7 +44,7 @@ struct FinalResult {
 #define EXPERIMENT 1
 #define MAXM 70000
 #define MAXN 6600             // the number of node
-#define MAXSIZE 40000
+#define MAXSIZE 30000
 #define MAXPE 600
 #define MAXR 505
 #define PLUS 10
