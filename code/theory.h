@@ -54,6 +54,10 @@ struct Node {
     Id = a.Id;
     Cost = a.Cost;
 
+    InDegree = a.InDegree;
+    OutDegree = a.OutDegree;
+    TopoOrder = a.TopoOrder;
+
     PEId = a.PEId;
     Round = a.Round;
     Retiming = a.Retiming;
@@ -64,7 +68,7 @@ struct Node {
   }
 
   void Show() {
-    printf("ID:%2d\tPE:%2d\tRound:%2d\tRetiming:%2d\tST:%lld\tED:%lld\tCost:%d\tStatus:%s\n", Id, PEId, Round, Retiming, StartTime, EndTime, Cost, (Certained ? "Certained" : "Uncertained"));
+    printf("ID:%2d\tPE:%2d\tRound:%2d\tRetiming:%2d\tST:%lld\tED:%lld\tCost:%d\tStatus:%s\tTopoOrder:%d\n", Id, PEId, Round, Retiming, StartTime, EndTime, Cost, (Certained ? "Certained" : "Uncertained"), TopoOrder);
   }
 };
 
@@ -192,10 +196,10 @@ struct NodeComparationByEndTime {
 
 struct NodeComparationByCost {
   bool operator() (const Node &a, const Node &b) const {
-    if (a.Cost != b.Cost)
+    if (a.TopoOrder != b.TopoOrder)
+      return a.TopoOrder < b.TopoOrder;
+    else if (a.Cost != b.Cost)
       return a.Cost < b.Cost;
-    else if (a.Round != b.Round)
-      return a.Round > b.Round;
     return a.Id > b.Id;    
   }
 };
@@ -521,7 +525,7 @@ struct NodeGenerator {
           printf("-");
       char c =  'A' + StartTable[i].Id - 1;
       for (int j = 0; j < StartTable[i].Cost; ++ j)
-        printf("%c", c);
+        printf("%c%d", c, StartTable[i].Round);
       LastEndTime = StartTable[i].EndTime;
     }
     if (LastEndTime != UpBound && LastPEId != -1) {
@@ -860,7 +864,8 @@ Node FindClosestNode(int NodeId, int Cost, Node KeyNode, NodeGenerator &ng, int 
     }
     else {
       // AS + Retiming * P <= S
-      NowNode.Retiming = max(NowNode.Retiming, Floor(StartTime - NowNode.StartTime, PeriodTime));
+      if (NowNode.StartTime + NowNode.Retiming * PeriodTime > StartTime)
+        NowNode.Retiming = Floor(StartTime - NowNode.StartTime, PeriodTime);
     }
 
     if (ArNode.StartTime == -1 
@@ -923,7 +928,7 @@ void ArrangeKeyNode(Node KeyNode, NodeGenerator &ng, priority_queue<Node, vector
   vector<Edge> InEdges = ReEdgeList[KeyNode.Id];
   sort(InEdges.begin(), InEdges.end(), CmpEdgeByFromCost);
   for (int i = 0; i < InEdges.size(); ++ i) {
-    // printf("\nArrange In-Edge:From:%d\tTo:%d\n", InEdges[i].From, KeyNode.Id);
+    // printf("\nArrange In-Edge:From:%d\tTo:%d %d\n", InEdges[i].From, KeyNode.Id, KeyNode.Round);
     int Int = -1;
     Node FromNode = FindClosestNode(InEdges[i].From, InEdges[i].CacheTimeCost, KeyNode, ng, Int);
     if (FromNode.EndTime + FromNode.Retiming * PeriodTime + InEdges[i].DRAMTimeCost > KeyNode.StartTime + KeyNode.Retiming * PeriodTime) {
@@ -951,11 +956,11 @@ void ArrangeKeyNode(Node KeyNode, NodeGenerator &ng, priority_queue<Node, vector
       if (InQ) {
         DeleteInterval(FromNode.PEId, Int, FromNode.StartTime, FromNode.EndTime);
         Que.push(FromNode);
-        ng.SetNode(FromNode);
       }
       else {
         ReChecked[FromNode.Id][FromNode.Round] = true;
       }
+      ng.SetNode(FromNode);
       ng.AddRelation(CertainedEdge(FromNode.Id, FromNode.Round, KeyNode.Id, KeyNode.Round, false));
       Checked[FromNode.Id][FromNode.Round] = true;
     }
@@ -1007,11 +1012,11 @@ void ArrangeKeyNode(Node KeyNode, NodeGenerator &ng, priority_queue<Node, vector
       if (InQ) {
         DeleteInterval(ArNode.PEId, TargetInt, ArNode.StartTime, ArNode.EndTime);
         Que.push(ArNode);
-        ng.SetNode(ArNode);
       }
       else {
         ReChecked[ArNode.Id][ArNode.Round] = true;
       }
+      ng.SetNode(ArNode);
       ng.AddRelation(CertainedEdge(ArNode.Id, ArNode.Round, KeyNode.Id, KeyNode.Round, true));
       Checked[ArNode.Id][ArNode.Round] = true;
 
@@ -1030,11 +1035,11 @@ void ArrangeKeyNode(Node KeyNode, NodeGenerator &ng, priority_queue<Node, vector
       if (InQ) {
         DeleteInterval(ArNode.PEId, Int, ArNode.StartTime, ArNode.EndTime);
         Que.push(ArNode);
-        ng.SetNode(ArNode);
       }
       else {
         ReChecked[ArNode.Id][ArNode.Round] = true;
       }
+      ng.SetNode(ArNode);
       ng.AddRelation(CertainedEdge(ArNode.Id, ArNode.Round, KeyNode.Id, KeyNode.Round, false));
       Checked[ArNode.Id][ArNode.Round] = true;
     }
@@ -1095,12 +1100,13 @@ void ReBFS(Node KeyNode, NodeGenerator &ng) {
   while (!q.empty()) {
     Node ToNode = q.top();
     q.pop();
+    // ToNode.Show();
     ReChecked[ToNode.Id][ToNode.Round] = false;
 
     vector<Edge> InEdges = ReEdgeList[ToNode.Id];
     sort(InEdges.begin(), InEdges.end(), CmpEdgeByFromCost);
     for (int i = 0; i < InEdges.size(); ++ i) {
-      // printf("From:%d To:%d %d\n", InEdges[i].From, ToNode.Id, ToNode.Round);
+      // printf("From:%d To:%d %d %d\n", InEdges[i].From, InEdges[i].To, ToNode.Id, ToNode.Round);
       bool StrogeInCache = false;
       int FromRound = ng.GetRelatedNode(InEdges[i].From, ToNode.Id, ToNode.Round, StrogeInCache);
       assert(FromRound != -1);
@@ -1108,7 +1114,7 @@ void ReBFS(Node KeyNode, NodeGenerator &ng) {
       long long Cost = (StrogeInCache ? InEdges[i].CacheTimeCost : InEdges[i].DRAMTimeCost);
       if (FromNode.EndTime + FromNode.Retiming * PeriodTime + Cost > ToNode.StartTime + ToNode.Retiming * PeriodTime) {
         // FE + Retiming * P <= TS
-        FromNode.Retiming = Ceil(ToNode.StartTime + ToNode.Retiming * PeriodTime - FromNode.EndTime, PeriodTime);
+        FromNode.Retiming = Floor(ToNode.StartTime + ToNode.Retiming * PeriodTime - FromNode.EndTime, PeriodTime);
         ng.SetNode(FromNode);
         q.push(FromNode);
       }
@@ -1129,6 +1135,11 @@ void SpreadKeyNodeSet(NodeGenerator &ng) {
   do {
     vector<Node> KeyNodeSet = GetKeyNodeSet(UnCheckedNodes);
 
+    // printf("Get KeyNode Set\n");
+    // for (int i = 0; i < KeyNodeSet.size(); ++ i) {
+    //   KeyNodeSet[i].Show();
+    // }
+
     for (int i = 0; i < KeyNodeSet.size(); ++ i) {
       Node KeyNode = KeyNodeSet[i];
       KeyNode = ng.GetNode(KeyNode.Id, KeyNode.Round);
@@ -1138,6 +1149,10 @@ void SpreadKeyNodeSet(NodeGenerator &ng) {
       }
     }
   } while (!UnCheckedNodes.empty());
+
+  // ng.Show();
+  // ng.ShowEach(false);
+  // ng.ShowRelation();
 
   // printf("Spread Succeed\n");
 
@@ -1151,13 +1166,19 @@ void SpreadKeyNodeSet(NodeGenerator &ng) {
   for (int i = ReCheckedNodes.size() - 1; i >= 0; -- i) {
     Node KeyNode = ReCheckedNodes[i];
     if (ReChecked[KeyNode.Id][KeyNode.Round])
-      ReBFS(KeyNode, ng);
+      ReBFS(ng.GetNode(KeyNode.Id, KeyNode.Round), ng);
   }
-
 }
 
 FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
   Init(TotalPE, UpRound);
+  // for (int i = 1; i <= TotalNode; ++ i) {
+  //   vector<Edge> edges = EdgeList[i];
+  //   for (int j = 0; j < edges.size(); ++ j) {
+  //     Edge e = edges[j];
+  //     printf("From:%d\tTo:%d\tCacheCost:%d\tDRAMCost:%d\n", e.From, e.To, e.CacheTimeCost, e.DRAMTimeCost);
+  //   }
+  // }
   for (int i = 0; i < NgList.size(); ++ i) {
     printf("\nUpBound:%d\tUpRound:%d\n", NgList[i].UpBound, NgList[i].UpRound);
     assert(NgList[i].UpBound <= MAXM);
@@ -1168,8 +1189,9 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
     // printf("Start Spread KeyNode Set\n");
     SpreadKeyNodeSet(NgList[i]);
     // printf("End Spread KeyNode Set\n");
-    NgList[i].Show();
-    NgList[i].ShowEach(false);
+    // NgList[i].Show();
+    // NgList[i].ShowEach(false);
+    // NgList[i].ShowRelation();
     NgList[i].CalcPrelogue();
   }
 
@@ -1193,18 +1215,17 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
   else {
     for (int EachX = 0; EachX <= PeriodTimes; ++ EachX) {
       int EachY = PeriodTimes - EachX;
-      int X = Ceil(EachX - NgList[0].UpRound, NgList[0].UpRound);
-      int Y = Ceil(EachY - NgList[1].UpRound, NgList[1].UpRound);
+      int X = max(0, Ceil(EachX - NgList[0].UpRound, NgList[0].UpRound));
+      int Y = max(0, Ceil(EachY - NgList[1].UpRound, NgList[1].UpRound));
       long long TotalTimeX = NgList[0].Prelogue + 1LL * X * NgList[0].UpBound;
       long long TotalTimeY = NgList[1].Prelogue + 1LL * Y * NgList[1].UpBound;
       long long TotalTime = max(TotalTimeX, TotalTimeY);
       if (FR.TotalTime == -1 || TotalTime < FR.TotalTime) {
+        printf("%d %d\n", EachX, EachY);
         FR.TotalTime = TotalTime;
         FR.RunOnCache = NgList[0].RunOnCache * X * Launches + NgList[1].RunOnCache * Y;
         FR.RunOnDRAM = NgList[0].RunOnDRAM * X * Launches + NgList[1].RunOnCache * Y;
       }
-      if (TotalTimeX > TotalTimeY)
-        break;
     }
     FR.Prelogue = NgList[0].Prelogue;
     FR.Retiming = NgList[0].Retiming;
