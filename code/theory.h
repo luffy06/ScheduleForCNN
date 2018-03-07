@@ -158,33 +158,11 @@ bool CmpByTopoOrder(Node a, Node b) {
   return a.Id < b.Id;
 }
 
-bool CmpFourInt(FourInt a, FourInt b) {
-  if (a.first.first != b.first.first)
-    return a.first.first < b.first.first;
-  else if (a.first.second != b.first.second)
-    return a.first.second < b.first.second;
-  else if (a.second.first != b.second.first)
-    return a.second.first < b.second.first;
-  return a.second.second < b.second.second;
-}
-
 bool CmpEdgeByFromCost(Edge a, Edge b) {
   if (NodeList[a.From].Cost != NodeList[b.From].Cost)
     return NodeList[a.From].Cost > NodeList[b.From].Cost;
   return a.From < b.From;
 }
-
-bool CmpEdgeByToCost(Edge a, Edge b) {
-  if (NodeList[a.To].Cost != NodeList[b.To].Cost)
-    return NodeList[a.To].Cost > NodeList[b.To].Cost;
-  return a.To < b.To;
-}
-
-struct NodeComparationByStartTime {
-  bool operator() (const Node &a, const Node &b) const {
-    return a.StartTime > b.StartTime;
-  }
-};
 
 struct NodeComparationByEndTime {
   bool operator() (const Node &a, const Node &b) const {
@@ -299,11 +277,9 @@ struct NodeGenerator {
     assert(UpBound != 0);
     double Down = UpBound * NeedPE;
     double Up = 0;
-    for (int i = 1; i <= TotalNode; ++ i) {
+    for (int i = 1; i <= TotalNode; ++ i)
       Up = Up + NodeList[i].Cost;
-    }
     Up = Up * UpRound;
-    assert(Down != 0);
     double Ratio = Up / Down;
     return Ratio;
   }
@@ -396,6 +372,7 @@ struct NodeGenerator {
   }
 
   int GetRelatedNode(int FromId, int ToId, int ToRound, bool &StrogeInCache) {
+    // printf("GetRelatedNode\tFrom Id:%d\tTo Id:%d\tTo Round:%d\n", FromId, ToId, ToRound);
     if (Relation.size() == 0)
       return -1;
     int L = 0;
@@ -413,9 +390,11 @@ struct NodeGenerator {
       if (Relation[R].FromId > FromId)
         return -1;
       L = R;
-      R = Relation.size() - 1;
     }
+    for (R = L; R < Relation.size() && Relation[R].FromId == FromId; ++ R) ;
+    R = R - 1;
     assert(Relation[L].FromId == FromId);
+    assert(Relation[R].FromId == FromId);
     if (Relation[L].ToId > ToId)
       return -1;
     if (Relation[R].ToId < ToId)
@@ -429,9 +408,11 @@ struct NodeGenerator {
       if (Relation[R].ToId > ToId)
         return -1;
       L = R;
-      R = Relation.size() - 1;
     }
+    for (R = L; R < Relation.size() && Relation[R].ToId == ToId; ++ R) ;
+    R = R - 1;
     assert(Relation[L].ToId == ToId);
+    assert(Relation[R].ToId == ToId);
     if (Relation[L].ToRound > ToRound)
       return -1;
     if (Relation[R].ToRound < ToRound)
@@ -445,9 +426,11 @@ struct NodeGenerator {
       if (Relation[R].ToRound > ToRound)
         return -1;
       L = R;
-      R = Relation.size() - 1;
     }
+    for (R = L; R < Relation.size() && Relation[R].ToRound == ToRound; ++ R) ;
+    R = R - 1;
     assert(Relation[L].ToRound == ToRound);
+    assert(Relation[R].ToRound == ToRound);
     StrogeInCache = Relation[L].StrogeInCache;
     return Relation[L].FromRound;
   }
@@ -550,8 +533,6 @@ struct NodeGenerator {
   }
 };
 
-typedef pair<Node, int> NodeInt;
-typedef pair<NodeInt, int> NodeTwoInt;
 typedef pair<Edge, int> EdgeInt;
 
 vector<NodeGenerator> NgList;
@@ -609,6 +590,7 @@ void Build(int p, int l, int r, int rt) {
 }
 
 void Update(int p, int l, int r, int rt, int L, int R, int add) {
+  assert(add > 0);
   assert(l <= r);
   if (L <= l && r <= R) {
     Cache[p][rt] = Cache[p][rt] + add;
@@ -653,7 +635,7 @@ void ShowCache(int p, int l, int r, int rt) {
 }
 
 int GetTopology() {
-  int Count = 0, Iter = 0, Order = 0;
+  int Count = 0, Order = 0;
   int NeedPE = 0;
   queue<Node> q;
   for (int i = 1; i <= TotalNode; ++ i) {
@@ -667,8 +649,6 @@ int GetTopology() {
     Node f = q.front();
     q.pop();
     NodeList[f.Id].TopoOrder = Order;
-
-    Iter = Iter + 1;
     Count = Count - 1;
 
     for (int i = 0; i < EdgeList[f.Id].size(); ++ i) {
@@ -705,9 +685,8 @@ void Init(int TotalPE, int UpRound) {
 
   if (TotalPE >= NeedPE) {
     NgList.push_back(NodeGenerator(TotalNode, NeedPE, UpRound, NodeList));
-    if (TotalPE % NeedPE != 0) {
+    if (TotalPE % NeedPE != 0)
       NgList.push_back(NodeGenerator(TotalNode, TotalPE % NeedPE, UpRound, NodeList));
-    }
   }
   else {
     NgList.push_back(NodeGenerator(TotalNode, TotalPE, UpRound, NodeList));
@@ -825,8 +804,8 @@ Node FindClosestNode(int NodeId, int Cost, Node KeyNode, NodeGenerator &ng, int 
   // 选取最近的PE
   for (int j = 0; j < ChoosedNodes.size(); ++ j) {
     Node NowNode = ChoosedNodes[j];
-    long long StartTime = KeyNode.StartTime + KeyNode.Retiming * PeriodTime - Cost - NodeList[NodeId].Cost;
-    long long EndTime = StartTime + NodeList[NodeId].Cost;
+    long long EndTime = KeyNode.StartTime + KeyNode.Retiming * PeriodTime - Cost;
+    long long StartTime = EndTime - NowNode.Cost;
     
     int Int = -1;
     if (!NowNode.Certained) {
@@ -839,11 +818,15 @@ Node FindClosestNode(int NodeId, int Cost, Node KeyNode, NodeGenerator &ng, int 
           break;
         }
       }
+      if (Int == -1) {
+        NowNode.Show();
+        ShowInterval(PEId);
+      }
       assert(Int != -1);
       PEInterval interval = PEIntervals[PEId][Int];
 
       // PS + Retiming * P <= S
-      NowNode.Retiming = Floor((StartTime - interval.StartTime), PeriodTime);
+      NowNode.Retiming = Floor(StartTime - interval.StartTime, PeriodTime);
       EndTime = min(interval.EndTime + NowNode.Retiming * PeriodTime, EndTime);
       StartTime = EndTime - NodeList[NodeId].Cost;
       int BinSize = StartTime - (interval.StartTime + NowNode.Retiming * PeriodTime);
@@ -867,6 +850,7 @@ Node FindClosestNode(int NodeId, int Cost, Node KeyNode, NodeGenerator &ng, int 
       if (NowNode.StartTime + NowNode.Retiming * PeriodTime > StartTime)
         NowNode.Retiming = Floor(StartTime - NowNode.StartTime, PeriodTime);
     }
+    assert(NowNode.StartTime + NowNode.Retiming * PeriodTime <= StartTime);
 
     if (ArNode.StartTime == -1 
       || NowNode.StartTime + NowNode.Retiming * PeriodTime > ArNode.StartTime + ArNode.Retiming * PeriodTime) {
@@ -894,6 +878,7 @@ Node FindClosestNode(int NodeId, int Cost, Node KeyNode, NodeGenerator &ng, int 
     int EndTime = ArNode.StartTime;
     // printf("Before:[%d, %d]\n", StartTime, EndTime);
     for (int i = ArrangedSet.size() - 1; i >= 0; -- i) {
+      if (i != 0) assert(ArrangedSet[i] > ArrangedSet[i - 1]);
       Node NowNode = SamePENodes[ArrangedSet[i]];
       // printf("Update Id:%d Round:%d\n", NowNode.Id, NowNode.Round);
       NowNode.SetTime(StartTime, EndTime);
@@ -916,6 +901,8 @@ Node FindClosestNode(int NodeId, int Cost, Node KeyNode, NodeGenerator &ng, int 
 }
 
 void ArrangeKeyNode(Node KeyNode, NodeGenerator &ng, priority_queue<Node, vector<Node>, NodeComparationByCost> &Que) {
+  // printf("ArrangeKeyNode\n");
+  // KeyNode.Show();
   // arrange keynode position
   long long PeriodTime = ng.UpBound;
 
@@ -938,22 +925,20 @@ void ArrangeKeyNode(Node KeyNode, NodeGenerator &ng, priority_queue<Node, vector
       Attributes.push_back(make_pair(InEdges[i], Int));
 
       // get query cache interval
-      if (KeyNode.StartTime - (FromNode.EndTime + 1LL * FromNode.Retiming * PeriodTime) >= PeriodTime)
+      if ((KeyNode.StartTime + KeyNode.Retiming * PeriodTime) 
+        - (FromNode.EndTime + FromNode.Retiming * PeriodTime) >= PeriodTime)
         Whole = true;
-      long long Dis = KeyNode.StartTime - (FromNode.EndTime + 1LL * FromNode.Retiming * PeriodTime);
+      long long Dis = KeyNode.StartTime + KeyNode.Retiming * PeriodTime - (FromNode.EndTime + FromNode.Retiming * PeriodTime);
       long long NLCost = min(KeyNode.StartTime, Dis);
-      long long NRCost = (Dis <= KeyNode.StartTime ? 0 : Dis - KeyNode.StartTime);
-      while (NRCost >= PeriodTime)
-        NRCost = NRCost - PeriodTime;
+      long long NRCost = (Dis <= KeyNode.StartTime ? 0 : Dis - KeyNode.StartTime) % PeriodTime;
       LCost = max(LCost, (int)NLCost);
       RCost = max(RCost, (int)NRCost);
     }
     else {
       // printf("Put into DRAM\n");
       // put into DRAM
-      bool InQ = !FromNode.Certained;
-      FromNode.Certained = true;
-      if (InQ) {
+      if (!FromNode.Certained) {
+        FromNode.Certained = true;
         DeleteInterval(FromNode.PEId, Int, FromNode.StartTime, FromNode.EndTime);
         Que.push(FromNode);
       }
@@ -987,29 +972,25 @@ void ArrangeKeyNode(Node KeyNode, NodeGenerator &ng, priority_queue<Node, vector
     // printf("Put into Cache\n");
     // put into cache
     for (int i = ArrangedSet.size() - 1; i >= 0; -- i) {
+      if (i != 0) assert(ArrangedSet[i] > ArrangedSet[i - 1]);
       int index = ArrangedSet[i];
       Node ArNode = ReadyForCache[index];
       int TargetInt = Attributes[index].second;
 
       int Memory = Attributes[index].first.Memory;
-      long long Dis = KeyNode.StartTime - (ArNode.EndTime + ArNode.Retiming * PeriodTime);
+      long long Dis = KeyNode.StartTime + KeyNode.Retiming * PeriodTime - (ArNode.EndTime + ArNode.Retiming * PeriodTime);
       long long NLCost = min(1LL * KeyNode.StartTime, Dis);
-      long long NRCost = (Dis <= KeyNode.StartTime ? 0 : Dis - KeyNode.StartTime);
-      while (NRCost >= PeriodTime)
-        NRCost = NRCost - PeriodTime;
+      long long NRCost = (Dis <= KeyNode.StartTime ? 0 : Dis - KeyNode.StartTime) % PeriodTime;
 
-      if (Dis >= PeriodTime ) {
-        for (int j = Dis; j >= PeriodTime; j = j - PeriodTime)
-          Update(KeyNode.PEId, 1, PeriodTime, 1, 1, PeriodTime, Memory);
-      }
+      if (Dis >= PeriodTime + KeyNode.StartTime)
+        Update(KeyNode.PEId, 1, PeriodTime, 1, 1, PeriodTime, (Dis - KeyNode.StartTime / PeriodTime) * Memory);
       if (NLCost > 0) 
         Update(KeyNode.PEId, 1, PeriodTime, 1, KeyNode.StartTime - NLCost + 1, KeyNode.StartTime, Memory);
       if (NRCost > 0)
         Update(KeyNode.PEId, 1, PeriodTime, 1, PeriodTime - NRCost + 1, PeriodTime, Memory);
 
-      bool InQ = !ArNode.Certained;
-      ArNode.Certained = true;
-      if (InQ) {
+      if (!ArNode.Certained) {
+        ArNode.Certained = true;
         DeleteInterval(ArNode.PEId, TargetInt, ArNode.StartTime, ArNode.EndTime);
         Que.push(ArNode);
       }
@@ -1030,9 +1011,8 @@ void ArrangeKeyNode(Node KeyNode, NodeGenerator &ng, priority_queue<Node, vector
       int Int = -1;
       Node ArNode = FindClosestNode(e.From, e.DRAMTimeCost, KeyNode, ng, Int);
 
-      bool InQ = !ArNode.Certained;
-      ArNode.Certained = true;
-      if (InQ) {
+      if (!ArNode.Certained) {
+        ArNode.Certained = true;
         DeleteInterval(ArNode.PEId, Int, ArNode.StartTime, ArNode.EndTime);
         Que.push(ArNode);
       }
@@ -1070,6 +1050,8 @@ void PlaceKeyNode(Node &KeyNode, NodeGenerator &ng) {
     }
   }
   if (Int == -1) {
+    KeyNode.Show();
+    ShowInterval(KeyNode.PEId);
     printf("### Not Found KeyNode Interval ###\n");
   }
   assert(Int != -1);
@@ -1109,6 +1091,10 @@ void ReBFS(Node KeyNode, NodeGenerator &ng) {
       // printf("From:%d To:%d %d %d\n", InEdges[i].From, InEdges[i].To, ToNode.Id, ToNode.Round);
       bool StrogeInCache = false;
       int FromRound = ng.GetRelatedNode(InEdges[i].From, ToNode.Id, ToNode.Round, StrogeInCache);
+      if (FromRound == -1) {
+        printf("%d %d %d\n", InEdges[i].From, ToNode.Id, ToNode.Round);
+        ng.ShowRelation();
+      }
       assert(FromRound != -1);
       Node FromNode = ng.GetNode(InEdges[i].From, FromRound);
       long long Cost = (StrogeInCache ? InEdges[i].CacheTimeCost : InEdges[i].DRAMTimeCost);
@@ -1215,13 +1201,12 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
   else {
     for (int EachX = 0; EachX <= PeriodTimes; ++ EachX) {
       int EachY = PeriodTimes - EachX;
-      int X = max(0, Ceil(EachX - NgList[0].UpRound, NgList[0].UpRound));
-      int Y = max(0, Ceil(EachY - NgList[1].UpRound, NgList[1].UpRound));
+      int X = max(0, (int)Ceil(EachX - NgList[0].UpRound, NgList[0].UpRound));
+      int Y = max(0, (int)Ceil(EachY - NgList[1].UpRound, NgList[1].UpRound));
       long long TotalTimeX = NgList[0].Prelogue + 1LL * X * NgList[0].UpBound;
       long long TotalTimeY = NgList[1].Prelogue + 1LL * Y * NgList[1].UpBound;
       long long TotalTime = max(TotalTimeX, TotalTimeY);
       if (FR.TotalTime == -1 || TotalTime < FR.TotalTime) {
-        printf("%d %d\n", EachX, EachY);
         FR.TotalTime = TotalTime;
         FR.RunOnCache = NgList[0].RunOnCache * X * Launches + NgList[1].RunOnCache * Y;
         FR.RunOnDRAM = NgList[0].RunOnDRAM * X * Launches + NgList[1].RunOnCache * Y;
