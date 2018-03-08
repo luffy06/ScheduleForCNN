@@ -385,10 +385,6 @@ struct NodeGenerator {
       if (Relation[L].ToId == ToId && Relation[L].ToRound == ToRound)
         break;
     }
-    if (Relation[L].ToId != ToId) {
-      printf("GetRelatedNode\tFrom Id:%d\tTo Id:%d\tTo Round:%d\n", FromId, ToId, ToRound);
-      ShowRelation();
-    }
     assert(Relation[L].ToId == ToId);
     assert(Relation[L].ToRound == ToRound);
     StrogeInCache = Relation[L].StrogeInCache;
@@ -839,8 +835,6 @@ Node FindClosestNode(int NodeId, int Cost, Node KeyNode, NodeGenerator &ng, bool
     int StartTime = PEIntervals[ArNode.PEId][TargetInt].StartTime;
     int EndTime = ArNode.StartTime;
     // printf("Before:[%d, %d]\n", StartTime, EndTime);
-    if (ArNode.PEId == 45)
-      printf("%lu %lu\n", SamePENodes.size(), ArrangedSet.size());
     for (int i = ArrangedSet.size() - 1; i >= 0; -- i) {
       if (i != 0) assert(ArrangedSet[i] > ArrangedSet[i - 1]);
       Node NowNode = SamePENodes[ArrangedSet[i]];
@@ -866,8 +860,7 @@ Node FindClosestNode(int NodeId, int Cost, Node KeyNode, NodeGenerator &ng, bool
 
 void ArrangeKeyNode(Node KeyNode, NodeGenerator &ng, priority_queue<Node, vector<Node>, NodeComparationByCost> &Que) {
   // printf("ArrangeKeyNode\n");
-  if (KeyNode.Id == 509)
-    KeyNode.Show();
+  // KeyNode.Show();
   // arrange keynode position
   long long PeriodTime = ng.UpBound;
 
@@ -906,6 +899,7 @@ void ArrangeKeyNode(Node KeyNode, NodeGenerator &ng, priority_queue<Node, vector
       else
         ReChecked[FromNode.Id][FromNode.Round] = true;
       ng.SetNode(FromNode);
+      ng.RunOnDRAM = ng.RunOnDRAM + 1;
       ng.AddRelation(CertainedEdge(FromNode.Id, FromNode.Round, KeyNode.Id, KeyNode.Round, false));
       Checked[FromNode.Id][FromNode.Round] = true;
     }
@@ -954,6 +948,7 @@ void ArrangeKeyNode(Node KeyNode, NodeGenerator &ng, priority_queue<Node, vector
       else
         ReChecked[ArNode.Id][ArNode.Round] = true;
       ng.SetNode(ArNode);
+      ng.RunOnCache = ng.RunOnCache + 1;
       ng.AddRelation(CertainedEdge(ArNode.Id, ArNode.Round, KeyNode.Id, KeyNode.Round, true));
       Checked[ArNode.Id][ArNode.Round] = true;
 
@@ -976,6 +971,7 @@ void ArrangeKeyNode(Node KeyNode, NodeGenerator &ng, priority_queue<Node, vector
       else
         ReChecked[ArNode.Id][ArNode.Round] = true;
       ng.SetNode(ArNode);
+      ng.RunOnDRAM = ng.RunOnDRAM + 1;
       ng.AddRelation(CertainedEdge(ArNode.Id, ArNode.Round, KeyNode.Id, KeyNode.Round, false));
       Checked[ArNode.Id][ArNode.Round] = true;
     }
@@ -1047,10 +1043,6 @@ void ReBFS(Node KeyNode, NodeGenerator &ng) {
       // printf("From:%d To:%d %d %d\n", InEdges[i].From, InEdges[i].To, ToNode.Id, ToNode.Round);
       bool StrogeInCache = false;
       int FromRound = ng.GetRelatedNode(InEdges[i].From, ToNode.Id, ToNode.Round, StrogeInCache);
-      if (FromRound == -1) {
-        printf("%d %d %d\n", InEdges[i].From, ToNode.Id, ToNode.Round);
-        ng.ShowRelation();
-      }
       assert(FromRound != -1);
       Node FromNode = ng.GetNode(InEdges[i].From, FromRound);
       long long Cost = (StrogeInCache ? InEdges[i].CacheTimeCost : InEdges[i].DRAMTimeCost);
@@ -1096,7 +1088,7 @@ void SpreadKeyNodeSet(NodeGenerator &ng) {
   // ng.ShowEach(false);
   // ng.ShowRelation();
 
-  printf("Spread Succeed\n");
+  // printf("Spread Succeed\n");
 
   vector<Node> ReCheckedNodes;
   for (int i = 1; i <= TotalNode; ++ i)
@@ -1104,7 +1096,7 @@ void SpreadKeyNodeSet(NodeGenerator &ng) {
       if (ReChecked[i][j]) ReCheckedNodes.push_back(ng.GetNode(i, j));
   
   sort(ReCheckedNodes.begin(), ReCheckedNodes.end(), CmpByTopoOrder);
-  printf("ReChecked Nodes\n");
+  // printf("ReChecked Nodes\n");
   for (int i = ReCheckedNodes.size() - 1; i >= 0; -- i) {
     Node KeyNode = ReCheckedNodes[i];
     if (ReChecked[KeyNode.Id][KeyNode.Round])
@@ -1165,7 +1157,7 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
       if (FR.TotalTime == -1 || TotalTime < FR.TotalTime) {
         FR.TotalTime = TotalTime;
         FR.RunOnCache = NgList[0].RunOnCache * X * Launches + NgList[1].RunOnCache * Y;
-        FR.RunOnDRAM = NgList[0].RunOnDRAM * X * Launches + NgList[1].RunOnCache * Y;
+        FR.RunOnDRAM = NgList[0].RunOnDRAM * X * Launches + NgList[1].RunOnDRAM * Y;
       }
     }
     FR.Prelogue = NgList[0].Prelogue;
