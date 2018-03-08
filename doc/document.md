@@ -122,31 +122,33 @@ $I_{period}$的值依据$Ratio_{period}$来确定。每按照上述算法排列�
 
 ### Step Four：获取关键节点集合
 
-**定义：**$S_{KeyNode}$为关键节点集合；参数$\alpha$。
+**定义：**$S_{UnCheckedNode}$为未检查节点结合；$S_{KeyNode}$为关键节点集合；参数$\alpha$。
 
 对任务节点$V_i \in V$，若$e_i$满足$\frac{e_i}{e_{max}}\ge \alpha$，则认为$V_i$是关键节点，加入$S_{KeyNode}$。
 
 $S_{KeyNode}$是一棵平衡二叉排序树，按照任务节点时间大小，从大到小进行排序。
 
-> $GetKeyNodeSet(\alpha):$
+> $GetKeyNodeSet(\alpha, S_{UnCheckedNode}):$
 >
 > $e_{max}\leftarrow -\infty$
 >
 > $S_{KeyNode}\leftarrow \emptyset$
 >
-> $For \;i\leftarrow 0\;to\;N:$
+> $For \;i\leftarrow 0\;to\;N_{S_{UnCheckedNode}}:$
 >
 > $\quad e_{max}\leftarrow max(e_{max}, e_i)$
 >
-> $For\;i\leftarrow 0 \;to\;N:$
+> $For\;i\leftarrow 0 \;to\;N_{S_{UnCheckedNode}}:$
 >
 > $\quad If\;e_i\ge e_{max}\times \alpha :$
 >
 > $\quad\quad ENSET(S_{KeyNode}, V_i)$
 >
+> $\quad \quad DESET(S_{UnCheckedNodes}, V_i)$
+>
 > $Return\;S_{KeyNode}$
 
-### Step Five：从关键节点开始扩散，确定周期内所有节点的位置
+### Step Five：从关键节点开始向前扩散，确定周期内节点的位置
 
 考虑到图$G$中有一些执行时间远大于其他的任务节点，他们在PE上的排列将影响整个图$G$的重定时次数$R$，所以需要先确定他们的位置。
 
@@ -156,27 +158,25 @@ $S_{KeyNode}$是一棵平衡二叉排序树，按照任务节点时间大小，�
 
 >$SpreadFromKeyNode(S_{UnCheckedNode},\alpha)$
 >
->$Q_{certain}\leftarrow \emptyset,\;Q_{uncertain}\leftarrow \emptyset$
+>$Q_{certain}\leftarrow \emptyset$
 >
->$S_{KeyNode}\leftarrow GetKeyNodeSet(\alpha)$
+>$do\; \{$
 >
->$For\;i\leftarrow 0\;to\; N_{KeyNodeSet}:$
+>$\quad S_{KeyNode}\leftarrow GetKeyNodeSet(\alpha,S_{UnCheckedNode})$
 >
->$\quad\quad For\;r\leftarrow 1\;to\; I_{period}:$
+>$\quad For\;i\leftarrow 0\;to\; N_{KeyNodeSet}:$
 >
->$\quad\quad\quad ArrangeKeyNode(V^r_i, Q_{certain}, Q_{uncertain})$
+>$\quad \quad ENQUEUE(Q_{certain}, V^r_i) $
 >
->$While\;Q_{uncertain}\neq \emptyset:$
+>$\quad \quad While\; Q_{certain}\neq \emptyset:$
 >
->$\quad V^r_{i}\leftarrow DEQUEUE(Q_{certain})$
+>$\quad \quad \quad V^r_i\leftarrow DEQUEUE(Q_{certain})$
 >
->$\quad If\;V^r_i\;hasn't\;been\;visited:$
+>$\quad\quad \quad ArrangeKeyNode(V^r_i, Q_{certain})$
 >
->$\quad\quad ArrangeKeyNode(V^r_i, Q_{certain},Q_{uncertain})$
->
->$Return\;Q_{uncertain}$
+>$\}\;While(S_{UnCheckedNode}\neq \emptyset);$
 
-### Step Six：确定关键节点$V^r_i$的位置，通过其入度（出度）边，利用动态规划确定入度（出度）边上传输的数据存储的位置（cache/DRAM），同时确定边所连接的节点的位置
+### Step Six：根据关键节点$V^r_i$的入度边，利用动态规划确定入度上传输的数据存储的位置（cache/DRAM），同时选择并确定边所连接的节点的位置
 
 在第二步中仅仅确定了每个PE中安排的任务节点都有哪些，但每个任务节点位置都是可以相互交换的。
 
@@ -184,7 +184,7 @@ $S_{KeyNode}$是一棵平衡二叉排序树，按照任务节点时间大小，�
 
 初始，每个PE上都有一个空闲区间$[st^{Int}_{0}, ed^{Int}_{0}]$，其中$st^{Int}_{0}\leftarrow 0$，$ed^{Int}_{0}\leftarrow T_{period}$。每个PE上的任务节点都属于自己PE的空闲区间。
 
-接下来分为三个步骤：
+接下来分为两个步骤：
 
 1. 确定节点$V^r_i$的位置。
 
@@ -196,7 +196,21 @@ $S_{KeyNode}$是一棵平衡二叉排序树，按照任务节点时间大小，�
 
    考虑入度边$e_{ji}$，即$V_j$到$V_i$的边。从周期内未被确定的$U$个$V^u_j$节点，选择离$V^r_i$最近的一个，作为$V^r_i$的前继节点。
 
-   假设$d_{ji}$可以放入Cache中，那么$V_j$的最晚开始时间为$st^{late}_j\leftarrow st_i - t^{Cache}_{ij}-ex_j$。对于$V^u_j$，在满足$st^u_j + R^u_j\times I_{period}\le st^{late}_j$的条件下，选取使得$st^u_j$最大的位置作为$V^u_j$离$V^r_i$最近的位置。 在$U$个已经选取最大位置的$V^u_j$中选择到距离$V^r_i$最近的任务节点$V^u_j$作为$V^r_i$的前继节点。
+   > $FindClosestNode(e_{ij}, V^r_i):$
+   >
+   > $dis\leftarrow INF $
+   >
+   > $For\;o\leftarrow 0\;to\;I_{period}:$
+   >
+   > $\quad If\;st^r_i+R^r_i\times T_{period}-ed^o_j-R^o_j\times T_{period}<dis:$
+   >
+   > $\quad\quad dis\leftarrow st^r_i+R^r_i\times T_{period}-ed^o_j-R^o_j\times T_{period}$
+   >
+   > $\quad\quad V^u_j\leftarrow V^o_j$
+   >
+   > $Return\; V^u_j$
+
+   假设$d_{ji}$可以放入Cache中，那么$V_j$的最晚开始时间为$st^{late}_j\leftarrow st_i - t^{Cache}_{ij}-ex_j$。对于$V^u_j$，在满足$st^u_j + R^u_j\times T_{period}\le st^{late}_j$的条件下，选取使得$st^u_j$最大的位置作为$V^u_j$离$V^r_i$最近的位置。 在$U$个已经选取最大位置的$V^u_j$中选择到距离$V^r_i$最近的任务节点$V^u_j$作为$V^r_i$的前继节点。
 
    因为Local Cache的容量有限，对于$V_i$的所有入度边上传输的数据需要**有选择**的放入Local Cache中。本算法采用动态规划的方法，尽可能的有效利用Local Cache。
 
@@ -218,45 +232,53 @@ $S_{KeyNode}$是一棵平衡二叉排序树，按照任务节点时间大小，�
    >
    >$\quad\quad ENSET(S_{arranged},e_{ij})$
    >
-   >$Return S_{arranged}$
+   >$Return\;S_{arranged}$
 
-3. 确定与$V^r_i$同一个核的出度边上的数据存储位置及对应的节点。
-
-   ![多个后继选择同核的]()
-
-   本步与入度边时的处理基本相同，在处理之前，需要去除不是和$V^r_i$在同一个PE的任务节点$V^u_j$及他们之间的边$e_{ij}$。
-
-> $ArrangeKeyNode(V^r_i, Q_{certain}, Q_{uncertain}):$
+> $ArrangeKeyNode(V^r_i, Q_{certain}):$
 >
-> $If\;V^r_i\;is\;not\;certain:$
->
-> $\quad st_i\leftarrow st^{Int}_k,ed_i\leftarrow st^{Int}_k+ex_i$
+> $st_i\leftarrow st^{Int}_{k},ed_i\leftarrow st^{Int}_k+ex_i$
 >
 > $S_{arranged}\leftarrow ArrangeInFixedSize(E^{In}_i, Size_{cache}-Size_{max})$
 >
-> $ENQUEUE(Q_{uncertain}, E^{In}_i-S_{arranged})$
+> $For\;e_{ji}\;in\;E^{In}_i:$
+>
+> $\quad V^u_j\leftarrow FindClosestNode(e_{ij},\;V^r_i)$
+>
+> $\quad If\;V^u_j\;is\;certained:\quad ENSET(S_{ReChecked}, V^u_j)$
+>
+> $\quad else:\quad ENQUEUE(Q_{certain}, V^u_j)$
 >
 > $For\;j\leftarrow 0\;to\;N_{S_{arranged}}:$
 >
-> $\quad ENQUEUE(Q_{certain}, V^u_j)$
->
-> $\quad Update(ed^u_j,st^r_i,d_{ij})$
->
-> $E^{Out}_i\;remove\;those\;edges\;e_{ij}\;that\;p_j\neq p_i$
->
-> $S_{arranged}\leftarrow ArrangeInFixedSize(E^{Out}_i, Size_{cache}-Size_{max})$
->
-> $ENQUEUE(Q_{uncertain}, E^{Out}_i-S_{arranged})$
->
-> $For\;j\leftarrow 0\;to\;N_{S_{arranged}}:$
->
-> $\quad ENQUEUE(Q_{certain}, V^u_j)$
->
 > $\quad Update(ed^u_j,st^r_i,d_{ij})$
 
-### Step Seven：确定剩余放在DRAM中的节点位置
+### Step Seven：重新Check，更新Retiming值
 
-在第六步中，未能放入cache中的任务节点需要放入DRAM中，这些节点的位置也是暂不确定的。不能确定的原因是当边$e_{ij}​$不能放入cache中时，节点$V^r_i​$的位置可能由另外一条能放入cache中的边$e_{ik}​$决定。
+在第六步中，通过$S_{ReChecked}​$集合中所标记的节点，按照拓扑序列大小，从大到小重新更新$Retiming​$值。
+
+> $ReCheckNodes(S_{ReChecked})$
+>
+> $Q_{certain}\leftarrow \emptyset$
+>
+> $sort(S_{ReChecked})\; by\;topology\;order $
+>
+> $For\;i\leftarrow 0\;to\;N_{S_{ReChecked}}:$
+>
+> $\quad ENQUEUE(Q_{certain}, V^r_i)$
+>
+> $\quad While\;Q_{certain}\neq \emptyset:$
+>
+> $\quad\quad V^r_i\leftarrow DEQUEUE(Q_{certain})$
+>
+> $\quad\quad DESET(S_{ReChecked}, V^r_i)$
+>
+> $\quad\quad For \;e_{ji}\;in\;E^{In}_i:$
+>
+> $\quad\quad \quad If\;ed^u_j+R^u_j\times T_{period} + d_{ij}>st^r_i+R^r_i\times T_{period}:$
+>
+> $\quad\quad\quad\quad R^u_j\leftarrow \lfloor (st^r_i+R^r_i\times T_{period}-ed^u_j )/T_{period}\rfloor$
+>
+> $\quad\quad\quad\quad ENQUEUE(Q_{certain}, V^u_j)$
 
 
 
