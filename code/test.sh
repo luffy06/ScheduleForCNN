@@ -6,7 +6,7 @@ for (( pe = 64; pe <= 1024; pe=pe*2)); do
     rm 'config.in'
   fi
   echo 'TOTAL_PE '$pe >> config.in
-  echo 'PERIOD_TIMES 100' >> config.in
+  echo 'PERIOD_TIMES 1000' >> config.in
   echo 'UPROUND 10' >> config.in
   for file in ${datafolder}/*${suffix}; do
     filename=`basename $file`

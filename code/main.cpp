@@ -51,8 +51,8 @@ struct FinalResult {
 #define LIMITEDRATIO 0.9
 #define ALPHA 0.8
 const int INF = 0x3f3f3f3f;
-const double DRAMSPEED = 1;
-const double CACHESPEED = 2;
+const double DRAMSPEED = 1000;
+const double CACHESPEED = 10000;
 const int CACHESIZE = 20480;
 
 typedef pair<int, int> TwoInt;
@@ -65,13 +65,13 @@ void TestInput() {
   scanf("%d", &t);
 }
 
-int Ceil(int a, int b) {
+long long Ceil(long long a, long long b) {
   if (a % b == 0)
     return a / b;
   return a / b + 1;
 }
 
-int Floor(int a, int b) {
+long long Floor(long long a, long long b) {
   if (a % b == 0)
     return a / b;
   return a / b - 1;
@@ -111,7 +111,7 @@ void Input() {
     char Op[200];
     scanf("%d%s%s%d", &NodeList[i].Id, Name, Op, &Cost);
     NodeList[i].Id = NodeList[i].Id + 1;
-    // Cost = Cost + 1;
+    Cost = Cost + 1;
     NodeList[i].Cost = Cost;
     MaxCost = max(MaxCost, Cost);
   }
@@ -131,8 +131,9 @@ void Input() {
     To = To + 1;
     NodeList[From].OutDegree = NodeList[From].OutDegree + 1;
     NodeList[To].InDegree = NodeList[To].InDegree + 1;
-    EdgeList[From].push_back(Edge(From, To, Memory));
-    ReEdgeList[To].push_back(Edge(From, To, Memory));
+    Edge e = Edge(From, To, Memory);
+    EdgeList[From].push_back(e);
+    ReEdgeList[To].push_back(e);
   }
 }
 

@@ -63,6 +63,11 @@ struct Edge {
     CacheTimeCost = ceil(1.0 * Memory / CACHESPEED);
     DRAMTimeCost = ceil(1.0 * Memory / DRAMSPEED);
   }
+
+  void Show() {
+    printf("From:%d\tTo:%d\tMemory:%d\tCacheTimeCost:%d\tDRAMTimeCost:%d\n", From, To, Memory, CacheTimeCost, DRAMTimeCost);
+  }
+
 };
 
 struct Phase {
@@ -72,10 +77,12 @@ struct Phase {
   int PEStartTime[MAXPE];
   int RunOnDRAM;
   int RunOnCache;
+  double Ratio;
 
   Phase() { }
 
   Phase(int a) {
+    Ratio = 0.0;
     PENumb = a;
     RunOnDRAM = RunOnCache = 0;
   }
@@ -97,6 +104,17 @@ struct Phase {
       }
       printf("\n");
     }
+  }
+
+  void CalcRatio() {
+    int MaxEndtime = 0;
+    double TotalCost = 0;
+    for (int i = 1; i <= PENumb; ++ i) {
+      MaxEndtime = max(MaxEndtime, PEEndTime[i]);
+      for (int j = 0; j < PELine[i].size(); ++ j)
+        TotalCost = TotalCost + PELine[i][j].Cost;
+    }
+    Ratio = TotalCost / (1.0 * MaxEndtime * PENumb);
   }
 };
 
@@ -316,7 +334,7 @@ void InitPhase(Phase &phase) {
     }
 
     for (int k = 0; k < 2; ++ k) {
-      int StartTime = 0;
+      int StartTime = phase.PEEndTime[PEIter];
       vector<Edge> Edges = ReEdgeList[node.Id];
       if (Edges.size() > 0) {
         vector<int> NodeSizes;
@@ -339,23 +357,23 @@ void InitPhase(Phase &phase) {
           StartTime = max(StartTime, e.DRAMTimeCost + NodeTime[k][e.From].EndTime);
         }
       }
-      if (k == 1)
-        StartTime = max(StartTime, NodeTime[0][node.Id].EndTime);
+      if (k > 0)
+        StartTime = max(StartTime, NodeTime[k - 1][node.Id].EndTime);
 
       node.Round = k;
       node.SetTime(StartTime);
       NodeTime[node.Round][node.Id].Copy(node);
       phase.PELine[PEIter].push_back(node);
-      if (k == 0)
-        phase.PEStartTime[PEIter] = min(phase.PEStartTime[PEIter], node.StartTime);
-      else
-        phase.PEEndTime[PEIter] = max(phase.PEEndTime[PEIter], node.EndTime);
+      phase.PEStartTime[PEIter] = min(phase.PEStartTime[PEIter], node.StartTime);
+      phase.PEEndTime[PEIter] = max(phase.PEEndTime[PEIter], node.EndTime);
     }
     PEIter = PEIter + 1;
 
     if (PEIter == PENumb + 1) 
       PEIter = 1;
   }
+  phase.CalcRatio();
+  printf("Ratio of Phase:%.6f\n", phase.Ratio);
 }
 
 int Init(int TotalPE) {
