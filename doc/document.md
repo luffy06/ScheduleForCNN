@@ -10,11 +10,15 @@
 
 ![时间消耗](./graph/timecost.png)
 
+# 样例
+
+
+
 # 算法
 
 ## 输入
 
-**定义：**有向无环图DAG，$G=(V,E,P,R)$，其中$V$表示节点集合，节点个数是$N$；$E$表示边集合，边个数是$M$；$P$表示PE个数；$R$表示图$G$的重定时次数。
+**定义：**有向无环图DAG，$G=(V,E,P,R)$，其中$V$表示节点集合，节点个数是$N_V$；$E$表示边集合，边个数是$N_E$；$P$表示PE个数；$R$表示图$G$的重定时次数。
 
 **定义：**$I$表示图$G$需要循环的次数。
 
@@ -40,7 +44,7 @@
 若$m$不整除$P$，
 
 * 前$H-1$次发射的核数是$m$，最后一次发射核数是$P\%m$。
-* 若前$H-1$次发射每次循环$x$次，最后一次发射循环$y$次。故$(x,y)$需要满足$I=(H-1)\times x+y$。对所有满足的$(x, y)$选取使总时间$T$最小的一组$(x,y)$。
+* 若前$H-1$次发射每次循环$I_{H-1}$次，最后一次发射循环$I_{last}$次。故$(I_{H-1},I_{last})$需要满足$I=(H-1)\times I_{H-1}+I_{last}$。对所有满足的$(I_{H-1}, I_{last})$选取使总时间$T$最小的一组$(I_{H-1},I_{last})$。
 
 ### Step Two：确定单发射中每个周期内图循环的组数和每个核任务的种类
 
@@ -70,7 +74,7 @@ $I_{period}$的值依据$Ratio_{period}$来确定。每按照上述算法排列�
 >
 > $cost\leftarrow 0$
 >
-> $For\; i\leftarrow 0\; to \;N:$
+> $For\; i\leftarrow 0\; to \;N_V:$
 >
 > $\quad cost\leftarrow cost+ex_{i}$
 >
@@ -84,7 +88,7 @@ $I_{period}$的值依据$Ratio_{period}$来确定。每按照上述算法排列�
 >
 > $\quad I_{period}\leftarrow I_{period}+1$
 >
-> $\quad For\;i\leftarrow 0\;to\;N:$
+> $\quad For\;i\leftarrow 0\;to\;N_V:$
 >
 > $\quad\quad ed^{PE}_{j}\leftarrow DEQUEUE(Q_{prior})$
 >
@@ -109,6 +113,8 @@ $I_{period}$的值依据$Ratio_{period}$来确定。每按照上述算法排列�
 > $\quad Ratio_{period}\leftarrow Ratio_{periodmax}$
 >
 > $Return\; I_{period}$
+
+时间复杂度：$O(I_{limited}\times N\times logm)$
 
 ### Step Three：判断是否需要Retiming
 
@@ -148,11 +154,13 @@ $S_{KeyNode}$是一棵平衡二叉排序树，按照任务节点时间大小，�
 >
 > $Return\;S_{KeyNode}$
 
+时间复杂度：$O(N)$
+
 ### Step Five：从关键节点开始向前扩散，确定周期内节点的位置
 
 考虑到图$G$中有一些执行时间远大于其他的任务节点，他们在PE上的排列将影响整个图$G$的重定时次数$R$，所以需要先确定他们的位置。
 
-![扩散过程]()
+![扩散过程](./graph/spread.png)
 
 利用第四步所获取的关键节点集合$S_{KeyNode}$，对其中的节点来确定其前继和后继节点的位置。当$S_{KeyNode}$为空后，从未访问的节点集合$S_{UnCheckedNode}$中再次获取关键节点集合。
 
@@ -164,7 +172,7 @@ $S_{KeyNode}$是一棵平衡二叉排序树，按照任务节点时间大小，�
 >
 >$\quad S_{KeyNode}\leftarrow GetKeyNodeSet(\alpha,S_{UnCheckedNode})$
 >
->$\quad For\;i\leftarrow 0\;to\; N_{KeyNodeSet}:$
+>$\quad For\;i\leftarrow 0\;to\; N_{S_{KeyNode}}:$
 >
 >$\quad \quad ENQUEUE(Q_{certain}, V^r_i) $
 >
@@ -175,6 +183,8 @@ $S_{KeyNode}$是一棵平衡二叉排序树，按照任务节点时间大小，�
 >$\quad\quad \quad ArrangeKeyNode(V^r_i, Q_{certain})$
 >
 >$\}\;While(S_{UnCheckedNode}\neq \emptyset);$
+
+时间复杂度：$O(I_{period}\times N_E )$
 
 ### Step Six：根据关键节点$V^r_i$的入度边，利用动态规划确定入度上传输的数据存储的位置（cache/DRAM），同时选择并确定边所连接的节点的位置
 
@@ -192,7 +202,7 @@ $S_{KeyNode}$是一棵平衡二叉排序树，按照任务节点时间大小，�
 
 2. 确定$V^r_i$的入度边上的数据存储位置及对应的节点。
 
-   ![多个前继选择最近的]()
+   ![多个前继选择最近的](./graph/choose.png)
 
    考虑入度边$e_{ji}$，即$V_j$到$V_i$的边。从周期内未被确定的$U$个$V^u_j$节点，选择离$V^r_i$最近的一个，作为$V^r_i$的前继节点。
 
@@ -210,6 +220,8 @@ $S_{KeyNode}$是一棵平衡二叉排序树，按照任务节点时间大小，�
    >
    > $Return\; V^u_j$
 
+   时间复杂度：$O(1)$
+
    假设$d_{ji}$可以放入Cache中，那么$V_j$的最晚开始时间为$st^{late}_j\leftarrow st_i - t^{Cache}_{ij}-ex_j$。对于$V^u_j$，在满足$st^u_j + R^u_j\times T_{period}\le st^{late}_j$的条件下，选取使得$st^u_j$最大的位置作为$V^u_j$离$V^r_i$最近的位置。 在$U$个已经选取最大位置的$V^u_j$中选择到距离$V^r_i$最近的任务节点$V^u_j$作为$V^r_i$的前继节点。
 
    因为Local Cache的容量有限，对于$V_i$的所有入度边上传输的数据需要**有选择**的放入Local Cache中。本算法采用动态规划的方法，尽可能的有效利用Local Cache。
@@ -222,7 +234,7 @@ $S_{KeyNode}$是一棵平衡二叉排序树，按照任务节点时间大小，�
    >
    >$\quad For\;s\leftarrow \;Size_{left}\;to\;d_{ij}:$
    >
-   >$\quad\quad dp[j][s]=max(dp[j-1][s-d_{ij}]+d_{ij},dp[j][s])$
+   >$\quad\quad dp[j][s]\leftarrow max(dp[j-1][s-d_{ij}]+d_{ij},dp[j][s])$
    >
    >$s\leftarrow Size_{left}$
    >
@@ -230,9 +242,13 @@ $S_{KeyNode}$是一棵平衡二叉排序树，按照任务节点时间大小，�
    >
    >$\quad If \;s\ge d_{ij}\;and\;dp[j-1][s-d_{ij}]+d_{ij}\gt dp[j][s]:$
    >
+   >$\quad\quad s \leftarrow s-d_{ij}$
+   >
    >$\quad\quad ENSET(S_{arranged},e_{ij})$
    >
    >$Return\;S_{arranged}$
+
+   时间复杂度：$O(N\times Size)​$
 
 > $ArrangeKeyNode(V^r_i, Q_{certain}):$
 >
@@ -252,9 +268,11 @@ $S_{KeyNode}$是一棵平衡二叉排序树，按照任务节点时间大小，�
 >
 > $\quad Update(ed^u_j,st^r_i,d_{ij})$
 
+时间复杂度：$O(E)$
+
 ### Step Seven：重新Check，更新Retiming值
 
-在第六步中，通过$S_{ReChecked}​$集合中所标记的节点，按照拓扑序列大小，从大到小重新更新$Retiming​$值。
+如第五步中的最后一个图所示，通过$S_{ReChecked}$集合中所标记的节点，按照拓扑序列大小，从大到小重新更新$Retiming$值。
 
 > $ReCheckNodes(S_{ReChecked})$
 >
@@ -284,34 +302,28 @@ $S_{KeyNode}$是一棵平衡二叉排序树，按照任务节点时间大小，�
 
 # 变量定义
 
-| 变量                                           | 符号                         |
-| ---------------------------------------------- | ---------------------------- |
-| 图                                             | $G$                          |
-| 节点集合                                       | $V$                          |
-| 节点个数                                       | $N$                          |
-| 拓扑序列、开始时间、执行时间、结束时间、所在核 | $tp_i, st_i,ex_i,ed_i,p_i$   |
-| 边集合                                         | $E$                          |
-| 节点$V_i$的入度边集合、出度边集合              | $E^{In}_i, E^{Out}_i$        |
-| 边个数                                         | $M$                          |
-| 从$V_i$到$V_j$的边，数据传输量，边的传输时间   | $e_{ij}, d_{ij},t_{ij}$      |
-| PE总个数                                       | $P$                          |
-| 图$G$需要循环的次数                            | $I$                          |
-| 图$G$完成的总时间                              | $T$                          |
-| 图$G$的最大并发度                              | $m$                          |
-| 多发射次数                                     | $H$                          |
-| 当$m\%P\not=0$，前$H-1$次发射循环的次数        | $x$                          |
-| 当$m\%P\not=0$，最后一次发射循环的次数         | $y$                          |
-| 利用率                                         | $Ratio$                      |
-| 队列                                           | $Q$                          |
-| 关键节点判断参数                               | $\alpha$                     |
-| 关键节点集合                                   | $S_{KeyNode}$                |
-| 核为$p_i$的PE上的第$k$个空闲区间               | $Int^{p_i}_k$                |
-| 核为$p_i$的PE上的空闲区间个数                  | $K$                          |
-| 第$k$个空闲区间的开始时间、结束时间            | $st_k^{Int}, ed_k^{Int}$     |
-| 已经安排在Cache中的节点集合、未安排的          | $ArrangedSet, UnArrangedSet$ |
-| $ArrangedSet$或$UnArrangedSet$中节点的个数     | $D$                          |
-| $ArrangedSet$和$UnArrangedSet$中节点的下表     | $index_d$                    |
-| 未检查节点集合                                 | $UnCheckedNodeSet$           |
+| 变量                                                         | 符号                                              |
+| ------------------------------------------------------------ | ------------------------------------------------- |
+| 图                                                           | $G$                                               |
+| 节点集合                                                     | $V$                                               |
+| 边集合                                                       | $E$                                               |
+| PE总个数                                                     | $P$                                               |
+| 循环的次数                                                   | $I$                                               |
+| 时间                                                         | $T$                                               |
+| 个数                                                         | $N$                                               |
+| 第$r$轮节点$V^r_i$的信息：拓扑序列、开始时间、执行时间、结束时间、所在核、Retiming次数、入度边集合 | $tp^r_i, st^r_i,ex_i,ed^r_i,p^r_i,R^r_i,E^{In}_i$ |
+| 从$V_i$到$V_j$的边，数据传输量，边的传输时间                 | $e_{ij}, d_{ij},t_{ij}$                           |
+| 图$G$的最大并发度                                            | $m$                                               |
+| 多发射次数                                                   | $H$                                               |
+| 利用率                                                       | $Ratio$                                           |
+| 关键节点判断参数                                             | $\alpha$                                          |
+| 队列                                                         | $Q$                                               |
+| 集合                                                         | $S$                                               |
+| 核为$p_i$的PE上的空闲区间个数                                | $K$                                               |
+| 核为$p_i$的PE上的第$k$个空闲区间                             | $Int^{p_i}_k$                                     |
+| 第$k$个空闲区间的开始时间、结束时间                          | $st_k^{Int}, ed_k^{Int}$                          |
+| 内存的大小                                                   | $Size$                                            |
+| $j$条边能放入大小为$Size$的内存的最大大小                    | $dp[j][Size]$                                     |
 
 
 
