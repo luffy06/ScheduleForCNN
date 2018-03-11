@@ -664,10 +664,10 @@ vector<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
   bool RE = false;
   if (BinSize > MAXSIZE) {
     RE = true;
-    printf("### Bad BinSize Of %d ###\n", BinSize);
-    printf("Good Size:%lu\n", Goods.size());
+    // printf("### Bad BinSize Of %d ###\n", BinSize);
+    // printf("Good Size:%lu\n", Goods.size());
     BinSize = Sum - BinSize;
-    printf("BinSize:%d\tSum:%d\tMAXSIZE:%d\n", BinSize, Sum, MAXSIZE);
+    // printf("BinSize:%d\tSum:%d\tMAXSIZE:%d\n", BinSize, Sum, MAXSIZE);
   }
   assert(BinSize <= MAXSIZE);
 

@@ -131,41 +131,42 @@ struct Iteration {
   Iteration(Phase phase, int TotalPE) {
     PhaseGroup.push_back(phase);
     PhaseGroup.push_back(phase);
-    Cross = 0;
+    Cross = INF;
     Cost = 0;
     RunOnCache = phase.RunOnCache * 2;
     RunOnDRAM = phase.RunOnDRAM * 2;
     Shift = TotalPE - phase.PENumb;
     PENumb = TotalPE;
 
+    Moves.push_back(0);
     for (int i = 1; i <= Shift; ++ i) {
       Moves.push_back(phase.PEStartTime[phase.PENumb]);
-      Cost = max(Cost, 1LL * phase.PEEndTime[phase.PENumb] + phase.PEStartTime[phase.PENumb]);
+      Cost = max(Cost, 1LL * phase.PEEndTime[i] + phase.PEStartTime[phase.PENumb]);
     }
     for (int i = Shift + 1; i <= phase.PENumb; ++ i) {
       int j = phase.PENumb + Shift + 1 - i;
       int Offset = phase.PEEndTime[j] - phase.PEStartTime[i];
-      if (Moves.size() > 0)
-        Offset = max(Offset, Moves[Moves.size() - 1]);
+      Offset = max(Offset, Moves[Moves.size() - 1]);
       Moves.push_back(Offset);
-      Cost = max(Cost, 1LL * phase.PEEndTime[phase.PENumb] + Offset);
+      Cost = max(Cost, 1LL * phase.PEEndTime[i] + Offset);
     }
 
     CalcCross(phase);
+    printf("Cross:%d\n", Cross);
+    assert(Cost > 0);
   }
 
   void CalcCross(Phase phase) {
     for (int i = 1; i <= Shift; ++ i) {
       int StartTime = phase.PEStartTime[i];
       int EndTime = phase.PEEndTime[i];
-      Cross = max(Cross, (int)(Cost - EndTime + StartTime));
+      Cross = min(Cross, (int)(Cost - EndTime + StartTime));
     }
     for (int i = Shift + 1; i <= phase.PENumb; ++ i) {
       int j = phase.PENumb + Shift + 1 - i;
-      int Offset = Moves[phase.PENumb - i + Shift];
-      int StartTime = phase.PEStartTime[i];
-      int EndTime = phase.PEEndTime[j] + Offset;
-      Cross = max(Cross, (int)(Cost - EndTime + StartTime));
+      int StartTime = phase.PEStartTime[j];
+      int EndTime = phase.PEEndTime[i] + Moves[i];
+      Cross = min(Cross, (int)(Cost - EndTime + StartTime));
     }
   }
 
@@ -212,11 +213,19 @@ struct Iteration {
 vector<Edge> EdgeList[MAXN];
 vector<Edge> ReEdgeList[MAXN];
 Node NodeList[MAXN];
-Node NodeTime[2][MAXN];
+Node NodeTime[10][MAXN];
 int Degree[MAXN];
 int DP[MAXN][MAXSIZE];
 int TotalNode;
 int TotalPE, PeriodTimes, UpRound;
+
+bool CmpByTopoOrder(Node a, Node b) {
+  if (a.TopoOrder != b.TopoOrder)
+    return a.TopoOrder < b.TopoOrder;
+  else if (a.Cost != b.Cost)
+    return a.Cost < b.Cost;
+  return a.Id < b.Id;
+}
 
 int GetTopology() {
   int Count = 0, Order = 0;
@@ -346,6 +355,7 @@ void InitPhase(Phase &phase) {
         phase.RunOnDRAM = phase.RunOnDRAM + Edges.size() - ArrangeSet.size();
 
         for (int j = ArrangeSet.size() - 1; j >= 0; -- j) {
+          if (j > 0) assert(ArrangeSet[j] > ArrangeSet[j - 1]);
           Edge e = Edges[ArrangeSet[j]];
 
           StartTime = max(StartTime, e.CacheTimeCost + NodeTime[k][e.From].EndTime);
@@ -366,6 +376,8 @@ void InitPhase(Phase &phase) {
       phase.PELine[PEIter].push_back(node);
       phase.PEStartTime[PEIter] = min(phase.PEStartTime[PEIter], node.StartTime);
       phase.PEEndTime[PEIter] = max(phase.PEEndTime[PEIter], node.EndTime);
+      assert(phase.PEStartTime[PEIter] >= 0);
+      assert(phase.PEEndTime[PEIter] >= 0);
     }
     PEIter = PEIter + 1;
 
@@ -387,6 +399,7 @@ int Init(int TotalPE) {
   }
 
   int NeedPE = GetTopology();
+  sort(NodeList + 1, NodeList + 1 + TotalNode, CmpByTopoOrder);
   return NeedPE;
 }
 
@@ -409,6 +422,7 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
     TotalCost = TotalCost + NodeList[i].Cost;
   int IterationPE = NeedPE + 1;
 
+  printf("TotalPE:%d\tIterationPE:%d\n", TotalPE, IterationPE);
   if (TotalPE >= IterationPE) {
     int Launches = TotalPE / IterationPE;
     Iteration iteration = InitIteration(NeedPE, IterationPE);
@@ -432,8 +446,6 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
           FR.RunOnCache = iteration.RunOnCache * IterationTimesX * Launches + iterationrest.RunOnCache * IterationTimesY;
           FR.RunOnDRAM = iteration.RunOnDRAM * IterationTimesX * Launches + iterationrest.RunOnDRAM * IterationTimesY;
         }
-        if (TotalTimeX > TotalTimeY)
-          break;
       }
     }
     FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
