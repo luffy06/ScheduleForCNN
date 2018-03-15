@@ -40,7 +40,7 @@ struct FinalResult {
   }
 };
 
-#define THEORY 1
+#define THEORY 3
 #define EXPERIMENT 1
 #define MAXM 70000
 #define MAXN 6600             // the number of node
@@ -51,8 +51,8 @@ struct FinalResult {
 #define LIMITEDRATIO 0.9
 #define ALPHA 0.8
 const int INF = 0x3f3f3f3f;
-const double DRAMSPEED = 1000;
-const double CACHESPEED = 10000;
+const double DRAMSPEED = 10000;
+const double CACHESPEED = 100000;
 const int CACHESIZE = 20480;
 
 typedef pair<int, int> TwoInt;
@@ -82,7 +82,7 @@ long long Floor(long long a, long long b) {
 #elif THEORY == 2
   #include "theoryLCTES.h"
 #elif THEORY == 3
-  #include "theoryDAC.h"
+  #include "theoryBASE.h"
 #endif
 
 void ReadConfig() {

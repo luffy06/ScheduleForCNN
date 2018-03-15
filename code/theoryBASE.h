@@ -1,21 +1,27 @@
-/*
-  Exploiting_Parallelism_for_Convolutional_Connections_in_Processing-In-Memory_Architecture.pdf  
-*/
 struct Node {
   int Id;
-  double Cost;
+  int Cost;
 
   int PEId;       // run on which pe
   int Round;
-  double StartTime;
-  double EndTime;
+  int Retiming;
 
-  int NumbInq;    // the number of used node
+  int InDegree;
+  int OutDegree;
+  int TopoOrder;
+
+  long long StartTime;
+  long long EndTime;
+
+  bool Certained;
 
   Node() {
     Round = PEId = -1;
     StartTime = EndTime = -1;
-    NumbInq = 0;
+    Retiming = 0;
+    Certained = false;
+    InDegree = OutDegree = 0;
+    TopoOrder = -1;
   }
 
   Node(int a, int b) {
@@ -23,10 +29,14 @@ struct Node {
     Cost = b;
     Round = PEId = -1;
     StartTime = EndTime = -1;
-    NumbInq = 0;
+    Retiming = 0;
+    Certained = false;
+    InDegree = OutDegree = 0;
+    TopoOrder = -1;
   }
 
-  void SetTime(double st, double ed) {
+  void SetTime(long long st, long long ed) {
+    assert(StartTime <= EndTime);
     StartTime = st;
     EndTime = ed;
   }
@@ -35,35 +45,45 @@ struct Node {
     Id = a.Id;
     Cost = a.Cost;
 
+    InDegree = a.InDegree;
+    OutDegree = a.OutDegree;
+    TopoOrder = a.TopoOrder;
+
     PEId = a.PEId;
     Round = a.Round;
+    Retiming = a.Retiming;
     StartTime = a.StartTime;
     EndTime = a.EndTime;
 
-    NumbInq = a.NumbInq;
+    Certained = a.Certained;
   }
 
-  void show() {
-    printf("ID:%d\tPE:%d\tRound:%d\tNumb:%d\tST:%.3f\tED:%.3f\tCost:%.3f\n", Id, PEId, Round, NumbInq, StartTime, EndTime, Cost);
-  }
-
-};
-
-int MapTopology[MAXN];
-
-struct NodeComparation {
-  bool operator() (const Node &a, const Node &b) const {
-    if (a.EndTime != b.EndTime)
-      return a.EndTime > b.EndTime;
-    return a.PEId > b.PEId;    
+  void Show() {
+    printf("ID:%2d\tPE:%2d\tRound:%2d\tRetiming:%2d\tST:%lld\tED:%lld\tCost:%d\tStatus:%s\tTopoOrder:%d\n", Id, PEId, Round, Retiming, StartTime, EndTime, Cost, (Certained ? "Certained" : "Uncertained"), TopoOrder);
   }
 };
 
-bool CmpByCost(Node a, Node b) {
-  if (a.Cost != b.Cost)
-    return a.Cost > b.Cost;
-  return a.Id < b.Id;
-}
+struct Edge {
+  int From;
+  int To;
+  int Memory;
+  int CacheTimeCost;
+  int DRAMTimeCost;
+
+  Edge() { }
+
+  Edge(int a, int b, int c) {
+    From = a;
+    To = b;
+    Memory = c;
+    CacheTimeCost = ceil(1.0 * Memory / CACHESPEED);
+    DRAMTimeCost = ceil(1.0 * Memory / DRAMSPEED);
+  }
+
+  void Show() {
+    printf("From:%d\tTo:%d\tMemory:%d\tCacheTimeCost:%d\tDRAMTimeCost:%d\n", From, To, Memory, CacheTimeCost, DRAMTimeCost);
+  }
+};
 
 bool CmpById(Node a, Node b) {
   if (a.Id != b.Id)
@@ -71,51 +91,48 @@ bool CmpById(Node a, Node b) {
   return a.Round < b.Round;
 }
 
-bool CmpByPE(Node a, Node b) {
-  if (a.PEId != b.PEId)
-    return a.PEId < b.PEId;
-  else if (MapTopology[a.Id] != MapTopology[b.Id])
-    return MapTopology[a.Id] < MapTopology[b.Id];
-  else if (a.Round != b.Round)
-    return a.Round < b.Round;
-  else if (a.Cost != b.Cost)
-    return a.Cost < b.Cost;
-  return a.Id < b.Id;
-}
-
 struct NodeGenerator {
   int TotalNode;
-  int MaxPE;
-  double UpBound;
+  int NeedPE;
+  int UpBound;
   int UpRound;
+  long long Prelogue;
+  int Retiming;
+  int RunOnCache;
+  int RunOnDRAM;
   vector<Node> StartTable;
 
   NodeGenerator() {
     TotalNode = 0;
-    MaxPE = 0;
     UpBound = 0;
+    Prelogue = -1;
+    RunOnCache = RunOnDRAM = 0;
     StartTable.clear();
   }
 
   NodeGenerator(int a, int b, int MaxRound, Node NodeList[MAXN]) {
     TotalNode = a;
-    MaxPE = b;
+    NeedPE = b;
     UpBound = 0;
+    Prelogue = -1;
+    RunOnCache = RunOnDRAM = 0;
     StartTable.clear();
     CalcBound(MaxRound, NodeList);
   }
 
   double Init(Node NodeList[MAXN]) {
-    queue<Node> q;
-    for (int i = 0; i < MaxPE; i++) {
+    priority_queue<Node, vector<Node>, NodeComparationByEndTime> q;
+    StartTable.clear();
+    for (int i = 1; i <= NeedPE; ++ i) {
       Node n = Node(0, 0);
       n.PEId = i;
       n.SetTime(0, 0);
       q.push(n);
     }
-    for (int i = 1; i <= TotalNode; i++) {
-      for (int j = 1; j <= UpRound; j++) {
-        Node Emp = q.front();
+    sort(NodeList + 1, NodeList + TotalNode + 1, CmpByCost);
+    for (int i = 1; i <= TotalNode; ++ i) {
+      for (int j = 1; j <= UpRound; ++ j) {
+        Node Emp = q.top();
         q.pop();
 
         Node n = Node();
@@ -124,36 +141,30 @@ struct NodeGenerator {
         n.PEId = Emp.PEId;
         n.SetTime(Emp.EndTime, Emp.EndTime + n.Cost);
         q.push(n);
-        UpBound = max(UpBound, Emp.EndTime + n.Cost);
+        UpBound = max(UpBound, (int)(Emp.EndTime + n.Cost));
         StartTable.push_back(n);
       }
     }
-    // for (int i = 0; i < starttable.size(); i++)
-    //   starttable[i].show();
-    sort(StartTable.begin(), StartTable.end(), CmpById);
+    sort(NodeList + 1, NodeList + TotalNode + 1, CmpById);
     // calculate the use ratio of cpu
     assert(UpBound != 0);
-    double Down = UpBound * MaxPE;
+    double Down = UpBound * NeedPE;
     double Up = 0;
-    for (int i = 1; i <= TotalNode; i++) {
+    for (int i = 1; i <= TotalNode; ++ i)
       Up = Up + NodeList[i].Cost;
-    }
     Up = Up * UpRound;
-    assert(Down != 0);
     double Ratio = Up / Down;
     return Ratio;
   }
 
-  /*
-  * calculate group
-  */
   void CalcBound(int MaxRound, Node NodeList[MAXN]) {
     int TargetRound = 1;
     double MaxRatio = 0;
-    for (UpRound = 1; UpRound <= MaxRatio; ++ UpRound) {
+    for (UpRound = 1; UpRound <= MaxRound; ++ UpRound) {
       double NowRatio = Init(NodeList);
       if (NowRatio >= LIMITEDRATIO) {
-        return ;
+        TargetRound = UpRound;
+        break;
       }
       else if (NowRatio > MaxRatio) {
         TargetRound = UpRound;
@@ -162,6 +173,9 @@ struct NodeGenerator {
     }
     UpRound = TargetRound;
     Init(NodeList);
+    for (int i = 0; i < StartTable.size(); ++ i)
+      StartTable[i].SetTime(0, UpBound);
+    sort(StartTable.begin(), StartTable.end(), CmpById);
   }
 
   Node FindInStartTable(int Numb, int Id) {
@@ -223,54 +237,32 @@ struct NodeGenerator {
   }
 };
 
-
-struct Edge {
-  int From;
-  int To;
-  double Cost;
-  double Memory;
-
-  Edge() { }
-
-  Edge(int a, int b, double c, double d) {
-    From = a;
-    To = b;
-    Cost = c;
-    Memory = d;
-  }
-};
-
 vector<Edge> EdgeList[MAXN];
+vector<Edge> ReEdgeList[MAXN];
 Node NodeList[MAXN];
 NodeGenerator ng;
-int Topology[MAXN];
 int Degree[MAXN];
 int TotalNode;
+int TotalPE, PeriodTimes, UpRound;
 
-/*
-* get topology order
-* O(V+E)
-*/
-void GetTopology() {
-  int Count = 0, Iter = 0, Order = 0;
+int GetTopology() {
+  int Count = 0, Order = 0;
+  int NeedPE = 0;
   queue<Node> q;
-  for (int i = 1; i <= TotalNode; i++) {
+  for (int i = 1; i <= TotalNode; ++ i) {
     if (Degree[i] == 0) {
       q.push(NodeList[i]);
     }
   }
-  Count = q.size();
+  Count = NeedPE = q.size();
 
   while (!q.empty()) {
     Node f = q.front();
     q.pop();
-    Topology[Iter] = f.Id;
-    MapTopology[f.Id] = Order;
-
-    Iter = Iter + 1;
+    NodeList[f.Id].TopoOrder = Order;
     Count = Count - 1;
 
-    for (int i = 0; i < EdgeList[f.Id].size(); i++) {
+    for (int i = 0; i < EdgeList[f.Id].size(); ++ i) {
       Edge e = EdgeList[f.Id][i];
       Degree[e.To] = Degree[e.To] - 1;
       if (Degree[e.To] == 0) {
@@ -279,10 +271,12 @@ void GetTopology() {
     }
 
     if (Count == 0) {
+      NeedPE = max((int)q.size(), NeedPE);
       Count = q.size();
       Order = Order + 1;
     }
   }
+  return NeedPE;
 }
 
 void Init(int TotalPE, int UpRound) {
@@ -296,55 +290,76 @@ void Init(int TotalPE, int UpRound) {
     }
   }
 
-  GetTopology();
-  ng = NodeGenerator(TotalNode, TotalPE, UpRound, NodeList);
-  // printf("Max PE:%d UpBound:%.3f UpRound:%d\n", ng.MaxPE, ng.UpBound, ng.UpRound);
+  int NeedPE = GetTopology();
+  // ng = NodeGenerator(TotalNode, TotalPE, UpRound, NodeList);
 }
 
-void test(int TotalPE, int UpRound) {
-  Init(TotalPE, UpRound);
-  ng.test(NodeList);
+vector<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
+  vector<int> ArrangedGoods, UnArrangedGoods;
+  int Sum = 0;
+  for (int i = 0; i < Goods.size(); ++ i)
+    Sum = Sum + Goods[i];
+  if (Sum <= BinSize) {
+    for (int i = 0; i < Goods.size(); ++ i)
+      ArrangedGoods.push_back(i);
+    return ArrangedGoods;
+  }
+
+  memset(DP, 0, sizeof(DP));
+  bool RE = false;
+  if (BinSize > MAXSIZE) {
+    RE = true;
+    // printf("### Bad BinSize Of %d ###\n", BinSize);
+    // printf("Good Size:%lu\n", Goods.size());
+    BinSize = Sum - BinSize;
+    // printf("BinSize:%d\tSum:%d\tMAXSIZE:%d\n", BinSize, Sum, MAXSIZE);
+  }
+  assert(BinSize <= MAXSIZE);
+
+  for (int i = 1; i <= Goods.size(); ++ i) {
+    int S = Goods[i - 1];
+    for (int j = BinSize; j >= 0; -- j) {
+      if (j >= S && DP[i - 1][j - S] + S > DP[i][j])
+        DP[i][j] = max(DP[i - 1][j], DP[i - 1][j - S] + S);
+      else
+        DP[i][j] = DP[i - 1][j];
+    }
+  }
+
+  int k = BinSize;
+  for (int i = Goods.size(); i > 0; -- i) {
+    int S = Goods[i - 1];
+    if (k >= S && DP[i][k] == DP[i - 1][k - S] + S) {
+      k = k - S;
+      ArrangedGoods.push_back(i - 1);
+    }
+    else {
+      UnArrangedGoods.push_back(i - 1);
+    }
+  }
+
+  if (RE) {
+    int Dis = BinSize - DP[Goods.size()][BinSize];
+    if (Dis > 0) {
+      int MinDis = INF;
+      int Choose = -1;
+      for (int i = 0; i < UnArrangedGoods.size(); ++ i) {
+        if (Goods[UnArrangedGoods[i]] >= Dis && Goods[UnArrangedGoods[i]] - Dis < MinDis) {
+          MinDis = Goods[UnArrangedGoods[i]] - Dis;
+          Choose = i;
+        }
+      }
+      UnArrangedGoods.erase(UnArrangedGoods.begin() + Choose);
+    }
+    sort(UnArrangedGoods.begin(), UnArrangedGoods.end());
+    return UnArrangedGoods;
+  }
+
+  sort(ArrangedGoods.begin(), ArrangedGoods.end());
+  return ArrangedGoods;  
 }
 
-void Solve(int TotalPE, int PeriodTimes, int UpRound) {
-  // test(TotalPE, UpRound);
+FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
   Init(TotalPE, UpRound);
-  double TotalTime = 0;
 
-  int LastId = -1;
-  for (int i = 1; i <= TotalNode; i++) {
-    NodeList[i].Round = 1;
-    NodeList[i].Copy(ng.GenerateNextNode(NodeList[i], NodeList));
-  }
-  for (int j = 0; j < TotalNode; j++) {
-    int NodeId = Topology[j];
-    assert(NodeId == NodeList[NodeId].Id);
-    if (NodeList[NodeId].EndTime > TotalTime) {
-      LastId = NodeId;
-      TotalTime = NodeList[NodeId].EndTime;
-    }
-    for (int i = 0; i < EdgeList[NodeId].size(); i++) {
-      Edge e = EdgeList[NodeId][i];
-      double StartTime = NodeList[NodeId].EndTime + e.Cost;
-      for (; NodeList[e.To].StartTime < StartTime; NodeList[e.To].Copy(ng.GenerateNextNode(NodeList[e.To], NodeList)));
-    }
-  }
-
-  assert(LastId > 0 && LastId <= TotalNode);
-  int FirstId = Topology[0];
-  int Prelogue = (int)((NodeList[LastId].StartTime - NodeList[FirstId].StartTime) / ng.UpBound);
-  for (int r = 2; r <= PeriodTimes; r++) {
-    NodeList[LastId].Copy(ng.GenerateNextNode(NodeList[LastId], NodeList));
-    TotalTime = max(TotalTime, NodeList[LastId].EndTime);
-  }
-
-  double Up = 0;
-  for (int i = 1; i <= TotalNode; i++) {
-    Up = Up + NodeList[i].Cost;
-  }
-  Up = Up * PeriodTimes;
-  double Down = TotalTime * TotalPE;
-  assert(Down != 0);
-  double CPURatio = Up / Down;
-  printf("Total PE:\t%d\nTotal time:\t%.2f\nCPU Used Ratio:\t%.2f\tPrelogue:%d\n", TotalPE, TotalTime, CPURatio, Prelogue);
 }
