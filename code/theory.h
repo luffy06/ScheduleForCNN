@@ -12,6 +12,7 @@ struct Node {
 
   long long StartTime;
   long long EndTime;
+  int Color;
 
   bool Certained;
 
@@ -22,6 +23,7 @@ struct Node {
     Certained = false;
     InDegree = OutDegree = 0;
     TopoOrder = -1;
+    Color = -1;
   }
 
   Node(int a, int b) {
@@ -33,6 +35,7 @@ struct Node {
     Certained = false;
     InDegree = OutDegree = 0;
     TopoOrder = -1;
+    Color = -1;
   }
 
   void SetTime(long long st, long long ed) {
@@ -59,7 +62,7 @@ struct Node {
   }
 
   void Show() {
-    printf("ID:%2d\tPE:%2d\tRound:%2d\tRetiming:%2d\tST:%lld\tED:%lld\tCost:%d\tStatus:%s\tTopoOrder:%d\n", Id, PEId, Round, Retiming, StartTime, EndTime, Cost, (Certained ? "Certained" : "Uncertained"), TopoOrder);
+    printf("ID:%2d\tPE:%2d\tRound:%2d\tRetiming:%2d\tColor:%2d\tST:%lld\tED:%lld\tCost:%d\tStatus:%s\tTopoOrder:%d\n", Id, PEId, Round, Retiming, Color, StartTime, EndTime, Cost, (Certained ? "Certained" : "Uncertained"), TopoOrder);
   }
 };
 
@@ -1073,6 +1076,8 @@ void SpreadKeyNodeSet(NodeGenerator &ng) {
     // for (int i = 0; i < KeyNodeSet.size(); ++ i) {
     //   KeyNodeSet[i].Show();
     // }
+    // ng.ShowRelation();
+    // printf("####################\n");
 
     for (int i = 0; i < KeyNodeSet.size(); ++ i) {
       Node KeyNode = KeyNodeSet[i];
