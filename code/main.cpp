@@ -40,12 +40,12 @@ struct FinalResult {
   }
 };
 
-#define THEORY 3
+#define THEORY 1
 #define EXPERIMENT 1
 #define MAXM 70000
 #define MAXN 6600             // the number of node
 #define MAXSIZE 30000
-#define MAXPE 600
+#define MAXPE 300
 #define MAXR 505
 #define PLUS 10
 #define LIMITEDRATIO 0.9

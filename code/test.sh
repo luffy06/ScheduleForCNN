@@ -1,7 +1,7 @@
 datafolder="../data"
 resultfolder="../result"
 suffix=".in"
-for (( pe = 512; pe <= 512; pe=pe*2)); do
+for (( pe = 64; pe <= 256; pe=pe*2)); do
   if [[ -f 'config.in' ]]; then
     rm 'config.in'
   fi
@@ -11,7 +11,7 @@ for (( pe = 512; pe <= 512; pe=pe*2)); do
   for file in ${datafolder}/*${suffix}; do
     filename=`basename $file`
     echo 'Dealing with '$filename >> ${resultfolder}/result${pe}.out
-    for (( i = 1; i <= 2; i++ )); do
+    for (( i = 1; i <= 3; i++ )); do
       echo '######### Using Theory'$i' #########' >> ${resultfolder}/result${pe}.out
       echo `./run$i < $datafolder/$filename` >> ${resultfolder}/result${pe}.out
       echo '######### End #########' >> ${resultfolder}/result${pe}.out

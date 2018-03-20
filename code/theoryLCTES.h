@@ -1,4 +1,5 @@
-const int REPEAT = 2;
+const int REPEATLIMITED = 20;
+int REPEAT = 2;
 
 struct Node {
   int Id;
@@ -228,7 +229,7 @@ struct Iteration {
 vector<Edge> EdgeList[MAXN];
 vector<Edge> ReEdgeList[MAXN];
 Node NodeList[MAXN];
-Node NodeTime[10][MAXN];
+Node NodeTime[MAXPE][MAXN];
 int Degree[MAXN];
 int DP[MAXN][MAXSIZE];
 int TotalNode;
@@ -446,6 +447,32 @@ int Init(int TotalPE) {
 
   int NeedPE = GetTopology();
   sort(NodeList + 1, NodeList + 1 + TotalNode, CmpByTopoOrder);
+
+  int MaxRepeat = 0, MinRepeat = INF, SumRepeat = 0, RepeatCount = 0;
+  for (int i = 1; i <= TotalNode; ++ i) {
+    long long Sum = 0;
+    int Count = 0;
+    vector<Edge> Edges = EdgeList[NodeList[i].Id];
+    for (int j = 0; j < Edges.size(); ++ j) {
+      if (Edges[j].CacheTimeCost > 0) {
+        Sum = Sum + Edges[j].CacheTimeCost;
+        Count = Count + 1;
+      }
+    }
+    if (Count == 0)
+      continue;
+    int NowRepeat = Ceil(Sum, (1LL * Count * NodeList[i].Cost));
+    MaxRepeat = max(MaxRepeat, NowRepeat);
+    MinRepeat = min(MinRepeat, NowRepeat);
+    SumRepeat = SumRepeat + NowRepeat;
+    RepeatCount = RepeatCount + 1;
+  }
+  if (MaxRepeat == 0)
+    REPEAT = 2;
+  else
+    REPEAT = (MaxRepeat + MinRepeat) / 2;
+  REPEAT = min(REPEAT, REPEATLIMITED);
+  printf("Min:%d\tMAX:%d\tREPEAT:%d\tAverage Repeat:%d\n", MinRepeat, MaxRepeat, REPEAT, (RepeatCount == 0 ? 0 : SumRepeat / RepeatCount));
   return NeedPE;
 }
 
@@ -457,7 +484,7 @@ Iteration InitIteration(int NeedPE, int TotalPE) {
 }
 
 long long CalcTotalTime(int Iter, long long Cost, int Launch, int Cross) {
-  int IterationTimes = Ceil(Ceil(Iter, Launch), 4);
+  int IterationTimes = Ceil(Ceil(Iter, Launch), 2 * REPEAT);
   return IterationTimes * Cost - (IterationTimes - 1) * Cross;
 }
 
@@ -482,7 +509,7 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
   if (TotalPE >= IterationPE) {
     int Launches = TotalPE / IterationPE;
     Iteration iteration = InitIteration(PhasePE, IterationPE);
-    int IterationTimes = Ceil(Ceil(PeriodTimes, Launches), 4);
+    int IterationTimes = Ceil(Ceil(PeriodTimes, Launches), 2 * REPEAT);
     FR.Prelogue = 0;
     FR.Retiming = 0;
     FR.RunOnCache = IterationTimes * iteration.RunOnCache * Launches;
@@ -497,8 +524,8 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
         long long TotalTime = max(TotalTimeX, TotalTimeY);
         if (FR.TotalTime == -1 || TotalTime < FR.TotalTime) {
           FR.TotalTime = TotalTime;
-          int IterationTimesX = Ceil(Ceil(EachX, Launches), 4);
-          int IterationTimesY = Ceil(Ceil(EachY, Launches), 4);
+          int IterationTimesX = Ceil(Ceil(EachX, Launches), 2 * REPEAT);
+          int IterationTimesY = Ceil(Ceil(EachY, Launches), 2 * REPEAT);
           FR.RunOnCache = iteration.RunOnCache * IterationTimesX * Launches + iterationrest.RunOnCache * IterationTimesY;
           FR.RunOnDRAM = iteration.RunOnDRAM * IterationTimesX * Launches + iterationrest.RunOnDRAM * IterationTimesY;
         }
@@ -508,7 +535,7 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
   }
   else {
     Iteration iteration = InitIteration(TotalPE, TotalPE);
-    int IterationTimes = Ceil(PeriodTimes, 4);
+    int IterationTimes = Ceil(PeriodTimes, 2 * REPEAT);
     FR.TotalTime = CalcTotalTime(PeriodTimes, iteration.Cost, 1, iteration.Cross);
     FR.Prelogue = 0;
     FR.Retiming = 0;
