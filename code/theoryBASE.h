@@ -492,14 +492,25 @@ struct NodeGenerator {
 struct Iteration {
   int PENumb;
   long long Cost;
+  int Round;
   int RunOnCache;
   int RunOnDRAM;
+  int PEEndtime[MAXPE];
   
+  Iteration(int a) {
+    PENumb = a;
+    Cost = 0;
+    RunOnCache = 0;
+    RunOnDRAM = 0;
+    Round = 1;
+    memset(PEEndtime, 0, sizeof(PEEndtime));
+  }
 };
 
 typedef pair<Edge, bool> EdgeBool;
 
 vector<NodeGenerator> NgList;
+vector<Iteration> IterList;
 int Degree[MAXN];
 int TotalNode;
 int TotalPE, PeriodTimes, UpRound;
@@ -514,6 +525,8 @@ int Lazy[MAXPE][MAXM << 2];
 
 bool Checked[MAXN][MAXR];
 bool ReChecked[MAXN][MAXR];
+
+Node NodeTime[MAXPE][MAXN];
 
 void ShowInterval(int PEId) {
   printf("PEId:%d\n", PEId);
@@ -649,11 +662,15 @@ void Init(int TotalPE, int UpRound) {
 
   if (TotalPE >= NeedPE) {
     NgList.push_back(NodeGenerator(TotalNode, NeedPE, UpRound, NodeList));
-    if (TotalPE % NeedPE != 0)
+    IterList.push_back(Iteration(NeedPE));
+    if (TotalPE % NeedPE != 0) {
       NgList.push_back(NodeGenerator(TotalNode, TotalPE % NeedPE, UpRound, NodeList));
+      IterList.push_back(Iteration(TotalPE % NeedPE));
+    }
   }
   else {
     NgList.push_back(NodeGenerator(TotalNode, TotalPE, UpRound, NodeList));
+    IterList.push_back(Iteration(TotalPE));
   }
 }
 
@@ -851,15 +868,7 @@ void SpreadKeyNodeSet(NodeGenerator &ng) {
   BFS(KeyNodeSet, ng);
 }
 
-FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
-  Init(TotalPE, UpRound);
-  // for (int i = 1; i <= TotalNode; ++ i) {
-  //   vector<Edge> edges = EdgeList[i];
-  //   for (int j = 0; j < edges.size(); ++ j) {
-  //     Edge e = edges[j];
-  //     printf("From:%d\tTo:%d\tCacheCost:%d\tDRAMCost:%d\n", e.From, e.To, e.CacheTimeCost, e.DRAMTimeCost);
-  //   }
-  // }
+FinalResult CalcFinalResult(int TotalCost, int Launches, int PeriodTimes) {
   for (int i = 0; i < NgList.size(); ++ i) {
     printf("\nUpBound:%d\tUpRound:%d\n", NgList[i].UpBound, NgList[i].UpRound);
     assert(NgList[i].UpBound <= MAXM);
@@ -876,13 +885,7 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
     NgList[i].CalcPrelogue();
   }
 
-  long long TotalCost = 0;
-  for (int i = 1; i <= TotalNode; ++ i)
-    TotalCost = TotalCost + NodeList[i].Cost;
-  int Launches = TotalPE / NgList[0].NeedPE;
-
   FinalResult FR = FinalResult();
-
   if (NgList.size() == 1) {
     int Each = Ceil(PeriodTimes, Launches);
     int X = Ceil(Each - NgList[0].UpRound, NgList[0].UpRound);
@@ -911,5 +914,124 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
     FR.Retiming = NgList[0].Retiming;
     FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
   }
+  return FR;
+}
+
+void InitIteration(Iteration &iteration) {
+  sort(NodeList + 1, NodeList + TotalNode + 1, CmpByTopoOrder);
+  int NowOrder = -1;
+  int Index = 1;
+  queue<Node> WaitingQue;
+  iteration.Round = iteration.PENumb;
+  do {
+    for (; Index <= TotalNode && NodeList[Index].TopoOrder == NowOrder; ++ Index) {
+      for (int j = 1; j <= iteration.Round; ++ j) {
+        NodeList[Index].Round = j;
+        WaitingQue.push(NodeList[Index]);
+      }
+    }
+    int PEIter = 1;
+    while (!WaitingQue.empty()) {
+      if (PEIter == iteration.PENumb + 1)
+        PEIter = 1;
+      Node node = WaitingQue.front();
+      WaitingQue.pop();
+      long long StartTime = iteration.PEEndtime[PEIter];
+      
+      vector<Edge> Edges = ReEdgeList[node.Id];
+      vector<int> NodeSizes;
+      vector<Edge> ReadyForCache;
+      for (int i = 0; i < Edges.size(); ++ i) {
+        Edge e = Edges[i];
+        if (NodeTime[node.Round][e.From].EndTime + e.DRAMTimeCost > StartTime) {
+          NodeSizes.push_back(e.Memory);
+          ReadyForCache.push_back(e);
+        }
+        else {
+          iteration.RunOnDRAM = iteration.RunOnDRAM + 1;
+        }
+      }
+      vector<int> ArrangedSet = ArrangeInFixedSize(NodeSizes, CACHESIZE);
+
+      for (int i = ArrangedSet.size() - 1; i >= 0; -- i) {
+        if (i > 0) assert(ArrangedSet[i] > ArrangedSet[i - 1]);
+        Edge e = ReadyForCache[ArrangedSet[i]];
+        StartTime = max(StartTime, e.CacheTimeCost + NodeTime[node.Round][e.From].EndTime);
+        iteration.RunOnCache = iteration.RunOnCache + 1;
+        ReadyForCache.erase(ReadyForCache.begin() + ArrangedSet[i]);
+      }
+
+      for (int i = 0; i < ReadyForCache.size(); ++ i) {
+        Edge e = ReadyForCache[i];
+        StartTime = max(StartTime, e.DRAMTimeCost + NodeTime[node.Round][e.From].EndTime);
+        iteration.RunOnDRAM = iteration.RunOnDRAM + 1;
+      }
+
+      node.PEId = PEIter;
+      node.SetTime(StartTime, StartTime + node.Cost);
+      NodeTime[node.Round][node.Id].Copy(node);
+      iteration.PEEndtime[PEIter] = max(iteration.PEEndtime[PEIter], (int)node.EndTime);
+      iteration.Cost = max(iteration.Cost, 1LL * iteration.PEEndtime[PEIter]);
+    }
+    if (Index <= TotalNode)
+      NowOrder = NodeList[Index].TopoOrder;
+  } while (Index <= TotalNode);
+}
+
+FinalResult CalcBaseFinalResult(int TotalCost, int Launches, int PeriodTimes) {
+  for (int i = 0; i < IterList.size(); ++ i) {
+    printf("Init Iteration:%d\n", i + 1);
+    InitIteration(IterList[i]);
+  }
+
+  FinalResult FR = FinalResult();
+  if (IterList.size() == 1) {
+    int Each = Ceil(PeriodTimes, Launches);
+    int X = Ceil(Each, IterList[0].Round);
+    FR.TotalTime = X * IterList[0].Cost;
+    FR.Prelogue = 0;
+    FR.Retiming = 0;
+    FR.RunOnCache = IterList[0].RunOnCache * X * Launches;
+    FR.RunOnDRAM = IterList[0].RunOnDRAM * X * Launches;
+    FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
+  }
+  else {
+    for (int EachX = 0; EachX <= PeriodTimes; ++ EachX) {
+      int EachY = PeriodTimes - EachX;
+      int X = Ceil(EachX, IterList[0].Round);
+      int Y = Ceil(EachY, IterList[1].Round);
+      long long TotalTimeX = IterList[0].Cost * X;
+      long long TotalTimeY = IterList[1].Cost * Y;
+      long long TotalTime = max(TotalTimeX, TotalTimeY);
+      if (FR.TotalTime == -1 || TotalTime < FR.TotalTime) {
+        FR.TotalTime = TotalTime;
+        FR.RunOnCache = IterList[0].RunOnCache * X * Launches + IterList[1].RunOnCache * Y;
+        FR.RunOnDRAM = IterList[0].RunOnDRAM * X * Launches + IterList[1].RunOnDRAM * Y;
+      }
+    }
+    FR.Prelogue = 0;
+    FR.Retiming = 0;
+    FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
+  }
+  return FR;
+}
+
+FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
+  Init(TotalPE, UpRound);
+  // for (int i = 1; i <= TotalNode; ++ i) {
+  //   vector<Edge> edges = EdgeList[i];
+  //   for (int j = 0; j < edges.size(); ++ j) {
+  //     Edge e = edges[j];
+  //     printf("From:%d\tTo:%d\tCacheCost:%d\tDRAMCost:%d\n", e.From, e.To, e.CacheTimeCost, e.DRAMTimeCost);
+  //   }
+  // }
+
+  long long TotalCost = 0;
+  for (int i = 1; i <= TotalNode; ++ i)
+    TotalCost = TotalCost + NodeList[i].Cost;
+  int Launches = TotalPE / NgList[0].NeedPE;
+
+  // FinalResult FR = CalcFinalResult(TotalCost, Launches, PeriodTimes);
+  FinalResult FR = CalcBaseFinalResult(TotalCost, Launches, PeriodTimes);
   return FR;
 }
