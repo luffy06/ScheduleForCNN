@@ -3,96 +3,138 @@ Dealing with LeNet.in
 Multi:89 UpBound:61096 UpRound:20 UpBound:61096 UpRound:9 TotalTime:3849048 Prelogue:1771784 Retiming:29 RunOnCache:541 RunOnDRAM:721462 CPURatio:0.512785
 ######### End #########
 ######### Using Theory2 #########
-PhasePE:63 IterationPE:64 Ratio of Phase:0.040697 Shift:1 Cross:0 TotalTime:26243000 Prelogue:0 Retiming:0 RunOnCache:593000 RunOnDRAM:146000 CPURatio:0.075210
+Min:1 MAX:34 REPEAT:17 Average Repeat:1 PhasePE:63 IterationPE:64 Ratio of Phase:0.326423 Shift:1 Cross:0 TotalTime:6263910 Prelogue:0 Retiming:0 RunOnCache:604860 RunOnDRAM:148920 CPURatio:0.315096
+######### End #########
+######### Using Theory3 #########
+Multi:89 Init Iteration:1 Init Iteration:2 TotalTime:134908692 Prelogue:0 Retiming:0 RunOnCache:0 RunOnDRAM:769299 CPURatio:0.014630
 ######### End #########
 Dealing with alexnet_mnist.in
 ######### Using Theory1 #########
 Reduce Cost Multi:475 UpBound:35000 UpRound:15 TotalTime:5005000 Prelogue:2695000 Retiming:77 RunOnCache:528 RunOnDRAM:2440812 CPURatio:0.436354
 ######### End #########
 ######### Using Theory2 #########
-Reduce Cost PhasePE:475 IterationPE:476 Ratio of Phase:0.025700 Shift:0 Cross:0 TotalTime:84978000 Prelogue:0 Retiming:0 RunOnCache:1968000 RunOnDRAM:498000 CPURatio:0.025700
+Reduce Cost Min:1 MAX:672 REPEAT:20 Average Repeat:14 PhasePE:475 IterationPE:476 Ratio of Phase:0.212955 Shift:0 Cross:0 TotalTime:10255400 Prelogue:0 Retiming:0 RunOnCache:1968000 RunOnDRAM:498000 CPURatio:0.212956
+######### End #########
+######### Using Theory3 #########
+Reduce Cost Multi:475 Init Iteration:1 TotalTime:286309888 Prelogue:0 Retiming:0 RunOnCache:0 RunOnDRAM:2525184 CPURatio:0.007628
 ######### End #########
 Dealing with alexnet_oxflowers17.in
 ######### Using Theory1 #########
 Reduce Cost Multi:433 UpBound:35000 UpRound:19 TotalTime:4445000 Prelogue:2625000 Retiming:75 RunOnCache:520 RunOnDRAM:2167152 CPURatio:0.380492
 ######### End #########
 ######### Using Theory2 #########
-Reduce Cost PhasePE:433 IterationPE:434 Ratio of Phase:0.010553 Shift:0 Cross:0 TotalTime:113223250 Prelogue:0 Retiming:0 RunOnCache:1751000 RunOnDRAM:443000 CPURatio:0.014938
+Reduce Cost Min:1 MAX:2685 REPEAT:20 Average Repeat:33 PhasePE:433 IterationPE:434 Ratio of Phase:0.076959 Shift:0 Cross:0 TotalTime:21964175 Prelogue:0 Retiming:0 RunOnCache:1751000 RunOnDRAM:443000 CPURatio:0.077002
+######### End #########
+######### Using Theory3 #########
+Reduce Cost Multi:433 Init Iteration:1 TotalTime:221952312 Prelogue:0 Retiming:0 RunOnCache:0 RunOnDRAM:2246656 CPURatio:0.007620
 ######### End #########
 Dealing with cnn_sentence_classif.in
 ######### Using Theory1 #########
 Multi:421 UpBound:33123 UpRound:16 TotalTime:3908514 Prelogue:1854888 Retiming:56 RunOnCache:5208 RunOnDRAM:2137512 CPURatio:0.498901
 ######### End #########
 ######### Using Theory2 #########
-PhasePE:421 IterationPE:422 Ratio of Phase:0.032178 Shift:0 Cross:0 TotalTime:36891000 Prelogue:0 Retiming:0 RunOnCache:1908000 RunOnDRAM:252000 CPURatio:0.052857
+Min:1 MAX:18 REPEAT:9 Average Repeat:1 PhasePE:421 IterationPE:422 Ratio of Phase:0.121438 Shift:0 Cross:0 TotalTime:15218672 Prelogue:0 Retiming:0 RunOnCache:1923264 RunOnDRAM:254016 CPURatio:0.128130
+######### End #########
+######### Using Theory3 #########
+Multi:421 Init Iteration:1 TotalTime:255585312 Prelogue:0 Retiming:0 RunOnCache:0 RunOnDRAM:2211840 CPURatio:0.007629
 ######### End #########
 Dealing with convnet_highway_mnist.in
 ######### Using Theory1 #########
 Multi:1471 UpBound:17715 UpRound:8 TotalTime:5314500 Prelogue:3117840 Retiming:176 RunOnCache:1984 RunOnDRAM:8151264 CPURatio:0.407582
 ######### End #########
 ######### Using Theory2 #########
-PhasePE:1471 IterationPE:1472 Ratio of Phase:0.021745 Shift:0 Cross:0 TotalTime:99519000 Prelogue:0 Retiming:0 RunOnCache:7008000 RunOnDRAM:1211000 CPURatio:0.021766
+Min:1 MAX:11 REPEAT:6 Average Repeat:1 PhasePE:1471 IterationPE:1472 Ratio of Phase:0.061891 Shift:0 Cross:0 TotalTime:35263284 Prelogue:0 Retiming:0 RunOnCache:7064064 RunOnDRAM:1220688 CPURatio:0.061426
+######### End #########
+######### Using Theory3 #########
+Multi:1471 Init Iteration:1 TotalTime:283915800 Prelogue:0 Retiming:0 RunOnCache:0 RunOnDRAM:8416256 CPURatio:0.007629
 ######### End #########
 Dealing with funll_count_dense_model.in
 ######### Using Theory1 #########
 Multi:197 UpBound:818 UpRound:13 TotalTime:103886 Prelogue:41718 Retiming:51 RunOnCache:11932 RunOnDRAM:1194416 CPURatio:0.552138
 ######### End #########
 ######### Using Theory2 #########
-PhasePE:127 IterationPE:128 Ratio of Phase:0.024780 Shift:1 Cross:0 TotalTime:1679000 Prelogue:0 Retiming:0 RunOnCache:1186000 RunOnDRAM:35000 CPURatio:0.034163
+Min:1 MAX:1 REPEAT:1 Average Repeat:1 PhasePE:127 IterationPE:128 Ratio of Phase:0.012478 Shift:1 Cross:0 TotalTime:2316500 Prelogue:0 Retiming:0 RunOnCache:1186000 RunOnDRAM:35000 CPURatio:0.024761
+######### End #########
+######### Using Theory3 #########
+Multi:197 Init Iteration:1 TotalTime:7518208 Prelogue:0 Retiming:0 RunOnCache:0 RunOnDRAM:1250304 CPURatio:0.007629
 ######### End #########
 Dealing with googlenet_oxflowers17.in
 ######### Using Theory1 #########
 Reduce Cost Multi:2542 UpBound:35000 UpRound:8 TotalTime:9170000 Prelogue:4830000 Retiming:138 RunOnCache:248 RunOnDRAM:11381960 CPURatio:0.430395
 ######### End #########
 ######### Using Theory2 #########
-Reduce Cost PhasePE:2542 IterationPE:2543 Ratio of Phase:0.010888 Shift:0 Cross:0 TotalTime:362486500 Prelogue:0 Retiming:0 RunOnCache:8706000 RunOnDRAM:2768000 CPURatio:0.010888
+Reduce Cost Min:1 MAX:168 REPEAT:20 Average Repeat:2 PhasePE:2542 IterationPE:2543 Ratio of Phase:0.091407 Shift:0 Cross:0 TotalTime:43126525 Prelogue:0 Retiming:0 RunOnCache:8706000 RunOnDRAM:2768000 CPURatio:0.091515
+######### End #########
+######### Using Theory3 #########
+Reduce Cost Multi:2542 Init Iteration:1 TotalTime:517611304 Prelogue:0 Retiming:0 RunOnCache:0 RunOnDRAM:11749376 CPURatio:0.007625
 ######### End #########
 Dealing with vgg_A-LEN.in
 ######### Using Theory1 #########
 Reduce Cost Multi:909 UpBound:35000 UpRound:15 TotalTime:6125000 Prelogue:3815000 Retiming:109 RunOnCache:792 RunOnDRAM:3979008 CPURatio:0.354945
 ######### End #########
 ######### Using Theory2 #########
-Reduce Cost PhasePE:909 IterationPE:910 Ratio of Phase:0.004011 Shift:0 Cross:0 TotalTime:405374750 Prelogue:0 Retiming:0 RunOnCache:3114000 RunOnDRAM:906000 CPURatio:0.005363
+Reduce Cost Min:1 MAX:4111 REPEAT:20 Average Repeat:50 PhasePE:909 IterationPE:910 Ratio of Phase:0.039755 Shift:0 Cross:0 TotalTime:51636500 Prelogue:0 Retiming:0 RunOnCache:3114000 RunOnDRAM:906000 CPURatio:0.042103
+######### End #########
+######### Using Theory3 #########
+Reduce Cost Multi:909 Init Iteration:1 TotalTime:287584944 Prelogue:0 Retiming:0 RunOnCache:0 RunOnDRAM:4116480 CPURatio:0.007560
 ######### End #########
 Dealing with vgg_A.in
 ######### Using Theory1 #########
 Reduce Cost Multi:747 UpBound:35000 UpRound:16 TotalTime:5670000 Prelogue:3500000 Retiming:100 RunOnCache:434 RunOnDRAM:3425934 CPURatio:0.354433
 ######### End #########
 ######### Using Theory2 #########
-Reduce Cost PhasePE:747 IterationPE:748 Ratio of Phase:0.004914 Shift:0 Cross:0 TotalTime:301616250 Prelogue:0 Retiming:0 RunOnCache:2694000 RunOnDRAM:760000 CPURatio:0.006663
+Reduce Cost Min:1 MAX:4111 REPEAT:20 Average Repeat:52 PhasePE:747 IterationPE:748 Ratio of Phase:0.048041 Shift:0 Cross:0 TotalTime:38760500 Prelogue:0 Retiming:0 RunOnCache:2694000 RunOnDRAM:760000 CPURatio:0.051847
+######### End #########
+######### Using Theory3 #########
+Reduce Cost Multi:747 Init Iteration:1 TotalTime:264778712 Prelogue:0 Retiming:0 RunOnCache:0 RunOnDRAM:3536896 CPURatio:0.007590
 ######### End #########
 Dealing with vgg_B.in
 ######### Using Theory1 #########
 Reduce Cost Multi:855 UpBound:35000 UpRound:13 TotalTime:6650000 Prelogue:3990000 Retiming:114 RunOnCache:684 RunOnDRAM:3842636 CPURatio:0.369079
 ######### End #########
 ######### Using Theory2 #########
-Reduce Cost PhasePE:855 IterationPE:856 Ratio of Phase:0.004306 Shift:0 Cross:0 TotalTime:429750250 Prelogue:0 Retiming:0 RunOnCache:3013000 RunOnDRAM:877000 CPURatio:0.005711
+Reduce Cost Min:1 MAX:4111 REPEAT:20 Average Repeat:48 PhasePE:855 IterationPE:856 Ratio of Phase:0.042525 Shift:0 Cross:0 TotalTime:54647775 Prelogue:0 Retiming:0 RunOnCache:3013000 RunOnDRAM:877000 CPURatio:0.044913
+######### End #########
+######### Using Theory3 #########
+Reduce Cost Multi:855 Init Iteration:1 TotalTime:323925536 Prelogue:0 Retiming:0 RunOnCache:0 RunOnDRAM:3983360 CPURatio:0.007577
 ######### End #########
 Dealing with vgg_C.in
 ######### Using Theory1 #########
 Reduce Cost Multi:1017 UpBound:35000 UpRound:13 TotalTime:7000000 Prelogue:4340000 Retiming:124 RunOnCache:912 RunOnDRAM:4488560 CPURatio:0.365794
 ######### End #########
 ######### Using Theory2 #########
-Reduce Cost PhasePE:1017 IterationPE:1018 Ratio of Phase:0.004167 Shift:0 Cross:0 TotalTime:552079500 Prelogue:0 Retiming:0 RunOnCache:3496000 RunOnDRAM:1048000 CPURatio:0.004638
+Reduce Cost Min:1 MAX:4111 REPEAT:20 Average Repeat:43 PhasePE:1017 IterationPE:1018 Ratio of Phase:0.041187 Shift:0 Cross:0 TotalTime:59107525 Prelogue:0 Retiming:0 RunOnCache:3496000 RunOnDRAM:1048000 CPURatio:0.043320
+######### End #########
+######### Using Theory3 #########
+Reduce Cost Multi:1017 Init Iteration:1 TotalTime:337645088 Prelogue:0 Retiming:0 RunOnCache:0 RunOnDRAM:4653056 CPURatio:0.007584
 ######### End #########
 Dealing with vgg_D.in
 ######### Using Theory1 #########
 Reduce Cost Multi:1017 UpBound:35000 UpRound:11 TotalTime:7490000 Prelogue:4340000 Retiming:124 RunOnCache:270 RunOnDRAM:4498290 CPURatio:0.407459
 ######### End #########
 ######### Using Theory2 #########
-Reduce Cost PhasePE:1017 IterationPE:1018 Ratio of Phase:0.004851 Shift:0 Cross:0 TotalTime:566674000 Prelogue:0 Retiming:0 RunOnCache:3496000 RunOnDRAM:1048000 CPURatio:0.005386
+Reduce Cost Min:1 MAX:4111 REPEAT:20 Average Repeat:45 PhasePE:1017 IterationPE:1018 Ratio of Phase:0.047992 Shift:0 Cross:0 TotalTime:60524475 Prelogue:0 Retiming:0 RunOnCache:3496000 RunOnDRAM:1048000 CPURatio:0.050424
+######### End #########
+######### Using Theory3 #########
+Reduce Cost Multi:1017 Init Iteration:1 TotalTime:402547232 Prelogue:0 Retiming:0 RunOnCache:0 RunOnDRAM:4653056 CPURatio:0.007581
 ######### End #########
 Dealing with vgg_E.in
 ######### Using Theory1 #########
 Reduce Cost Multi:1179 UpBound:35000 UpRound:8 TotalTime:8785000 Prelogue:4445000 Retiming:127 RunOnCache:372 RunOnDRAM:5156044 CPURatio:0.457715
 ######### End #########
 ######### Using Theory2 #########
-Reduce Cost PhasePE:1179 IterationPE:1180 Ratio of Phase:0.005720 Shift:0 Cross:0 TotalTime:640562000 Prelogue:0 Retiming:0 RunOnCache:3979000 RunOnDRAM:1219000 CPURatio:0.006277
+Reduce Cost Min:1 MAX:4111 REPEAT:20 Average Repeat:42 PhasePE:1179 IterationPE:1180 Ratio of Phase:0.056621 Shift:0 Cross:0 TotalTime:68933300 Prelogue:0 Retiming:0 RunOnCache:3979000 RunOnDRAM:1219000 CPURatio:0.058332
+######### End #########
+######### Using Theory3 #########
+Reduce Cost Multi:1179 Init Iteration:1 TotalTime:529343200 Prelogue:0 Retiming:0 RunOnCache:0 RunOnDRAM:5322752 CPURatio:0.007596
 ######### End #########
 Dealing with vgg_defoult.in
 ######### Using Theory1 #########
 Reduce Cost Multi:963 UpBound:35000 UpRound:10 TotalTime:7315000 Prelogue:3850000 Retiming:110 RunOnCache:792 RunOnDRAM:4190868 CPURatio:0.441865
 ######### End #########
 ######### Using Theory2 #########
-Reduce Cost PhasePE:963 IterationPE:964 Ratio of Phase:0.005088 Shift:0 Cross:0 TotalTime:478882000 Prelogue:0 Retiming:0 RunOnCache:3272000 RunOnDRAM:962000 CPURatio:0.006750
+Reduce Cost Min:1 MAX:4111 REPEAT:20 Average Repeat:47 PhasePE:963 IterationPE:964 Ratio of Phase:0.050311 Shift:0 Cross:0 TotalTime:62187350 Prelogue:0 Retiming:0 RunOnCache:3272000 RunOnDRAM:962000 CPURatio:0.051976
+######### End #########
+######### Using Theory3 #########
+Reduce Cost Multi:963 Init Iteration:1 TotalTime:425953552 Prelogue:0 Retiming:0 RunOnCache:0 RunOnDRAM:4335616 CPURatio:0.007588
 ######### End #########
