@@ -6,12 +6,12 @@ for (( pe = 64; pe <= 256; pe=pe*2)); do
     rm 'config.in'
   fi
   echo 'TOTAL_PE '$pe >> config.in
-  echo 'PERIOD_TIMES 1000' >> config.in
+  echo 'PERIOD_TIMES 6000' >> config.in
   echo 'UPROUND 300' >> config.in
   for file in ${datafolder}/*${suffix}; do
     filename=`basename $file`
     echo 'Dealing with '$filename >> ${resultfolder}/result${pe}.out
-    for (( i = 1; i <= 3; i++ )); do
+    for (( i = 1; i <= 1; i++ )); do
       echo '######### Using Theory'$i' #########' >> ${resultfolder}/result${pe}.out
       echo `./run$i < $datafolder/$filename` >> ${resultfolder}/result${pe}.out
       echo '######### End #########' >> ${resultfolder}/result${pe}.out
