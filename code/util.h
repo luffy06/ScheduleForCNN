@@ -1,14 +1,14 @@
-#define THEORY 1
+#define THEORY 2
 #define MAXM 70000
-#define MAXN 6600             // the number of node
+#define MAXN 6600
 #define MAXSIZE 30000
 #define MAXPE 300
 #define MAXR 505
 #define LIMITEDRATIO 0.95
 #define ALPHA 0.8
 const int INF = 0x3f3f3f3f;
-const long long DRAMSPEED = 100000;
-const long long CACHESPEED = 1000000;
+const long long DRAMSPEED = 10000;
+const long long CACHESPEED = 100000;
 const long long CACHESIZE = 20480;
 
 typedef pair<int, int> TwoInt;

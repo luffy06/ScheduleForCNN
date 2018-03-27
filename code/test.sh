@@ -2,19 +2,26 @@ datafolder="../data"
 resultfolder="../result"
 suffix=".in"
 for (( pe = 64; pe <= 256; pe=pe*2)); do
+  echo 'CALC PE-'$pe
   if [[ -f 'config.in' ]]; then
     rm 'config.in'
+  fi
+  resultname=${resultfolder}/result${pe}.out
+  if [[ -f ${resultname} ]]; then
+    rm ${resultname}
   fi
   echo 'TOTAL_PE '$pe >> config.in
   echo 'PERIOD_TIMES 6000' >> config.in
   echo 'UPROUND 300' >> config.in
   for file in ${datafolder}/*${suffix}; do
     filename=`basename $file`
-    echo 'Dealing with '$filename >> ${resultfolder}/result${pe}.out
-    for (( i = 1; i <= 1; i++ )); do
-      echo '######### Using Theory'$i' #########' >> ${resultfolder}/result${pe}.out
-      echo `./run$i < $datafolder/$filename` >> ${resultfolder}/result${pe}.out
-      echo '######### End #########' >> ${resultfolder}/result${pe}.out
+    echo 'GRAPH '$filename
+    echo 'Dealing with '$filename >> ${resultname}
+    for (( i = 1; i <= 2; i++ )); do
+      echo 'RUN TH-'$i
+      echo '######### Using Theory'$i' #########' >> ${resultname}
+      echo `./run$i < $datafolder/$filename` >> ${resultname}
+      echo '######### End #########' >> ${resultname}
     done
   done
 done

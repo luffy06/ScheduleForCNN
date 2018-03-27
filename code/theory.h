@@ -56,7 +56,7 @@ struct NodeComparationByCost {
       return a.TopoOrder < b.TopoOrder;
     else if (a.Cost != b.Cost)
       return a.Cost < b.Cost;
-    return a.Id > b.Id;    
+    return a.Id > b.Id;
   }
 };
 
@@ -745,34 +745,19 @@ void SpreadKeyNodeSet(NodeGenerator &ng) {
 
 FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
   Init(TotalPE, UpRound);
-  // for (int i = 1; i <= TotalNode; ++ i) {
-  //   vector<Edge> edges = EdgeList[i];
-  //   for (int j = 0; j < edges.size(); ++ j) {
-  //     Edge e = edges[j];
-  //     printf("From:%d\tTo:%d\tCacheCost:%d\tDRAMCost:%d\n", e.From, e.To, e.CacheTimeCost, e.DRAMTimeCost);
-  //   }
-  // }
   for (int i = 0; i < NgList.size(); ++ i) {
     printf("\nUpBound:%d\tUpRound:%d\n", NgList[i].UpBound, NgList[i].UpRound);
-    assert(NgList[i].UpBound <= MAXM);
     memset(Checked, false, sizeof(Checked));
     Caches.clear();
+    DRAMBlocks.clear();
     for (int j = 1; j <= NgList[i].NeedPE; ++ j) {
       CacheManager CM = CacheManager();
       CM.PEId = j;
       Caches.push_back(CM);
     }
 
-    // printf("Start Spread KeyNode Set\n");
     SpreadKeyNodeSet(NgList[i]);
-    // printf("End Spread KeyNode Set\n");
-    // NgList[i].Show();
-    // NgList[i].ShowEach(false);
     NgList[i].CalcPrelogue();
-    // for (int j = 1; j <= NgList[i].NeedPE; ++ j) {
-    //   int Sum = CalcCache(j, 1, NgList[i].UpBound, 1);
-    //   printf("Cache %d Ratio:%.6f\n", j, (Sum * 1.0 / CACHESIZE));
-    // }
   }
 
   long long TotalCost = 0;
@@ -784,8 +769,8 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
 
   if (NgList.size() == 1) {
     int Each = Ceil(PeriodTimes, Launches);
-    int X = Ceil(Each - NgList[0].UpRound, NgList[0].UpRound);
-    FR.TotalTime = NgList[0].Prelogue + 1LL * X * NgList[0].UpBound;
+    int X = Ceil(Each, NgList[0].UpRound);
+    FR.TotalTime = NgList[0].Prelogue + 1LL * max(0, X - 1) * NgList[0].UpBound;
     FR.Prelogue = NgList[0].Prelogue;
     FR.Retiming = NgList[0].Retiming;
     FR.RunOnCache = NgList[0].RunOnCache * X * Launches;
@@ -795,10 +780,10 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
   else {
     for (int EachX = 0; EachX <= PeriodTimes; ++ EachX) {
       int EachY = PeriodTimes - EachX;
-      int X = max(0, (int)Ceil(EachX - NgList[0].UpRound, NgList[0].UpRound));
-      int Y = max(0, (int)Ceil(EachY - NgList[1].UpRound, NgList[1].UpRound));
-      long long TotalTimeX = NgList[0].Prelogue + 1LL * X * NgList[0].UpBound;
-      long long TotalTimeY = NgList[1].Prelogue + 1LL * Y * NgList[1].UpBound;
+      int X = max(0, (int)Ceil(EachX, NgList[0].UpRound));
+      int Y = max(0, (int)Ceil(EachY, NgList[1].UpRound));
+      long long TotalTimeX = NgList[0].Prelogue + 1LL * max(0, X - 1) * NgList[0].UpBound;
+      long long TotalTimeY = NgList[1].Prelogue + 1LL * max(0, Y - 1) * NgList[1].UpBound;
       long long TotalTime = max(TotalTimeX, TotalTimeY);
       if (FR.TotalTime == -1 || TotalTime < FR.TotalTime) {
         FR.TotalTime = TotalTime;
