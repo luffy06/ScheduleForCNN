@@ -636,6 +636,7 @@ void PlaceKeyNode(Node &KeyNode, NodeGenerator &ng) {
 void DetectCacheOverflow(NodeGenerator &ng) {
   for (int i = 1; i <= ng.NeedPE; ++ i) {
     CacheManager CM = Caches[i - 1];
+    CM.SortCacheBlock();
     vector<long long> TimeTrace = CM.GetTimeTrace();
     for (int j = 0; j < TimeTrace.size() - 1; ++ j) {
       long long ST = TimeTrace[j];
