@@ -54,6 +54,7 @@ struct Phase {
 
 struct Iteration {
   int PENumb;
+  int PhasePE;
   int TotalNode;
   long long UpBound;
   long long Prelogue;
@@ -61,12 +62,13 @@ struct Iteration {
   int RunOnCache;
   int RunOnDRAM;
 
-  Iteration(int a, int b) {
+  Iteration(int a, int b, int c) {
     UpBound = 0;
     RunOnCache = 0;
     RunOnDRAM = 0;
     PENumb = a;
-    TotalNode = b;
+    PhasePE = b;
+    TotalNode = c;
   }
 
   void CalcPrelogue(Node NodeTime[REPEATLIMITED + 1][MAXN]) {
@@ -96,6 +98,8 @@ int TotalPE, PeriodTimes, UpRound;
 
 vector<CacheManager> Caches;
 vector<CacheBlock> DRAMBlocks;
+
+vector<Iteration> IterList;
 
 bool ReChecked[MAXN][REPEATLIMITED * 2 + 1];
 
@@ -379,8 +383,6 @@ void InitPhase(Phase &phase) {
 int Init(int TotalPE) {
   memset(Degree, 0, sizeof(Degree));
   memset(ReChecked, false, sizeof(ReChecked));
-  Caches.clear();
-  DRAMBlocks.clear();
 
   for (int i = 1; i <= TotalNode; ++ i) {
     for (int j = 0; j < EdgeList[i].size(); ++ j) {
@@ -421,6 +423,15 @@ int Init(int TotalPE) {
   REPEAT = max(REPEAT, 2);
   printf("Min:%d\tMAX:%d\tREPEAT:%d\tAverage Repeat:%d\n", MinRepeat, MaxRepeat, 
                       REPEAT, (RepeatCount == 0 ? 0 : SumRepeat / RepeatCount));
+
+  if (TotalPE >= NeedPE) {
+    IterList.push_back(Iteration(NeedPE, NeedPE, TotalNode));
+    if (TotalPE % NeedPE > 0)
+      IterList.push_back(Iteration(TotalPE % NeedPE, TotalPE % NeedPE, TotalNode));
+  }
+  else {
+    IterList.push_back(Iteration(TotalPE, TotalPE, TotalNode));
+  }
   return NeedPE;
 }
 
@@ -428,6 +439,7 @@ void DetectCacheOverflow(Iteration &iteration) {
   for (int i = 1; i <= iteration.PENumb; ++ i) {
     assert(i - 1 >= 0 && i - 1 < Caches.size());
     CacheManager CM = Caches[i - 1];
+    CM.SortCacheBlock();
     vector<long long> TimeTrace = CM.GetTimeTrace();
     // printf("PE:%d/%d\tTimeTrace Size:%lu\n", i, iteration.PENumb, TimeTrace.size());
     for (int j = 0; j < TimeTrace.size() - 1; ++ j) {
@@ -497,8 +509,9 @@ void ReBFS(Node KeyNode, Iteration &iteration) {
   }
 }
 
-void InitIteration(int NeedPE, int TotalPE, Iteration &iteration) {  
-  Phase phase = Phase(NeedPE, TotalNode);
+void InitIteration(Iteration &iteration) {
+  int PhasePE = iteration.PhasePE;
+  Phase phase = Phase(PhasePE, TotalNode);
   // printf("Init Phase\n");
   InitPhase(phase);
   // printf("Init Iteration\n");
@@ -507,7 +520,7 @@ void InitIteration(int NeedPE, int TotalPE, Iteration &iteration) {
     for (int j = 1; j <= REPEAT; ++ j)
       IterNodeTime[j][i] = NodeTime[j][i];
 
-  int Shift = TotalPE - phase.PENumb;
+  int Shift = iteration.PENumb - phase.PENumb;
   printf("Shift:%d\n", Shift);
   long long MaxEndtime = 0;
   vector<int> Moves;
@@ -598,57 +611,43 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
   long long TotalCost = 0;
   for (int i = 1; i <= TotalNode; ++ i)
     TotalCost = TotalCost + NodeList[i].Cost;
-  int PhasePE = NeedPE;
-  int IterationPE = PhasePE;
-  // for (IterationPE = PhasePE + 1; IterationPE >= NeedPE / 2; -- IterationPE) {
-  //   if (TotalPE % IterationPE == 0) {
-  //     PhasePE = IterationPE - 1;
-  //     break;
-  //   }
-  // }
-  // if (TotalPE % IterationPE != 0)
-  //   IterationPE = PhasePE + 1;
-  printf("PhasePE:%d\tIterationPE:%d\n", PhasePE, IterationPE);
 
-  if (TotalPE >= IterationPE) {
-    int Launches = TotalPE / IterationPE;
-    Iteration iteration = Iteration(IterationPE, TotalNode);
-    InitIteration(PhasePE, IterationPE, iteration);
-    int LaunchTimes = Ceil(PeriodTimes, Launches);
-    int X = Ceil(LaunchTimes, 2 * REPEAT);
-    FR.Prelogue = iteration.Prelogue;
-    FR.Retiming = iteration.Retiming;
-    FR.RunOnCache = X * iteration.RunOnCache * Launches;
-    FR.RunOnDRAM = X * iteration.RunOnDRAM * Launches;
-    FR.TotalTime = iteration.Prelogue + 1LL * max(0, X - 1) * iteration.UpBound;
-    if (TotalPE % IterationPE > 0) {
-      Iteration iterationrest = Iteration(TotalPE % IterationPE, TotalPE % IterationPE);
-      InitIteration(TotalPE % IterationPE, TotalPE % IterationPE, iterationrest);
-      for (int EachX = 0; EachX <= PeriodTimes; ++ EachX) {
-        int EachY = PeriodTimes - EachX;
-        int X = Ceil(EachX, 2 * REPEAT);
-        int Y = Ceil(EachY, 2 * REPEAT);
-        long long TotalTimeX = iteration.Prelogue + 1LL * max(0, X - 1) * iteration.UpBound;
-        long long TotalTimeY = iterationrest.Prelogue + 1LL * max(0, Y - 1) * iterationrest.UpBound;
-        long long TotalTime = max(TotalTimeX, TotalTimeY);
-        if (FR.TotalTime == -1 || TotalTime < FR.TotalTime) {
-          FR.TotalTime = TotalTime;
-          FR.RunOnCache = iteration.RunOnCache * X * Launches + iterationrest.RunOnCache * Y;
-          FR.RunOnDRAM = iteration.RunOnDRAM * X * Launches + iterationrest.RunOnDRAM * Y;
-        }
-      }
-    }
-    FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
+  for (int i = 0; i < IterList.size(); ++ i) {
+    Caches.clear();
+    DRAMBlocks.clear();
+    InitIteration(IterList[i]);
   }
-  else {
-    Iteration iteration = Iteration(TotalPE, TotalNode);
-    InitIteration(TotalPE, TotalPE, iteration);
+
+  if (IterList.size() == 1) {
+    Iteration iteration = IterList[0];
     int X = Ceil(PeriodTimes, 2 * REPEAT);
     FR.TotalTime = iteration.Prelogue + 1LL * max(0, X - 1) * iteration.UpBound;
     FR.Prelogue = iteration.Prelogue;
     FR.Retiming = iteration.Retiming;
     FR.RunOnCache = X * iteration.RunOnCache;
     FR.RunOnDRAM = X * iteration.RunOnDRAM;
+    FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
+  }
+  else {
+    assert(IterList.size() == 2);
+    Iteration iterationX = IterList[0];
+    Iteration iterationY = IterList[1];
+    int Launches = TotalPE / iterationX.PENumb;
+    for (int EachX = 0; EachX <= PeriodTimes; ++ EachX) {
+      int EachY = PeriodTimes - EachX;
+      int X = Ceil(EachX, 2 * REPEAT);
+      int Y = Ceil(EachY, 2 * REPEAT);
+      long long TotalTimeX = iterationX.Prelogue + 1LL * max(0, X - 1) * iterationX.UpBound;
+      long long TotalTimeY = iterationY.Prelogue + 1LL * max(0, Y - 1) * iterationY.UpBound;
+      long long TotalTime = max(TotalTimeX, TotalTimeY);
+      if (FR.TotalTime == -1 || TotalTime < FR.TotalTime) {
+        FR.TotalTime = TotalTime;
+        FR.RunOnCache = iterationX.RunOnCache * X * Launches + iterationY.RunOnCache * Y;
+        FR.RunOnDRAM = iterationX.RunOnDRAM * X * Launches + iterationY.RunOnDRAM * Y;
+      }
+    }
+    FR.Retiming = iterationX.Retiming;
+    FR.Prelogue = iterationX.Prelogue;
     FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
   }
   return FR;
