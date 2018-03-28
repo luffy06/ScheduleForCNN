@@ -1,91 +1,5 @@
-struct Node {
-  int Id;
-  int Cost;
-
-  int PEId;       // run on which pe
-  int Round;
-  int Retiming;
-
-  int InDegree;
-  int OutDegree;
-  int TopoOrder;
-
-  long long StartTime;
-  long long EndTime;
-
-  bool Certained;
-
-  Node() {
-    Round = PEId = -1;
-    StartTime = EndTime = -1;
-    Retiming = 0;
-    Certained = false;
-    InDegree = OutDegree = 0;
-    TopoOrder = -1;
-  }
-
-  Node(int a, int b) {
-    Id = a;
-    Cost = b;
-    Round = PEId = -1;
-    StartTime = EndTime = -1;
-    Retiming = 0;
-    Certained = false;
-    InDegree = OutDegree = 0;
-    TopoOrder = -1;
-  }
-
-  void SetTime(long long st, long long ed) {
-    assert(StartTime <= EndTime);
-    StartTime = st;
-    EndTime = ed;
-  }
-
-  void Copy(Node a) {
-    Id = a.Id;
-    Cost = a.Cost;
-
-    InDegree = a.InDegree;
-    OutDegree = a.OutDegree;
-    TopoOrder = a.TopoOrder;
-
-    PEId = a.PEId;
-    Round = a.Round;
-    Retiming = a.Retiming;
-    StartTime = a.StartTime;
-    EndTime = a.EndTime;
-
-    Certained = a.Certained;
-  }
-
-  void Show() {
-    printf("ID:%2d\tPE:%2d\tRound:%2d\tRetiming:%2d\tST:%lld\tED:%lld\tCost:%d\tStatus:%s\tTopoOrder:%d\n", Id, PEId, Round, Retiming, StartTime, EndTime, Cost, (Certained ? "Certained" : "Uncertained"), TopoOrder);
-  }
-};
 
 Node NodeList[MAXN];
-
-struct Edge {
-  int From;
-  int To;
-  int Memory;
-  int CacheTimeCost;
-  int DRAMTimeCost;
-
-  Edge() { }
-
-  Edge(int a, int b, int c) {
-    From = a;
-    To = b;
-    Memory = c;
-    CacheTimeCost = ceil(1.0 * Memory / CACHESPEED);
-    DRAMTimeCost = ceil(1.0 * Memory / DRAMSPEED);
-  }
-
-  void Show() {
-    printf("From:%d\tTo:%d\tMemory:%d\tCacheTimeCost:%d\tDRAMTimeCost:%d\n", From, To, Memory, CacheTimeCost, DRAMTimeCost);
-  }
-};
 
 struct CertainedEdge {
   int FromId;
@@ -174,32 +88,6 @@ struct NodeComparationByCost {
     else if (a.Cost != b.Cost)
       return a.Cost < b.Cost;
     return a.Id > b.Id;    
-  }
-};
-
-struct PEInterval {
-  int PEId;
-  int StartTime;
-  int EndTime;
-
-  PEInterval() { }
-
-  PEInterval(int a, int b, int c) {
-    PEId = a;
-    StartTime = b;
-    EndTime = c;
-  }
-
-  void SetTime(int a, int b) {
-    assert(StartTime <= EndTime);
-    StartTime = a;
-    EndTime = b;
-  }
-
-  friend bool operator < (PEInterval a, PEInterval b) {
-    if (a.PEId != b.PEId)
-      return a.PEId < b.PEId;
-    return a.StartTime < b.StartTime;
   }
 };
 
@@ -614,6 +502,7 @@ void ShowCache(int p, int l, int r, int rt) {
 int GetTopology() {
   int Count = 0, Order = 0;
   int NeedPE = 0;
+  int MinCon = INF, MaxCon = -1;
   queue<Node> q;
   for (int i = 1; i <= TotalNode; ++ i) {
     if (Degree[i] == 0) {
@@ -621,6 +510,7 @@ int GetTopology() {
     }
   }
   Count = NeedPE = q.size();
+  MinCon = MaxCon = q.size();
 
   while (!q.empty()) {
     Node f = q.front();
@@ -638,10 +528,14 @@ int GetTopology() {
 
     if (Count == 0) {
       NeedPE = max((int)q.size(), NeedPE);
+      MaxCon = max((int)q.size(), MaxCon);
+      if (!q.empty())
+        MinCon = min((int)q.size(), MinCon);
       Count = q.size();
       Order = Order + 1;
     }
   }
+  printf("MaxCon:%d\tMinCon:%d\tTopoOrder:%d\n", MaxCon, MinCon, Order);
   return NeedPE;
 }
 
