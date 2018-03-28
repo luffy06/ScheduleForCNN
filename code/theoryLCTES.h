@@ -620,12 +620,13 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
 
   if (IterList.size() == 1) {
     Iteration iteration = IterList[0];
-    int X = Ceil(PeriodTimes, 2 * REPEAT);
+    int Launches = Ceil(TotalPE, NeedPE);
+    int X = Ceil(Ceil(PeriodTimes, Launches), 2 * REPEAT);
     FR.TotalTime = iteration.Prelogue + 1LL * max(0, X - 1) * iteration.UpBound;
     FR.Prelogue = iteration.Prelogue;
     FR.Retiming = iteration.Retiming;
-    FR.RunOnCache = X * iteration.RunOnCache;
-    FR.RunOnDRAM = X * iteration.RunOnDRAM;
+    FR.RunOnCache = X * iteration.RunOnCache * Launches;
+    FR.RunOnDRAM = X * iteration.RunOnDRAM * Launches;
     FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
   }
   else {
@@ -635,7 +636,7 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
     int Launches = TotalPE / iterationX.PENumb;
     for (int EachX = 0; EachX <= PeriodTimes; ++ EachX) {
       int EachY = PeriodTimes - EachX;
-      int X = Ceil(EachX, 2 * REPEAT);
+      int X = Ceil(Ceil(EachX, Launches), 2 * REPEAT);
       int Y = Ceil(EachY, 2 * REPEAT);
       long long TotalTimeX = iterationX.Prelogue + 1LL * max(0, X - 1) * iterationX.UpBound;
       long long TotalTimeY = iterationY.Prelogue + 1LL * max(0, Y - 1) * iterationY.UpBound;

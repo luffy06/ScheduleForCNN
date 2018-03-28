@@ -764,13 +764,12 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
   long long TotalCost = 0;
   for (int i = 1; i <= TotalNode; ++ i)
     TotalCost = TotalCost + NodeList[i].Cost;
-  int Launches = TotalPE / NgList[0].NeedPE;
 
   FinalResult FR = FinalResult();
 
   if (NgList.size() == 1) {
-    int Each = Ceil(PeriodTimes, Launches);
-    int X = Ceil(Each, NgList[0].UpRound);
+    int Launches = Ceil(TotalPE, NgList[0].NeedPE);
+    int X = Ceil(Ceil(PeriodTimes, Launches), NgList[0].UpRound);
     FR.TotalTime = NgList[0].Prelogue + 1LL * max(0, X - 1) * NgList[0].UpBound;
     FR.Prelogue = NgList[0].Prelogue;
     FR.Retiming = NgList[0].Retiming;
@@ -779,10 +778,11 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
     FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
   }
   else {
+    int Launches = TotalPE / NgList[0].NeedPE;
     for (int EachX = 0; EachX <= PeriodTimes; ++ EachX) {
       int EachY = PeriodTimes - EachX;
-      int X = max(0, (int)Ceil(EachX, NgList[0].UpRound));
-      int Y = max(0, (int)Ceil(EachY, NgList[1].UpRound));
+      int X = Ceil(Ceil(EachX, Launches), NgList[0].UpRound);
+      int Y = Ceil(EachY, NgList[1].UpRound);
       long long TotalTimeX = NgList[0].Prelogue + 1LL * max(0, X - 1) * NgList[0].UpBound;
       long long TotalTimeY = NgList[1].Prelogue + 1LL * max(0, Y - 1) * NgList[1].UpBound;
       long long TotalTime = max(TotalTimeX, TotalTimeY);
