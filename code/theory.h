@@ -299,7 +299,7 @@ vector<PEInterval> PEIntervals[MAXPE];
 vector<CacheManager> Caches;
 vector<CacheBlock> DRAMBlocks;
 
-int DP[MAXN][MAXSIZE];
+int DP[MAXN][MAXSIZE + 1];
 
 bool Checked[MAXN][MAXR];
 bool ReChecked[MAXN][MAXR];
@@ -405,6 +405,7 @@ vector<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
     // printf("BinSize:%d\tSum:%d\tMAXSIZE:%d\n", BinSize, Sum, MAXSIZE);
   }
   assert(BinSize <= MAXSIZE);
+  assert(Goods.size() < MAXN);
 
   for (int i = 1; i <= Goods.size(); ++ i) {
     int S = Goods[i - 1];
@@ -671,9 +672,9 @@ bool GetStrogePos(int FromId, int FromRound, int ToId, int ToRound) {
     CacheBlock CB = DRAMBlocks[i];
     if (CB.NodeIds.first == FromId && CB.NodeIds.second == ToId 
       && CB.Rounds.first == FromRound && CB.Rounds.second == ToRound) 
-      return true;
+      return false;
   }
-  return false;
+  return true;
 }
 
 void ReBFS(Node KeyNode, NodeGenerator &ng) {

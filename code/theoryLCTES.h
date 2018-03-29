@@ -91,7 +91,7 @@ vector<Edge> ReEdgeList[MAXN];
 Node NodeList[MAXN];
 Node NodeTime[REPEATLIMITED + 1][MAXN];
 Node IterNodeTime[REPEATLIMITED * 2 + 1][MAXN];
-int DP[MAXN][MAXSIZE];
+int DP[MAXN][MAXSIZE + 1];
 int Degree[MAXN];
 int TotalNode;
 int TotalPE, PeriodTimes, UpRound;
@@ -209,6 +209,7 @@ vector<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
     // printf("BinSize:%d\tSum:%d\n", BinSize, Sum);
   }
   assert(BinSize <= MAXSIZE);
+  assert(Goods.size() < MAXN);
 
   for (int i = 1; i <= Goods.size(); ++ i) {
     int S = Goods[i - 1];
@@ -475,9 +476,9 @@ bool GetStrogePos(int FromId, int FromRound, int ToId, int ToRound) {
     CacheBlock CB = DRAMBlocks[i];
     if (CB.NodeIds.first == FromId && CB.NodeIds.second == ToId 
       && CB.Rounds.first == FromRound && CB.Rounds.second == ToRound) 
-      return true;
+      return false;
   }
-  return false;
+  return true;
 }
 
 void ReBFS(Node KeyNode, Iteration &iteration) {

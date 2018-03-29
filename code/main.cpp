@@ -17,7 +17,7 @@ using namespace std;
 #elif THEORY == 2
   #include "theoryLCTES.h"
 #elif THEORY == 3
-  #include "theoryBASE.h"
+  #include "theoryBASE_LS.h"
 #endif
 
 void ReadConfig() {
