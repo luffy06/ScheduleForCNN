@@ -1,6 +1,6 @@
-#define THEORY 2
+#define THEORY 3
 #define MAXM 70000
-#define MAXN 6600
+#define MAXN 15000
 #define MAXSIZE 30000
 #define MAXPE 300
 #define MAXR 505

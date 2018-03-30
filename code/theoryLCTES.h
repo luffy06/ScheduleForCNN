@@ -439,15 +439,14 @@ int Init(int TotalPE) {
 void DetectCacheOverflow(Iteration &iteration) {
   for (int i = 1; i <= iteration.PENumb; ++ i) {
     assert(i - 1 >= 0 && i - 1 < Caches.size());
-    CacheManager CM = Caches[i - 1];
-    CM.SortCacheBlock();
-    vector<long long> TimeTrace = CM.GetTimeTrace();
+    Caches[i - 1].SortCacheBlock();
+    vector<long long> TimeTrace = Caches[i - 1].GetTimeTrace();
     // printf("PE:%d/%d\tTimeTrace Size:%lu\n", i, iteration.PENumb, TimeTrace.size());
     for (int j = 0; j < TimeTrace.size() - 1; ++ j) {
       long long ST = TimeTrace[j];
       long long ED = TimeTrace[j + 1];
       vector<CacheBlock> Blocks;
-      CM.GetCacheBlockByTime(ST, ED, Blocks);
+      Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks);
       if (Blocks.size() == 0)
         continue;
 
@@ -463,7 +462,7 @@ void DetectCacheOverflow(Iteration &iteration) {
       iteration.RunOnCache = iteration.RunOnCache - Blocks.size();
       for (int k = 0; k < Blocks.size(); ++ k) {
         CacheBlock CB = Blocks[k];
-        CM.DeleteCacheBlock(CB);
+        Caches[i - 1].DeleteCacheBlock(CB);
         DRAMBlocks.push_back(CB);
         ReChecked[CB.NodeIds.second][CB.Rounds.second] = true;
       }

@@ -1,0 +1,8 @@
+Dealing with LeNet.in
+######### Using Theory1 #########
+MinDis:0 MaxDis:33 MaxEdge:101 MaxCon:89 MinCon:1 TopoOrder:68 Multi:89 MaxRatio:0.999992 UpBound:63160 UpRound:8 TotalTime:49201640 Prelogue:1894800 Retiming:30 RunOnCache:4350000 RunOnDRAM:84000 CPURatio:0.962765
+######### End #########
+######### Using Theory2 #########
+MinDis:0 MaxDis:33 MaxEdge:101 MaxCon:89 MinCon:1 TopoOrder:68 Min:1 MAX:34 REPEAT:17 Average Repeat:1 Ratio of Phase:0.541382 Shift:0 Ratio of Iteration:0.541382 UpBound:495820 TotalTime:87760140 Prelogue:495820 Retiming:1 RunOnCache:4991046 RunOnDRAM:0 CPURatio:0.539762
+######### End #########
+######### Using Theory3 #########
