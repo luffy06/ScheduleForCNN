@@ -1,7 +1,7 @@
 datafolder="../data"
 resultfolder="../result"
 suffix=".in"
-for (( pe=64; pe<=256; pe=pe*2 )) do
+for (( pe=32; pe<=256; pe=pe*2 )) do
   echo 'CALC PE-'$pe
   if [[ -f 'config.in' ]]; then
     rm 'config.in'
@@ -17,7 +17,7 @@ for (( pe=64; pe<=256; pe=pe*2 )) do
     filename=`basename $file`
     echo 'GRAPH '$filename
     echo 'Dealing with '$filename >> ${resultname}
-    for (( i = 1; i <= 2; i++ )); do
+    for (( i = 1; i <= 3; i++ )); do
       echo 'RUN TH-'$i
       echo '######### Using Theory'$i' #########' >> ${resultname}
       echo `./run$i < $datafolder/$filename` >> ${resultname}

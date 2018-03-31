@@ -18,6 +18,8 @@ using namespace std;
   #include "theoryLCTES.h"
 #elif THEORY == 3
   #include "theoryBASE_LS.h"
+#elif THEORY == 4
+  #include "theoryBASE_RE.h"
 #endif
 
 void ReadConfig() {

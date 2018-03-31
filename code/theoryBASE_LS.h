@@ -40,6 +40,12 @@ bool CmpByTopoOrder(Node a, Node b) {
   return a.Id < b.Id;
 }
 
+bool CmpBySecond(TwoInt a, TwoInt b) {
+  if (a.second != b.second)
+    return a.second > b.second;
+  return a.first < b.first;
+}
+
 int GetTopology() {
   int Count = 0, Order = 0;
   int NeedPE = 0;
@@ -125,7 +131,19 @@ vector<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
   }
   assert(BinSize <= MAXSIZE);
   if (Goods.size() >= MAXN) {
-    printf("%lu\n", Goods.size());
+    vector<TwoInt> GreedyGoods;
+    for (int i = 0; i < Goods.size(); ++ i)
+      GreedyGoods.push_back(make_pair(i, Goods[i]));
+    sort(GreedyGoods.begin(), GreedyGoods.end(), CmpBySecond);
+    for (int i = 0; i < GreedyGoods.size(); ++ i) {
+      TwoInt good = GreedyGoods[i];
+      if (BinSize >= good.second) {
+        ArrangedGoods.push_back(good.first);
+        BinSize = BinSize - good.second;
+      }
+    }
+    sort(ArrangedGoods.begin(), ArrangedGoods.end());
+    return ArrangedGoods;
   }
   assert(Goods.size() < MAXN);
 
@@ -236,7 +254,7 @@ void InitIteration(Iteration &iteration, bool AddCache) {
   int NowOrder = -1;
   int Index = 1;
   queue<Node> WaitingQue;
-  iteration.Round = 20;
+  iteration.Round = 5;
   PETimes.clear();
   for (int i = 1; i <= iteration.PENumb; ++ i) {
     PETimes.push_back(PEInterval(i, 0, 0));
@@ -302,6 +320,11 @@ void InitIteration(Iteration &iteration, bool AddCache) {
     if (Index <= TotalNode)
       NowOrder = NodeList[Index].TopoOrder;
   } while (Index <= TotalNode);
+  long long TotalCost = 0;
+  for (int i = 1; i <= TotalNode; ++ i)
+    TotalCost = TotalCost + 5LL * NodeList[i].Cost;
+  double Ratio = (TotalCost * 1.0) / (iteration.UpBound * iteration.PENumb);
+  printf("Iteration Ratio:%.6f\n", Ratio);
 }
 
 FinalResult CalcBaseFinalResult(int TotalPE, int PeriodTimes) {
