@@ -1,4 +1,4 @@
-#define THEORY 3
+#define THEORY 2
 #define MAXM 70000
 #define MAXN 15000
 #define MAXSIZE 30000
@@ -36,6 +36,7 @@ struct FinalResult {
   int Retiming;
   int RunOnCache;
   int RunOnDRAM;
+  double MAXRatio;
   double CPURatio;
 
   FinalResult() {
@@ -44,21 +45,23 @@ struct FinalResult {
     Retiming = 0;
     RunOnCache = 0;
     RunOnDRAM = 0;
+    MAXRatio = 0;
     CPURatio = 0;
   }
 
-  FinalResult(int a, int b, int c, int d, int e, double f) {
+  FinalResult(int a, int b, int c, int d, int e, double f, double g) {
     TotalTime = a;
     Prelogue = b;
     Retiming = c;
     RunOnCache = d;
     RunOnDRAM = e;
-    CPURatio = f;
+    MAXRatio = f;
+    CPURatio = g;
   }
 
   void Show() {
-    printf("\nTotalTime:%lld\nPrelogue:%lld\nRetiming:%d\nRunOnCache:%d\nRunOnDRAM:%d\nCPURatio:%.6f\n", 
-            TotalTime, Prelogue, Retiming, RunOnCache, RunOnDRAM, CPURatio);
+    printf("\nTotalTime:%lld\nPrelogue:%lld\nRetiming:%d\nRunOnCache:%d\nRunOnDRAM:%d\nMAXRatio:%.6f\nCPURatio:%.6f\n", 
+            TotalTime, Prelogue, Retiming, RunOnCache, RunOnDRAM, MAXRatio, CPURatio);
   }
 };
 

@@ -4,6 +4,7 @@ struct Iteration {
   int Round;
   int RunOnCache;
   int RunOnDRAM;
+  double Ratio;
   
   Iteration(int a) {
     PENumb = a;
@@ -11,6 +12,7 @@ struct Iteration {
     RunOnCache = 0;
     RunOnDRAM = 0;
     Round = 1;
+    Ratio = 0.0;
   }
 };
 
@@ -82,7 +84,7 @@ int GetTopology() {
       Order = Order + 1;
     }
   }
-  printf("MaxCon:%d\tMinCon:%d\tTopoOrder:%d\n", MaxCon, MinCon, Order);
+  // printf("MaxCon:%d\tMinCon:%d\tTopoOrder:%d\n", MaxCon, MinCon, Order);
   return NeedPE;
 }
 
@@ -97,7 +99,7 @@ void Init(int TotalPE, int UpRound) {
   }
 
   int NeedPE = GetTopology();
-  printf("Multi:%d\n", NeedPE);
+  // printf("Multi:%d\n", NeedPE);
 
   if (TotalPE >= NeedPE) {
     IterList.push_back(Iteration(NeedPE));
@@ -324,7 +326,8 @@ void InitIteration(Iteration &iteration, bool AddCache) {
   for (int i = 1; i <= TotalNode; ++ i)
     TotalCost = TotalCost + 5LL * NodeList[i].Cost;
   double Ratio = (TotalCost * 1.0) / (iteration.UpBound * iteration.PENumb);
-  printf("Iteration Ratio:%.6f\n", Ratio);
+  iteration.Ratio = Ratio;
+  // printf("Iteration Ratio:%.6f\n", Ratio);
 }
 
 FinalResult CalcBaseFinalResult(int TotalPE, int PeriodTimes) {
@@ -333,7 +336,7 @@ FinalResult CalcBaseFinalResult(int TotalPE, int PeriodTimes) {
     TotalCost = TotalCost + NodeList[i].Cost;
 
   for (int i = 0; i < IterList.size(); ++ i) {
-    printf("Init Iteration:%d\n", i + 1);
+    // printf("Init Iteration:%d\n", i + 1);
     Caches.clear();
     DRAMBlocks.clear();
     InitIteration(IterList[i], true);
@@ -350,6 +353,7 @@ FinalResult CalcBaseFinalResult(int TotalPE, int PeriodTimes) {
     FR.RunOnCache = IterList[0].RunOnCache * X * Launches;
     FR.RunOnDRAM = IterList[0].RunOnDRAM * X * Launches;
     FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
+    FR.MAXRatio = IterList[0].Ratio;
   }
   else {
     int Launches = TotalPE / IterList[0].PENumb;
@@ -369,6 +373,7 @@ FinalResult CalcBaseFinalResult(int TotalPE, int PeriodTimes) {
     FR.Prelogue = 0;
     FR.Retiming = 0;
     FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
+    FR.MAXRatio = (IterList[1].Ratio + IterList[0].Ratio) / 2;
   }
   return FR;
 }

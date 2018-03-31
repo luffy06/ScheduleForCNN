@@ -50,7 +50,7 @@ void Input() {
   }
 
   if (MaxCost >= MAXM) {
-    printf("Reduce Cost\n");
+    // printf("Reduce Cost\n");
     for (int i = 1; i <= TotalNode; i++) {
       NodeList[i].Cost = ceil((NodeList[i].Cost * 1.0 / MaxCost) * MAXM / 2);
     }
@@ -68,9 +68,9 @@ void Input() {
     Edge e = Edge(From, To, Memory);
     int Dis = Ceil(Memory, CACHESPEED) / NodeList[From].Cost;
     if (Dis < 0) {
-      printf("Dis:%d\n", Dis);
-      printf("Cost:%lld\n", NodeList[From].Cost);
-      e.Show();
+      // printf("Dis:%d\n", Dis);
+      // printf("Cost:%lld\n", NodeList[From].Cost);
+      // e.Show();
     }
     assert(Dis >= 0);
     MaxEdge = max(MaxEdge, Memory);
@@ -81,7 +81,7 @@ void Input() {
     EdgeList[From].push_back(e);
     ReEdgeList[To].push_back(e);
   }
-  printf("MinDis:%d\tMaxDis:%d\tMaxEdge:%lld\n", MinDis, MaxDis, Ceil(MaxEdge, CACHESPEED));
+  // printf("MinDis:%d\tMaxDis:%d\tMaxEdge:%lld\n", MinDis, MaxDis, Ceil(MaxEdge, CACHESPEED));
 }
 
 int main() {

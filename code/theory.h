@@ -69,6 +69,7 @@ struct NodeGenerator {
   int Retiming;
   long long RunOnCache;
   long long RunOnDRAM;
+  double MaxRatio;
   vector<Node> StartTable;
 
   NodeGenerator() {
@@ -77,6 +78,7 @@ struct NodeGenerator {
     UpBound = 0;
     Prelogue = -1;
     RunOnCache = RunOnDRAM = 0;
+    MaxRatio = 0;
     StartTable.clear();
   }
 
@@ -86,6 +88,7 @@ struct NodeGenerator {
     UpBound = 0;
     Prelogue = -1;
     RunOnCache = RunOnDRAM = 0;
+    MaxRatio = 0;
     StartTable.clear();
     CalcBound(MaxRound, NodeList);
   }
@@ -129,7 +132,6 @@ struct NodeGenerator {
 
   void CalcBound(int MaxRound, Node NodeList[MAXN]) {
     int TargetRound = 1;
-    double MaxRatio = 0;
     for (UpRound = 1; UpRound <= MaxRound; ++ UpRound) {
       double NowRatio = Init(NodeList);
       if (NowRatio >= LIMITEDRATIO) {
@@ -143,7 +145,7 @@ struct NodeGenerator {
     }
     UpRound = TargetRound;
     MaxRatio = Init(NodeList);
-    printf("MaxRatio:%.6f\n", MaxRatio);
+    // printf("MaxRatio:%.6f\n", MaxRatio);
     for (int i = 0; i < StartTable.size(); ++ i)
       StartTable[i].SetTime(0, UpBound);
     sort(StartTable.begin(), StartTable.end(), CmpById);
@@ -245,7 +247,7 @@ struct NodeGenerator {
       MinRetiming = min(MinRetiming, StartTable[i].Retiming);
       MaxRetiming = max(MaxRetiming, StartTable[i].Retiming);
     }
-    Retiming = MaxRetiming - MinRetiming + 1;
+    Retiming = MaxRetiming - MinRetiming;
     Prelogue = Retiming * UpBound;
   }
 
@@ -344,7 +346,7 @@ int GetTopology() {
       Order = Order + 1;
     }
   }
-  printf("MaxCon:%d\tMinCon:%d\tTopoOrder:%d\n", MaxCon, MinCon, Order);
+  // printf("MaxCon:%d\tMinCon:%d\tTopoOrder:%d\n", MaxCon, MinCon, Order);
   return NeedPE;
 }
 
@@ -372,7 +374,7 @@ void Init(int TotalPE, int UpRound) {
   }
 
   int NeedPE = GetTopology();
-  printf("Multi:%d\n", NeedPE);
+  // printf("Multi:%d\n", NeedPE);
 
   if (TotalPE >= NeedPE) {
     NgList.push_back(NodeGenerator(TotalNode, NeedPE, UpRound, NodeList));
@@ -747,7 +749,7 @@ void SpreadKeyNodeSet(NodeGenerator &ng) {
 FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
   Init(TotalPE, UpRound);
   for (int i = 0; i < NgList.size(); ++ i) {
-    printf("\nUpBound:%d\tUpRound:%d\n", NgList[i].UpBound, NgList[i].UpRound);
+    // printf("\nUpBound:%d\tUpRound:%d\n", NgList[i].UpBound, NgList[i].UpRound);
     memset(Checked, false, sizeof(Checked));
     Caches.clear();
     DRAMBlocks.clear();
@@ -776,6 +778,7 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
     FR.RunOnCache = NgList[0].RunOnCache * X * Launches;
     FR.RunOnDRAM = NgList[0].RunOnDRAM * X * Launches;
     FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
+    FR.MAXRatio = NgList[0].MaxRatio;
   }
   else {
     int Launches = TotalPE / NgList[0].NeedPE;
@@ -795,6 +798,7 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
     FR.Prelogue = NgList[0].Prelogue;
     FR.Retiming = NgList[0].Retiming;
     FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
+    FR.MAXRatio = (NgList[0].MaxRatio + NgList[1].MaxRatio) / 2;
   }
   return FR;
 }

@@ -61,6 +61,7 @@ struct Iteration {
   int Retiming;
   int RunOnCache;
   int RunOnDRAM;
+  double MaxRatio;
 
   Iteration(int a, int b, int c) {
     UpBound = 0;
@@ -69,6 +70,7 @@ struct Iteration {
     PENumb = a;
     PhasePE = b;
     TotalNode = c;
+    MaxRatio = 0;
   }
 
   void CalcPrelogue(Node NodeTime[REPEATLIMITED + 1][MAXN]) {
@@ -81,7 +83,7 @@ struct Iteration {
         MaxRetiming = max(MaxRetiming, Retiming);
       }
     }
-    Retiming = MaxRetiming - MinRetiming + 1;
+    Retiming = MaxRetiming - MinRetiming;
     Prelogue = Retiming * UpBound;
   }
 };
@@ -184,7 +186,7 @@ int GetTopology() {
       Order = Order + 1;
     }
   }
-  printf("MaxCon:%d\tMinCon:%d\tTopoOrder:%d\n", MaxCon, MinCon, Order);
+  // printf("MaxCon:%d\tMinCon:%d\tTopoOrder:%d\n", MaxCon, MinCon, Order);
   return NeedPE;
 }
 
@@ -378,7 +380,7 @@ void InitPhase(Phase &phase) {
   for (int i = 1; i <= PENumb; ++ i)
     MaxEndtime = max(MaxEndtime, phase.PETimes[i].EndTime);
   phase.Ratio = TotalCost / (1.0 * MaxEndtime * PENumb);
-  printf("Ratio of Phase:%.6f\n", phase.Ratio);
+  // printf("Ratio of Phase:%.6f\n", phase.Ratio);
 }
 
 int Init(int TotalPE) {
@@ -422,8 +424,8 @@ int Init(int TotalPE) {
     REPEAT = (MaxRepeat + MinRepeat) / 2;
   REPEAT = min(REPEAT, REPEATLIMITED);
   REPEAT = max(REPEAT, 2);
-  printf("Min:%d\tMAX:%d\tREPEAT:%d\tAverage Repeat:%d\n", MinRepeat, MaxRepeat, 
-                      REPEAT, (RepeatCount == 0 ? 0 : SumRepeat / RepeatCount));
+  // printf("Min:%d\tMAX:%d\tREPEAT:%d\tAverage Repeat:%d\n", MinRepeat, MaxRepeat, 
+  //                     REPEAT, (RepeatCount == 0 ? 0 : SumRepeat / RepeatCount));
 
   if (TotalPE >= NeedPE) {
     IterList.push_back(Iteration(NeedPE, NeedPE, TotalNode));
@@ -521,7 +523,7 @@ void InitIteration(Iteration &iteration) {
       IterNodeTime[j][i] = NodeTime[j][i];
 
   int Shift = iteration.PENumb - phase.PENumb;
-  printf("Shift:%d\n", Shift);
+  // printf("Shift:%d\n", Shift);
   long long MaxEndtime = 0;
   vector<int> Moves;
   Moves.push_back(0);
@@ -580,8 +582,9 @@ void InitIteration(Iteration &iteration) {
     for (int j = 1; j <= REPEAT; ++ j)
       TotalCost = TotalCost + NodeTime[j][i].Cost * 2;
   double Ratio = TotalCost / (1.0 * MaxEndtime * iteration.PENumb);
-  printf("Ratio of Iteration:%.6f\n", Ratio);
-  printf("UpBound:%lld\n", iteration.UpBound);
+  iteration.MaxRatio = Ratio;
+  // printf("Ratio of Iteration:%.6f\n", Ratio);
+  // printf("UpBound:%lld\n", iteration.UpBound);
 
   assert(iteration.UpBound > 0);
   for (int i = 0; i < Caches.size(); ++ i)
@@ -628,6 +631,7 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
     FR.RunOnCache = X * iteration.RunOnCache * Launches;
     FR.RunOnDRAM = X * iteration.RunOnDRAM * Launches;
     FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
+    FR.MAXRatio = IterList[0].MaxRatio;
   }
   else {
     assert(IterList.size() == 2);
@@ -650,6 +654,7 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
     FR.Retiming = iterationX.Retiming;
     FR.Prelogue = iterationX.Prelogue;
     FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
+    FR.MAXRatio = (IterList[0].MaxRatio + IterList[1].MaxRatio) / 2;
   }
   return FR;
 }

@@ -247,7 +247,7 @@ struct NodeGenerator {
       MinRetiming = min(MinRetiming, StartTable[i].Retiming);
       MaxRetiming = max(MaxRetiming, StartTable[i].Retiming);
     }
-    Retiming = MaxRetiming - MinRetiming + 1;
+    Retiming = MaxRetiming - MinRetiming;
     Prelogue = Retiming * UpBound;
   }
 
