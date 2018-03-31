@@ -6,3 +6,135 @@ MinDis:0 MaxDis:33 MaxEdge:101 MaxCon:89 MinCon:1 TopoOrder:68 Multi:89 MaxRatio
 MinDis:0 MaxDis:33 MaxEdge:101 MaxCon:89 MinCon:1 TopoOrder:68 Min:1 MAX:34 REPEAT:17 Average Repeat:1 Ratio of Phase:0.541382 Shift:0 Ratio of Iteration:0.541382 UpBound:495820 TotalTime:87760140 Prelogue:495820 Retiming:1 RunOnCache:4991046 RunOnDRAM:0 CPURatio:0.539762
 ######### End #########
 ######### Using Theory3 #########
+MinDis:0 MaxDis:33 MaxEdge:101 MaxCon:89 MinCon:1 TopoOrder:68 Multi:89 Init Iteration:1 Iteration Ratio:0.031249 Iteration Ratio:0.031188 TotalTime:1518846000 Prelogue:0 Retiming:0 RunOnCache:3018000 RunOnDRAM:1416000 CPURatio:0.031188
+######### End #########
+Dealing with alexnet_mnist.in
+######### Using Theory1 #########
+Reduce Cost MinDis:0 MaxDis:672 MaxEdge:672 MaxCon:475 MinCon:1 TopoOrder:177 Multi:475 MaxRatio:0.998379 UpBound:35000 UpRound:4 TotalTime:55370000 Prelogue:2905000 Retiming:83 RunOnCache:14022000 RunOnDRAM:774000 CPURatio:0.946629
+######### End #########
+######### Using Theory2 #########
+Reduce Cost MinDis:0 MaxDis:672 MaxEdge:672 MaxCon:475 MinCon:1 TopoOrder:177 Min:1 MAX:672 REPEAT:20 Average Repeat:14 Ratio of Phase:0.686697 Shift:0 Ratio of Iteration:0.686697 UpBound:508860 TotalTime:76329000 Prelogue:508860 Retiming:1 RunOnCache:17848200 RunOnDRAM:0 CPURatio:0.686697
+######### End #########
+######### Using Theory3 #########
+Reduce Cost MinDis:0 MaxDis:672 MaxEdge:672 MaxCon:475 MinCon:1 TopoOrder:177 Multi:475 Init Iteration:1 Iteration Ratio:0.031229 Iteration Ratio:0.030604 TotalTime:1712674800 Prelogue:0 Retiming:0 RunOnCache:9748800 RunOnDRAM:5047200 CPURatio:0.030604
+######### End #########
+Dealing with alexnet_oxflowers17.in
+######### Using Theory1 #########
+Reduce Cost MinDis:0 MaxDis:2685 MaxEdge:2685 MaxCon:433 MinCon:1 TopoOrder:154 Multi:433 MaxRatio:0.966451 UpBound:35000 UpRound:5 TotalTime:44730000 Prelogue:2765000 Retiming:79 RunOnCache:12879600 RunOnDRAM:284400 CPURatio:0.907466
+######### End #########
+######### Using Theory2 #########
+Reduce Cost MinDis:0 MaxDis:2685 MaxEdge:2685 MaxCon:433 MinCon:1 TopoOrder:154 Min:1 MAX:2685 REPEAT:20 Average Repeat:33 Ratio of Phase:0.612040 Shift:0 Ratio of Iteration:0.612040 UpBound:442138 TotalTime:66320700 Prelogue:442138 Retiming:1 RunOnCache:15424200 RunOnDRAM:0 CPURatio:0.612040
+######### End #########
+######### Using Theory3 #########
+Reduce Cost MinDis:0 MaxDis:2685 MaxEdge:2685 MaxCon:433 MinCon:1 TopoOrder:154 Multi:433 Init Iteration:1 Iteration Ratio:0.031044 Iteration Ratio:0.027300 TotalTime:1486820400 Prelogue:0 Retiming:0 RunOnCache:8682000 RunOnDRAM:4482000 CPURatio:0.027300
+######### End #########
+Dealing with cnn_sentence_classif.in
+######### Using Theory1 #########
+MinDis:0 MaxDis:17 MaxEdge:52 MaxCon:421 MinCon:1 TopoOrder:118 Multi:421 MaxRatio:0.999980 UpBound:39000 UpRound:5 TotalTime:49374000 Prelogue:2613000 Retiming:67 RunOnCache:12772800 RunOnDRAM:187200 CPURatio:0.947848
+######### End #########
+######### Using Theory2 #########
+MinDis:0 MaxDis:17 MaxEdge:52 MaxCon:421 MinCon:1 TopoOrder:118 Min:1 MAX:18 REPEAT:9 Average Repeat:1 Ratio of Phase:0.523511 Shift:0 Ratio of Iteration:0.523526 UpBound:268176 TotalTime:89570784 Prelogue:268176 Retiming:1 RunOnCache:15702676 RunOnDRAM:0 CPURatio:0.522481
+######### End #########
+######### Using Theory3 #########
+MinDis:0 MaxDis:17 MaxEdge:52 MaxCon:421 MinCon:1 TopoOrder:118 Multi:421 Init Iteration:1 Iteration Ratio:0.031248 Iteration Ratio:0.031207 TotalTime:1499625600 Prelogue:0 Retiming:0 RunOnCache:10149600 RunOnDRAM:2810400 CPURatio:0.031207
+######### End #########
+Dealing with convnet_highway_mnist.in
+######### Using Theory1 #########
+MinDis:0 MaxDis:11 MaxEdge:33 MaxCon:1471 MinCon:1 TopoOrder:440 Multi:1471 MaxRatio:0.978196 UpBound:17715 UpRound:2 TotalTime:56723430 Prelogue:3596145 Retiming:203 RunOnCache:49188000 RunOnDRAM:126000 CPURatio:0.916486
+######### End #########
+######### Using Theory2 #########
+MinDis:0 MaxDis:11 MaxEdge:33 MaxCon:1471 MinCon:1 TopoOrder:440 Min:1 MAX:11 REPEAT:6 Average Repeat:1 Ratio of Phase:0.272031 Shift:0 Ratio of Iteration:0.272043 UpBound:382191 TotalTime:191095500 Prelogue:382191 Retiming:1 RunOnCache:61210000 RunOnDRAM:476000 CPURatio:0.272043
+######### End #########
+######### Using Theory3 #########
+MinDis:0 MaxDis:11 MaxEdge:33 MaxCon:1471 MinCon:1 TopoOrder:440 Multi:1471 Init Iteration:1 Iteration Ratio:0.031246 Iteration Ratio:0.030989 TotalTime:1677594000 Prelogue:0 Retiming:0 RunOnCache:33516000 RunOnDRAM:15798000 CPURatio:0.030989
+######### End #########
+Dealing with funll_count_dense_model.in
+######### Using Theory1 #########
+MinDis:0 MaxDis:0 MaxEdge:3 MaxCon:197 MinCon:1 TopoOrder:117 Multi:197 MaxRatio:0.999728 UpBound:918 UpRound:4 TotalTime:1421064 Prelogue:44982 Retiming:49 RunOnCache:7254000 RunOnDRAM:72000 CPURatio:0.968728
+######### End #########
+######### Using Theory2 #########
+MinDis:0 MaxDis:0 MaxEdge:3 MaxCon:197 MinCon:1 TopoOrder:117 Min:1 MAX:1 REPEAT:2 Average Repeat:1 Ratio of Phase:0.096120 Shift:0 Ratio of Iteration:0.096281 UpBound:9532 TotalTime:14298000 Prelogue:9532 Retiming:1 RunOnCache:9426000 RunOnDRAM:6000 CPURatio:0.096281
+######### End #########
+######### Using Theory3 #########
+MinDis:0 MaxDis:0 MaxEdge:3 MaxCon:197 MinCon:1 TopoOrder:117 Multi:197 Init Iteration:1 Iteration Ratio:0.031250 Iteration Ratio:0.031250 TotalTime:44052000 Prelogue:0 Retiming:0 RunOnCache:6151200 RunOnDRAM:1174800 CPURatio:0.031250
+######### End #########
+Dealing with googlenet_oxflowers17.in
+######### Using Theory1 #########
+Reduce Cost MinDis:0 MaxDis:168 MaxEdge:2130 MaxCon:2542 MinCon:1 TopoOrder:235 Multi:2542 MaxRatio:0.999994 UpBound:47361 UpRound:3 TotalTime:100784208 Prelogue:6109569 Retiming:129 RunOnCache:64248000 RunOnDRAM:4596000 CPURatio:0.939844
+######### End #########
+######### Using Theory2 #########
+Reduce Cost MinDis:0 MaxDis:168 MaxEdge:2130 MaxCon:2542 MinCon:1 TopoOrder:235 Min:1 MAX:168 REPEAT:20 Average Repeat:2 Ratio of Phase:0.736647 Shift:0 Ratio of Iteration:0.736647 UpBound:857230 TotalTime:128584500 Prelogue:857230 Retiming:1 RunOnCache:80310000 RunOnDRAM:0 CPURatio:0.736647
+######### End #########
+######### Using Theory3 #########
+Reduce Cost MinDis:0 MaxDis:168 MaxEdge:2130 MaxCon:2542 MinCon:1 TopoOrder:235 Multi:2542 Init Iteration:1 Iteration Ratio:0.031079 Iteration Ratio:0.027529 TotalTime:3440772000 Prelogue:0 Retiming:0 RunOnCache:40320000 RunOnDRAM:28524000 CPURatio:0.027529
+######### End #########
+Dealing with vgg_A-LEN.in
+######### Using Theory1 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:909 MinCon:1 TopoOrder:189 Multi:909 MaxRatio:0.993846 UpBound:35000 UpRound:4 TotalTime:55545000 Prelogue:3080000 Retiming:88 RunOnCache:23094000 RunOnDRAM:1026000 CPURatio:0.939363
+######### End #########
+######### Using Theory2 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:909 MinCon:1 TopoOrder:189 Min:1 MAX:4111 REPEAT:20 Average Repeat:50 Ratio of Phase:0.485168 Shift:0 Ratio of Iteration:0.485168 UpBound:716960 TotalTime:107544000 Prelogue:716960 Retiming:1 RunOnCache:27870000 RunOnDRAM:0 CPURatio:0.485168
+######### End #########
+######### Using Theory3 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:909 MinCon:1 TopoOrder:189 Multi:909 Init Iteration:1 Iteration Ratio:0.030077 Iteration Ratio:0.019507 TotalTime:2674843200 Prelogue:0 Retiming:0 RunOnCache:15909600 RunOnDRAM:8210400 CPURatio:0.019507
+######### End #########
+Dealing with vgg_A.in
+######### Using Theory1 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:747 MinCon:1 TopoOrder:190 Multi:747 MaxRatio:0.999991 UpBound:40193 UpRound:5 TotalTime:52090128 Prelogue:3898721 Retiming:97 RunOnCache:19683600 RunOnDRAM:1040400 CPURatio:0.925918
+######### End #########
+######### Using Theory2 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:747 MinCon:1 TopoOrder:190 Min:1 MAX:4111 REPEAT:20 Average Repeat:52 Ratio of Phase:0.516584 Shift:0 Ratio of Iteration:0.516584 UpBound:622438 TotalTime:93365700 Prelogue:622438 Retiming:1 RunOnCache:23895000 RunOnDRAM:0 CPURatio:0.516584
+######### End #########
+######### Using Theory3 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:747 MinCon:1 TopoOrder:190 Multi:747 Init Iteration:1 Iteration Ratio:0.030403 Iteration Ratio:0.021080 TotalTime:2288016000 Prelogue:0 Retiming:0 RunOnCache:13863600 RunOnDRAM:6860400 CPURatio:0.021080
+######### End #########
+Dealing with vgg_B.in
+######### Using Theory1 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:855 MinCon:1 TopoOrder:200 Multi:855 MaxRatio:1.000000 UpBound:39270 UpRound:4 TotalTime:62792730 Prelogue:3927000 Retiming:100 RunOnCache:21792000 RunOnDRAM:1548000 CPURatio:0.938086
+######### End #########
+######### Using Theory2 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:855 MinCon:1 TopoOrder:200 Min:1 MAX:4111 REPEAT:20 Average Repeat:48 Ratio of Phase:0.503073 Shift:0 Ratio of Iteration:0.503073 UpBound:780602 TotalTime:117090300 Prelogue:780602 Retiming:1 RunOnCache:27058800 RunOnDRAM:0 CPURatio:0.503073
+######### End #########
+######### Using Theory3 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:855 MinCon:1 TopoOrder:200 Multi:855 Init Iteration:1 Iteration Ratio:0.030280 Iteration Ratio:0.020350 TotalTime:2894629200 Prelogue:0 Retiming:0 RunOnCache:15446400 RunOnDRAM:7893600 CPURatio:0.020350
+######### End #########
+Dealing with vgg_C.in
+######### Using Theory1 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:1017 MinCon:1 TopoOrder:215 Multi:1017 MaxRatio:0.999997 UpBound:40969 UpRound:4 TotalTime:65591369 Prelogue:4178838 Retiming:102 RunOnCache:26244000 RunOnDRAM:1020000 CPURatio:0.936912
+######### End #########
+######### Using Theory2 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:1017 MinCon:1 TopoOrder:215 Min:1 MAX:4111 REPEAT:20 Average Repeat:43 Ratio of Phase:0.502545 Shift:0 Ratio of Iteration:0.502545 UpBound:815228 TotalTime:122284200 Prelogue:815228 Retiming:1 RunOnCache:31448400 RunOnDRAM:0 CPURatio:0.502545
+######### End #########
+######### Using Theory3 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:1017 MinCon:1 TopoOrder:215 Multi:1017 Init Iteration:1 Iteration Ratio:0.030336 Iteration Ratio:0.020195 TotalTime:3042951600 Prelogue:0 Retiming:0 RunOnCache:17438400 RunOnDRAM:9825600 CPURatio:0.020195
+######### End #########
+Dealing with vgg_D.in
+######### Using Theory1 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:1017 MinCon:1 TopoOrder:215 Multi:1017 MaxRatio:0.999984 UpBound:36623 UpRound:3 TotalTime:77274530 Prelogue:4065153 Retiming:111 RunOnCache:25360000 RunOnDRAM:1904000 CPURatio:0.947852
+######### End #########
+######### Using Theory2 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:1017 MinCon:1 TopoOrder:215 Min:1 MAX:4111 REPEAT:20 Average Repeat:45 Ratio of Phase:0.519351 Shift:0 Ratio of Iteration:0.519351 UpBound:940210 TotalTime:141031500 Prelogue:940210 Retiming:1 RunOnCache:31398000 RunOnDRAM:0 CPURatio:0.519351
+######### End #########
+######### Using Theory3 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:1017 MinCon:1 TopoOrder:215 Multi:1017 Init Iteration:1 Iteration Ratio:0.030410 Iteration Ratio:0.021478 TotalTime:3410230800 Prelogue:0 Retiming:0 RunOnCache:17438400 RunOnDRAM:9825600 CPURatio:0.021478
+######### End #########
+Dealing with vgg_E.in
+######### Using Theory1 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:1179 MinCon:1 TopoOrder:230 Multi:1179 MaxRatio:0.999985 UpBound:48253 UpRound:3 TotalTime:102344613 Prelogue:5886866 Retiming:122 RunOnCache:29170000 RunOnDRAM:2018000 CPURatio:0.942937
+######### End #########
+######### Using Theory2 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:1179 MinCon:1 TopoOrder:230 Min:1 MAX:4111 REPEAT:20 Average Repeat:42 Ratio of Phase:0.537373 Shift:0 Ratio of Iteration:0.537373 UpBound:1197238 TotalTime:179585700 Prelogue:1197238 Retiming:1 RunOnCache:35785200 RunOnDRAM:0 CPURatio:0.537373
+######### End #########
+######### Using Theory3 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:1179 MinCon:1 TopoOrder:230 Multi:1179 Init Iteration:1 Iteration Ratio:0.030599 Iteration Ratio:0.022907 TotalTime:4212825600 Prelogue:0 Retiming:0 RunOnCache:20234400 RunOnDRAM:10953600 CPURatio:0.022907
+######### End #########
+Dealing with vgg_defoult.in
+######### Using Theory1 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:963 MinCon:1 TopoOrder:192 Multi:963 MaxRatio:0.999998 UpBound:38787 UpRound:3 TotalTime:81181191 Prelogue:3645978 Retiming:94 RunOnCache:23656000 RunOnDRAM:1748000 CPURatio:0.955564
+######### End #########
+######### Using Theory2 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:963 MinCon:1 TopoOrder:192 Min:1 MAX:4111 REPEAT:20 Average Repeat:47 Ratio of Phase:0.523388 Shift:0 Ratio of Iteration:0.523388 UpBound:988098 TotalTime:148214700 Prelogue:988098 Retiming:1 RunOnCache:29121600 RunOnDRAM:0 CPURatio:0.523388
+######### End #########
+######### Using Theory3 #########
+Reduce Cost MinDis:0 MaxDis:4111 MaxEdge:4111 MaxCon:963 MinCon:1 TopoOrder:192 Multi:963 Init Iteration:1 Iteration Ratio:0.030468 Iteration Ratio:0.021823 TotalTime:3554644800 Prelogue:0 Retiming:0 RunOnCache:16309200 RunOnDRAM:9094800 CPURatio:0.021823
+######### End #########
