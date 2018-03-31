@@ -6,7 +6,7 @@ for (( pe=32; pe<=256; pe=pe*2 )) do
   if [[ -f 'config.in' ]]; then
     rm 'config.in'
   fi
-  resultname=${resultfolder}/result${pe}.out
+  resultname=${resultfolder}/${pe}.out
   if [[ -f ${resultname} ]]; then
     rm ${resultname}
   fi
@@ -25,3 +25,4 @@ for (( pe=32; pe<=256; pe=pe*2 )) do
     done
   done
 done
+echo `python3 loadresult.py`
