@@ -12,9 +12,11 @@
 
 ![DataAnalysis](./pic/DataAnalysis.jpeg)
 
-从数据分析图中可以看出，Conv2DBack的运行时间平均占据总运行时间的*40%*。如果按照常见的排列方案，可以明显的发现当关键节点在运行时，其他PE几乎处于空闲状态，导致了极低的利用率。为了能够高效的利用在关键节点运行时其他PE空闲的时间， 本文中的算法利用重定时的技术把其他周期的节点安排在空闲时间内，并优先排列关键节点。下图展示了一个CNN网络图抽象建模成的有向无环图。
+从数据分析图中可以看出，其中有3类节点的运行时间都普遍较长：Conv2DBackproFilter类的节点在vgg图中平均占据了约50%的运行时间，在LeNet、convnet和cnn等图中平均占据了约35%的运行时间，在alexnet中也占据了约20%的运行时间；Conv2DBackpropInput类的节点在vgg、alexnet等图中平均占据了约30%的运行时间，在LeNet、convnet和cnn等图中平均占据了约15%的运行时间；Conv2D类的节点在每个图平均占据了10%-15%的运行时间。同时，在alexnet图中的HistogramSummary类的节点、LeNet图中的SparseSoftmaxCrossEntropyWithLogits类节点和cnn图中的Equal类的节点也都平均占据了各自的约10%-15%的运行时间。
 
-![图](./pic/pic.png)
+这些关键节点在排列的时候需要被特别的关注，如果按照顺序的排列方案，可以明显的发现当关键节点在运行时，其他PE几乎处于空闲状态，导致了极低的利用率。为了能够高效的利用在关键节点运行时其他PE空闲的时间， 本文中的算法利用重定时的技术把其他周期的节点安排在空闲时间内，并优先排列关键节点。下图展示了一个CNN网络图抽象建模成的有向无环图。
+
+![图](./pic/graph.png)
 
 ![Baseline](./pic/Baseline.png)
 
@@ -30,13 +32,13 @@
 
 ## 输入
 
-**定义：**有向无环图DAG，$G=(V,E,P,R)$，其中$V$表示节点集合，节点个数是$N_V$；$E$表示边集合，边个数是$N_E$；$P$表示PE个数；$R$表示图$G$的重定时次数。
+**定义：**有向无环图DAG，$G=(V,E,P,R)$，其中$V$表示节点集合，$V=\{T_1, \ldots, T_n\}$；$E$表示边集合，$，E\subseteq V\times V$，$(T_i, T_j)\in E$，其中$T_i,T_j\in V$，边个数是$m$；$N_{PE}$表示PE个数；$R$表示图$G$的重定时次数。其中$T^l_i(s^l_i, c^l_i, d^l_i, e^l_i,tp^l_i)$表示第$l$次循环的第$i$个节点的开始时间$s^l_i$，执行时间$c^l_i$，结束时间$d^l_i$，所在PE$e^l_i$，拓扑序$tp^l_i$。$I^l_{i,j}(s^l_{i,j}, c^l_{i,j}, d^l_{i,j})$表示第$l$次循环节点$T_i$到$T_j$的边的开始时间$s^l_{i,j}$，内存消耗$c^l_{i,j}$，结束时间$d^l_{i,j}$。
 
-**定义：**$I$表示图$G$需要循环的次数。
+**定义：**$p$表示图$G$需要循环的次数。
 
 ## 输出
 
-* 图$G$循环$I$次所需要的总时间$T$ 
+* 图$G$循环$p$次所需要的总时间$T$ 
 
 ## 过程
 
@@ -44,27 +46,27 @@
 
 考虑到图最大的并发度是有限的，所以可以结合多发射的思想，合理的利用PE，限定每次发射（*Launch*）需要的PE个数，并将总的循环次数均摊到每次发射之上，以达到更高效的并行性。
 
-**定义：**图的最大并发度是$m$，$H=\lceil P/m\rceil$。
+**定义：**图的最大并发度是$h$，$H=\lceil N_{PE}/h\rceil$。
 
 那么图共需要$H$次发射。
 
-若$m$整除$P$，
+若$N_{PE}\% h==0$，
 
-* 每次发射均需要的核数是$m$。
-* 每次发射最多需要$I_{max}=\lceil I/H\rceil$次循环。
+* 每次发射均需要的核数是$h$。
+* 每次发射最多需要$p_{max}=\lceil I/H\rceil$次循环。
 
-若$m$不整除$P$，
+若$N_{PE}\%h\neq0$，
 
-* 前$H-1$次发射的核数是$m$，最后一次发射核数是$P\%m$。
-* 若前$H-1$次发射每次循环$I_{H-1}$次，最后一次发射循环$I_{last}$次。故$(I_{H-1},I_{last})$需要满足$I=(H-1)\times I_{H-1}+I_{last}$。对所有满足的$(I_{H-1}, I_{last})$选取使总时间$T$最小的一组$(I_{H-1},I_{last})$。
+* 前$H-1$次发射的核数是$h$，最后一次发射核数是$N_{PE}\%m$。
+* 若设前$H-1$次发射每次循环$p_{nor}$次，最后一次发射循环$p_{spc}$次。故$(p_{nor},p_{spc})$需要满足$p=(H-1)\times p_{nor}+p_{spc}$。对所有满足的$(p_{nor}, p_{spc})$选取使总时间$T$最小的一组$(p_{nor},p_{spc})$。
 
-### Step Two：确定单发射中每个周期内图循环的组数和每个核任务的种类
+### Step Two：确定单次发射中每个周期内图循环的组数和每个核任务的种类
 
 为了尽可能的减少PE空闲的时间，在每次发射中可以将不同周期的任务节点交错摆放在一起，以提高PE的利用率。
 
-**定义：**一个周期（*Period*）为图$G$中节点集合$V$重复$I_{period}$次摆放在$m$个PE上的过程。
+**定义：**一个周期（*Period*）为图$G$中节点集合$V$重复$p_{per}$次摆放在$h$个PE上的过程。
 
-一个周期内$I_{period}$次节点集合$V$在$m$个PE上的摆放时在不考虑节点之间的依赖关系，尽可能的有效的利用PE。
+一个周期内$p_{per}$次节点集合$V$在$h$个PE上的摆放时在不考虑节点之间的依赖关系，尽可能的有效的利用PE。
 
 因为图$G$中包含一些执行时间远大于其他的任务节点，若直接按照拓扑序列把所有任务节点依次插入各个PE，最终消耗的总时间会$T$很大。如图
 
@@ -74,97 +76,92 @@
 
 ![算法排列](./pic/OurArrange.png)
 
-**定义：**$Ratio_{period}=\frac{I_{period}\times \sum_{V_{i}\in V}ex_{i}}{m\times ed^{PE}_{max}}$，其中$ed^{PE}_{max}$表示$m$个PE中PE上所有任务时间之和的最大值，$ex_{i}$表示任务节点$V_{i}$的执行时间。$Ratio_{limited}$表示周期的最低利用率。$I_{limited}$表示周期的最大循环次数。
+**定义：**利用率计算公式：$U_{per}=\displaystyle\frac{p_{per}\times \displaystyle\sum_{V_{i}\in V}c_{i}}{h\times ub}$，其中$ub$表示周期的最大时间消耗，$c_{i}$表示任务节点$T_{i}$的执行时间。$U_{l}$表示周期的最低利用率。$p_{l}$表示周期的最大循环次数。
 
-$I_{period}$的值依据$Ratio_{period}$来确定。每按照上述算法排列一次图$G$，$I_{period}=I_{period}+1$，并重新计算一下当前的利用率$Ratio_{period}$，若$Ratio_{period}\ge Ratio_{limited}$，则停止排列；若$I_{perioid}\ge I_{limited}$，则停止排列，选择之前计算得到的最大的$Ratio_{period}$。
+$p_{per}$的值依据$U_{per}$来确定。每按照上述算法排列一次图$G$，$p_{per}\leftarrow p_{per}+1$，并重新计算一下当前的利用率$U$，若$U\ge U_{l}$，则停止排列；若$p_{per}\ge p_{l}$，则停止排列，选择之前计算得到的最大的$U_{per}$。
 
-> $GenerateArrange():$
+> **Input**
 >
-> $I_{period}\leftarrow 0,\; Ratio_{period}\leftarrow 0,\;Ratio_{periodmax}\leftarrow 0,\; I_{periodmax}\leftarrow 0,\;ed^{PE}_{max}\leftarrow 0$
+> $A\;set\;tasks\;\{T_1,\ldots,T_n\}\in V$
 >
-> $sort(V) first\; by \;e_i\;,second\; by\; tp_{i}$
+> $N_{PE}\;homogeneous\;PEs$ $h\;of\;tasks\;that\;are\;concureently\;execeuted\;within\;same\;layer$
 >
-> $cost\leftarrow 0$
+> $the\;threshold\;PE's\;utilization\;ratio\;U_l$
 >
-> $For\; i\leftarrow 0\; to \;N_V:$
+> $the\;max\;repeat\;times\;p_l\;of\;tasks\;in\;same\;iteration$
 >
-> $\quad cost\leftarrow cost+ex_{i}$
+> **Output**
 >
-> $For\;i\leftarrow 0\;to\;m:$
+> $An\;initial\;schedule\;with\;p_{per}\;repeat\;times\;tasks$
 >
-> $\quad ed^{PE}_{i}\leftarrow 0$
+> **Content**
 >
-> $\quad ENQUEUE(Q_{prior}, ed^{PE}_{i})$
+> $InitArrange()$
 >
-> $While\; Ratio_{period}\lt Ratio_{limited}\;and\;I_{period}\lt I_{limited}:$
+> $Sort(V) \;first\; by \;c_i\;,second\; by\; tp_{i}$
 >
-> $\quad I_{period}\leftarrow I_{period}+1$
+> $While\; U_{per}\lt U_{l}\;and\;p_{per}\lt p_{l}:$
 >
-> $\quad For\;i\leftarrow 0\;to\;N_V:$
+> $\quad For\;each \;task\;T_j\in V:$
 >
-> $\quad\quad ed^{PE}_{j}\leftarrow DEQUEUE(Q_{prior})$
+> $\quad\quad Assign\;T_j\;to \;a\;PE\;in\;PIM\;with\;the\;earliest\;available\;time$
 >
-> $\quad\quad ed^{PE}_{j}\leftarrow ed^{PE}_{j}+ex_{i}$
+> $\quad p_{per}\leftarrow p_{per}+1$
 >
-> $\quad\quad ed^{PE}_{max}\leftarrow max(ed^{PE}_{max}, ed^{PE}_{j})$
+> $\quad Calculate\;U_{per}$
 >
-> $\quad\quad ENQUEUE(Q_{prior},ed^{PE}_{j})$
+> $If\;p_{per}==p_l:$
 >
-> $\quad Ratio_{period}\leftarrow \frac{I_{period}\times cost}{m\times ed^{PE}_{max}}$
+> $\quad Choose\;p_{per}\;with\;max\;U_{per}$
 >
-> $\quad If\; Ratio_{period}\gt Ratio_{periodmax}:$
->
-> $\quad\quad I_{periodmax}\leftarrow I_{period}$
->
-> $\quad\quad Ratio_{periodmax}\leftarrow Ratio_{period}$
->
-> $If\;Ratio_{period}\lt Ratio_{limited}:$
->
-> $\quad I_{period}\leftarrow I_{periodmax}$
->
-> $\quad Ratio_{period}\leftarrow Ratio_{periodmax}$
->
-> $Return\; I_{period}$
+> $Rearrange\;p_{per}\;times\;tasks\;with\;same\;strategy$
 
-时间复杂度：$O(I_{limited}\times N\times logm)$
+时间复杂度：$O(p_{l}\times n\times logh)$
 
 ### Step Three：判断是否需要Retiming
 
-![简单排列]()
+![简单排列](./pic/Baseline.png)
 
-**定义：**$T_{normal}$是按照上图排列所需要花费的总时间；$T_{estimate}$是当前算法的估计时间。
+**定义：**$T_{nor}$是按照上图排列所需要花费的总时间；$T_{est}$是当前算法的估计时间。
 
-若$T_{estimate}\gt T_{normal}$，则按照上图排列。
+若$T_{est}\gt T_{nor}$，则按照上图排列。
 
-计算$T_{estimate}$需要按照拓扑序列从前往后枚举每条边$e_{ij}$，
+计算$T_{est}$：固定步骤二中的$p_{per}$为1，计算得出前序时间$Pre_{est}$和周期时间$ub_{est}$。则$T_{est}\leftarrow Pre_{est}+p\times ub_{est}$
 
 ### Step Four：获取关键节点集合
 
-**定义：**$S_{UnCheckedNode}$为未检查节点结合；$S_{KeyNode}$为关键节点集合；参数$\alpha$。
+**定义：**$S_{UC}$为未检查节点结合；$S_{Key}$为关键节点集合；参数$\alpha$。
 
-对任务节点$V_i \in V$，若$e_i$满足$\frac{e_i}{e_{max}}\ge \alpha$，则认为$V_i$是关键节点，加入$S_{KeyNode}$。
+对任务节点$T_i \in V$，若$c_i$满足$\displaystyle\frac{c_i}{c_{max}}\ge \alpha$，则认为$T_i$是关键节点，加入$S_{Key}$。
 
-$S_{KeyNode}$是一棵平衡二叉排序树，按照任务节点时间大小，从大到小进行排序。
+$S_{Key}$通过一棵平衡二叉排序树来存储，按照任务节点时间大小，从大到小进行排序。
 
-> $GetKeyNodeSet(\alpha, S_{UnCheckedNode}):$
+> **Input**
 >
-> $e_{max}\leftarrow -\infty$
+> $A\;set\;tasks\;S_{UC}\;to\;be\;checked\;$
 >
-> $S_{KeyNode}\leftarrow \emptyset$
+> $Parameter\;\alpha$
 >
-> $For \;i\leftarrow 0\;to\;N_{S_{UnCheckedNode}}:$
+> **Output**
 >
-> $\quad e_{max}\leftarrow max(e_{max}, e_i)$
+> $A\;set\;tasks\;S_{Key}\;who\;are\;key\;node\;$
 >
-> $For\;i\leftarrow 0 \;to\;N_{S_{UnCheckedNode}}:$
+> **Content**
 >
-> $\quad If\;e_i\ge e_{max}\times \alpha :$
+> $GetKeyNodeSet(S_{UC},\alpha)$
 >
-> $\quad\quad ENSET(S_{KeyNode}, V_i)$
+> $S_{Key}\leftarrow \emptyset$
 >
-> $\quad \quad DESET(S_{UnCheckedNodes}, V_i)$
+> $For \;each\;task\;T^l_i\in S_{UC}:$
 >
-> $Return\;S_{KeyNode}$
+> $\quad If\;c_i\ge c_{max}\times \alpha:$
+>
+> $\quad\quad ENSET(S_{Key}, T^l_i)$
+>
+> $\quad\quad DESET(S_{UC},T^l_i)$
+>
+> $Return\;S_{Key}$
+>
 
 时间复杂度：$O(N)$
 
@@ -174,166 +171,172 @@ $S_{KeyNode}$是一棵平衡二叉排序树，按照任务节点时间大小，�
 
 ![扩散过程](./pic/Spread.png)
 
-利用第四步所获取的关键节点集合$S_{KeyNode}$，对其中的节点来确定其前继和后继节点的位置。当$S_{KeyNode}$为空后，从未访问的节点集合$S_{UnCheckedNode}$中再次获取关键节点集合。
+利用第四步所获取的关键节点集合$S_{Key}$，对其中的节点来确定其前继和后继节点的位置。当$S_{Key}$为空后，从未访问的节点集合$S_{UC}$中再次获取关键节点集合。
 
->$SpreadFromKeyNode(S_{UnCheckedNode},\alpha)$
+>**Input**
 >
->$Q_{certain}\leftarrow \emptyset$
+>$A\;set\;of\;n\;tasks\;\{T_1, \ldots,T_n\}\in V$
+>
+>**Output**
+>
+>$A\;schedule\;after\;adjusting$
+>
+>**Content**
+>
+>$SpreadFromKeyNodeSet():$
+>
+>$Q_{wait}\leftarrow \emptyset$
 >
 >$do\; \{$
 >
->$\quad S_{KeyNode}\leftarrow GetKeyNodeSet(\alpha,S_{UnCheckedNode})$
+>$\quad S_{Key}\leftarrow GetKeyNodeSet(S_{UC},\alpha)$
 >
->$\quad For\;i\leftarrow 0\;to\; N_{S_{KeyNode}}:$
+>$\quad For\;each\;task\;T^l_i\in S_{UC}:$
 >
->$\quad \quad ENQUEUE(Q_{certain}, V^r_i) $
+>$\quad \quad ENQUEUE(Q_{wait}, T^l_i) $
 >
->$\quad \quad While\; Q_{certain}\neq \emptyset:$
+>$\quad \quad While\; Q_{wait}\neq \emptyset:$
 >
->$\quad \quad \quad V^r_i\leftarrow DEQUEUE(Q_{certain})$
+>$\quad \quad \quad T^l_i\leftarrow DEQUEUE(Q_{wait})$
 >
->$\quad\quad \quad ArrangeKeyNode(V^r_i, Q_{certain})$
+>$\quad\quad \quad ArrangeKeyNode(T^l_i, Q_{wait})$
 >
->$\}\;While(S_{UnCheckedNode}\neq \emptyset);$
+>$\}\;While(S_{UC}\neq \emptyset);$
 
-时间复杂度：$O(I_{period}\times N_E )$
+时间复杂度：$O(I_{per}\times m )$
 
-### Step Six：确定关键节点$V^r_i$的位置，并根据入度边确定前继节点的位置。
+### Step Six：确定关键节点$T^l_i$的位置，并根据入度边确定前继节点的位置。
 
 在第二步中仅仅确定了每个PE中安排的任务节点都有哪些，但每个任务节点位置都是可以相互交换的。
 
-**定义：**核为$p$的PE共有$K$个空闲的区间可以用来排列关键节点，第$k$个空闲区间的开始时间是$st^{Int}_{k}$，结束时间是$ed^{Int}_{k}$。一个周期内第$r$个的任务节点$V^r_i$所属于的PE核是$p^r_i$。
+**定义：**每个PE$E_k(s_j,d_j)$，其中$s_j$表示第$k$个PE上的第$j$个空闲区间的开始时间，$d_j$表示第$k$个PE上的第$j$个空闲区间的结束时间。
 
-初始，每个PE上都有一个空闲区间$[st^{Int}_{0}, ed^{Int}_{0}]$，其中$st^{Int}_{0}\leftarrow 0$，$ed^{Int}_{0}\leftarrow T_{period}$。每个PE上的任务节点都属于自己PE的空闲区间。
+初始，每个PE上都只有一个空闲区间$[s_0, d_0]​$，其中$s_0\leftarrow 0​$，$d_0\leftarrow ub​$。每个PE上的任务节点都属于自己PE的空闲区间。
 
 接下来分为两个步骤：
 
-1. 确定节点$V^r_i$的位置。
+1. 确定节点$T^l_i$的位置。
 
-   若它属于它PE上的第$k$个区间，将其放在它该区间的最前面，即$st_i\leftarrow st^{Int}_{k}$，$ed_i\leftarrow st^{Int}_k+ex_i$。
+   将其放在它所属区间的最前面，即$s^l_i\leftarrow s_j$，$d^l_i\leftarrow s_j+c^l_i$。
 
-2. 确定$V^r_i$的入度边上的对应的节点。
+2. 确定$T^l_i$的前继节点的位置。
 
-   考虑入度边$e_{ji}​$，即$V_j​$到$V_i​$的边。从周期内未被确定的$U​$个$V^u_j​$节点，选择离$V^r_i​$最近的一个，作为$V^r_i​$的前继节点。
+   考虑入度边$I^l_{j,i}$，即$T^l_j$到$T^l_i$的边。默认都将传输的数据放入Cache中，等所有的都完成后，再检测Cache溢出。
 
-   > $FindClosestNode(e_{ij}, V^r_i):$
-   >
-   > $dis\leftarrow INF $
-   >
-   > $For\;o\leftarrow 0\;to\;I_{period}:$
-   >
-   > $\quad If\;st^r_i+R^r_i\times T_{period}-ed^o_j-R^o_j\times T_{period}<dis:$
-   >
-   > $\quad\quad dis\leftarrow st^r_i+R^r_i\times T_{period}-ed^o_j-R^o_j\times T_{period}$
-   >
-   > $\quad\quad V^u_j\leftarrow V^o_j$
-   >
-   > $Return\; V^u_j$
+   若前继节点$T^l_j$未被访问过，根据$I^l_{j,i}$在Cache上的代价$P_{\alpha}(I^l_{j,i})$，得出$T^l_j$的最晚开始开始时间$s^l_j\leftarrow s^l_i - P_{\alpha}(I^l_{j,i})-c^l_j$。再将$T^l_j$所在的空闲区间中的其他节点填充在区间$[s_i, d_i]$的前面，调整$s^l_j\leftarrow s^l_j-shift$，$shift$是节点$T^l_j$根据填充的结果，向前的偏移量。
 
-   时间复杂度：$O(1)$
+   若前继节点$T^l_j$已经被访问过，根据$P_{\alpha}(I^l_{j,i})$更新$R(T^l_j)$。
 
-   假设$d_{ji}$可以放入Cache中，那么$V_j$的最晚开始时间为$st^{late}_j\leftarrow st_i - t^{Cache}_{ij}-ex_j$。对于$V^u_j$，在满足$st^u_j + R^u_j\times T_{period}\le st^{late}_j$的条件下，选取使得$st^u_j$最大的位置作为$V^u_j$离$V^r_i$最近的位置。 在$U$个已经选取最大位置的$V^u_j$中选择到距离$V^r_i$最近的任务节点$V^u_j$作为$V^r_i$的前继节点。
-
-   因为Local Cache的容量有限，对于$V_i$的所有入度边上传输的数据需要**有选择**的放入Local Cache中。本算法采用动态规划的方法，尽可能的有效利用Local Cache。
-
-   >$ArrangeInFixedSize(E_i, Size_{left}):$
-   >
-   >$S_{arranged}\leftarrow \emptyset$
-   >
-   >$For\;j\leftarrow 1\;to\;N_{E_i}:$
-   >
-   >$\quad For\;s\leftarrow \;Size_{left}\;to\;d_{ij}:$
-   >
-   >$\quad\quad dp[j][s]\leftarrow max(dp[j-1][s-d_{ij}]+d_{ij},dp[j][s])$
-   >
-   >$s\leftarrow Size_{left}$
-   >
-   >$For\;j\leftarrow N_{E_i}to\;1:$
-   >
-   >$\quad If \;s\ge d_{ij}\;and\;dp[j-1][s-d_{ij}]+d_{ij}\gt dp[j][s]:$
-   >
-   >$\quad\quad s \leftarrow s-d_{ij}$
-   >
-   >$\quad\quad ENSET(S_{arranged},e_{ij})$
-   >
-   >$Return\;S_{arranged}$
-
-   时间复杂度：$O(N\times Size)​$
-
-> $ArrangeKeyNode(V^r_i, Q_{certain}):$
+> **Input**
 >
-> $st_i\leftarrow st^{Int}_{k},ed_i\leftarrow st^{Int}_k+ex_i$
+> $Key\;Node\;T^l_i$
 >
-> $S_{arranged}\leftarrow ArrangeInFixedSize(E^{In}_i, Size_{cache}-Size_{max})$
+> $Wait\;queue\;Q_{wait}$
 >
-> $For\;e_{ji}\;in\;E^{In}_i:$
+> **Output**
 >
-> $\quad V^u_j\leftarrow FindClosestNode(e_{ij},\;V^r_i)$
+> $Wait\;queue\;after\;update\;Q_{wait}$
 >
-> $\quad If\;V^u_j\;is\;certained:\quad ENSET(S_{ReChecked}, V^u_j)$
+> $A\;set\;tasks\;S_{RC}\;to\;be\;rechecked$
 >
-> $\quad else:\quad ENQUEUE(Q_{certain}, V^u_j)$
+> **Content**
 >
-> $For\;j\leftarrow 0\;to\;N_{S_{arranged}}:$
+> $ArrangeKeyNode(T^l_i, Q_{wait}):$
 >
-> $\quad Update(ed^u_j,st^r_i,d_{ij})$
+> $s^l_i\leftarrow s_{j},d^l_i\leftarrow s_j+c^l_i$
+>
+> $For\;each\;edge\;I^l_{ji}\in E:$
+>
+> $\quad If\;T^l_j\;is\;certained:$
+>
+> $\quad\quad Update\;R(T^l_j)$
+>
+> $\quad\quad ENSET(S_{RC}, T^l_j)$
+>
+> $\quad else:$
+>
+> $\quad\quad Calculate\;s^l_j$
+>
+> $\quad\quad ENQUEUE(Q_{wait}, T^l_j)$
 
 时间复杂度：$O(E)$
 
-### Step Seven：重新Check，更新Retiming值
+### Step Seven：检测Cache溢出，更新溢出节点的Retiming
 
-如第五步中的最后一个图所示，通过$S_{ReChecked}$集合中所标记的节点，按照拓扑序列大小，从大到小重新更新$Retiming$值。
+因为Local Cache的容量有限，对溢出的边采用动态规划的方法选择部分放入Cache，剩下的放入DRAM，尽可能的有效利用Local Cache。
 
-> $ReCheckNodes(S_{ReChecked})$
+> **Input**
 >
-> $Q_{certain}\leftarrow \emptyset$
+> $A\;set\;of\;m\;edges\;need\;to\;be\;choosed\;to\;put\;into\;cache$
 >
-> $sort(S_{ReChecked})\; by\;topology\;order $
+> $Max\;size\;of\;Cache$
 >
-> $For\;i\leftarrow 0\;to\;N_{S_{ReChecked}}:$
+> **Output**
 >
-> $\quad ENQUEUE(Q_{certain}, V^r_i)$
+> $A\;set\;of\;edges\;need\;to\;put\;into\;cache$
 >
-> $\quad While\;Q_{certain}\neq \emptyset:$
+> **Content**
 >
-> $\quad\quad V^r_i\leftarrow DEQUEUE(Q_{certain})$
+> $ArrangeInFixedSize(E, size):$
 >
-> $\quad\quad DESET(S_{ReChecked}, V^r_i)$
+> $S_{arr}\leftarrow \emptyset$
 >
-> $\quad\quad For \;e_{ji}\;in\;E^{In}_i:$
+> $For\;each\;edge\;I^l_{i,j}\in E:$
 >
-> $\quad\quad \quad If\;ed^u_j+R^u_j\times T_{period} + d_{ij}>st^r_i+R^r_i\times T_{period}:$
+> $\quad For\;s\leftarrow \;size\;downto\;I^l_{i,j}:$
 >
-> $\quad\quad\quad\quad R^u_j\leftarrow \lfloor (st^r_i+R^r_i\times T_{period}-ed^u_j )/T_{period}\rfloor$
+> $\quad\quad dp[j][s]\leftarrow max(dp[j-1][s-c^l_{i,j}]+c^l_{ij},dp[j][s])$
 >
-> $\quad\quad\quad\quad ENQUEUE(Q_{certain}, V^u_j)$
+> $s\leftarrow size$
+>
+> $For\;each\;edge\;I^l_{i,j}\in E$
+>
+> $\quad If \;s\ge c^l_{i,j}\;and\;dp[j-1][s-c^l_{i,j}]+c^l_{i,j}\gt dp[j][s]:$
+>
+> $\quad\quad s \leftarrow s-i^l_{i,j}$
+>
+> $\quad\quad ENSET(S_{arr},I^l_{i,j})$
+>
+> $Return\;S_{arr}$
 
+时间复杂度：$O(m\times size)$
 
+### Step Eight：重新Check，更新Retiming值
 
-# 变量定义
+如第五步中的最后一个图所示，通过$S_{RC}$集合中所标记的节点，按照拓扑序列大小，从大到小重新更新$Retiming$值。
 
-| 变量                                                         | 符号                                              |
-| ------------------------------------------------------------ | ------------------------------------------------- |
-| 图                                                           | $G$                                               |
-| 节点集合                                                     | $V$                                               |
-| 边集合                                                       | $E$                                               |
-| PE总个数                                                     | $P$                                               |
-| 循环的次数                                                   | $I$                                               |
-| 时间                                                         | $T$                                               |
-| 个数                                                         | $N$                                               |
-| 第$r$轮节点$V^r_i$的信息：拓扑序列、开始时间、执行时间、结束时间、所在核、Retiming次数、入度边集合 | $tp^r_i, st^r_i,ex_i,ed^r_i,p^r_i,R^r_i,E^{In}_i$ |
-| 从$V_i$到$V_j$的边，数据传输量，边的传输时间                 | $e_{ij}, d_{ij},t_{ij}$                           |
-| 图$G$的最大并发度                                            | $m$                                               |
-| 多发射次数                                                   | $H$                                               |
-| 利用率                                                       | $Ratio$                                           |
-| 关键节点判断参数                                             | $\alpha$                                          |
-| 队列                                                         | $Q$                                               |
-| 集合                                                         | $S$                                               |
-| 核为$p_i$的PE上的空闲区间个数                                | $K$                                               |
-| 核为$p_i$的PE上的第$k$个空闲区间                             | $Int^{p_i}_k$                                     |
-| 第$k$个空闲区间的开始时间、结束时间                          | $st_k^{Int}, ed_k^{Int}$                          |
-| 内存的大小                                                   | $Size$                                            |
-| $j$条边能放入大小为$Size$的内存的最大大小                    | $dp[j][Size]$                                     |
-
-
-
+> **Input**
+>
+> $A\;set\;tasks\;S_{RC}\;need\;to\;update\;the\;value\;of\;retiming$
+>
+> $A\;set\;edges\;E$
+>
+> **Output**
+>
+> $A\;set\;tasks\;with\;final\;retiming\;value$
+>
+> **Content**
+>
+> $ReCheckNodes(S_{RC})$
+>
+> $Q_{wait}\leftarrow \emptyset$
+>
+> $Sort(S_{RC})\; by\;tp_i, from\;big\;to\;small$
+>
+> $For\;each\;task\;T^l_i\in S_{RC}$
+>
+> $ \quad ENQUEUE(Q_{wait}, T^l_i)$
+>
+> $\quad While\;Q_{wait}\neq \emptyset:$
+>
+> $\quad\quad T^l_i\leftarrow DEQUEUE(Q_{wait})$
+>
+> $\quad\quad DESET(S_{RC}, T^l_i)$
+>
+> $\quad\quad For \;each\;edge\;I^l_{j,i}\in E:$
+>
+> $\quad\quad \quad If\;e^l_j+R(T^l_j)\times ub + c^l_{i,j}>s^l_i+R(T^l_i)\times ub:$
+>
+> $\quad\quad\quad\quad Update\;R(T^l_j)$
+>
+> $\quad\quad\quad\quad ENQUEUE(Q_{wait}, T^l_j)$
