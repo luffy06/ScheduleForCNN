@@ -78,6 +78,10 @@ struct CacheBlock {
     Memory = Memo;
     StartTime = ST;
     EndTime = ED;
+    if (ST >= ED) {
+      printf("%lld %lld\n", ST, ED);
+    }
+    assert(ST < ED);
   }
 
   bool Equal(CacheBlock CB) {
@@ -90,8 +94,8 @@ struct CacheBlock {
 
   friend bool operator < (CacheBlock a, CacheBlock b) {
     if (a.StartTime != b.StartTime)
-      return a.StartTime > b.StartTime;
-    return a.EndTime > b.EndTime;
+      return a.StartTime < b.StartTime;
+    return a.EndTime < b.EndTime;
   }
 };
 
@@ -109,6 +113,8 @@ struct CacheManager {
 
   void SortCacheBlock() {
     sort(Cache.begin(), Cache.end());
+    // for (int i = 0; i < Cache.size(); ++ i)
+    //   printf("%lld %lld\n", Cache[i].StartTime, Cache[i].EndTime);
   }
 
   void AddCacheBlock(CacheBlock Block) {
@@ -137,7 +143,7 @@ struct CacheManager {
   void GetCacheBlockByTime(long long StartTime, long long EndTime, vector<CacheBlock> &Blocks) {
     long long MemorySum = 0;
     for (int i = 0; i < Cache.size(); ++ i) {
-      if (Cache[i].StartTime > EndTime)
+      if (Cache[i].StartTime > StartTime)
         break;
       if (Cache[i].StartTime <= StartTime && Cache[i].EndTime >= EndTime) {
         MemorySum = MemorySum + Cache[i].Memory;
@@ -152,6 +158,7 @@ struct CacheManager {
     vector<long long> Res;
     for (set<long long>::iterator it = TimeTrace.begin(); it != TimeTrace.end(); ++ it)
       Res.push_back((*it));
+    // printf("TimeTrace Size:%lu Min:%lld Max:%lld\n", Res.size(), Res[0], Res[Res.size() - 1]);
     return Res;
   }
 };
@@ -269,3 +276,74 @@ struct PEInterval {
     return a.StartTime < b.StartTime;
   }
 };
+
+vector<Edge> EdgeList[MAXN];
+vector<Edge> ReEdgeList[MAXN];
+Node NodeList[MAXN];
+int Degree[MAXN];
+
+int GetTopology(int TotalNode) {
+  memset(Degree, 0, sizeof(Degree));
+  vector<TwoInt> TopoCount;
+  for (int i = 1; i <= TotalNode; ++ i) {
+    for (int j = 0; j < EdgeList[i].size(); ++ j) {
+      Edge e = EdgeList[i][j];
+      Degree[e.To] = Degree[e.To] + 1;
+      NodeList[e.From].MaxOutEdge = max(NodeList[e.From].MaxOutEdge, e.Memory);
+    }
+  }
+
+  int Count = 0, Order = 0;
+  int NeedPE = 0;
+  int MinCon = INF, MaxCon = -1;
+  long long MaxCost = 0;
+  int OutDegreeSum = 0;
+  queue<Node> q;
+  for (int i = 1; i <= TotalNode; ++ i) {
+    MaxCost = max(MaxCost, NodeList[i].Cost);
+    if (Degree[i] == 0) {
+      q.push(NodeList[i]);
+    }
+  }
+  Count = NeedPE = q.size();
+  MinCon = MaxCon = q.size();
+  printf("%d %d", Order, Count);
+
+  while (!q.empty()) {
+    Node f = q.front();
+    q.pop();
+    NodeList[f.Id].TopoOrder = Order;
+    Count = Count - 1;
+    OutDegreeSum = OutDegreeSum + EdgeList[f.Id].size();
+
+    for (int i = 0; i < EdgeList[f.Id].size(); ++ i) {
+      Edge e = EdgeList[f.Id][i];
+      Degree[e.To] = Degree[e.To] - 1;
+      if (Degree[e.To] == 0) {
+        q.push(NodeList[e.To]);
+      }
+    }
+
+    if (Count == 0) {
+      NeedPE = max((int)q.size(), NeedPE);
+      MaxCon = max((int)q.size(), MaxCon);
+      printf(" %d\n", OutDegreeSum);
+      if (!q.empty())
+        MinCon = min((int)q.size(), MinCon);
+      OutDegreeSum = 0;
+      Count = q.size();
+      Order = Order + 1;
+      if (Count > 0)
+        printf("%d %d", Order, Count);
+    }
+  }
+
+  for (int i = 1; i <= TotalNode; ++ i) {
+    if (NodeList[i].Cost >= (long long)(MaxCost * ALPHA)) {
+      printf("KeyNode:%d %d\n", NodeList[i].Id, NodeList[i].TopoOrder);
+    }
+  }
+  // printf("MaxCon:%d\tMinCon:%d\tTopoOrder:%d\n", MaxCon, MinCon, Order);
+  return NeedPE;
+}
+

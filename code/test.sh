@@ -1,7 +1,7 @@
 datafolder="../data"
 resultfolder="../result"
 suffix=".in"
-for (( pe=32; pe<=256; pe=pe*2 )) do
+for (( pe=32; pe<=32; pe=pe*2 )) do
   echo 'CALC PE-'$pe
   if [[ -f 'config.in' ]]; then
     rm 'config.in'
@@ -16,7 +16,7 @@ for (( pe=32; pe<=256; pe=pe*2 )) do
   for file in ${datafolder}/*${suffix}; do
     filename=`basename $file`
     echo 'GRAPH '$filename
-    echo 'Dealing with '$filename >> ${resultname}
+    echo 'DEALING WITH '$filename >> ${resultname}
     for (( i = 1; i <= 3; i++ )); do
       echo 'RUN TH-'$i
       echo '######### Using Theory'$i' #########' >> ${resultname}
@@ -25,4 +25,5 @@ for (( pe=32; pe<=256; pe=pe*2 )) do
     done
   done
 done
+echo 'LOADING RESULT'
 echo `python3 loadresult.py`

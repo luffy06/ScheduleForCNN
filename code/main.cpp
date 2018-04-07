@@ -65,6 +65,7 @@ void Input() {
     scanf("%d%d%lld", &From, &To, &Memory);
     From = From + 1;
     To = To + 1;
+    Memory = Memory + 1;
     Edge e = Edge(From, To, Memory);
     int Dis = Ceil(Memory, CACHESPEED) / NodeList[From].Cost;
     if (Dis < 0) {
@@ -81,7 +82,7 @@ void Input() {
     EdgeList[From].push_back(e);
     ReEdgeList[To].push_back(e);
   }
-  // printf("MinDis:%d\tMaxDis:%d\tMaxEdge:%lld\n", MinDis, MaxDis, Ceil(MaxEdge, CACHESPEED));
+  // printf("MinDis:%d\tMaxDis:%d\tMaxEdge:%lld\n", MinDis, MaxDis, MaxEdge);
 }
 
 int main() {
