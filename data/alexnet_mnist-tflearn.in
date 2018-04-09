@@ -1,0 +1,764 @@
+345 418
+0 is_training VariableV2 3 1
+1 is_training/read Identity 2 1
+2 Conv2D/W VariableV2 7 1
+3 Conv2D/W/read Identity 2 1
+4 Conv2D/b VariableV2 7 1
+5 Conv2D/b/read Identity 3 1
+6 Conv2D/Conv2D Conv2D 1363 1
+7 Conv2D/BiasAdd BiasAdd 297 1
+8 Conv2D/Relu Relu 66 1
+9 MaxPool2D/MaxPool MaxPool 528 2
+10 Conv2D_1/W VariableV2 16 3
+11 Conv2D_1/W/read Identity 3 3
+12 Conv2D_1/b VariableV2 7 3
+13 Conv2D_1/b/read Identity 1 3
+14 Conv2D_1/Conv2D Conv2D 2830 3
+15 Conv2D_1/BiasAdd BiasAdd 164 3
+16 Conv2D_1/Relu Relu 148 3
+17 MaxPool2D_1/MaxPool MaxPool 585 4
+18 Conv2D_2/W VariableV2 4 5
+19 Conv2D_2/W/read Identity 3 5
+20 Conv2D_2/b VariableV2 2 5
+21 Conv2D_2/b/read Identity 2 5
+22 Conv2D_2/Conv2D Conv2D 6226 5
+23 Conv2D_2/BiasAdd BiasAdd 2175 5
+24 Conv2D_2/Relu Relu 2103 5
+25 MaxPool2D_2/MaxPool MaxPool 3126 6
+26 FullyConnected/W VariableV2 3 7
+27 FullyConnected/W/read Identity 6 7
+28 FullyConnected/b VariableV2 3 7
+29 FullyConnected/b/read Identity 2 7
+30 FullyConnected/Reshape/shape Const 2 7
+31 FullyConnected/Reshape Reshape 6 7
+32 FullyConnected/MatMul MatMul 6868 7
+33 FullyConnected/BiasAdd BiasAdd 10 7
+34 FullyConnected/Tanh Tanh 8 7
+35 Dropout/cond/Switch Switch 2 8
+36 Dropout/cond/switch_t Identity 1 8
+37 Dropout/cond/dropout/Shape Shape 4 8
+38 Dropout/cond/dropout/random_uniform/RandomUniform RandomUniform 38 8
+39 Dropout/cond/dropout/add Add 4 8
+40 Dropout/cond/dropout/Floor Floor 3 8
+41 Dropout/cond/dropout/mul Mul 4 8
+42 Dropout/cond/Switch_1 Switch 3 8
+43 Dropout/cond/Merge Merge 3 8
+44 FullyConnected_1/W VariableV2 2 9
+45 FullyConnected_1/W/read Identity 2 9
+46 FullyConnected_1/b VariableV2 9 9
+47 FullyConnected_1/b/read Identity 2 9
+48 FullyConnected_1/MatMul MatMul 32 9
+49 FullyConnected_1/BiasAdd BiasAdd 4 9
+50 FullyConnected_1/Tanh Tanh 5 9
+51 Dropout_1/cond/dropout/keep_prob Const 1 10
+52 Dropout_1/cond/dropout/Shape Shape 2 10
+53 Dropout_1/cond/dropout/random_uniform/RandomUniform RandomUniform 24 10
+54 Dropout_1/cond/dropout/add Add 2 10
+55 Dropout_1/cond/dropout/Floor Floor 2 10
+56 Dropout_1/cond/dropout/mul Mul 4 10
+57 Dropout_1/cond/Switch_1 Switch 2 10
+58 Dropout_1/cond/Merge Merge 2 10
+59 FullyConnected_2/W VariableV2 7 11
+60 FullyConnected_2/W/read Identity 3 11
+61 FullyConnected_2/b VariableV2 2 11
+62 FullyConnected_2/b/read Identity 2 11
+63 FullyConnected_2/MatMul MatMul 6 11
+64 FullyConnected_2/BiasAdd BiasAdd 3 11
+65 FullyConnected_2/Softmax Softmax 17 11
+66 Accuracy/ArgMax ArgMax 9 12
+67 Accuracy/ArgMax_1 ArgMax 8 12
+68 Accuracy/Equal Equal 7 12
+69 Accuracy/Cast Cast 6 12
+70 Accuracy/Mean Mean 4 12
+71 Crossentropy/Sum/reduction_indices Const 2 12
+72 Crossentropy/Sum Sum 7 12
+73 Crossentropy/truediv RealDiv 25 12
+74 Crossentropy/Cast/x Const 2 12
+75 Crossentropy/Cast_1/x Const 2 12
+76 Crossentropy/clip_by_value/Minimum Minimum 3 12
+77 Crossentropy/clip_by_value Maximum 3 12
+78 Crossentropy/Log Log 3 12
+79 Crossentropy/mul Mul 2 12
+80 Crossentropy/Sum_1 Sum 2 12
+81 Crossentropy/Neg Neg 1 12
+82 Crossentropy/Const Const 3 12
+83 Crossentropy/Mean Mean 3 12
+84 Training_step VariableV2 2 1
+85 Training_step/read Identity 7 1
+86 Accuracy/Mean/moving_avg VariableV2 2 12
+87 Accuracy/Mean/moving_avg/read Identity 2 12
+88 moving_avg/AssignMovingAvg/sub/x Const 2 13
+89 moving_avg/AssignMovingAvg/sub Sub 6 13
+90 moving_avg/AssignMovingAvg/sub_1 Sub 4 13
+91 moving_avg/AssignMovingAvg/mul Mul 2 13
+92 moving_avg/AssignMovingAvg AssignSub 3 13
+93 Crossentropy/Mean/moving_avg VariableV2 2 12
+94 Crossentropy/Mean/moving_avg/read Identity 9 12
+95 Momentum/moving_avg/decay Const 2 13
+96 Momentum/moving_avg/add Add 3 13
+97 Momentum/moving_avg/add_1/x Const 3 13
+98 Momentum/moving_avg/add_1 Add 3 13
+99 Momentum/moving_avg/truediv RealDiv 4 13
+100 Momentum/moving_avg/Minimum Minimum 3 13
+101 Momentum/moving_avg/AssignMovingAvg/sub/x Const 2 13
+102 Momentum/moving_avg/AssignMovingAvg/sub Sub 3 13
+103 Momentum/moving_avg/AssignMovingAvg/sub_1 Sub 2 13
+104 Momentum/moving_avg/AssignMovingAvg/mul Mul 3 13
+105 Momentum/moving_avg/AssignMovingAvg AssignSub 3 13
+106 Loss/tags Const 11 13
+107 Loss ScalarSummary 6 13
+108 Momentum/Loss/raw/tags Const 3 13
+109 Momentum/Loss/raw ScalarSummary 5 13
+110 Momentum/gradients/Crossentropy/Mean_grad/Shape Shape 1 13
+111 Momentum/gradients/Crossentropy/Mean_grad/Tile Tile 9 13
+112 Momentum/gradients/Crossentropy/Mean_grad/Const Const 2 13
+113 Momentum/gradients/Crossentropy/Mean_grad/Prod Prod 3 13
+114 Momentum/gradients/Crossentropy/Mean_grad/Cast Cast 2 13
+115 Momentum/gradients/Crossentropy/Mean_grad/truediv RealDiv 3 13
+116 Momentum/gradients/Crossentropy/Neg_grad/Neg Neg 2 13
+117 Momentum/gradients/Crossentropy/Sum_1_grad/Shape Shape 2 13
+118 Momentum/gradients/Crossentropy/Sum_1_grad/DynamicStitch DynamicStitch 4 13
+119 Momentum/gradients/Crossentropy/Sum_1_grad/Maximum/y Const 2 13
+120 Momentum/gradients/Crossentropy/Sum_1_grad/Maximum Maximum 3 13
+121 Momentum/gradients/Crossentropy/Sum_1_grad/floordiv FloorDiv 5 13
+122 Momentum/gradients/Crossentropy/Sum_1_grad/Reshape Reshape 2 13
+123 Momentum/gradients/Crossentropy/Sum_1_grad/Tile Tile 16 13
+124 Momentum/gradients/Crossentropy/mul_grad/Shape Shape 2 13
+125 Momentum/gradients/Crossentropy/mul_grad/Shape_1 Shape 2 13
+126 Momentum/gradients/Crossentropy/mul_grad/BroadcastGradientArgs BroadcastGradientArgs 1 13
+127 Momentum/gradients/Crossentropy/mul_grad/Mul_1 Mul 2 13
+128 Momentum/gradients/Crossentropy/mul_grad/Sum_1 Sum 2 13
+129 Momentum/gradients/Crossentropy/mul_grad/Reshape_1 Reshape 2 13
+130 Momentum/gradients/Crossentropy/Log_grad/Reciprocal Reciprocal 2 13
+131 Momentum/gradients/Crossentropy/Log_grad/mul Mul 3 13
+132 Momentum/gradients/Crossentropy/clip_by_value_grad/Shape Shape 2 13
+133 Momentum/gradients/Crossentropy/clip_by_value_grad/Shape_2 Shape 2 13
+134 Momentum/gradients/Crossentropy/clip_by_value_grad/zeros Fill 2 13
+135 Momentum/gradients/Crossentropy/clip_by_value_grad/GreaterEqual GreaterEqual 6 13
+136 Momentum/gradients/Crossentropy/clip_by_value_grad/BroadcastGradientArgs BroadcastGradientArgs 2 13
+137 Momentum/gradients/Crossentropy/clip_by_value_grad/Select Select 4 13
+138 Momentum/gradients/Crossentropy/clip_by_value_grad/Sum Sum 1 13
+139 Momentum/gradients/Crossentropy/clip_by_value_grad/Reshape Reshape 2 13
+140 Momentum/gradients/Crossentropy/clip_by_value/Minimum_grad/Shape Shape 2 13
+141 Momentum/gradients/Crossentropy/clip_by_value/Minimum_grad/Shape_2 Shape 1 13
+142 Momentum/gradients/Crossentropy/clip_by_value/Minimum_grad/zeros Fill 1 13
+143 Momentum/gradients/Crossentropy/clip_by_value/Minimum_grad/LessEqual LessEqual 9 13
+144 Momentum/gradients/Crossentropy/clip_by_value/Minimum_grad/BroadcastGradientArgs BroadcastGradientArgs 3 13
+145 Momentum/gradients/Crossentropy/clip_by_value/Minimum_grad/Select Select 3 13
+146 Momentum/gradients/Crossentropy/clip_by_value/Minimum_grad/Sum Sum 2 13
+147 Momentum/gradients/Crossentropy/clip_by_value/Minimum_grad/Reshape Reshape 1 13
+148 Momentum/gradients/Crossentropy/truediv_grad/Shape Shape 2 13
+149 Momentum/gradients/Crossentropy/truediv_grad/RealDiv RealDiv 24 13
+150 Momentum/gradients/Crossentropy/truediv_grad/Neg Neg 7 13
+151 Momentum/gradients/Crossentropy/truediv_grad/RealDiv_1 RealDiv 25 13
+152 Momentum/gradients/Crossentropy/truediv_grad/RealDiv_2 RealDiv 24 13
+153 Momentum/gradients/Crossentropy/truediv_grad/mul Mul 2 13
+154 Momentum/gradients/Crossentropy/truediv_grad/Sum_1 Sum 4 13
+155 Momentum/gradients/Crossentropy/Sum_grad/DynamicStitch DynamicStitch 4 13
+156 Momentum/gradients/Crossentropy/Sum_grad/Maximum/y Const 2 13
+157 Momentum/gradients/Crossentropy/Sum_grad/Maximum Maximum 2 13
+158 Momentum/gradients/Crossentropy/Sum_grad/floordiv FloorDiv 4 13
+159 Momentum/gradients/Crossentropy/Sum_grad/Reshape Reshape 1 13
+160 Momentum/gradients/Crossentropy/Sum_grad/Tile Tile 15 13
+161 Momentum/gradients/AddN AddN 3 13
+162 Momentum/gradients/FullyConnected_2/Softmax_grad/mul Mul 2 13
+163 Momentum/gradients/FullyConnected_2/Softmax_grad/Sum/reduction_indices Const 1 13
+164 Momentum/gradients/FullyConnected_2/Softmax_grad/Sum Sum 2 13
+165 Momentum/gradients/FullyConnected_2/Softmax_grad/Reshape/shape Const 2 13
+166 Momentum/gradients/FullyConnected_2/Softmax_grad/Reshape Reshape 2 13
+167 Momentum/gradients/FullyConnected_2/Softmax_grad/sub Sub 8 13
+168 Momentum/gradients/FullyConnected_2/Softmax_grad/mul_1 Mul 2 13
+169 Momentum/gradients/FullyConnected_2/BiasAdd_grad/BiasAddGrad BiasAddGrad 4 13
+170 Momentum/gradients/FullyConnected_2/MatMul_grad/MatMul MatMul 15 13
+171 Momentum/gradients/FullyConnected_2/MatMul_grad/MatMul_1 MatMul 15 13
+172 Momentum/gradients/Dropout_1/cond/Merge_grad/cond_grad Switch 2 13
+173 Momentum/gradients/Switch Switch 1 13
+174 Momentum/gradients/Shape_1 Shape 2 13
+175 Momentum/gradients/zeros Fill 6 13
+176 Momentum/gradients/Dropout_1/cond/Switch_1_grad/cond_grad Merge 2 13
+177 Momentum/gradients/Dropout_1/cond/dropout/mul_grad/Shape Shape 1 13
+178 Momentum/gradients/Dropout_1/cond/dropout/mul_grad/Shape_1 Shape 2 13
+179 Momentum/gradients/Dropout_1/cond/dropout/mul_grad/BroadcastGradientArgs BroadcastGradientArgs 2 13
+180 Momentum/gradients/Dropout_1/cond/dropout/mul_grad/Mul Mul 5 13
+181 Momentum/gradients/Dropout_1/cond/dropout/mul_grad/Sum Sum 2 13
+182 Momentum/gradients/Dropout_1/cond/dropout/mul_grad/Reshape Reshape 2 13
+183 Momentum/gradients/Dropout_1/cond/dropout/div_grad/Shape Shape 2 13
+184 Momentum/gradients/Dropout_1/cond/dropout/div_grad/BroadcastGradientArgs BroadcastGradientArgs 3 13
+185 Momentum/gradients/Dropout_1/cond/dropout/div_grad/Sum Sum 2 13
+186 Momentum/gradients/Dropout_1/cond/dropout/div_grad/Reshape Reshape 1 13
+187 Momentum/gradients/Dropout_1/cond/dropout/Shape/Switch_grad/cond_grad Merge 2 13
+188 Momentum/gradients/AddN_1 AddN 3 13
+189 Momentum/gradients/FullyConnected_1/Tanh_grad/TanhGrad TanhGrad 4 13
+190 Momentum/gradients/FullyConnected_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 8 13
+191 Momentum/gradients/FullyConnected_1/MatMul_grad/MatMul MatMul 35 13
+192 Momentum/gradients/FullyConnected_1/MatMul_grad/MatMul_1 MatMul 46 13
+193 Momentum/gradients/Dropout/cond/Merge_grad/cond_grad Switch 1 13
+194 Momentum/gradients/Switch_2 Switch 1 13
+195 Momentum/gradients/Shape_3 Shape 2 13
+196 Momentum/gradients/zeros_2/Const Const 1 13
+197 Momentum/gradients/zeros_2 Fill 6 13
+198 Momentum/gradients/Dropout/cond/Switch_1_grad/cond_grad Merge 3 13
+199 Momentum/gradients/Dropout/cond/dropout/mul_grad/Shape Shape 2 13
+200 Momentum/gradients/Dropout/cond/dropout/mul_grad/Shape_1 Shape 1 13
+201 Momentum/gradients/Dropout/cond/dropout/mul_grad/BroadcastGradientArgs BroadcastGradientArgs 3 13
+202 Momentum/gradients/Dropout/cond/dropout/mul_grad/Mul Mul 4 13
+203 Momentum/gradients/Dropout/cond/dropout/mul_grad/Sum Sum 2 13
+204 Momentum/gradients/Dropout/cond/dropout/mul_grad/Reshape Reshape 1 13
+205 Momentum/gradients/Dropout/cond/dropout/div_grad/Shape Shape 1 13
+206 Momentum/gradients/Dropout/cond/dropout/div_grad/Shape_1 Const 1 13
+207 Momentum/gradients/Dropout/cond/dropout/div_grad/BroadcastGradientArgs BroadcastGradientArgs 3 13
+208 Momentum/gradients/Dropout/cond/dropout/div_grad/Sum Sum 2 13
+209 Momentum/gradients/Dropout/cond/dropout/div_grad/Reshape Reshape 1 13
+210 Momentum/gradients/Dropout/cond/dropout/Shape/Switch_grad/cond_grad Merge 2 13
+211 Momentum/gradients/AddN_2 AddN 3 13
+212 Momentum/gradients/FullyConnected/Tanh_grad/TanhGrad TanhGrad 4 13
+213 Momentum/gradients/FullyConnected/BiasAdd_grad/BiasAddGrad BiasAddGrad 8 13
+214 Momentum/gradients/FullyConnected/MatMul_grad/MatMul MatMul 20043 13
+215 Momentum/gradients/FullyConnected/MatMul_grad/MatMul_1 MatMul 13392 13
+216 Momentum/gradients/FullyConnected/Reshape_grad/Shape Shape 1 13
+217 Momentum/gradients/FullyConnected/Reshape_grad/Reshape Reshape 6 13
+218 Momentum/gradients/MaxPool2D_2/MaxPool_grad/MaxPoolGrad MaxPoolGrad 17597 13
+219 Momentum/gradients/Conv2D_2/Relu_grad/ReluGrad ReluGrad 4218 13
+220 Momentum/gradients/Conv2D_2/BiasAdd_grad/BiasAddGrad BiasAddGrad 14680 13
+221 Momentum/gradients/Conv2D_2/Conv2D_grad/ShapeN ShapeN 2 13
+222 Momentum/gradients/Conv2D_2/Conv2D_grad/Const Const 2 13
+223 Momentum/gradients/Conv2D_2/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 22675 13
+224 Momentum/gradients/Conv2D_2/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 34531 13
+225 Momentum/gradients/MaxPool2D_1/MaxPool_grad/MaxPoolGrad MaxPoolGrad 2082 13
+226 Momentum/gradients/Conv2D_1/Relu_grad/ReluGrad ReluGrad 608 13
+227 Momentum/gradients/Conv2D_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 3698 13
+228 Momentum/gradients/Conv2D_1/Conv2D_grad/ShapeN ShapeN 3 13
+229 Momentum/gradients/Conv2D_1/Conv2D_grad/Const Const 2 13
+230 Momentum/gradients/Conv2D_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 2676 13
+231 Momentum/gradients/Conv2D_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 6667 13
+232 Momentum/gradients/MaxPool2D/MaxPool_grad/MaxPoolGrad MaxPoolGrad 1295 13
+233 Momentum/gradients/Conv2D/Relu_grad/ReluGrad ReluGrad 624 13
+234 Momentum/gradients/Conv2D/BiasAdd_grad/BiasAddGrad BiasAddGrad 556 13
+235 Momentum/gradients/Conv2D/Conv2D_grad/Const Const 2 13
+236 Momentum/gradients/Conv2D/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 2079 13
+237 Momentum/global_norm/L2Loss L2Loss 15 13
+238 Momentum/global_norm/L2Loss_1 L2Loss 5 13
+239 Momentum/global_norm/L2Loss_2 L2Loss 4 13
+240 Momentum/global_norm/L2Loss_3 L2Loss 14 13
+241 Momentum/global_norm/L2Loss_4 L2Loss 11 13
+242 Momentum/global_norm/L2Loss_5 L2Loss 10 13
+243 Momentum/global_norm/L2Loss_6 L2Loss 5037 13
+244 Momentum/global_norm/L2Loss_7 L2Loss 2 13
+245 Momentum/global_norm/L2Loss_8 L2Loss 2 13
+246 Momentum/global_norm/L2Loss_9 L2Loss 2 13
+247 Momentum/global_norm/L2Loss_10 L2Loss 2 13
+248 Momentum/global_norm/L2Loss_11 L2Loss 1 13
+249 Momentum/global_norm/stack Pack 10 13
+250 Momentum/global_norm/Sum Sum 6 13
+251 Momentum/global_norm/Const_1 Const 1 13
+252 Momentum/global_norm/mul Mul 5 13
+253 Momentum/global_norm/global_norm Sqrt 2 13
+254 Momentum/clip_by_global_norm/Minimum Minimum 2 13
+255 Momentum/clip_by_global_norm/mul/x Const 3 13
+256 Momentum/clip_by_global_norm/mul Mul 3 13
+257 Momentum/clip_by_global_norm/mul_1 Mul 6 13
+258 Momentum/clip_by_global_norm/mul_2 Mul 6 13
+259 Momentum/clip_by_global_norm/mul_3 Mul 5 13
+260 Momentum/clip_by_global_norm/mul_4 Mul 8 13
+261 Momentum/clip_by_global_norm/mul_5 Mul 11 13
+262 Momentum/clip_by_global_norm/mul_6 Mul 5 13
+263 Momentum/clip_by_global_norm/mul_7 Mul 4500 13
+264 Momentum/clip_by_global_norm/mul_8 Mul 3 13
+265 Momentum/clip_by_global_norm/mul_9 Mul 13 13
+266 Momentum/clip_by_global_norm/mul_10 Mul 5 13
+267 Momentum/clip_by_global_norm/mul_11 Mul 6 13
+268 Momentum/clip_by_global_norm/mul_12 Mul 4 13
+269 Conv2D/W/Momentum VariableV2 9 1
+270 Conv2D/b/Momentum VariableV2 5 1
+271 Conv2D_1/W/Momentum VariableV2 20 3
+272 Conv2D_1/b/Momentum VariableV2 2 3
+273 Conv2D_2/W/Momentum VariableV2 4 5
+274 Conv2D_2/b/Momentum VariableV2 2 5
+275 FullyConnected/W/Momentum VariableV2 3 7
+276 FullyConnected/b/Momentum VariableV2 2 7
+277 FullyConnected_1/W/Momentum VariableV2 2 9
+278 FullyConnected_1/b/Momentum VariableV2 23 9
+279 FullyConnected_2/W/Momentum VariableV2 2 11
+280 FullyConnected_2/b/Momentum VariableV2 2 11
+281 Momentum/apply_grad_op_0/learning_rate Const 2 13
+282 Momentum/apply_grad_op_0/update_Conv2D/W/ApplyMomentum ApplyMomentum 8 13
+283 Momentum/apply_grad_op_0/update_Conv2D/b/ApplyMomentum ApplyMomentum 6 13
+284 Momentum/apply_grad_op_0/update_Conv2D_1/W/ApplyMomentum ApplyMomentum 12 13
+285 Momentum/apply_grad_op_0/update_Conv2D_1/b/ApplyMomentum ApplyMomentum 12 13
+286 Momentum/apply_grad_op_0/update_Conv2D_2/W/ApplyMomentum ApplyMomentum 16 13
+287 Momentum/apply_grad_op_0/update_Conv2D_2/b/ApplyMomentum ApplyMomentum 5 13
+288 Momentum/apply_grad_op_0/update_FullyConnected/W/ApplyMomentum ApplyMomentum 14328 13
+289 Momentum/apply_grad_op_0/update_FullyConnected/b/ApplyMomentum ApplyMomentum 8 13
+290 Momentum/apply_grad_op_0/update_FullyConnected_1/W/ApplyMomentum ApplyMomentum 25 13
+291 Momentum/apply_grad_op_0/update_FullyConnected_1/b/ApplyMomentum ApplyMomentum 5 13
+292 Momentum/apply_grad_op_0/update_FullyConnected_2/W/ApplyMomentum ApplyMomentum 8 13
+293 Momentum/apply_grad_op_0/update_FullyConnected_2/b/ApplyMomentum ApplyMomentum 4 13
+294 Momentum/apply_grad_op_0/value Const 4 13
+295 Momentum/apply_grad_op_0 AssignAdd 3 13
+296 Momentum/Conv2D/W/tag Const 2 13
+297 Momentum/Conv2D/W HistogramSummary 29 13
+298 Momentum/Conv2D/b/tag Const 2 13
+299 Momentum/Conv2D/b HistogramSummary 26 13
+300 Momentum/Conv2D_1/W/tag Const 2 13
+301 Momentum/Conv2D_1/W HistogramSummary 84 13
+302 Momentum/Conv2D_1/b/tag Const 2 13
+303 Momentum/Conv2D_1/b HistogramSummary 26 13
+304 Momentum/Conv2D_2/W/tag Const 4 13
+305 Momentum/Conv2D_2/W HistogramSummary 725 13
+306 Momentum/Conv2D_2/b/tag Const 2 13
+307 Momentum/Conv2D_2/b HistogramSummary 33 13
+308 Momentum/FullyConnected/W/tag Const 16 13
+309 Momentum/FullyConnected/W HistogramSummary 371498 13
+310 Momentum/FullyConnected/b/tag Const 1 13
+311 Momentum/FullyConnected/b HistogramSummary 18 13
+312 Momentum/FullyConnected_1/W/tag Const 2 13
+313 Momentum/FullyConnected_1/W HistogramSummary 441 13
+314 Momentum/FullyConnected_1/b/tag Const 18 13
+315 Momentum/FullyConnected_1/b HistogramSummary 14 13
+316 Momentum/FullyConnected_2/W/tag Const 2 13
+317 Momentum/FullyConnected_2/W HistogramSummary 46 13
+318 Momentum/FullyConnected_2/b/tag Const 3 13
+319 Momentum/FullyConnected_2/b HistogramSummary 27 13
+320 Conv2D/W/Gradients/tag Const 3 1
+321 Conv2D/W/Gradients HistogramSummary 19 1
+322 Conv2D/b/Gradients/tag Const 89 1
+323 Conv2D/b/Gradients HistogramSummary 19 1
+324 Conv2D_1/W/Gradients/tag Const 1 3
+325 Conv2D_1/W/Gradients HistogramSummary 59 3
+326 Conv2D_1/b/Gradients/tag Const 1 3
+327 Conv2D_1/b/Gradients HistogramSummary 15 3
+328 Conv2D_2/W/Gradients/tag Const 1 5
+329 Conv2D_2/W/Gradients HistogramSummary 690 5
+330 Conv2D_2/b/Gradients/tag Const 3 5
+331 Conv2D_2/b/Gradients HistogramSummary 28 5
+332 FullyConnected/W/Gradients/tag Const 2 7
+333 FullyConnected/W/Gradients HistogramSummary 348961 7
+334 FullyConnected/b/Gradients/tag Const 1 7
+335 FullyConnected/b/Gradients HistogramSummary 24 7
+336 FullyConnected_1/W/Gradients/tag Const 2 9
+337 FullyConnected_1/W/Gradients HistogramSummary 416 9
+338 FullyConnected_1/b/Gradients/tag Const 1 9
+339 FullyConnected_1/b/Gradients HistogramSummary 38 9
+340 FullyConnected_2/W/Gradients/tag Const 1 11
+341 FullyConnected_2/W/Gradients HistogramSummary 49 11
+342 FullyConnected_2/b/Gradients/tag Const 1 11
+343 FullyConnected_2/b/Gradients HistogramSummary 15 11
+344 Momentum/train_op_0 NoOp 1 13
+0 1 1
+2 3 216
+4 5 24
+3 6 216
+6 7 1204224
+5 7 24
+7 8 1204224
+8 9 1204224
+10 11 3456
+12 13 64
+9 14 1204224
+11 14 3456
+14 15 3211264
+13 15 64
+15 16 3211264
+16 17 3211264
+18 19 69120
+20 21 480
+17 22 3211264
+19 22 69120
+22 23 24084480
+21 23 480
+23 24 24084480
+24 25 24084480
+26 27 45158400
+28 29 480
+25 31 24084480
+30 31 8
+31 32 24084480
+27 32 45158400
+32 33 30720
+29 33 480
+33 34 30720
+0 35 1
+1 35 1
+37 38 8
+39 40 30720
+40 41 30720
+34 42 30720
+42 43 30720
+41 43 30720
+44 45 40320
+46 47 336
+43 48 4
+45 48 40320
+48 49 21504
+47 49 336
+49 50 21504
+52 53 8
+51 54 4
+54 55 21504
+55 56 21504
+50 57 21504
+57 58 21504
+56 58 21504
+59 60 3360
+61 62 40
+58 63 4
+60 63 3360
+63 64 2560
+62 64 40
+64 65 2560
+65 66 2560
+66 68 512
+67 68 512
+68 69 64
+69 70 256
+65 72 2560
+71 72 4
+65 73 2560
+72 73 256
+73 76 2560
+75 76 4
+76 77 2560
+74 77 4
+77 78 2560
+78 79 2560
+79 80 2560
+80 81 256
+81 83 256
+82 83 4
+84 85 4
+86 87 4
+88 89 4
+87 90 4
+70 90 4
+90 91 4
+89 91 4
+86 92 4
+91 92 4
+93 94 4
+85 96 4
+97 98 4
+85 98 4
+96 99 4
+98 99 4
+95 100 4
+99 100 4
+101 102 4
+100 102 4
+94 103 4
+83 103 4
+103 104 4
+102 104 4
+93 105 4
+104 105 4
+106 107 8
+94 107 4
+108 109 8
+83 109 4
+81 110 256
+110 111 4
+112 113 4
+111 115 256
+114 115 4
+115 116 256
+79 117 2560
+117 118 8
+118 120 8
+119 120 4
+117 121 8
+120 121 8
+116 122 256
+118 122 8
+122 123 256
+121 123 8
+78 125 2560
+124 126 8
+125 126 8
+123 127 2560
+127 128 2560
+128 129 2560
+125 129 8
+77 130 2560
+129 131 2560
+130 131 2560
+76 132 2560
+131 133 2560
+133 134 8
+76 135 2560
+74 135 4
+132 136 8
+135 137 640
+131 137 2560
+134 137 2560
+137 138 2560
+136 138 8
+138 139 2560
+132 139 8
+73 140 2560
+139 141 2560
+141 142 8
+73 143 2560
+75 143 4
+140 144 8
+143 145 640
+139 145 2560
+142 145 2560
+145 146 2560
+144 146 8
+146 147 2560
+140 147 8
+65 148 2560
+147 149 2560
+72 149 256
+65 150 2560
+150 151 2560
+72 151 256
+151 152 2560
+72 152 256
+147 153 2560
+152 153 2560
+153 154 2560
+155 157 8
+156 157 4
+157 158 8
+155 159 8
+159 160 256
+158 160 8
+160 161 2560
+161 162 2560
+65 162 2560
+162 164 2560
+163 164 4
+164 166 256
+165 166 8
+161 167 2560
+166 167 256
+167 168 2560
+65 168 2560
+168 169 2560
+168 170 2560
+60 170 3360
+58 171 4
+168 171 2560
+170 172 21504
+50 173 21504
+174 175 8
+172 176 21504
+175 176 21504
+55 178 21504
+177 179 8
+178 179 8
+55 180 21504
+180 181 21504
+179 181 0
+181 182 21504
+177 182 8
+183 184 8
+184 185 8
+185 186 21504
+183 186 8
+186 187 21504
+176 188 4
+187 188 4
+50 189 21504
+188 189 21504
+189 190 21504
+189 191 21504
+45 191 40320
+43 192 4
+189 192 21504
+191 193 30720
+34 194 30720
+195 197 8
+196 197 4
+193 198 30720
+197 198 30720
+40 200 30720
+199 201 8
+200 201 8
+40 202 30720
+202 203 30720
+201 203 0
+203 204 30720
+199 204 8
+205 207 8
+206 207 0
+207 208 8
+208 209 30720
+205 209 8
+209 210 30720
+198 211 4
+210 211 4
+34 212 30720
+211 212 30720
+212 213 30720
+212 214 30720
+27 214 45158400
+31 215 24084480
+212 215 30720
+25 216 24084480
+214 217 24084480
+216 217 16
+24 218 24084480
+25 218 24084480
+217 218 24084480
+218 219 24084480
+24 219 24084480
+219 220 24084480
+17 221 3211264
+19 221 69120
+221 223 16
+19 223 69120
+219 223 24084480
+17 224 3211264
+222 224 16
+219 224 24084480
+16 225 3211264
+17 225 3211264
+223 225 3211264
+225 226 3211264
+16 226 3211264
+226 227 3211264
+9 228 1204224
+11 228 3456
+228 230 16
+11 230 3456
+226 230 3211264
+9 231 1204224
+229 231 16
+226 231 3211264
+8 232 1204224
+9 232 1204224
+230 232 1204224
+232 233 1204224
+8 233 1204224
+233 234 1204224
+235 236 16
+233 236 1204224
+236 237 216
+234 238 24
+231 239 3456
+227 240 64
+224 241 69120
+220 242 480
+215 243 45158400
+213 244 480
+192 245 40320
+190 246 336
+171 247 3360
+169 248 40
+237 249 4
+238 249 4
+239 249 4
+240 249 4
+241 249 4
+242 249 4
+243 249 4
+244 249 4
+245 249 4
+246 249 4
+247 249 4
+248 249 4
+249 250 48
+250 252 4
+251 252 4
+252 253 4
+255 256 4
+254 256 4
+236 257 216
+256 257 4
+234 258 24
+256 258 4
+231 259 3456
+256 259 4
+227 260 64
+256 260 4
+224 261 69120
+256 261 4
+220 262 480
+256 262 4
+215 263 45158400
+256 263 4
+213 264 480
+256 264 4
+192 265 40320
+256 265 4
+190 266 336
+256 266 4
+171 267 3360
+256 267 4
+169 268 40
+256 268 4
+2 282 216
+269 282 216
+281 282 4
+4 283 24
+270 283 24
+281 283 4
+10 284 3456
+271 284 3456
+281 284 4
+12 285 64
+272 285 64
+281 285 4
+18 286 69120
+273 286 69120
+281 286 4
+20 287 480
+274 287 480
+281 287 4
+26 288 45158400
+275 288 45158400
+281 288 4
+28 289 480
+276 289 480
+281 289 4
+44 290 40320
+277 290 40320
+281 290 4
+46 291 336
+278 291 336
+281 291 4
+59 292 3360
+279 292 3360
+281 292 4
+61 293 40
+280 293 40
+281 293 4
+84 295 4
+294 295 4
+296 297 8
+3 297 216
+298 299 8
+5 299 24
+300 301 8
+11 301 3456
+302 303 8
+13 303 64
+304 305 8
+19 305 69120
+306 307 8
+21 307 480
+308 309 8
+27 309 45158400
+310 311 8
+29 311 480
+312 313 8
+45 313 40320
+314 315 8
+47 315 336
+316 317 8
+60 317 3360
+318 319 8
+62 319 40
+320 321 8
+322 323 8
+324 325 8
+326 327 8
+328 329 8
+330 331 8
+332 333 8
+334 335 8
+336 337 8
+338 339 8
+340 341 8
+342 343 8
