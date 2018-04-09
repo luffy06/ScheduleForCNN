@@ -1,4 +1,4 @@
-#define THEORY 2
+#define THEORY 4
 #define MAXM 70000
 #define MAXN 15000
 #define MAXSIZE 30000
@@ -166,6 +166,8 @@ struct CacheManager {
 struct Node {
   int Id;
   long long Cost;
+  char Name[200];
+  int Layer;
   int InDegree;
   int OutDegree;
   int TopoOrder;
@@ -183,6 +185,7 @@ struct Node {
   Node() {
     Id = -1;
     Cost = 0;
+    Layer = -1;
     InDegree = OutDegree = 0;
     TopoOrder = -1;
     PEId = -1;
@@ -196,6 +199,7 @@ struct Node {
   Node(int a, long long b) {
     Id = a;
     Cost = b;
+    Layer = -1;
     InDegree = OutDegree = 0;
     TopoOrder = -1;
     PEId = -1;
@@ -215,6 +219,8 @@ struct Node {
   void Copy(Node t) {
     Id = t.Id;
     Cost = t.Cost;
+    strcpy(Name, t.Name);
+    Layer = t.Layer;
     InDegree = t.InDegree;
     OutDegree = t.OutDegree;
     TopoOrder = t.TopoOrder;
@@ -228,8 +234,8 @@ struct Node {
   }
 
   void Show() {
-    printf("ID:%d\tCost:%lld\tInDe:%d\tOutDe:%d\tTopo:%d\tPEId:%d\tRound:%d\tRetiming:%d\tST:%lld\tED:%lld\tMaxOutEdge:%lld\tCertained:%s\n", 
-        Id, Cost, InDegree, OutDegree, TopoOrder, PEId, Round, Retiming, 
+    printf("ID:%d\tCost:%lld\tLayer:%d\tInDe:%d\tOutDe:%d\tTopo:%d\tPEId:%d\tRound:%d\tRetiming:%d\tST:%lld\tED:%lld\tMaxOutEdge:%lld\tCertained:%s\n", 
+        Id, Cost, Layer, InDegree, OutDegree, TopoOrder, PEId, Round, Retiming, 
         StartTime, EndTime, MaxOutEdge, (Certained ? "Certained" : "UnCertained"));
   }
 };
@@ -282,6 +288,10 @@ vector<Edge> ReEdgeList[MAXN];
 Node NodeList[MAXN];
 int Degree[MAXN];
 
+bool CmpByLayer(Node a, Node b) {
+  return a.Layer > b.Layer;
+}
+
 int GetTopology(int TotalNode) {
   memset(Degree, 0, sizeof(Degree));
   vector<TwoInt> TopoCount;
@@ -294,56 +304,43 @@ int GetTopology(int TotalNode) {
   }
 
   int Count = 0, Order = 0;
-  int NeedPE = 0;
-  int MinCon = INF, MaxCon = -1;
-  long long MaxCost = 0;
-  int OutDegreeSum = 0;
   queue<Node> q;
-  for (int i = 1; i <= TotalNode; ++ i) {
-    MaxCost = max(MaxCost, NodeList[i].Cost);
-    if (Degree[i] == 0) {
+  for (int i = 1; i <= TotalNode; ++ i)
+    if (Degree[i] == 0)
       q.push(NodeList[i]);
-    }
-  }
-  Count = NeedPE = q.size();
-  MinCon = MaxCon = q.size();
-  printf("%d %d", Order, Count);
+  Count = q.size();
 
   while (!q.empty()) {
     Node f = q.front();
     q.pop();
     NodeList[f.Id].TopoOrder = Order;
     Count = Count - 1;
-    OutDegreeSum = OutDegreeSum + EdgeList[f.Id].size();
 
     for (int i = 0; i < EdgeList[f.Id].size(); ++ i) {
       Edge e = EdgeList[f.Id][i];
       Degree[e.To] = Degree[e.To] - 1;
-      if (Degree[e.To] == 0) {
+      if (Degree[e.To] == 0) 
         q.push(NodeList[e.To]);
-      }
     }
 
     if (Count == 0) {
-      NeedPE = max((int)q.size(), NeedPE);
-      MaxCon = max((int)q.size(), MaxCon);
-      printf(" %d\n", OutDegreeSum);
-      if (!q.empty())
-        MinCon = min((int)q.size(), MinCon);
-      OutDegreeSum = 0;
       Count = q.size();
       Order = Order + 1;
-      if (Count > 0)
-        printf("%d %d", Order, Count);
     }
   }
 
+  sort(NodeList + 1, NodeList + TotalNode + 1, CmpByLayer);
+  Count = 0, Order = 0;
+  int NeedPE = 0;
   for (int i = 1; i <= TotalNode; ++ i) {
-    if (NodeList[i].Cost >= (long long)(MaxCost * ALPHA)) {
-      printf("KeyNode:%d %d\n", NodeList[i].Id, NodeList[i].TopoOrder);
+    if (NodeList[i].TopoOrder != Order) {
+      NeedPE = max(NeedPE, Count);
+      Count = 0;
+      Order = NodeList[i].TopoOrder;
     }
+    Count = Count + 1;
   }
-  // printf("MaxCon:%d\tMinCon:%d\tTopoOrder:%d\n", MaxCon, MinCon, Order);
+  NeedPE = max(NeedPE, Count);
   return NeedPE;
 }
 

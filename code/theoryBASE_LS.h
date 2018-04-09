@@ -16,13 +16,9 @@ struct Iteration {
   }
 };
 
-Node NodeList[MAXN];
-int Degree[MAXN];
 int TotalNode;
 int TotalPE, PeriodTimes, UpRound;
 
-vector<Edge> EdgeList[MAXN];
-vector<Edge> ReEdgeList[MAXN];
 vector<PEInterval> PEIntervals[MAXPE];
 
 vector<Iteration> IterList;
@@ -48,46 +44,6 @@ bool CmpBySecond(TwoInt a, TwoInt b) {
   return a.first < b.first;
 }
 
-int GetTopology() {
-  int Count = 0, Order = 0;
-  int NeedPE = 0;
-  int MinCon = INF, MaxCon = -1;
-  queue<Node> q;
-  for (int i = 1; i <= TotalNode; ++ i) {
-    if (Degree[i] == 0) {
-      q.push(NodeList[i]);
-    }
-  }
-  Count = NeedPE = q.size();
-  MinCon = MaxCon = q.size();
-
-  while (!q.empty()) {
-    Node f = q.front();
-    q.pop();
-    NodeList[f.Id].TopoOrder = Order;
-    Count = Count - 1;
-
-    for (int i = 0; i < EdgeList[f.Id].size(); ++ i) {
-      Edge e = EdgeList[f.Id][i];
-      Degree[e.To] = Degree[e.To] - 1;
-      if (Degree[e.To] == 0) {
-        q.push(NodeList[e.To]);
-      }
-    }
-
-    if (Count == 0) {
-      NeedPE = max((int)q.size(), NeedPE);
-      MaxCon = max((int)q.size(), MaxCon);
-      if (!q.empty())
-        MinCon = min((int)q.size(), MinCon);
-      Count = q.size();
-      Order = Order + 1;
-    }
-  }
-  // printf("MaxCon:%d\tMinCon:%d\tTopoOrder:%d\n", MaxCon, MinCon, Order);
-  return NeedPE;
-}
-
 void Init(int TotalPE, int UpRound) {
   memset(Degree, 0, sizeof(Degree));
 
@@ -98,7 +54,7 @@ void Init(int TotalPE, int UpRound) {
     }
   }
 
-  int NeedPE = GetTopology();
+  int NeedPE = GetTopology(TotalNode);
   // printf("Multi:%d\n", NeedPE);
 
   if (TotalPE >= NeedPE) {
@@ -269,7 +225,7 @@ void InitIteration(Iteration &iteration, bool AddCache) {
   assert(Caches.size() == iteration.PENumb);
   
   do {
-    for (; Index <= TotalNode && NodeList[Index].TopoOrder == NowOrder; ++ Index) {
+    for (; Index <= TotalNode && NodeList[Index].Layer == NowOrder; ++ Index) {
       for (int j = 1; j <= iteration.Round; ++ j) {
         NodeList[Index].Round = j;
         WaitingQue.push(NodeList[Index]);
@@ -320,7 +276,7 @@ void InitIteration(Iteration &iteration, bool AddCache) {
     }
 
     if (Index <= TotalNode)
-      NowOrder = NodeList[Index].TopoOrder;
+      NowOrder = NodeList[Index].Layer;
   } while (Index <= TotalNode);
   long long TotalCost = 0;
   for (int i = 1; i <= TotalNode; ++ i)

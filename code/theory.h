@@ -1,4 +1,3 @@
-Node NodeList[MAXN];
 
 bool CmpByCost(Node a, Node b) {
   if (a.Cost != b.Cost)
@@ -295,8 +294,6 @@ struct NodeGenerator {
 
 vector<NodeGenerator> NgList;
 
-vector<Edge> EdgeList[MAXN];
-vector<Edge> ReEdgeList[MAXN];
 vector<PEInterval> PEIntervals[MAXPE];
 vector<CacheManager> Caches;
 vector<CacheBlock> DRAMBlocks;
@@ -306,49 +303,8 @@ int DP[MAXN][MAXSIZE + 1];
 bool Checked[MAXN][MAXR];
 bool ReChecked[MAXN][MAXR];
 
-int Degree[MAXN];
 int TotalNode;
 int TotalPE, PeriodTimes, UpRound;
-
-int GetTopology() {
-  int Count = 0, Order = 0;
-  int NeedPE = 0;
-  int MinCon = INF, MaxCon = -1;
-  queue<Node> q;
-  for (int i = 1; i <= TotalNode; ++ i) {
-    if (Degree[i] == 0) {
-      q.push(NodeList[i]);
-    }
-  }
-  Count = NeedPE = q.size();
-  MinCon = MaxCon = q.size();
-
-  while (!q.empty()) {
-    Node f = q.front();
-    q.pop();
-    NodeList[f.Id].TopoOrder = Order;
-    Count = Count - 1;
-
-    for (int i = 0; i < EdgeList[f.Id].size(); ++ i) {
-      Edge e = EdgeList[f.Id][i];
-      Degree[e.To] = Degree[e.To] - 1;
-      if (Degree[e.To] == 0) {
-        q.push(NodeList[e.To]);
-      }
-    }
-
-    if (Count == 0) {
-      NeedPE = max((int)q.size(), NeedPE);
-      MaxCon = max((int)q.size(), MaxCon);
-      if (!q.empty())
-        MinCon = min((int)q.size(), MinCon);
-      Count = q.size();
-      Order = Order + 1;
-    }
-  }
-  // printf("MaxCon:%d\tMinCon:%d\tTopoOrder:%d\n", MaxCon, MinCon, Order);
-  return NeedPE;
-}
 
 void ShowInterval(int PEId) {
   printf("PEId:%d\n", PEId);
@@ -373,7 +329,7 @@ void Init(int TotalPE, int UpRound) {
     }
   }
 
-  int NeedPE = GetTopology();
+  int NeedPE = GetTopology(TotalNode);
   // printf("Multi:%d\n", NeedPE);
 
   if (TotalPE >= NeedPE) {

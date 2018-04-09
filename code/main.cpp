@@ -40,7 +40,7 @@ void Input() {
     long long Cost;
     char Name[200];
     char Op[200];
-    scanf("%d%s%s%lld", &NodeList[i].Id, Name, Op, &Cost);
+    scanf("%d%s%s%lld%d", &NodeList[i].Id, Name, Op, &Cost, &NodeList[i].Layer);
     assert(Cost >= 0);
     NodeList[i].Id = NodeList[i].Id + 1;
     Cost = Cost + 1;

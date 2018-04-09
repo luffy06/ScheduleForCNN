@@ -4,7 +4,7 @@ int REPEAT = 2;
 struct NodeComparationByCost {
   bool operator() (const Node &a, const Node &b) const {
     if (a.TopoOrder != b.TopoOrder)
-      return a.TopoOrder < b.TopoOrder;
+      return a.TopoOrder > b.TopoOrder;
     else if (a.Cost != b.Cost)
       return a.Cost < b.Cost;
     return a.Id > b.Id;    
@@ -264,7 +264,8 @@ int CalculateFromNodeRetiming(long long FE, long long P, long long E, long long 
 
 int CalculateToNodeRetiming(long long FE, long long FR, long long P, long long E, long long TS) {
   // FE + FR * P + E <= TS + Retiming * P
-  int Retiming = Floor(FE + FR * P - TS + E, P);
+  // printf("FE:%lld\tFR:%lld\tP:%lld\tE:%lld\tTS:%lld\n", FE, FR, P, E, TS);
+  int Retiming = Ceil(FE + FR * P - TS + E, P);
   return Retiming;
 }
 
@@ -336,7 +337,7 @@ void InitPhaseOrigin(Phase &phase) {
   for (int i = 1; i <= PENumb; ++ i)
     MaxEndtime = max(MaxEndtime, phase.PETimes[i].EndTime);
   phase.Ratio = TotalCost / (1.0 * MaxEndtime * PENumb);
-  printf("Ratio of Phase:%.6f\n", phase.Ratio);
+  // printf("Ratio of Phase:%.6f\n", phase.Ratio);
 }
 
 void InitPhasePriority(Phase &phase) {
@@ -349,7 +350,7 @@ void InitPhasePriority(Phase &phase) {
   }
   assert(PENumb > 0);
   int Index = 1;
-  int NowOrder = -1;
+  int NowLayer = -1;
   long long MaxEndtime = 0;
   do {
     queue<TimeInterval> TempQue;
@@ -364,7 +365,7 @@ void InitPhasePriority(Phase &phase) {
       TempQue.pop();
       IntervalQue.push(TI);      
     }
-    for (; Index <= TotalNode && NodeList[Index].TopoOrder == NowOrder; ++ Index)
+    for (; Index <= TotalNode && NodeList[Index].Layer == NowLayer; ++ Index)
       NodeQue.push(NodeList[Index]);
     int PEIndex = 0;
     while (!NodeQue.empty()) {
@@ -384,7 +385,7 @@ void InitPhasePriority(Phase &phase) {
       }
     }
     if (Index <= TotalNode)
-      NowOrder = NodeList[Index].TopoOrder;
+      NowLayer = NodeList[Index].Layer;
   } while (Index <= TotalNode);
   phase.PETimes.push_back(PEInterval(0, -1, -1));
   while (!IntervalQue.empty()) {
@@ -402,7 +403,7 @@ void InitPhasePriority(Phase &phase) {
   for (int i = 1; i <= PENumb; ++ i)
     MaxEndtime = max(MaxEndtime, phase.PETimes[i].EndTime);
   phase.Ratio = TotalCost / (1.0 * MaxEndtime * PENumb);
-  printf("Ratio of Phase:%.6f\n", phase.Ratio);
+  // printf("Ratio of Phase:%.6f\n", phase.Ratio);
 }
 
 void PutEdgeIntoCache(int PENumb, int UpBound) {
@@ -420,13 +421,14 @@ void PutEdgeIntoCache(int PENumb, int UpBound) {
       for (int k = 0; k < Edges.size(); ++ k) {
         Edge e = Edges[k];
         Node ToNode = IterNodeTime[j][e.To];
-        if (e.Memory > CACHESIZE && FromNode.EndTime + FromNode.Retiming * UpBound 
+        if (e.Memory <= CACHESIZE && FromNode.EndTime + FromNode.Retiming * UpBound 
               + Ceil(e.Memory, CACHESPEED) >= ToNode.StartTime + ToNode.Retiming 
               * UpBound) {
           int Retiming = CalculateToNodeRetiming(FromNode.EndTime, FromNode.Retiming, 
                           UpBound, Ceil(e.Memory, CACHESPEED), ToNode.StartTime);
           ToNode.Retiming = max(ToNode.Retiming, Retiming);
           IterNodeTime[j][e.To].Copy(ToNode);
+          assert(FromNode.EndTime + FromNode.Retiming * UpBound < ToNode.StartTime + ToNode.Retiming * UpBound);
         }
       }
     }
@@ -435,23 +437,26 @@ void PutEdgeIntoCache(int PENumb, int UpBound) {
   for (int i = 1; i <= TotalNode; ++ i) {
     vector<Edge> Edges = EdgeList[i];
     for (int j = 1; j <= REPEAT * 2; ++ j) {
-     Node FromNode = IterNodeTime[j][i]; 
+      Node FromNode = IterNodeTime[j][i];
       for (int k = 0; k < Edges.size(); ++ k) {
         Edge e = Edges[k];
         Node ToNode = IterNodeTime[j][e.To];
-        CacheBlock CB = CacheBlock(FromNode.Id, FromNode.Round, ToNode.Id, 
+        if (e.Memory <= CACHESIZE) {
+          CacheBlock CB = CacheBlock(FromNode.Id, FromNode.Round, ToNode.Id, 
                         ToNode.Round, e.Memory, FromNode.EndTime + FromNode.Retiming 
                         * UpBound, ToNode.StartTime + ToNode.Retiming * UpBound);
-        if (e.Memory > CACHESIZE) {
           Caches[ToNode.PEId - 1].AddCacheBlock(CB);          
         }
         else {
+          CacheBlock CB = CacheBlock(FromNode.Id, FromNode.Round, ToNode.Id, 
+                        ToNode.Round, e.Memory, 0, 1);
           DRAMBlocks.push_back(CB);
-          ReChecked[ToNode.Id][ToNode.Round] = true;
+          ReChecked[FromNode.Id][FromNode.Round] = true;
         }
       }
     }
   }
+
 }
 
 void DetectCacheOverflow(Iteration &iteration) {
@@ -498,29 +503,27 @@ bool GetStrogePos(int FromId, int FromRound, int ToId, int ToRound) {
   return true;
 }
 
-void ReBFS(Node KeyNode, Iteration &iteration) {
-  // printf("ReBFS\n");
+void BFS(Node KeyNode, Iteration &iteration) {
+  // printf("BFS\n");
   long long PeriodTime = iteration.UpBound;
   priority_queue<Node, vector<Node>, NodeComparationByCost> q;
   q.push(KeyNode);
   while (!q.empty()) {
-    Node ToNode = q.top();
+    Node FromNode = q.top();
     q.pop();
-    // ToNode.Show();
-    ReChecked[ToNode.Id][ToNode.Round] = false;
+    // FromNode.Show();
+    ReChecked[FromNode.Id][FromNode.Round] = false;
 
-    vector<Edge> InEdges = ReEdgeList[ToNode.Id];
-    sort(InEdges.begin(), InEdges.end(), CmpEdgeByFromCost);
-    for (int i = 0; i < InEdges.size(); ++ i) {
-      Edge e = InEdges[i];
-      // printf("From:%d To:%d %d %d\n", InEdges[i].From, InEdges[i].To, ToNode.Id, ToNode.Round);
-      Node FromNode = IterNodeTime[ToNode.Round][InEdges[i].From];
+    vector<Edge> Edges = EdgeList[FromNode.Id];
+    for (int i = 0; i < Edges.size(); ++ i) {
+      Edge e = Edges[i];
+      Node ToNode = IterNodeTime[FromNode.Round][Edges[i].To];
       long long Cost = (GetStrogePos(FromNode.Id, FromNode.Round, ToNode.Id, ToNode.Round) 
                       ? Ceil(e.Memory, CACHESPEED) : Ceil(e.Memory, DRAMSPEED));
       if (FromNode.EndTime + FromNode.Retiming * PeriodTime + Cost > ToNode.StartTime + ToNode.Retiming * PeriodTime) {
-        FromNode.Retiming = CalculateFromNodeRetiming(FromNode.EndTime, PeriodTime, Cost, ToNode.StartTime, ToNode.Retiming);
-        IterNodeTime[FromNode.Round][FromNode.Id] = FromNode;
-        q.push(FromNode);
+        ToNode.Retiming = CalculateToNodeRetiming(FromNode.EndTime, FromNode.Retiming, PeriodTime, Cost, ToNode.StartTime);
+        IterNodeTime[ToNode.Round][ToNode.Id].Copy(ToNode);
+        q.push(ToNode);
       }
     }
   }
@@ -530,8 +533,8 @@ void InitIteration(Iteration &iteration) {
   int PhasePE = iteration.PhasePE;
   Phase phase = Phase(PhasePE, TotalNode);
   // printf("Init Phase\n");
-  InitPhasePriority(phase);
-  // InitPhaseOrigin(phase);
+  // InitPhasePriority(phase);
+  InitPhaseOrigin(phase);
   // printf("Init Iteration\n");
 
   for (int i = 1; i <= TotalNode; ++ i)
@@ -579,6 +582,7 @@ void InitIteration(Iteration &iteration) {
     }
   }
 
+  // printf("Put Edge Into Cache\n");
   PutEdgeIntoCache(iteration.PENumb, iteration.UpBound);
 
   double Ratio = TotalCost / (1.0 * MaxEndtime * iteration.PENumb);
@@ -592,7 +596,7 @@ void InitIteration(Iteration &iteration) {
 
   // printf("Detect Cache Overflow\n");
   DetectCacheOverflow(iteration);
-  printf("DRAMBlocks:%lu\n", DRAMBlocks.size());
+  // printf("DRAMBlocks:%lu\n", DRAMBlocks.size());
 
 
   vector<Node> ReCheckedNodes;
@@ -605,7 +609,7 @@ void InitIteration(Iteration &iteration) {
   for (int i = ReCheckedNodes.size() - 1; i >= 0; -- i) {
     Node KeyNode = ReCheckedNodes[i];
     if (ReChecked[KeyNode.Id][KeyNode.Round])
-      ReBFS(IterNodeTime[KeyNode.Round][KeyNode.Id], iteration);
+      BFS(IterNodeTime[KeyNode.Round][KeyNode.Id], iteration);
   }
 
   iteration.CalcPrelogue(IterNodeTime);
