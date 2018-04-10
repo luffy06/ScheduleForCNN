@@ -90,12 +90,6 @@ struct Iteration {
 
 Node NodeTime[REPEATLIMITED + 1][MAXN];
 Node IterNodeTime[REPEATLIMITED * 2 + 1][MAXN];
-int DP[MAXN][MAXSIZE + 1];
-int TotalNode;
-int TotalPE, PeriodTimes, UpRound;
-
-vector<CacheManager> Caches;
-vector<CacheBlock> DRAMBlocks;
 
 vector<Iteration> IterList;
 
@@ -188,72 +182,6 @@ int Init(int TotalPE) {
     IterList.push_back(Iteration(TotalPE, TotalPE, TotalNode));
   }
   return NeedPE;
-}
-
-vector<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
-  vector<int> ArrangedGoods, UnArrangedGoods;
-  int Sum = 0;
-  for (int i = 0; i < Goods.size(); ++ i)
-    Sum = Sum + Goods[i];
-  if (Sum <= BinSize) {
-    for (int i = 0; i < Goods.size(); ++ i)
-      ArrangedGoods.push_back(i);
-    return ArrangedGoods;
-  }
-
-  memset(DP, 0, sizeof(DP));
-  bool RE = false;
-  if (BinSize > MAXSIZE) {
-    RE = true;
-    BinSize = Sum - BinSize;
-    // printf("### Bad BinSize ###\n");
-    // printf("Good Size:%lu\n", Goods.size());
-    // printf("BinSize:%d\tSum:%d\n", BinSize, Sum);
-  }
-  assert(BinSize <= MAXSIZE);
-  assert(Goods.size() < MAXN);
-
-  for (int i = 1; i <= Goods.size(); ++ i) {
-    int S = Goods[i - 1];
-    for (int j = BinSize; j >= 0; -- j) {
-      if (j >= S && DP[i - 1][j - S] + S > DP[i][j])
-        DP[i][j] = max(DP[i - 1][j], DP[i - 1][j - S] + S);
-      else
-        DP[i][j] = DP[i - 1][j];
-    }
-  }
-
-  int k = BinSize;
-  for (int i = Goods.size(); i > 0; -- i) {
-    int S = Goods[i - 1];
-    if (k >= S && DP[i][k] == DP[i - 1][k - S] + S) {
-      k = k - S;
-      ArrangedGoods.push_back(i - 1);
-    }
-    else {
-      UnArrangedGoods.push_back(i - 1);
-    }
-  }
-
-  if (RE) {
-    int Dis = BinSize - DP[Goods.size()][BinSize];
-    if (Dis > 0) {
-      int MinDis = INF;
-      int Choose = -1;
-      for (int i = 0; i < UnArrangedGoods.size(); ++ i) {
-        if (Goods[UnArrangedGoods[i]] >= Dis && Goods[UnArrangedGoods[i]] - Dis < MinDis) {
-          MinDis = Goods[UnArrangedGoods[i]] - Dis;
-          Choose = i;
-        }
-      }
-      UnArrangedGoods.erase(UnArrangedGoods.begin() + Choose);
-    }
-    sort(UnArrangedGoods.begin(), UnArrangedGoods.end());
-    return UnArrangedGoods;
-  }
-
-  sort(ArrangedGoods.begin(), ArrangedGoods.end());
-  return ArrangedGoods;  
 }
 
 int CalculateFromNodeRetiming(long long FE, long long P, long long E, long long TS, long long TR) {

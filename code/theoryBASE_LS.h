@@ -16,18 +16,12 @@ struct Iteration {
   }
 };
 
-int TotalNode;
-int TotalPE, PeriodTimes, UpRound;
-
 vector<PEInterval> PEIntervals[MAXPE];
 
 vector<Iteration> IterList;
 
-int DP[MAXN][MAXSIZE + 1];
 Node NodeTime[MAXPE][MAXN];
 
-vector<CacheManager> Caches;
-vector<CacheBlock> DRAMBlocks;
 vector<PEInterval> PETimes;
 
 bool CmpByTopoOrder(Node a, Node b) {
@@ -36,12 +30,6 @@ bool CmpByTopoOrder(Node a, Node b) {
   else if (a.Cost != b.Cost)
     return a.Cost < b.Cost;
   return a.Id < b.Id;
-}
-
-bool CmpBySecond(TwoInt a, TwoInt b) {
-  if (a.second != b.second)
-    return a.second > b.second;
-  return a.first < b.first;
 }
 
 void Init(int TotalPE, int UpRound) {
@@ -65,87 +53,6 @@ void Init(int TotalPE, int UpRound) {
   else {
     IterList.push_back(Iteration(TotalPE));
   }
-}
-
-vector<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
-  vector<int> ArrangedGoods, UnArrangedGoods;
-  int Sum = 0;
-  for (int i = 0; i < Goods.size(); ++ i)
-    Sum = Sum + Goods[i];
-  if (Sum <= BinSize) {
-    for (int i = 0; i < Goods.size(); ++ i)
-      ArrangedGoods.push_back(i);
-    return ArrangedGoods;
-  }
-
-  memset(DP, 0, sizeof(DP));
-  bool RE = false;
-  if (BinSize > MAXSIZE) {
-    RE = true;
-    // printf("### Bad BinSize Of %d ###\n", BinSize);
-    // printf("Good Size:%lu\n", Goods.size());
-    BinSize = Sum - BinSize;
-    // printf("BinSize:%d\tSum:%d\tMAXSIZE:%d\n", BinSize, Sum, MAXSIZE);
-  }
-  assert(BinSize <= MAXSIZE);
-  if (Goods.size() >= MAXN) {
-    vector<TwoInt> GreedyGoods;
-    for (int i = 0; i < Goods.size(); ++ i)
-      GreedyGoods.push_back(make_pair(i, Goods[i]));
-    sort(GreedyGoods.begin(), GreedyGoods.end(), CmpBySecond);
-    for (int i = 0; i < GreedyGoods.size(); ++ i) {
-      TwoInt good = GreedyGoods[i];
-      if (BinSize >= good.second) {
-        ArrangedGoods.push_back(good.first);
-        BinSize = BinSize - good.second;
-      }
-    }
-    sort(ArrangedGoods.begin(), ArrangedGoods.end());
-    return ArrangedGoods;
-  }
-  assert(Goods.size() < MAXN);
-
-  for (int i = 1; i <= Goods.size(); ++ i) {
-    int S = Goods[i - 1];
-    for (int j = BinSize; j >= 0; -- j) {
-      if (j >= S && DP[i - 1][j - S] + S > DP[i][j])
-        DP[i][j] = max(DP[i - 1][j], DP[i - 1][j - S] + S);
-      else
-        DP[i][j] = DP[i - 1][j];
-    }
-  }
-
-  int k = BinSize;
-  for (int i = Goods.size(); i > 0; -- i) {
-    int S = Goods[i - 1];
-    if (k >= S && DP[i][k] == DP[i - 1][k - S] + S) {
-      k = k - S;
-      ArrangedGoods.push_back(i - 1);
-    }
-    else {
-      UnArrangedGoods.push_back(i - 1);
-    }
-  }
-
-  if (RE) {
-    int Dis = BinSize - DP[Goods.size()][BinSize];
-    if (Dis > 0) {
-      int MinDis = INF;
-      int Choose = -1;
-      for (int i = 0; i < UnArrangedGoods.size(); ++ i) {
-        if (Goods[UnArrangedGoods[i]] >= Dis && Goods[UnArrangedGoods[i]] - Dis < MinDis) {
-          MinDis = Goods[UnArrangedGoods[i]] - Dis;
-          Choose = i;
-        }
-      }
-      UnArrangedGoods.erase(UnArrangedGoods.begin() + Choose);
-    }
-    sort(UnArrangedGoods.begin(), UnArrangedGoods.end());
-    return UnArrangedGoods;
-  }
-
-  sort(ArrangedGoods.begin(), ArrangedGoods.end());
-  return ArrangedGoods;  
 }
 
 bool GetStrogePos(int FromId, int FromRound, int ToId, int ToRound) {
