@@ -3,7 +3,9 @@ import os
 
 resultdir = '../result'
 resultexcel = 'output.xlsx'
-attributes = ['TotalTime', 'Prelogue', 'Retiming', 'RunOnCache', 'RunOnDRAM', 'MAXRatio', 'CPURatio'];
+algonumb = 4
+pes = [32, 64]
+attributes = ['TotalTime', 'Kernel', 'Prelogue', 'Retiming', 'RunOnCache', 'RunOnDRAM', 'MAXRatio', 'CPURatio'];
 
 def parse_graph(line):
   lines = line.split(' ')
@@ -61,7 +63,7 @@ def loadresult(resultmap):
     st.write(r, c, attr)
     r = r + 1
     for thmap in ths:
-      for p in [32, 64, 128, 256]:
+      for p in pes:
         for j in range(len(thmap[p])):
           st.write(r + j, c, thmap[p][j])
           maxr = max(maxr, r + j)
@@ -72,9 +74,11 @@ def loadresult(resultmap):
 def main():
   resultmap = {}
   for attr in attributes:
-    result = [{}, {}, {}]
+    result = []
+    for i in range(algonumb):
+      result.append({})
     for r in result:
-      for p in [32, 64, 128, 256]:
+      for p in pes:
         r[p] = []
     resultmap[attr] = result
 
@@ -83,6 +87,8 @@ def main():
     #   continue
     peid, suffix = parse_filename(f)
     if suffix != 'out':
+      continue
+    if int(peid) not in pes:
       continue
     print('Loading ' + peid)
     parse_filecontent(os.path.join(resultdir, f), resultmap, int(peid))

@@ -192,9 +192,20 @@ int CalculateFromNodeRetiming(long long FE, long long P, long long E, long long 
 
 int CalculateToNodeRetiming(long long FE, long long FR, long long P, long long E, long long TS) {
   // FE + FR * P + E <= TS + Retiming * P
-  // printf("FE:%lld\tFR:%lld\tP:%lld\tE:%lld\tTS:%lld\n", FE, FR, P, E, TS);
   int Retiming = Ceil(FE + FR * P - TS + E, P);
   return Retiming;
+}
+
+long long GetStartTime(long long StartTime, int NodeId, int Round) {
+  vector<Edge> Edges = ReEdgeList[NodeId];
+  for (int i = 0; i < Edges.size(); i++) {
+    Edge e = Edges[i];
+    if (e.Memory > CACHESIZE)
+      continue;
+    long long NStartTime = NodeTime[Round][e.From].EndTime + Ceil(e.Memory, CACHESPEED);
+    StartTime = max(StartTime, NStartTime);
+  }
+  return StartTime;
 }
 
 void InitPhaseOrigin(Phase &phase) {
@@ -222,7 +233,7 @@ void InitPhaseOrigin(Phase &phase) {
         for (int k = 1; k <= REPEAT; ++ k, ++ PEIndex) {
           if (PEIndex == IntervalQue.size())
             PEIndex = 0;
-          long long StartTime = IntervalQue[PEIndex].EndTime;
+          long long StartTime = GetStartTime(IntervalQue[PEIndex].EndTime, node.Id, k);
           node.PEId = IntervalQue[PEIndex].PEId;
           node.Round = k;
           node.SetTime(StartTime, StartTime + node.Cost);
@@ -235,7 +246,7 @@ void InitPhaseOrigin(Phase &phase) {
           Node node = NodeQue.top();
           NodeQue.pop();
           for (int k = 1; k <= REPEAT; ++ k) {
-            long long StartTime = IntervalQue[PEIndex].EndTime;
+            long long StartTime = GetStartTime(IntervalQue[PEIndex].EndTime, node.Id, k);
             if (k > 1)
               StartTime = max(StartTime, NodeTime[k - 1][node.Id].EndTime);
             node.PEId = IntervalQue[PEIndex].PEId;
@@ -393,11 +404,12 @@ void DetectCacheOverflow(Iteration &iteration) {
     Caches[i - 1].SortCacheBlock();
     vector<long long> TimeTrace = Caches[i - 1].GetTimeTrace();
     // printf("PE:%d/%d\tTimeTrace Size:%lu\n", i, iteration.PENumb, TimeTrace.size());
+    int Index = 0;
     for (int j = 0; j < TimeTrace.size() - 1; ++ j) {
       long long ST = TimeTrace[j];
       long long ED = TimeTrace[j + 1];
       vector<CacheBlock> Blocks;
-      Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks);
+      Index = Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks, Index);
       if (Blocks.size() == 0)
         continue;
 

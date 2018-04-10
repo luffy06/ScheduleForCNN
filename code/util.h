@@ -1,4 +1,4 @@
-#define THEORY 4
+#define THEORY 2
 #define MAXM 70000
 #define MAXN 15000
 #define MAXSIZE 32000
@@ -60,8 +60,8 @@ struct FinalResult {
   }
 
   void Show() {
-    printf("\nTotalTime:%lld\nPrelogue:%lld\nRetiming:%d\nRunOnCache:%d\nRunOnDRAM:%d\nMAXRatio:%.6f\nCPURatio:%.6f\n", 
-            TotalTime, Prelogue, Retiming, RunOnCache, RunOnDRAM, MAXRatio, CPURatio);
+    printf("\nTotalTime:%lld\nKernel:%lld\nPrelogue:%lld\nRetiming:%d\nRunOnCache:%d\nRunOnDRAM:%d\nMAXRatio:%.6f\nCPURatio:%.6f\n", 
+            TotalTime, TotalTime - 2 * Prelogue, Prelogue, Retiming, RunOnCache, RunOnDRAM, MAXRatio, CPURatio);
   }
 };
 
@@ -140,11 +140,13 @@ struct CacheManager {
   }
 
   // OPTIMIZING
-  void GetCacheBlockByTime(long long StartTime, long long EndTime, vector<CacheBlock> &Blocks) {
+  int GetCacheBlockByTime(long long StartTime, long long EndTime, vector<CacheBlock> &Blocks, int Index) {
     long long MemorySum = 0;
-    for (int i = 0; i < Cache.size(); ++ i) {
-      if (Cache[i].StartTime > StartTime)
+    for (int i = Index; i < Cache.size(); ++ i) {
+      if (Cache[i].StartTime > StartTime) {
+        Index = i;
         break;
+      }
       if (Cache[i].StartTime <= StartTime && Cache[i].EndTime >= EndTime) {
         MemorySum = MemorySum + Cache[i].Memory;
         Blocks.push_back(Cache[i]);
@@ -152,6 +154,7 @@ struct CacheManager {
     }
     if (MemorySum <= CACHESIZE)
       Blocks.clear();
+    return Index;
   }
 
   vector<long long> GetTimeTrace() {

@@ -523,11 +523,12 @@ void DetectCacheOverflow(NodeGenerator &ng) {
   for (int i = 1; i <= ng.NeedPE; ++ i) {
     Caches[i - 1].SortCacheBlock();
     vector<long long> TimeTrace = Caches[i - 1].GetTimeTrace();
+    int Index = 0;
     for (int j = 0; j < TimeTrace.size() - 1; ++ j) {
       long long ST = TimeTrace[j];
       long long ED = TimeTrace[j + 1];
       vector<CacheBlock> Blocks;
-      Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks);
+      Index = Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks, Index);
       if (Blocks.size() == 0)
         continue;
 

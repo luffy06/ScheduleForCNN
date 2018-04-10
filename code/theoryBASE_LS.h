@@ -71,12 +71,13 @@ void DetectCacheOverflow(Iteration &iteration) {
     Caches[i - 1].SortCacheBlock();
     vector<long long> TimeTrace = Caches[i - 1].GetTimeTrace();
     // printf("PE:%d/%d\tTimeTrace Size:%lu\n", i, iteration.PENumb, TimeTrace.size());
+    int Index = 0;
     for (int j = 0; j < TimeTrace.size() - 1; ++ j) {
       // printf("%d/%lu\n", j, TimeTrace.size() - 1);
       long long ST = TimeTrace[j];
       long long ED = TimeTrace[j + 1];
       vector<CacheBlock> Blocks;
-      Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks);
+      Index = Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks, Index);
       if (Blocks.size() == 0)
         continue;
 
