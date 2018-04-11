@@ -17,7 +17,7 @@ for (( pe=32; pe<=256; pe=pe*2 )) do
     filename=`basename $file`
     echo 'GRAPH '$filename
     echo 'DEALING WITH '$filename >> ${resultname}
-    for (( i = 1; i <= 4; i++ )); do
+    for (( i = 1; i <= 3; i++ )); do
       echo 'RUN TH-'$i
       echo '######### Using Theory'$i' #########' >> ${resultname}
       echo `./run$i < $datafolder/$filename` >> ${resultname}

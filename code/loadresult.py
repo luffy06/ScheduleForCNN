@@ -3,8 +3,8 @@ import os
 
 resultdir = '../result'
 resultexcel = 'output.xlsx'
-algonumb = 4
-pes = [32, 64]
+algonumb = 3
+pes = [32, 64, 128, 256]
 attributes = ['TotalTime', 'Kernel', 'Prelogue', 'Retiming', 'RunOnCache', 'RunOnDRAM', 'MAXRatio', 'CPURatio'];
 
 def parse_graph(line):
