@@ -1,10 +1,11 @@
-#define THEORY 2
+#define THEORY 3
 #define MAXM 70000
-#define MAXN 15000
-#define MAXSIZE 32000
+#define MAXN 1500
+#define MAXSIZE 50000
 #define MAXPE 300
-#define MAXR 505
-#define LIMITEDRATIO 0.95
+#define MINR 505
+#define MAXR 6005
+#define LIMITEDRATIO 0.85
 #define ALPHA 0.8
 const int INF = 0x3f3f3f3f;
 const long long DRAMSPEED = 10000;
@@ -66,11 +67,13 @@ struct FinalResult {
 };
 
 struct CacheBlock {
+  int Id;
   TwoInt NodeIds;
   TwoInt Rounds;
   long long Memory;
   long long StartTime;
   long long EndTime;
+  bool Exist;
 
   CacheBlock(int From, int FromRound, int To, int ToRound, long long Memo, long long ST, long long ED) {
     NodeIds = make_pair(From, To);
@@ -81,6 +84,8 @@ struct CacheBlock {
     if (ST >= ED) {
       printf("%lld %lld\n", ST, ED);
     }
+    Id = -1;
+    Exist = true;
     assert(ST < ED);
   }
 
@@ -90,6 +95,11 @@ struct CacheBlock {
       && Memory == CB.Memory && StartTime == CB.StartTime && EndTime == CB.EndTime)
       return true;
     return false;
+  }
+
+  void Show() {
+    printf("Id:%d\tFrom:%d-%d\tTo:%d-%d\tST:%lld\tED:%lld\tMemory:%lld\n", Id, NodeIds.first, 
+            Rounds.first, NodeIds.second, Rounds.second, StartTime, EndTime, Memory);
   }
 
   friend bool operator < (CacheBlock a, CacheBlock b) {
@@ -102,10 +112,12 @@ struct CacheBlock {
 struct CacheManager {
   int PEId;
   vector<CacheBlock> Cache;
+  int Count;
   set<long long> TimeTrace;
   
   CacheManager() {
     PEId = -1;
+    Count = 0;
     Cache.clear();
     TimeTrace.clear();
     TimeTrace.insert(0LL);
@@ -113,6 +125,8 @@ struct CacheManager {
 
   void SortCacheBlock() {
     sort(Cache.begin(), Cache.end());
+    for (int i = 0; i < Cache.size(); ++ i)
+      Cache[i].Id = i;
     // for (int i = 0; i < Cache.size(); ++ i)
     //   printf("%lld %lld\n", Cache[i].StartTime, Cache[i].EndTime);
   }
@@ -124,36 +138,46 @@ struct CacheManager {
   }
 
   void DeleteCacheBlock(CacheBlock Block) {
-    int Index = -1;
+    // [L, R)
+    int L = 0, R = Cache.size() - 1;
+    if (Block.Id == Cache[R].Id) {
+      Cache[R].Exist = false;
+      return;
+    }
+    while (R - L > 1) {
+      int M = (L + R) / 2;
+      if (Cache[M].Id <= Block.Id) L = M;
+      else R = M;
+    }
+    if (Cache[L].Id == Block.Id) {
+      Cache[L].Exist = false;
+      return ;
+    }
+    printf("Cannnot find Cache Block\n");
+    Block.Show();
     for (int i = 0; i < Cache.size(); ++ i) {
-      if (Block.Equal(Cache[i])) {
-        Index = i;
-        break;
+      if (Block.Id == Cache[i].Id) {
+        printf("Find %d\n", i);
       }
     }
-    if (Index != -1)
-      Cache.erase(Cache.begin() + Index);
-    else
-      printf("Cannnot find Cache Block From:%d-%d\tTo%d-%d\n", 
-        Block.NodeIds.first, Block.Rounds.first, Block.NodeIds.second, 
-        Block.Rounds.second);
+    assert(1 == 0);
   }
 
   // OPTIMIZING
-  int GetCacheBlockByTime(long long StartTime, long long EndTime, vector<CacheBlock> &Blocks, int Index) {
-    long long MemorySum = 0;
+  int GetCacheBlockByTime(long long StartTime, long long EndTime, vector<CacheBlock> &Blocks, long long &MemorySum, int Index) {
+    MemorySum = 0;
     for (int i = Index; i < Cache.size(); ++ i) {
       if (Cache[i].StartTime > StartTime) {
         Index = i;
         break;
       }
+      if (Cache[i].Exist == false)
+        continue;
       if (Cache[i].StartTime <= StartTime && Cache[i].EndTime >= EndTime) {
         MemorySum = MemorySum + Cache[i].Memory;
         Blocks.push_back(Cache[i]);
       }
     }
-    if (MemorySum <= CACHESIZE)
-      Blocks.clear();
     return Index;
   }
 
@@ -184,6 +208,7 @@ struct Node {
 
   long long MaxOutEdge;
   bool Certained;
+  int PENumb;
 
   Node() {
     Id = -1;
@@ -197,6 +222,7 @@ struct Node {
     StartTime = EndTime = -1;
     MaxOutEdge = 0;
     Certained = false;
+    PENumb = -1;
   }
 
   Node(int a, long long b) {
@@ -211,6 +237,7 @@ struct Node {
     StartTime = EndTime = -1;
     MaxOutEdge = 0;
     Certained = false;
+    PENumb = -1;
   }
 
   void SetTime(long long ST, long long ED) {
@@ -299,17 +326,17 @@ int TotalNode;
 int TotalPE, PeriodTimes, UpRound;
 
 
-bool CmpBySecond(TwoInt a, TwoInt b) {
-  if (a.second != b.second)
-    return a.second > b.second;
-  return a.first < b.first;
+bool CmpByFirst(TwoInt a, TwoInt b) {
+  if (a.first != b.first)
+    return a.first > b.first;
+  return a.second < b.second;
 }
 
 bool CmpByLayer(Node a, Node b) {
   return a.Layer > b.Layer;
 }
 
-int GetTopology(int TotalNode) {
+int GetTopology() {
   memset(Degree, 0, sizeof(Degree));
   vector<TwoInt> TopoCount;
   for (int i = 1; i <= TotalNode; ++ i) {
@@ -361,46 +388,11 @@ int GetTopology(int TotalNode) {
   return NeedPE;
 }
 
-vector<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
-  vector<int> ArrangedGoods, UnArrangedGoods;
-  int Sum = 0;
-  for (int i = 0; i < Goods.size(); ++ i)
-    Sum = Sum + Goods[i];
-  if (Sum <= BinSize) {
-    for (int i = 0; i < Goods.size(); ++ i)
-      ArrangedGoods.push_back(i);
-    return ArrangedGoods;
-  }
-
+set<int> Dynamic(vector<TwoInt> Goods, int BinSize) {
+  set<int> ArrangedGoods;
   memset(DP, 0, sizeof(DP));
-  bool RE = false;
-  if (BinSize > MAXSIZE) {
-    RE = true;
-    // printf("### Bad BinSize Of %d ###\n", BinSize);
-    // printf("Good Size:%lu\n", Goods.size());
-    BinSize = Sum - BinSize;
-    // printf("BinSize:%d\tSum:%d\tMAXSIZE:%d\n", BinSize, Sum, MAXSIZE);
-  }
-  assert(BinSize <= MAXSIZE);
-  if (Goods.size() >= MAXN) {
-    vector<TwoInt> GreedyGoods;
-    for (int i = 0; i < Goods.size(); ++ i)
-      GreedyGoods.push_back(make_pair(i, Goods[i]));
-    sort(GreedyGoods.begin(), GreedyGoods.end(), CmpBySecond);
-    for (int i = 0; i < GreedyGoods.size(); ++ i) {
-      TwoInt good = GreedyGoods[i];
-      if (BinSize >= good.second) {
-        ArrangedGoods.push_back(good.first);
-        BinSize = BinSize - good.second;
-      }
-    }
-    sort(ArrangedGoods.begin(), ArrangedGoods.end());
-    return ArrangedGoods;
-  }
-  assert(Goods.size() < MAXN);
-
   for (int i = 1; i <= Goods.size(); ++ i) {
-    int S = Goods[i - 1];
+    int S = Goods[i - 1].first;
     for (int j = BinSize; j >= 0; -- j) {
       if (j >= S && DP[i - 1][j - S] + S > DP[i][j])
         DP[i][j] = max(DP[i - 1][j], DP[i - 1][j - S] + S);
@@ -411,33 +403,51 @@ vector<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
 
   int k = BinSize;
   for (int i = Goods.size(); i > 0; -- i) {
-    int S = Goods[i - 1];
+    int S = Goods[i - 1].first;
     if (k >= S && DP[i][k] == DP[i - 1][k - S] + S) {
       k = k - S;
-      ArrangedGoods.push_back(i - 1);
-    }
-    else {
-      UnArrangedGoods.push_back(i - 1);
+      ArrangedGoods.insert(Goods[i - 1].second);
     }
   }
-
-  if (RE) {
-    int Dis = BinSize - DP[Goods.size()][BinSize];
-    if (Dis > 0) {
-      int MinDis = INF;
-      int Choose = -1;
-      for (int i = 0; i < UnArrangedGoods.size(); ++ i) {
-        if (Goods[UnArrangedGoods[i]] >= Dis && Goods[UnArrangedGoods[i]] - Dis < MinDis) {
-          MinDis = Goods[UnArrangedGoods[i]] - Dis;
-          Choose = i;
-        }
-      }
-      UnArrangedGoods.erase(UnArrangedGoods.begin() + Choose);
-    }
-    sort(UnArrangedGoods.begin(), UnArrangedGoods.end());
-    return UnArrangedGoods;
-  }
-
-  sort(ArrangedGoods.begin(), ArrangedGoods.end());
   return ArrangedGoods;  
+}
+
+set<int> Greedy(vector<TwoInt> Goods, int BinSize) {
+  set<int> ArrangedGoods;
+  sort(Goods.begin(), Goods.end(), CmpByFirst);
+  for (int i = 0; i < Goods.size(); ++ i) {
+    TwoInt good = Goods[i];
+    if (BinSize >= good.second) {
+      ArrangedGoods.insert(good.second);
+      BinSize = BinSize - good.second;
+    }
+  }
+  return ArrangedGoods;  
+}
+
+set<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
+  set<int> ArrangedGoods;
+  long long Sum = 0;
+  for (int i = 0; i < Goods.size(); ++ i)
+    Sum = Sum + Goods[i];
+  if (Sum <= BinSize) {
+    for (int i = 0; i < Goods.size(); ++ i)
+      ArrangedGoods.insert(i);
+    return ArrangedGoods;
+  }
+
+  vector<TwoInt> RestGoods;
+  for (int i = 0; i < Goods.size(); i++) {
+    if (Goods[i] <= BinSize)
+      RestGoods.push_back(make_pair(Goods[i], i));
+  }
+
+  if (Goods.size() >= MAXN || BinSize > MAXSIZE) {
+    // printf("Greedy\n");
+    return Greedy(RestGoods, BinSize);
+  }
+  else {
+    // printf("Dynamic\n");
+    return Dynamic(RestGoods, BinSize);
+  }
 }

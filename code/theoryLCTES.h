@@ -141,7 +141,7 @@ void Show(Node NodeTable[][MAXN], int TotalRound) {
 }
 
 int Init(int TotalPE) {
-  int NeedPE = GetTopology(TotalNode);
+  int NeedPE = GetTopology();
   sort(NodeList + 1, NodeList + 1 + TotalNode, CmpByTopoOrder);
 
   int MaxRepeat = 0, MinRepeat = INF, SumRepeat = 0, RepeatCount = 0;
@@ -409,25 +409,25 @@ void DetectCacheOverflow(Iteration &iteration) {
       long long ST = TimeTrace[j];
       long long ED = TimeTrace[j + 1];
       vector<CacheBlock> Blocks;
-      Index = Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks, Index);
-      if (Blocks.size() == 0)
+      long long MemorySum = 0;
+      Index = Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks, MemorySum, Index);
+      if (MemorySum <= CACHESIZE)
         continue;
 
       vector<int> Memory;
       for (int k = 0; k < Blocks.size(); ++ k)
         Memory.push_back(Blocks[k].Memory);
-      vector<int> ArrangedSet = ArrangeInFixedSize(Memory, CACHESIZE);
+      set<int> ArrangedSet = ArrangeInFixedSize(Memory, CACHESIZE);
       
-      for (int k = ArrangedSet.size() - 1; k >= 0; -- k)
-        Blocks.erase(Blocks.begin() + ArrangedSet[k]);
-
       iteration.RunOnDRAM = iteration.RunOnDRAM + Blocks.size();
       iteration.RunOnCache = iteration.RunOnCache - Blocks.size();
       for (int k = 0; k < Blocks.size(); ++ k) {
+        if (ArrangedSet.find(k) != ArrangedSet.end())
+          continue;
         CacheBlock CB = Blocks[k];
         Caches[i - 1].DeleteCacheBlock(CB);
         DRAMBlocks.push_back(CB);
-        ReChecked[CB.NodeIds.second][CB.Rounds.second] = true;
+        ReChecked[CB.NodeIds.first][CB.Rounds.first] = true;
       }
     }
   }

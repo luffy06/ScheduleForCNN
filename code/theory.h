@@ -296,8 +296,8 @@ vector<NodeGenerator> NgList;
 
 vector<PEInterval> PEIntervals[MAXPE];
 
-bool Checked[MAXN][MAXR];
-bool ReChecked[MAXN][MAXR];
+bool Checked[MAXN][MINR];
+bool ReChecked[MAXN][MINR];
 
 void ShowInterval(int PEId) {
   printf("PEId:%d\n", PEId);
@@ -322,7 +322,7 @@ void Init(int TotalPE, int UpRound) {
     }
   }
 
-  int NeedPE = GetTopology(TotalNode);
+  int NeedPE = GetTopology();
   // printf("Multi:%d\n", NeedPE);
 
   if (TotalPE >= NeedPE) {
@@ -407,10 +407,10 @@ Node FindPreviousNode(int NodeId, long long Cost, Node KeyNode, NodeGenerator &n
     vector<int> NodeSizes;
     for (int k = 0; k < SamePENodes.size(); ++ k)
       NodeSizes.push_back(SamePENodes[k].Cost);
-    vector<int> ArrangedSet = ArrangeInFixedSize(NodeSizes, BinSize);
+    set<int> ArrangedSet = ArrangeInFixedSize(NodeSizes, BinSize);
     long long Sum = 0;
-    for (int k = 0; k < ArrangedSet.size(); ++ k)
-      Sum = Sum + NodeSizes[ArrangedSet[k]];
+    for (set<int>::iterator it = ArrangedSet.begin(); it != ArrangedSet.end(); ++ it)
+      Sum = Sum + NodeSizes[(*it)];
 
     assert(Sum <= BinSize);
     ArNode.SetTime(interval.StartTime + Sum, interval.StartTime + Sum + ArNode.Cost);
@@ -418,18 +418,18 @@ Node FindPreviousNode(int NodeId, long long Cost, Node KeyNode, NodeGenerator &n
     StartTime = PEIntervals[ArNode.PEId][TargetInt].StartTime;
     EndTime = ArNode.StartTime;
     // printf("Before:[%d, %d]\n", StartTime, EndTime);
-    for (int i = ArrangedSet.size() - 1; i >= 0; -- i) {
-      if (i != 0) assert(ArrangedSet[i] > ArrangedSet[i - 1]);
-      Node NowNode = SamePENodes[ArrangedSet[i]];
+    for (set<int>::iterator it = ArrangedSet.begin(); it != ArrangedSet.end(); ++ it) {
+      Node NowNode = SamePENodes[(*it)];
       NowNode.SetTime(StartTime, EndTime);
       ng.SetNode(NowNode);
-      SamePENodes.erase(SamePENodes.begin() + ArrangedSet[i]);
     }
 
     StartTime = ArNode.EndTime;
     EndTime = PEIntervals[ArNode.PEId][TargetInt].EndTime;
     // printf("After:[%d, %d]\n", StartTime, EndTime);
     for (int i = 0; i < SamePENodes.size(); ++ i) {
+      if (ArrangedSet.find(i) != ArrangedSet.end())
+        continue;
       Node NowNode = SamePENodes[i];
       NowNode.SetTime(StartTime, EndTime);
       ng.SetNode(NowNode);
@@ -528,21 +528,21 @@ void DetectCacheOverflow(NodeGenerator &ng) {
       long long ST = TimeTrace[j];
       long long ED = TimeTrace[j + 1];
       vector<CacheBlock> Blocks;
-      Index = Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks, Index);
-      if (Blocks.size() == 0)
+      long long MemorySum = 0;
+      Index = Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks, MemorySum, Index);
+      if (MemorySum <= CACHESIZE)
         continue;
 
       vector<int> Memory;
       for (int k = 0; k < Blocks.size(); ++ k)
         Memory.push_back(Blocks[k].Memory);
-      vector<int> ArrangedSet = ArrangeInFixedSize(Memory, CACHESIZE);
+      set<int> ArrangedSet = ArrangeInFixedSize(Memory, CACHESIZE);
       
-      for (int k = ArrangedSet.size() - 1; k >= 0; -- k)
-        Blocks.erase(Blocks.begin() + ArrangedSet[k]);
-
       ng.RunOnDRAM = ng.RunOnDRAM + Blocks.size();
       ng.RunOnCache = ng.RunOnCache - Blocks.size();
       for (int k = 0; k < Blocks.size(); ++ k) {
+        if (ArrangedSet.find(k) != ArrangedSet.end())
+          continue;
         CacheBlock CB = Blocks[k];
         Caches[i - 1].DeleteCacheBlock(CB);
         DRAMBlocks.push_back(CB);
