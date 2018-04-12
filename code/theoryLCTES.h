@@ -1,16 +1,9 @@
 const int REPEATLIMITED = 20;
 int REPEAT = 2;
 
-struct NodeComparationByCost {
-  bool operator() (const Node &a, const Node &b) const {
-    if (a.TopoOrder != b.TopoOrder)
-      return a.TopoOrder > b.TopoOrder;
-    else if (a.Cost != b.Cost)
-      return a.Cost < b.Cost;
-    return a.Id > b.Id;    
-  }
-};
-
+// TopoOrder:         small -> big
+// MaxOutEdge - Cost: big -> small
+// Id:                small -> big
 struct NodeComparationByOutEdge {
   bool operator() (const Node &a, const Node &b) const {
     if (a.TopoOrder != b.TopoOrder)
@@ -21,14 +14,16 @@ struct NodeComparationByOutEdge {
   }
 };
 
-struct TimeInterval : PEInterval {
-  TimeInterval(int a, long long b, long long c) : PEInterval(a, b, c) {
-  }
-
-  friend bool operator< (TimeInterval a, TimeInterval b) {
-    if (a.EndTime != b.EndTime)
-      return a.EndTime > b.EndTime;
-    return a.PEId > b.PEId;
+// TopoOrder: small -> big
+// Cost:      big -> small
+// Id:        small -> big
+struct NodeComparationByCost {
+  bool operator() (const Node &a, const Node &b) const {
+    if (a.TopoOrder != b.TopoOrder)
+      return a.TopoOrder > b.TopoOrder;
+    else if (a.Cost != b.Cost)
+      return a.Cost < b.Cost;
+    return a.Id > b.Id;
   }
 };
 
@@ -94,26 +89,6 @@ Node IterNodeTime[REPEATLIMITED * 2 + 1][MAXN];
 vector<Iteration> IterList;
 
 bool ReChecked[MAXN][REPEATLIMITED * 2 + 1];
-
-bool CmpByTopoOrder(Node a, Node b) {
-  if (a.TopoOrder != b.TopoOrder)
-    return a.TopoOrder < b.TopoOrder;
-  else if (a.Cost != b.Cost)
-    return a.Cost < b.Cost;
-  return a.Id < b.Id;
-}
-
-bool CmpEdgeByFromCost(Edge a, Edge b) {
-  if (NodeList[a.From].Cost != NodeList[b.From].Cost)
-    return NodeList[a.From].Cost > NodeList[b.From].Cost;
-  return a.From < b.From;
-}
-
-bool CmpByTime(Node a, Node b) {
-  if (a.StartTime != b.StartTime)
-    return a.StartTime < b.StartTime;
-  return a.EndTime < b.EndTime;
-}
 
 void Show(Node NodeTable[][MAXN], int TotalRound) {
   vector<Node> PELine[MAXPE];

@@ -1,50 +1,17 @@
 Node NodeTime[MAXR][MAXN];
 
-bool CmpByPENumb(Node a, Node b) {
-  return a.PENumb < b.PENumb;
-}
-
-bool CmpByTopoOrder(Node a, Node b) {
-  if (a.TopoOrder != b.TopoOrder)
-    return a.TopoOrder < b.TopoOrder;
-  else if (a.Id != b.Id)
-    return a.Id < b.Id;
-  return a.Round < b.Round;
-}
-
+// TopoOrder: small -> big
+// Cost:      big -> small
+// Id:        small -> big
 struct NodeComparationByCost {
   bool operator() (const Node &a, const Node &b) const {
     if (a.TopoOrder != b.TopoOrder)
-      return a.TopoOrder < b.TopoOrder;
+      return a.TopoOrder > b.TopoOrder;
     else if (a.Cost != b.Cost)
       return a.Cost < b.Cost;
     return a.Id > b.Id;
   }
 };
-
-struct TimeInterval : PEInterval {
-  int Count;
-
-  TimeInterval(int a, long long b, long long c) : PEInterval(a, b, c) {
-    Count = 0;
-  }
-
-  friend bool operator< (TimeInterval a, TimeInterval b) {
-    if (a.EndTime != b.EndTime)
-      return a.EndTime > b.EndTime;
-    return a.PEId > b.PEId;
-  }
-};
-
-void ShowQueue(priority_queue<TimeInterval> PEs) {
-  while (!PEs.empty()) {
-    TimeInterval TI = PEs.top();
-    PEs.pop();
-
-    printf("%lld %lld\n", TI.StartTime, TI.EndTime);
-  }
-  printf("#########################################################\n");
-}
 
 TwoInt DetectCacheOverflow(int PENumb, int RunOnCache) {
   TwoInt RunPlace = make_pair(RunOnCache, 0);
@@ -53,10 +20,10 @@ TwoInt DetectCacheOverflow(int PENumb, int RunOnCache) {
     Caches[i - 1].SortCacheBlock();
     vector<long long> TimeTrace = Caches[i - 1].GetTimeTrace();
     int Index = 0;
-    printf("PE:%d/%d\tTimeTrace Size:%lu\n", i, PENumb, TimeTrace.size());
+    // printf("PE:%d/%d\tTimeTrace Size:%lu\n", i, PENumb, TimeTrace.size());
     for (int j = 0; j < TimeTrace.size() - 1; ++ j) {
-      if (j % 10000 == 0)
-        printf("%d/%lu %d\n", j, TimeTrace.size(), Index);
+      // if (j % 10000 == 0)
+      //   printf("%d/%lu %d\n", j, TimeTrace.size(), Index);
       long long ST = TimeTrace[j];
       long long ED = TimeTrace[j + 1];
       vector<CacheBlock> Blocks;
@@ -95,9 +62,6 @@ void BFS() {
   }
 
   sort(ReCheckedNodes.begin(), ReCheckedNodes.end(), CmpByTopoOrder);
-  for (int i = 0; i < ReCheckedNodes.size(); ++ i)
-    ReCheckedNodes[i].Show();
-  assert(1 == 0);
 
   for (int i = 0; i < ReCheckedNodes.size(); ++ i) {
     Node node = ReCheckedNodes[i];
@@ -105,13 +69,9 @@ void BFS() {
       continue;
     priority_queue<Node, vector<Node>, NodeComparationByCost> que;
     que.push(node);
-    printf("Start BFS\n");
-    node.Show();
-    printf("####\n");
     while (!que.empty()) {
       Node FromNode = que.top();
       que.pop();
-      // FromNode.Show();
       NodeTime[FromNode.Round][FromNode.Id].Certained = true;
 
       vector<Edge> Edges = EdgeList[FromNode.Id];
@@ -140,9 +100,9 @@ int Init() {
     Caches.push_back(CM);
   }
 
-  sort(NodeList + 1, NodeList + 1 + TotalNode, CmpByTopoOrder);
-  for (int i = 1; i <= TotalNode; ++ i) {
-    for (int r = 1; r <= PeriodTimes; ++ r) {
+  sort(NodeList + 1, NodeList + 1 + TotalNode, CmpByLayer);
+  for (int r = 1; r <= PeriodTimes; ++ r) {
+    for (int i = 1; i <= TotalNode; ++ i) {
       TimeInterval TI = PEs.top();
       PEs.pop();
 
@@ -164,14 +124,15 @@ int Init() {
         RunOnCache = RunOnCache + 1;
       }
 
-      NodeTime[r][i].Copy(NodeList[i]);
-      NodeTime[r][i].Certained = true;
-      NodeTime[r][i].PENumb = TI.Count;
-      NodeTime[r][i].PEId = TI.PEId;
-      NodeTime[r][i].Round = r;
-      NodeTime[r][i].SetTime(StartTime, StartTime +  NodeTime[r][i].Cost);
+      int Id = NodeList[i].Id;
+      NodeTime[r][Id].Copy(NodeList[i]);
+      NodeTime[r][Id].Certained = true;
+      NodeTime[r][Id].PENumb = TI.Count;
+      NodeTime[r][Id].PEId = TI.PEId;
+      NodeTime[r][Id].Round = r;
+      NodeTime[r][Id].SetTime(StartTime, StartTime +  NodeTime[r][Id].Cost);
 
-      TI.EndTime = max(TI.EndTime, NodeTime[r][i].EndTime);
+      TI.EndTime = max(TI.EndTime, NodeTime[r][Id].EndTime);
       TI.Count = TI.Count + 1;
       PEs.push(TI);
     }

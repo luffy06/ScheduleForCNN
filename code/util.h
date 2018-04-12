@@ -1,4 +1,4 @@
-#define THEORY 3
+#define THEORY 2
 #define MAXM 70000
 #define MAXN 1500
 #define MAXSIZE 50000
@@ -289,6 +289,8 @@ struct Edge {
   }
 };
 
+// PEId:      small -> big
+// StartTime: small -> big
 struct PEInterval {
   int PEId;
   long long StartTime;
@@ -313,6 +315,23 @@ struct PEInterval {
   }
 };
 
+// EndTime:   small -> big
+// PEId:      small -> big
+struct TimeInterval : PEInterval {
+  int Count;
+
+  TimeInterval(int a, long long b, long long c) : PEInterval(a, b, c) {
+    Count = 0;
+  }
+
+  friend bool operator< (TimeInterval a, TimeInterval b) {
+    if (a.EndTime != b.EndTime)
+      return a.EndTime < b.EndTime;
+    return a.PEId < b.PEId;
+  }
+};
+
+
 vector<Edge> EdgeList[MAXN];
 vector<Edge> ReEdgeList[MAXN];
 Node NodeList[MAXN];
@@ -326,15 +345,90 @@ int TotalNode;
 int TotalPE, PeriodTimes, UpRound;
 
 
+// first:     big -> small
+// second:    small -> big
 bool CmpByFirst(TwoInt a, TwoInt b) {
   if (a.first != b.first)
     return a.first > b.first;
   return a.second < b.second;
 }
 
+// Layer:     small -> big
+// TopoOrder: small -> big
 bool CmpByLayer(Node a, Node b) {
-  return a.Layer > b.Layer;
+  if (a.Layer != b.Layer)
+    return a.Layer < b.Layer;
+  return a.TopoOrder < b.TopoOrder;
 }
+
+// TopoOrder: small -> big
+// Id:        small -> big
+// Round:     small -> big
+bool CmpByTopoOrder(Node a, Node b) {
+  if (a.TopoOrder != b.TopoOrder)
+    return a.TopoOrder < b.TopoOrder;
+  else if (a.Id != b.Id)
+    return a.Id < b.Id;
+  return a.Round < b.Round;
+}
+
+// PENumb:    small -> big
+bool CmpByPENumb(Node a, Node b) {
+  return a.PENumb < b.PENumb;
+}
+
+// Id:        small -> big
+// Round:     small -> big
+bool CmpById(Node a, Node b) {
+  if (a.Id != b.Id)
+    return a.Id < b.Id;
+  return a.Round < b.Round;
+}
+
+// Cost:      big -> small
+// Id:        small -> big
+bool CmpByCost(Node a, Node b) {
+  if (a.Cost != b.Cost)
+    return a.Cost > b.Cost;
+  return a.Id < b.Id;
+}
+
+// PE:        small -> big
+// StartTime: small -> big
+// EndTime:   small -> big
+bool CmpByPE(Node a, Node b) {
+  if (a.PEId != b.PEId)
+    return a.PEId < b.PEId;
+  else if (a.StartTime != b.StartTime)
+    return a.StartTime < b.StartTime;
+  return a.EndTime < b.EndTime;
+}
+
+// StartTime: small -> big
+// EndTime:   small -> big
+bool CmpByTime(Node a, Node b) {
+  if (a.StartTime != b.StartTime)
+    return a.StartTime < b.StartTime;
+  return a.EndTime < b.EndTime;
+}
+
+// Cost:      big -> small
+// FromId:    small -> big
+bool CmpEdgeByFromCost(Edge a, Edge b) {
+  if (NodeList[a.From].Cost != NodeList[b.From].Cost)
+    return NodeList[a.From].Cost > NodeList[b.From].Cost;
+  return a.From < b.From;
+}
+
+// EndTime:   small -> big
+// PEId:      small -> big
+struct NodeComparationByEndTime {
+  bool operator() (const Node &a, const Node &b) const {
+    if (a.EndTime != b.EndTime)
+      return a.EndTime > b.EndTime;
+    return a.PEId > b.PEId;    
+  }
+};
 
 int GetTopology() {
   memset(Degree, 0, sizeof(Degree));
@@ -377,10 +471,10 @@ int GetTopology() {
   Count = 0, Order = 0;
   int NeedPE = 0;
   for (int i = 1; i <= TotalNode; ++ i) {
-    if (NodeList[i].TopoOrder != Order) {
+    if (NodeList[i].Layer != Order) {
       NeedPE = max(NeedPE, Count);
       Count = 0;
-      Order = NodeList[i].TopoOrder;
+      Order = NodeList[i].Layer;
     }
     Count = Count + 1;
   }
@@ -436,13 +530,19 @@ set<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
     return ArrangedGoods;
   }
 
+  Sum = 0;
   vector<TwoInt> RestGoods;
   for (int i = 0; i < Goods.size(); i++) {
-    if (Goods[i] <= BinSize)
+    if (Goods[i] <= BinSize) {
+      Sum = Sum + Goods[i];
       RestGoods.push_back(make_pair(Goods[i], i));
+    }
   }
 
-  if (Goods.size() >= MAXN || BinSize > MAXSIZE) {
+  if (Sum == 0)
+    return ArrangedGoods;
+
+  if (RestGoods.size() >= MAXN || BinSize > MAXSIZE) {
     // printf("Greedy\n");
     return Greedy(RestGoods, BinSize);
   }

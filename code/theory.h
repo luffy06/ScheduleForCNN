@@ -1,54 +1,7 @@
 
-bool CmpByCost(Node a, Node b) {
-  if (a.Cost != b.Cost)
-    return a.Cost > b.Cost;
-  return a.Id < b.Id;
-}
-
-bool CmpById(Node a, Node b) {
-  if (a.Id != b.Id)
-    return a.Id < b.Id;
-  return a.Round < b.Round;
-}
-
-bool CmpByPE(Node a, Node b) {
-  if (a.PEId != b.PEId)
-    return a.PEId < b.PEId;
-  else if (a.StartTime != b.StartTime)
-    return a.StartTime < b.StartTime;
-  else if (a.EndTime != b.EndTime)
-    return a.EndTime < b.EndTime;
-  else if (a.TopoOrder != b.TopoOrder)
-    return a.TopoOrder < b.TopoOrder;
-  else if (a.Round != b.Round)
-    return a.Round < b.Round;
-  else if (a.Cost != b.Cost)
-    return a.Cost < b.Cost;
-  return a.Id < b.Id;
-}
-
-bool CmpByTopoOrder(Node a, Node b) {
-  if (a.TopoOrder != b.TopoOrder)
-    return a.TopoOrder < b.TopoOrder;
-  else if (a.Cost != b.Cost)
-    return a.Cost < b.Cost;
-  return a.Id < b.Id;
-}
-
-bool CmpEdgeByFromCost(Edge a, Edge b) {
-  if (NodeList[a.From].Cost != NodeList[b.From].Cost)
-    return NodeList[a.From].Cost > NodeList[b.From].Cost;
-  return a.From < b.From;
-}
-
-struct NodeComparationByEndTime {
-  bool operator() (const Node &a, const Node &b) const {
-    if (a.EndTime != b.EndTime)
-      return a.EndTime > b.EndTime;
-    return a.PEId > b.PEId;    
-  }
-};
-
+// TopoOrder: big -> small
+// Cost:      big -> small
+// Id:        small -> big
 struct NodeComparationByCost {
   bool operator() (const Node &a, const Node &b) const {
     if (a.TopoOrder != b.TopoOrder)
