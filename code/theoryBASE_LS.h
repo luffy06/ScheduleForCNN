@@ -100,55 +100,65 @@ int Init() {
     Caches.push_back(CM);
   }
 
+  // sort(NodeList + 1, NodeList + 1 + TotalNode, CmpByTopoOrder);
   sort(NodeList + 1, NodeList + 1 + TotalNode, CmpByLayer);
-  for (int r = 1; r <= PeriodTimes; ++ r) {
-    for (int i = 1; i <= TotalNode; ++ i) {
-      TimeInterval TI = PEs.top();
-      PEs.pop();
 
-      long long StartTime = TI.EndTime;
-      vector<Edge> Edges = ReEdgeList[i];
-      for (int j = 0; j < Edges.size(); ++ j) {
-        Edge e = Edges[j];
-        Node FromNode = NodeTime[r][e.From];
-        StartTime = max(StartTime, FromNode.EndTime + Ceil(e.Memory, CACHESPEED));
+  int R = 1;
+  int LimitedRound = TotalPE;
+  while (R <= PeriodTimes) {
+    int EndRound = (R + TotalPE <= PeriodTimes ? R + TotalPE : PeriodTimes);
+    for (int r = R; r <= EndRound; ++ r) {
+      for (int j = 1; j <= TotalNode; ++ j) {
+        TimeInterval TI = PEs.top();
+        PEs.pop();
+        Node node = NodeList[j];
+        node.Round = r;
+
+        long long StartTime = TI.EndTime;
+        vector<Edge> Edges = ReEdgeList[node.Id];
+        for (int j = 0; j < Edges.size(); ++ j) {
+          Edge e = Edges[j];
+          Node FromNode = NodeTime[node.Round][e.From];
+          StartTime = max(StartTime, FromNode.EndTime + Ceil(e.Memory, CACHESPEED));
+        }
+
+        for (int j = 0; j < Edges.size(); ++ j) {
+          Edge e = Edges[j];
+          Node FromNode = NodeTime[node.Round][e.From];
+          long long Cost = Ceil(e.Memory, CACHESPEED);
+          CacheBlock CB = CacheBlock(e.From, node.Round, e.To, node.Round, e.Memory, 
+                                    FromNode.EndTime, StartTime + Cost);
+          Caches[TI.PEId - 1].AddCacheBlock(CB);
+          RunOnCache = RunOnCache + 1;
+        }
+
+        node.Certained = true;
+        node.PENumb = TI.Count;
+        node.PEId = TI.PEId;
+        node.SetTime(StartTime, node.Cost + StartTime);
+        NodeTime[node.Round][node.Id].Copy(node);
+
+        TI.EndTime = max(TI.EndTime, node.EndTime);
+        TI.Count = TI.Count + 1;
+        PEs.push(TI);
       }
-
-      for (int j = 0; j < Edges.size(); ++ j) {
-        Edge e = Edges[j];
-        Node FromNode = NodeTime[r][e.From];
-        long long Cost = Ceil(e.Memory, CACHESPEED);
-        CacheBlock CB = CacheBlock(e.From, r, e.To, r, e.Memory, FromNode.EndTime, 
-                                  StartTime + Cost);
-        Caches[TI.PEId - 1].AddCacheBlock(CB);
-        RunOnCache = RunOnCache + 1;
-      }
-
-      int Id = NodeList[i].Id;
-      NodeTime[r][Id].Copy(NodeList[i]);
-      NodeTime[r][Id].Certained = true;
-      NodeTime[r][Id].PENumb = TI.Count;
-      NodeTime[r][Id].PEId = TI.PEId;
-      NodeTime[r][Id].Round = r;
-      NodeTime[r][Id].SetTime(StartTime, StartTime +  NodeTime[r][Id].Cost);
-
-      TI.EndTime = max(TI.EndTime, NodeTime[r][Id].EndTime);
-      TI.Count = TI.Count + 1;
-      PEs.push(TI);
     }
+    R = EndRound + 1;
   }
+
   return RunOnCache;
 }
 
-FinalResult CalcBaseFinalResult(int RunOnCache) {
+FinalResult CalcFinalResult(int RunOnCache) {
   long long TotalCost = 0;
   for (int i = 1; i <= TotalNode; ++ i)
     TotalCost = TotalCost + NodeList[i].Cost;
 
-  printf("Detect Cache Overflow\n");
+  // printf("Detect Cache Overflow\n");
   TwoInt RunPlace = DetectCacheOverflow(TotalPE, RunOnCache);
-  printf("BFS\n");
+  // printf("BFS\n");
   BFS();
+  // printf("Calculate FinalResult\n");
 
   vector<Node> PELine[MAXPE];
   for (int i = 1; i <= TotalNode; ++ i) {
@@ -161,6 +171,8 @@ FinalResult CalcBaseFinalResult(int RunOnCache) {
   long long TotalTime = 0;
   for (int i = 1; i <= TotalPE; ++ i) {
     sort(PELine[i].begin(), PELine[i].end(), CmpByPENumb);
+    if (PELine[i].size() == 0)
+      continue;
     TotalTime = max(TotalTime, PELine[i][0].EndTime);
     for (int j = 1; j < PELine[i].size(); ++ j) {
       assert(PELine[i][j].PENumb > PELine[i][j - 1].PENumb);
@@ -188,6 +200,6 @@ FinalResult CalcBaseFinalResult(int RunOnCache) {
 
 FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
   int RunOnCache = Init();
-  FinalResult FR = CalcBaseFinalResult(RunOnCache);
+  FinalResult FR = CalcFinalResult(RunOnCache);
   return FR;
 }

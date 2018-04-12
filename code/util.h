@@ -1,11 +1,11 @@
-#define THEORY 2
+#define THEORY 3
 #define MAXM 70000
 #define MAXN 1500
 #define MAXSIZE 50000
 #define MAXPE 300
 #define MINR 505
 #define MAXR 6005
-#define LIMITEDRATIO 0.85
+#define LIMITEDRATIO 0.95
 #define ALPHA 0.8
 const int INF = 0x3f3f3f3f;
 const long long DRAMSPEED = 10000;
@@ -261,6 +261,7 @@ struct Node {
     EndTime = t.EndTime;
     MaxOutEdge = t.MaxOutEdge;
     Certained = t.Certained;
+    PENumb = t.PENumb;
   }
 
   void Show() {
@@ -308,7 +309,7 @@ struct PEInterval {
     EndTime = b;
   }
 
-  friend bool operator < (PEInterval a, PEInterval b) {
+  friend bool operator< (PEInterval a, PEInterval b) {
     if (a.PEId != b.PEId)
       return a.PEId < b.PEId;
     return a.StartTime < b.StartTime;
@@ -326,8 +327,8 @@ struct TimeInterval : PEInterval {
 
   friend bool operator< (TimeInterval a, TimeInterval b) {
     if (a.EndTime != b.EndTime)
-      return a.EndTime < b.EndTime;
-    return a.PEId < b.PEId;
+      return a.EndTime > b.EndTime;
+    return a.PEId > b.PEId;
   }
 };
 
@@ -457,8 +458,9 @@ int GetTopology() {
     for (int i = 0; i < EdgeList[f.Id].size(); ++ i) {
       Edge e = EdgeList[f.Id][i];
       Degree[e.To] = Degree[e.To] - 1;
-      if (Degree[e.To] == 0) 
+      if (Degree[e.To] == 0) {
         q.push(NodeList[e.To]);
+      }
     }
 
     if (Count == 0) {
