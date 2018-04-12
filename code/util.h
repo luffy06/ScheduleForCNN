@@ -1,11 +1,11 @@
-#define THEORY 3
+#define THEORY 1
 #define MAXM 70000
 #define MAXN 1500
 #define MAXSIZE 50000
 #define MAXPE 300
 #define MINR 505
 #define MAXR 6005
-#define LIMITEDRATIO 0.95
+#define LIMITEDRATIO 0.90
 #define ALPHA 0.8
 const int INF = 0x3f3f3f3f;
 const long long DRAMSPEED = 10000;

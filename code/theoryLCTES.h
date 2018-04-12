@@ -448,8 +448,8 @@ void InitIteration(Iteration &iteration) {
   int PhasePE = iteration.PhasePE;
   Phase phase = Phase(PhasePE, TotalNode);
   // printf("Init Phase\n");
-  // InitPhasePriority(phase);
-  InitPhaseOrigin(phase);
+  InitPhasePriority(phase);
+  // InitPhaseOrigin(phase);
   // printf("Init Iteration\n");
 
   for (int i = 1; i <= TotalNode; ++ i)
