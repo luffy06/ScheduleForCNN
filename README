@@ -1,7 +1,7 @@
 # 针对CNN的任务调度算法
 
 # 问题
-[x] 执行时间
+[ ] 执行时间
 我发现funll-count-dense-model里，LCTES的结果比BASELINE还要差，为什么？
 [x] Prelogue
 我们的算法里，随着CORE数量的变化，PRELOGUE的长度变化的趋势是不一致的。
@@ -11,7 +11,7 @@
 为什么会出现趋势不一致的情况？
 [x] 还是Prelogue
 为什么LCTES 32core的情况prelogue都是0？什么样的调度能让prelogue都是0？
-[ ] Retiming
+[x] Retiming
 Retiming也存在趋势不一致的情况
 [x] 还是retiming
 为什么我们的retiming都是上百，lctes的只有1或者2?
