@@ -1,6 +1,6 @@
-#define THEORY 1
+#define THEORY 3
 #define MAXM 70000
-#define MAXN 1500
+#define MAXN 2000
 #define MAXSIZE 50000
 #define MAXPE 300
 #define MINR 505
@@ -513,9 +513,9 @@ set<int> Greedy(vector<TwoInt> Goods, int BinSize) {
   sort(Goods.begin(), Goods.end(), CmpByFirst);
   for (int i = 0; i < Goods.size(); ++ i) {
     TwoInt good = Goods[i];
-    if (BinSize >= good.second) {
+    if (BinSize >= good.first) {
       ArrangedGoods.insert(good.second);
-      BinSize = BinSize - good.second;
+      BinSize = BinSize - good.first;
     }
   }
   return ArrangedGoods;  
