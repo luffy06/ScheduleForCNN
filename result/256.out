@@ -1,140 +1,140 @@
-Dealing with LeNet.in
+DEALING WITH alexnet_mnist-tflearn.in
 ######### Using Theory1 #########
-TotalTime:8431248 Prelogue:2382744 Retiming:39 RunOnCache:4234330 RunOnDRAM:212972 MAXRatio:0.964976 CPURatio:0.702293
+TotalTime:3395000 Kernel:1015000 Prelogue:1190000 Retiming:34 RunOnCache:1829952 RunOnDRAM:684736 MAXRatio:0.925929 CPURatio:0.601678
 ######### End #########
 ######### Using Theory2 #########
-TotalTime:22470720 Prelogue:748968 Retiming:2 RunOnCache:5524347 RunOnDRAM:9086 MAXRatio:0.275886 CPURatio:0.263507
+TotalTime:17851309 Kernel:5250385 Prelogue:6300462 Retiming:42 RunOnCache:1835424 RunOnDRAM:576 MAXRatio:0.346480 CPURatio:0.114428
 ######### End #########
 ######### Using Theory3 #########
-TotalTime:506282000 Prelogue:0 Retiming:0 RunOnCache:3018000 RunOnDRAM:1416000 MAXRatio:0.012004 CPURatio:0.011695
+TotalTime:16572548 Kernel:16572548 Prelogue:0 Retiming:0 RunOnCache:1832963 RunOnDRAM:675037 MAXRatio:0.123258 CPURatio:0.123258
 ######### End #########
-Dealing with alexnet_mnist.in
+DEALING WITH alexnet_mnist.in
 ######### Using Theory1 #########
-TotalTime:10045000 Prelogue:3290000 Retiming:94 RunOnCache:14202740 RunOnDRAM:627784 MAXRatio:0.967179 CPURatio:0.652251
+TotalTime:6930000 Kernel:3780000 Prelogue:1575000 Retiming:45 RunOnCache:2138598 RunOnDRAM:1260798 MAXRatio:0.904443 CPURatio:0.702753
 ######### End #########
 ######### Using Theory2 #########
-TotalTime:46714266 Prelogue:618732 Retiming:2 RunOnCache:18868200 RunOnDRAM:68400 MAXRatio:0.141189 CPURatio:0.140254
+TotalTime:51712470 Kernel:18654270 Prelogue:16529100 Retiming:70 RunOnCache:2137200 RunOnDRAM:4800 MAXRatio:0.137497 CPURatio:0.094176
 ######### End #########
 ######### Using Theory3 #########
-TotalTime:1712674800 Prelogue:0 Retiming:0 RunOnCache:9748800 RunOnDRAM:5047200 MAXRatio:0.003826 CPURatio:0.003826
+TotalTime:52271670 Kernel:52271670 Prelogue:0 Retiming:0 RunOnCache:2133953 RunOnDRAM:1262047 MAXRatio:0.093169 CPURatio:0.093169
 ######### End #########
-Dealing with alexnet_oxflowers17.in
+DEALING WITH alexnet_oxflowers17.in
 ######### Using Theory1 #########
-TotalTime:7945000 Prelogue:2730000 Retiming:78 RunOnCache:12879600 RunOnDRAM:284400 MAXRatio:0.966451 CPURatio:0.638624
+TotalTime:5040000 Kernel:2100000 Prelogue:1470000 Retiming:42 RunOnCache:1915559 RunOnDRAM:1129043 MAXRatio:0.957835 CPURatio:0.652669
 ######### End #########
 ######### Using Theory2 #########
-TotalTime:51101400 Prelogue:340676 Retiming:1 RunOnCache:16909800 RunOnDRAM:70800 MAXRatio:0.099290 CPURatio:0.099290
+TotalTime:87017000 Kernel:65568200 Prelogue:10724400 Retiming:60 RunOnCache:1901062 RunOnDRAM:18938 MAXRatio:0.561828 CPURatio:0.037802
 ######### End #########
 ######### Using Theory3 #########
-TotalTime:1486820400 Prelogue:0 Retiming:0 RunOnCache:8682000 RunOnDRAM:4482000 MAXRatio:0.003413 CPURatio:0.003413
+TotalTime:65372120 Kernel:65372120 Prelogue:0 Retiming:0 RunOnCache:1908021 RunOnDRAM:1127979 MAXRatio:0.050319 CPURatio:0.050319
 ######### End #########
-Dealing with cnn_sentence_classif.in
+DEALING WITH cnn_sentence_classif.in
 ######### Using Theory1 #########
-TotalTime:8214504 Prelogue:2219241 Retiming:67 RunOnCache:12775672 RunOnDRAM:197288 MAXRatio:0.971360 CPURatio:0.712141
+TotalTime:3270750 Kernel:2584750 Prelogue:343000 Retiming:28 RunOnCache:2404080 RunOnDRAM:769920 MAXRatio:0.911272 CPURatio:0.819121
 ######### End #########
 ######### Using Theory2 #########
-TotalTime:78739070 Prelogue:470084 Retiming:2 RunOnCache:16690648 RunOnDRAM:42084 MAXRatio:0.074666 CPURatio:0.074295
+TotalTime:19911036 Kernel:16872404 Prelogue:1519316 Retiming:19 RunOnCache:2402400 RunOnDRAM:12012 MAXRatio:0.145185 CPURatio:0.134556
 ######### End #########
 ######### Using Theory3 #########
-TotalTime:1499625600 Prelogue:0 Retiming:0 RunOnCache:10149600 RunOnDRAM:2810400 MAXRatio:0.003901 CPURatio:0.003901
+TotalTime:39337896 Kernel:39337896 Prelogue:0 Retiming:0 RunOnCache:2408012 RunOnDRAM:765988 MAXRatio:0.068106 CPURatio:0.068106
 ######### End #########
-Dealing with convnet_highway_mnist.in
+DEALING WITH convnet_highway_mnist.in
 ######### Using Theory1 #########
-TotalTime:10203840 Prelogue:3578430 Retiming:202 RunOnCache:49188000 RunOnDRAM:126000 MAXRatio:0.978196 CPURatio:0.636847
+TotalTime:3588496 Kernel:2256240 Prelogue:666128 Retiming:62 RunOnCache:7558278 RunOnDRAM:3841110 MAXRatio:0.936354 CPURatio:0.764579
 ######### End #########
 ######### Using Theory2 #########
-TotalTime:189944849 Prelogue:0 Retiming:0 RunOnCache:64226000 RunOnDRAM:66000 MAXRatio:0.034143 CPURatio:0.034211
+TotalTime:79809912 Kernel:66069744 Prelogue:6870084 Retiming:47 RunOnCache:7556000 RunOnDRAM:22000 MAXRatio:0.037541 CPURatio:0.034378
 ######### End #########
 ######### Using Theory3 #########
-TotalTime:1677594000 Prelogue:0 Retiming:0 RunOnCache:33516000 RunOnDRAM:15798000 MAXRatio:0.003874 CPURatio:0.003874
+TotalTime:96653374 Kernel:96653374 Prelogue:0 Retiming:0 RunOnCache:7559991 RunOnDRAM:3828009 MAXRatio:0.028387 CPURatio:0.028387
 ######### End #########
-Dealing with funll_count_dense_model.in
+DEALING WITH dense_model.in
 ######### Using Theory1 #########
-TotalTime:232312 Prelogue:54806 Retiming:67 RunOnCache:7302641 RunOnDRAM:39232 MAXRatio:0.977867 CPURatio:0.740720
+TotalTime:68440 Kernel:55680 Prelogue:6380 Retiming:22 RunOnCache:1873680 RunOnDRAM:71616 MAXRatio:0.962305 CPURatio:0.860585
 ######### End #########
 ######### Using Theory2 #########
-TotalTime:7113000 Prelogue:0 Retiming:0 RunOnCache:9985778 RunOnDRAM:6000 MAXRatio:0.034063 CPURatio:0.024192
+TotalTime:1861749 Kernel:1737171 Prelogue:62289 Retiming:27 RunOnCache:1866000 RunOnDRAM:24000 MAXRatio:0.040833 CPURatio:0.031636
 ######### End #########
 ######### Using Theory3 #########
-TotalTime:22026000 Prelogue:0 Retiming:0 RunOnCache:6151200 RunOnDRAM:1174800 MAXRatio:0.011013 CPURatio:0.007812
+TotalTime:1149465 Kernel:1149465 Prelogue:0 Retiming:0 RunOnCache:1889990 RunOnDRAM:54010 MAXRatio:0.051240 CPURatio:0.051240
 ######### End #########
-Dealing with googlenet_oxflowers17.in
+DEALING WITH googlenet_oxflowers17.in
 ######### Using Theory1 #########
-TotalTime:16870000 Prelogue:4550000 Retiming:130 RunOnCache:66306108 RunOnDRAM:2549366 MAXRatio:0.958491 CPURatio:0.701848
+TotalTime:38150000 Kernel:31780000 Prelogue:3185000 Retiming:91 RunOnCache:7770000 RunOnDRAM:7752000 MAXRatio:0.933655 CPURatio:0.856564
 ######### End #########
 ######### Using Theory2 #########
-TotalTime:91456800 Prelogue:609712 Retiming:1 RunOnCache:87875400 RunOnDRAM:418800 MAXRatio:0.129462 CPURatio:0.129462
+TotalTime:137590360 Kernel:1399224 Prelogue:68095568 Retiming:146 RunOnCache:7742400 RunOnDRAM:45600 MAXRatio:0.467086 CPURatio:0.237502
 ######### End #########
 ######### Using Theory3 #########
-TotalTime:3440772000 Prelogue:0 Retiming:0 RunOnCache:40320000 RunOnDRAM:28524000 MAXRatio:0.003441 CPURatio:0.003441
+TotalTime:1099748878 Kernel:1099748878 Prelogue:0 Retiming:0 RunOnCache:7601897 RunOnDRAM:7920103 MAXRatio:0.029714 CPURatio:0.029714
 ######### End #########
-Dealing with vgg_A-LEN.in
+DEALING WITH vgg_A-LEN.in
 ######### Using Theory1 #########
-TotalTime:10220000 Prelogue:3465000 Retiming:99 RunOnCache:23787698 RunOnDRAM:388582 MAXRatio:0.962789 CPURatio:0.638172
+TotalTime:16065000 Kernel:11865000 Prelogue:2100000 Retiming:60 RunOnCache:2827600 RunOnDRAM:1936400 MAXRatio:0.912402 CPURatio:0.795121
 ######### End #########
 ######### Using Theory2 #########
-TotalTime:88662066 Prelogue:1174332 Retiming:2 RunOnCache:29916600 RunOnDRAM:136800 MAXRatio:0.074052 CPURatio:0.073562
+TotalTime:66533920 Kernel:14724720 Prelogue:25904600 Retiming:95 RunOnCache:2868000 RunOnDRAM:24000 MAXRatio:0.312298 CPURatio:0.191987
 ######### End #########
 ######### Using Theory3 #########
-TotalTime:2674843200 Prelogue:0 Retiming:0 RunOnCache:15909600 RunOnDRAM:8210400 MAXRatio:0.002438 CPURatio:0.002438
+TotalTime:730371183 Kernel:730371183 Prelogue:0 Retiming:0 RunOnCache:2847973 RunOnDRAM:1916027 MAXRatio:0.017489 CPURatio:0.017489
 ######### End #########
-Dealing with vgg_A.in
+DEALING WITH vgg_A.in
 ######### Using Theory1 #########
-TotalTime:9520000 Prelogue:3360000 Retiming:96 RunOnCache:20478192 RunOnDRAM:307980 MAXRatio:0.976107 CPURatio:0.633288
+TotalTime:10395000 Kernel:7035000 Prelogue:1680000 Retiming:48 RunOnCache:2527250 RunOnDRAM:1642750 MAXRatio:0.903707 CPURatio:0.760696
 ######### End #########
 ######### Using Theory2 #########
-TotalTime:72651838 Prelogue:962276 Retiming:2 RunOnCache:25185000 RunOnDRAM:129600 MAXRatio:0.083537 CPURatio:0.082983
+TotalTime:42095520 Kernel:12445632 Prelogue:14824944 Retiming:81 RunOnCache:2574000 RunOnDRAM:24000 MAXRatio:0.288029 CPURatio:0.187845
 ######### End #########
 ######### Using Theory3 #########
-TotalTime:2288016000 Prelogue:0 Retiming:0 RunOnCache:13863600 RunOnDRAM:6860400 MAXRatio:0.002635 CPURatio:0.002635
+TotalTime:416384655 Kernel:416384655 Prelogue:0 Retiming:0 RunOnCache:2556019 RunOnDRAM:1613981 MAXRatio:0.018991 CPURatio:0.018991
 ######### End #########
-Dealing with vgg_B.in
+DEALING WITH vgg_B.in
 ######### Using Theory1 #########
-TotalTime:11060000 Prelogue:3570000 Retiming:102 RunOnCache:22930180 RunOnDRAM:487620 MAXRatio:0.981750 CPURatio:0.665744
+TotalTime:12460000 Kernel:8470000 Prelogue:1995000 Retiming:57 RunOnCache:2776800 RunOnDRAM:1873200 MAXRatio:0.915902 CPURatio:0.771827
 ######### End #########
 ######### Using Theory2 #########
-TotalTime:93081232 Prelogue:1232864 Retiming:2 RunOnCache:28620600 RunOnDRAM:130800 MAXRatio:0.079632 CPURatio:0.079104
+TotalTime:51835680 Kernel:12526956 Prelogue:19654362 Retiming:91 RunOnCache:2836800 RunOnDRAM:13200 MAXRatio:0.296845 CPURatio:0.185528
 ######### End #########
 ######### Using Theory3 #########
-TotalTime:2894629200 Prelogue:0 Retiming:0 RunOnCache:15446400 RunOnDRAM:7893600 MAXRatio:0.002544 CPURatio:0.002544
+TotalTime:610549660 Kernel:610549660 Prelogue:0 Retiming:0 RunOnCache:2801896 RunOnDRAM:1848104 MAXRatio:0.015751 CPURatio:0.015751
 ######### End #########
-Dealing with vgg_C.in
+DEALING WITH vgg_C.in
 ######### Using Theory1 #########
-TotalTime:11900000 Prelogue:3850000 Retiming:110 RunOnCache:26887476 RunOnDRAM:403788 MAXRatio:0.951063 CPURatio:0.645518
+TotalTime:13335000 Kernel:8715000 Prelogue:2310000 Retiming:66 RunOnCache:3181804 RunOnDRAM:2185772 MAXRatio:0.922914 CPURatio:0.764952
 ######### End #########
 ######### Using Theory2 #########
-TotalTime:97283562 Prelogue:1288524 Retiming:2 RunOnCache:35985000 RunOnDRAM:148800 MAXRatio:0.079488 CPURatio:0.078962
+TotalTime:56948224 Kernel:9343068 Prelogue:23802578 Retiming:107 RunOnCache:3195600 RunOnDRAM:26400 MAXRatio:0.305700 CPURatio:0.179121
 ######### End #########
 ######### Using Theory3 #########
-TotalTime:3042951600 Prelogue:0 Retiming:0 RunOnCache:17438400 RunOnDRAM:9825600 MAXRatio:0.002524 CPURatio:0.002524
+TotalTime:677897277 Kernel:677897277 Prelogue:0 Retiming:0 RunOnCache:3131998 RunOnDRAM:2232002 MAXRatio:0.015047 CPURatio:0.015047
 ######### End #########
-Dealing with vgg_D.in
+DEALING WITH vgg_D.in
 ######### Using Theory1 #########
-TotalTime:13475000 Prelogue:3955000 Retiming:113 RunOnCache:26499564 RunOnDRAM:791700 MAXRatio:0.959158 CPURatio:0.679451
+TotalTime:14980000 Kernel:11200000 Prelogue:1890000 Retiming:54 RunOnCache:3162000 RunOnDRAM:2190000 MAXRatio:0.908032 CPURatio:0.795589
 ######### End #########
 ######### Using Theory2 #########
-TotalTime:109935248 Prelogue:1456096 Retiming:2 RunOnCache:33622200 RunOnDRAM:634800 MAXRatio:0.083837 CPURatio:0.083282
+TotalTime:64946460 Kernel:10951756 Prelogue:26997352 Retiming:106 RunOnCache:3181200 RunOnDRAM:28800 MAXRatio:0.311956 CPURatio:0.183504
 ######### End #########
 ######### Using Theory3 #########
-TotalTime:3410230800 Prelogue:0 Retiming:0 RunOnCache:17438400 RunOnDRAM:9825600 MAXRatio:0.002685 CPURatio:0.002685
+TotalTime:751057335 Kernel:751057335 Prelogue:0 Retiming:0 RunOnCache:3137971 RunOnDRAM:2214029 MAXRatio:0.015868 CPURatio:0.015868
 ######### End #########
-Dealing with vgg_E.in
+DEALING WITH vgg_E.in
 ######### Using Theory1 #########
-TotalTime:16520000 Prelogue:4200000 Retiming:120 RunOnCache:29901218 RunOnDRAM:1291980 MAXRatio:0.976534 CPURatio:0.730210
+TotalTime:19950000 Kernel:14980000 Prelogue:2485000 Retiming:71 RunOnCache:3508000 RunOnDRAM:2546000 MAXRatio:0.944913 CPURatio:0.828871
 ######### End #########
 ######### Using Theory2 #########
-TotalTime:136875762 Prelogue:1812924 Retiming:2 RunOnCache:36964800 RunOnDRAM:750000 MAXRatio:0.088719 CPURatio:0.088132
+TotalTime:90426780 Kernel:9377592 Prelogue:40524594 Retiming:121 RunOnCache:3548400 RunOnDRAM:21600 MAXRatio:0.329159 CPURatio:0.182866
 ######### End #########
 ######### Using Theory3 #########
-TotalTime:4212825600 Prelogue:0 Retiming:0 RunOnCache:20234400 RunOnDRAM:10953600 MAXRatio:0.002863 CPURatio:0.002863
+TotalTime:952912403 Kernel:952912403 Prelogue:0 Retiming:0 RunOnCache:3426010 RunOnDRAM:2627990 MAXRatio:0.017353 CPURatio:0.017353
 ######### End #########
-Dealing with vgg_defoult.in
+DEALING WITH vgg_defoult.in
 ######### Using Theory1 #########
-TotalTime:13545000 Prelogue:3570000 Retiming:102 RunOnCache:24562252 RunOnDRAM:867152 MAXRatio:0.969673 CPURatio:0.715890
+TotalTime:14805000 Kernel:11375000 Prelogue:1715000 Retiming:49 RunOnCache:2970000 RunOnDRAM:2010000 MAXRatio:0.909323 CPURatio:0.806138
 ######### End #########
 ######### Using Theory2 #########
-TotalTime:115374570 Prelogue:1528140 Retiming:2 RunOnCache:33671400 RunOnDRAM:142800 MAXRatio:0.084606 CPURatio:0.084046
+TotalTime:62485072 Kernel:12901776 Prelogue:24791648 Retiming:98 RunOnCache:2998800 RunOnDRAM:19200 MAXRatio:0.314519 CPURatio:0.191003
 ######### End #########
 ######### Using Theory3 #########
-TotalTime:3554644800 Prelogue:0 Retiming:0 RunOnCache:16309200 RunOnDRAM:9094800 MAXRatio:0.002728 CPURatio:0.002728
+TotalTime:735089409 Kernel:735089409 Prelogue:0 Retiming:0 RunOnCache:2957939 RunOnDRAM:2022061 MAXRatio:0.016236 CPURatio:0.016236
 ######### End #########
