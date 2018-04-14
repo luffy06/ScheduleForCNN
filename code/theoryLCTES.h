@@ -1,4 +1,4 @@
-const int REPEATLIMITED = 20;
+const int REPEATLIMITED = 505;
 int REPEAT = 2;
 
 // TopoOrder:         small -> big
@@ -448,8 +448,12 @@ void InitIteration(Iteration &iteration) {
   int PhasePE = iteration.PhasePE;
   Phase phase = Phase(PhasePE, TotalNode);
   // printf("Init Phase\n");
-  InitPhasePriority(phase);
-  // InitPhaseOrigin(phase);
+  for (REPEAT = 2; REPEAT <= REPEATLIMITED; ++ REPEAT) {
+    InitPhasePriority(phase);
+    // InitPhaseOrigin(phase);
+    if (phase.Ratio >= LIMITEDRATIO)
+      break;
+  }
   // printf("Init Iteration\n");
 
   for (int i = 1; i <= TotalNode; ++ i)
