@@ -92,7 +92,7 @@ int Init() {
   GetTopology();
 
   int RunOnCache = 0;
-  priority_queue<TimeInterval> PEs;
+  queue<TimeInterval> PEs;
   for (int i = 1; i <= TotalPE; ++ i) {
     PEs.push(TimeInterval(i, 0, 0));
     CacheManager CM = CacheManager();
@@ -104,12 +104,14 @@ int Init() {
   sort(NodeList + 1, NodeList + 1 + TotalNode, CmpByLayer);
 
   int R = 1;
-  int LimitedRound = TotalPE;
+  int LimitedRound = TotalPE / 2;
+  // printf("LimitedRound:%d\n", LimitedRound);
   while (R <= PeriodTimes) {
-    int EndRound = (R + TotalPE <= PeriodTimes ? R + TotalPE : PeriodTimes);
-    for (int r = R; r <= EndRound; ++ r) {
-      for (int j = 1; j <= TotalNode; ++ j) {
-        TimeInterval TI = PEs.top();
+    int EndRound = (R + LimitedRound <= PeriodTimes ? R + LimitedRound : PeriodTimes);
+    long long MaxEndTime = 0;
+    for (int j = 1; j <= TotalNode; ++ j) {
+      for (int r = R; r <= EndRound; ++ r) {
+        TimeInterval TI = PEs.front();
         PEs.pop();
         Node node = NodeList[j];
         node.Round = r;
@@ -141,9 +143,25 @@ int Init() {
         TI.EndTime = max(TI.EndTime, node.EndTime);
         TI.Count = TI.Count + 1;
         PEs.push(TI);
+
+        MaxEndTime = max(TI.EndTime, MaxEndTime);
       }
     }
     R = EndRound + 1;
+
+    queue<TimeInterval> TempQ;
+    while (!PEs.empty()) {
+      TimeInterval TI = PEs.front();
+      PEs.pop();
+      TI.EndTime = MaxEndTime;
+      TempQ.push(TI);
+    }
+
+    while (!TempQ.empty()) {
+      TimeInterval TI = TempQ.front();
+      TempQ.pop();
+      PEs.push(TI);
+    }
   }
 
   return RunOnCache;
