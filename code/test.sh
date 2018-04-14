@@ -1,3 +1,4 @@
+#!/bin/bash
 datafolder="../data"
 resultfolder="../result"
 suffix=".in"
