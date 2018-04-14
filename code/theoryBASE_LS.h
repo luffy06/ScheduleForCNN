@@ -104,7 +104,7 @@ int Init() {
   sort(NodeList + 1, NodeList + 1 + TotalNode, CmpByLayer);
 
   int R = 1;
-  int LimitedRound = TotalPE / 2;
+  int LimitedRound = TotalPE / 4;
   // printf("LimitedRound:%d\n", LimitedRound);
   while (R <= PeriodTimes) {
     int EndRound = (R + LimitedRound <= PeriodTimes ? R + LimitedRound : PeriodTimes);
