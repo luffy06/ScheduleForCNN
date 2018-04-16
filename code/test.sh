@@ -2,7 +2,7 @@
 datafolder="../data"
 resultfolder="../result"
 suffix=".in"
-for (( pe=32; pe<=256; pe=pe*2 )) do
+for (( pe=16; pe<=64; pe=pe*2 )) do
   echo 'CALC PE-'$pe
   if [[ -f 'config.in' ]]; then
     rm 'config.in'
