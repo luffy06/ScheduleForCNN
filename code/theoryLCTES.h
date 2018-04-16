@@ -553,6 +553,7 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
     int Launches = Ceil(TotalPE, NeedPE);
     int X = Ceil(Ceil(PeriodTimes, Launches), 2 * REPEAT);
     FR.TotalTime = iteration.Prelogue + 1LL * max(0, X - 1) * iteration.UpBound;
+    FR.Kernel = iteration.UpBound;
     FR.Prelogue = iteration.Prelogue;
     FR.Retiming = iteration.Retiming;
     FR.RunOnCache = X * iteration.RunOnCache * Launches;
@@ -574,6 +575,7 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
       long long TotalTime = max(TotalTimeX, TotalTimeY);
       if (FR.TotalTime == -1 || TotalTime < FR.TotalTime) {
         FR.TotalTime = TotalTime;
+        FR.Kernel = (iterationX.UpBound + iterationY.UpBound) / 2.0;
         FR.RunOnCache = iterationX.RunOnCache * X * Launches + iterationY.RunOnCache * Y;
         FR.RunOnDRAM = iterationX.RunOnDRAM * X * Launches + iterationY.RunOnDRAM * Y;
       }

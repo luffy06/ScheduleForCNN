@@ -610,6 +610,7 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
     int Launches = Ceil(TotalPE, NgList[0].NeedPE);
     int X = Ceil(Ceil(PeriodTimes, Launches), NgList[0].UpRound);
     FR.TotalTime = NgList[0].Prelogue + 1LL * max(0, X - 1) * NgList[0].UpBound;
+    FR.Kernel = NgList[0].UpBound;
     FR.Prelogue = NgList[0].Prelogue;
     FR.Retiming = NgList[0].Retiming;
     FR.RunOnCache = NgList[0].RunOnCache * X * Launches;
@@ -628,6 +629,7 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
       long long TotalTime = max(TotalTimeX, TotalTimeY);
       if (FR.TotalTime == -1 || TotalTime < FR.TotalTime) {
         FR.TotalTime = TotalTime;
+        FR.Kernel = (NgList[0].UpBound + NgList[1].UpBound) / 2.0;
         FR.RunOnCache = NgList[0].RunOnCache * X * Launches + NgList[1].RunOnCache * Y;
         FR.RunOnDRAM = NgList[0].RunOnDRAM * X * Launches + NgList[1].RunOnDRAM * Y;
       }

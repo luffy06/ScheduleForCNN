@@ -34,6 +34,7 @@ long long Floor(long long a, long long b) {
 struct FinalResult {
   long long TotalTime;
   long long Prelogue;
+  long long Kernel;
   int Retiming;
   int RunOnCache;
   int RunOnDRAM;
@@ -42,6 +43,7 @@ struct FinalResult {
 
   FinalResult() {
     TotalTime = -1;
+    Kernel = 0;
     Prelogue = 0;
     Retiming = 0;
     RunOnCache = 0;
@@ -50,19 +52,9 @@ struct FinalResult {
     CPURatio = 0;
   }
 
-  FinalResult(int a, int b, int c, int d, int e, double f, double g) {
-    TotalTime = a;
-    Prelogue = b;
-    Retiming = c;
-    RunOnCache = d;
-    RunOnDRAM = e;
-    MAXRatio = f;
-    CPURatio = g;
-  }
-
   void Show() {
     printf("\nTotalTime:%lld\nKernel:%lld\nPrelogue:%lld\nRetiming:%d\nRunOnCache:%d\nRunOnDRAM:%d\nMAXRatio:%.6f\nCPURatio:%.6f\n", 
-            TotalTime, TotalTime - 2 * Prelogue, Prelogue, Retiming, RunOnCache, RunOnDRAM, MAXRatio, CPURatio);
+            TotalTime, Kernel, Prelogue, Retiming, RunOnCache, RunOnDRAM, MAXRatio, CPURatio);
   }
 };
 
