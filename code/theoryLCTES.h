@@ -258,6 +258,7 @@ void InitPhasePriority(Phase &phase) {
   priority_queue<TimeInterval> IntervalQue;
   priority_queue<Node, vector<Node>, NodeComparationByOutEdge> NodeQue;
   int PENumb = phase.PENumb;
+  phase.PETimes.clear();
   for (int i = 1; i <= PENumb; ++ i) {
     TimeInterval Interval = TimeInterval(i, 0, 0);
     IntervalQue.push(Interval);
