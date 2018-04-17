@@ -4,7 +4,7 @@ import os
 resultdir = '../result'
 resultexcel = 'output.xlsx'
 algonumb = 3
-pes = [16, 32, 64]
+pes = [16, 32, 64, 128]
 attributes = ['TotalTime', 'Kernel', 'Prelogue', 'Retiming', 'RunOnCache', 'RunOnDRAM', 'MAXRatio', 'CPURatio'];
 
 def parse_graph(line):
