@@ -56,11 +56,11 @@ CNN的高准确率和适用性促进了许多AI应用的诞生，如DeepFace，P
 
 **定义：**有向无环图DAG，$G=(V,E,P,R)$，其中$V$表示节点集合，$V=\{T_1, \ldots, T_n\}$；$E$表示边集合，$，E\subseteq V\times V$，$(T_i, T_j)\in E$，其中$T_i,T_j\in V$，边个数是$m$；$N_{PE}$表示PE个数；$R$表示图$G$的重定时次数。其中$T^l_i(s^l_i, c^l_i, d^l_i, e^l_i,tp^l_i)$表示第$l$次循环的第$i$个节点的开始时间$s^l_i$，执行时间$c^l_i$，结束时间$d^l_i$，所在PE$e^l_i$，拓扑序$tp^l_i$。$I^l_{i,j}(s^l_{i,j}, c^l_{i,j}, d^l_{i,j})$表示第$l$次循环节点$T_i$到$T_j$的边的开始时间$s^l_{i,j}$，内存消耗$c^l_{i,j}$，结束时间$d^l_{i,j}$。
 
-**定义：**$p$表示图$G$需要循环的次数。
+**定义：**$X$表示图$G$需要循环的次数。
 
 ## 输出
 
-* 图$G$循环$p$次所需要的总时间$T$ 
+* 图$G$循环$X$次所需要的总时间$C$ 
 
 ## 流程
 
@@ -74,7 +74,9 @@ CNN的高准确率和适用性促进了许多AI应用的诞生，如DeepFace，P
 
 **定义2（发射Launch）：**多个在相同的PE上的周期组成的集合。
 
-**定义3（周期利用率$U_L$）：**$U_{L}=\displaystyle\frac{p_{L}\times \displaystyle\sum_{V_{i}\in V}c_{i}}{h\times t_L}$，其中$t_L$表示周期的最大时间消耗，$c_{i}$表示任务节点$T_{i}$的执行时间。
+**定义3（周期利用率$U_L$）：**$U_{L}=\displaystyle\frac{X_{p}\times \displaystyle\sum_{V_{i}\in V}c_{i}}{h\times t_L}$，其中$t_L$表示周期的最大时间消耗，$c_{i}$表示任务节点$T_{i}$的执行时间。
+
+**定义4（重定时Retiming）：**对图$G=(V,E,P,R)$，重定时$R$是将节点$T_i$与一个非负整数$R(i)$映射起来，初始$R(i)=0$。一旦节点$T_i$需要进行一次重定时，则$R(i)=R(i)+1$，同时一个周期的操作$T_i$被重新分配到前序之中。
 
 ### 1. 计算每次发射的PE数$h$、图的执行次数$p_L$
 
@@ -85,16 +87,16 @@ CNN的高准确率和适用性促进了许多AI应用的诞生，如DeepFace，P
 > 若$N_{PE}\% h_G==0$，
 >
 > * $h=h_G$
-> * $p_{L}=\lceil I/H\rceil$
+> * $X_{L}=\lceil I/H\rceil$
 >
 > 若$N_{PE}\%h_G\neq0$，
 >
 > * $\begin{cases}h=h_G&Previous\;H-1\;Launchs\\h=N_{PE}\%h_G&Last\;one\;Launch\end{cases}$
-> * 若设前$H-1$次发射每次循环$p_{x}$次，最后一次发射循环$p_{y}$次。故$(p_{x},p_{y})$需要满足$p=(H-1)\times p_{x}+p_{y}$。对所有满足的$(p_{x}, p_{y})$选取使总时间$T$最小的一组$(p_{x},p_{y})$。
+> * 若设前$H-1$次发射每次循环$X_{x}$次，最后一次发射循环$X_{y}$次。故$(X_{x},X_{y})$需要满足$X=(H-1)\times X_{x}+X_{y}$。对所有满足的$(X_{x}, X_{y})$选取使总时间$T$最小的一组$(X_{x},X_{y})$。
 
 ### 2. 生成周期的任务排列
 
-对于一个包含$h$个PE的周期，不同的任务排列对最终的结果有着很大的影响。若直接按照顺序把所有任务节点依次排列在4个PE上，可以一个周期的时长是？个单位时间，利用率是？？。通过观察可以发现，因为图G中有一个长节点$T_4$，它的运行时间远大于其他的运行节点，它对周期的时长和利用率起到了决定性作用。
+对于一个包含$h$个PE的周期，不同的任务排列对最终的结果有着很大的影响。若直接按照顺序把所有任务节点依次排列在4个PE上，可以一个周期的时长是8个单位时间，利用率是84.4%。通过观察可以发现，因为图G中有一个长节点$T_4$，它的运行时间远大于其他的运行节点，它对周期的时长和利用率起到了决定性作用。
 
 ![按拓扑序列排列](./pic/TopologyArrange.png)
 
@@ -102,7 +104,7 @@ CNN的高准确率和适用性促进了许多AI应用的诞生，如DeepFace，P
 
 ![算法排列](./pic/OurArrange.png)
 
-$p_{L}$的值依据$U_{L}$来确定。每按照上述算法排列一次图$G$，$p_{L}\leftarrow p_{L}+1$，并重新计算一下当前的利用率$U$，若$U\ge U_{L}$，则停止排列；若$p_{L}\ge p_{limited}$，则停止排列，选择之前计算得到的最大的$U_{L}$。
+$X_{p}$的值依据$U_{p}$来确定。每按照上述算法排列一次图$G$，$X_{p}\leftarrow X_{p}+1$，并重新计算一下当前的利用率$U_p$，若$U_p\ge U_{limited}$，则停止排列；若$X_{p}\ge X_{limited}$，则停止排列，选择之前计算得到的最大的$U_{p}$。
 
 > **Input**
 >
@@ -112,13 +114,13 @@ $p_{L}$的值依据$U_{L}$来确定。每按照上述算法排列一次图$G$，
 >
 > $h\;of\;tasks\;that\;are\;concureently\;execeuted\;within\;same\;layer$
 >
-> $the\;threshold\;PE's\;utilization\;ratio\;U_l$
+> $the\;threshold\;PE's\;utilization\;ratio\;U_{limited}$
 >
-> $the\;max\;repeat\;times\;p_l\;of\;tasks\;in\;same\;iteration$
+> $the\;max\;repeat\;times\;X_{limited}\;of\;tasks\;in\;same\;iteration$
 >
 > **Output**
 >
-> $An\;initial\;schedule\;with\;p_{per}\;repeat\;times\;tasks$
+> $An\;initial\;schedule\;with\;X_{p}\;repeat\;times\;tasks$
 >
 > **Content**
 >
@@ -126,41 +128,55 @@ $p_{L}$的值依据$U_{L}$来确定。每按照上述算法排列一次图$G$，
 >
 > $Sort(V) \;first\; by \;c_i\;,second\; by\; tp_{i}$
 >
-> $While\; U_{L}\lt U_{limited}\;and\;p_{L}\lt p_{limited}:$
+> $While\; U_{p}\lt U_{limited}\;and\;X_{p}\lt X_{limited}:$
 >
 > $\quad For\;each \;task\;T_j\in V:$
 >
 > $\quad\quad Assign\;T_j\;to \;a\;PE\;in\;PIM\;with\;the\;earliest\;available\;time$
 >
-> $\quad p_{L}\leftarrow p_{L}+1$
+> $\quad X_{p}\leftarrow X_{p}+1$
 >
-> $\quad Calculate\;U$
+> $\quad Re-Calculate\;U_p$
 >
-> $If\;p_{L}==p_{limited}:$
+> $If\;X_{p}==X_{limited}:$
 >
-> $\quad Choose\;p_{L}\;with\;max\;U_{L}$
+> $\quad Choose\;X_{p}\;with\;max\;U_{p}$
 >
-> $Rearrange\;p_{L}\;times\;tasks\;with\;same\;strategy$
+> $Rearrange\;X_{p}\;times\;tasks\;with\;same\;strategy$
 
-时间复杂度：$O(p_{L}\times n\times logh)$
+时间复杂度：$O(X_{p}\times n\times log\;h)$
 
-### Step Three：判断是否需要Retiming
+### 3. 判断是否需要采取进行重定时策略
 
-![简单排列](./pic/Baseline.png)
+![简单排列](./pic/BaseLine.png)
 
-**定义：**$T_{nor}$是按照上图排列所需要花费的总时间；$T_{est}$是当前算法的估计时间。
+设$C_{b}$是按照BaseLine的调度策略所需要花费的总时间、$C_{e}$是利用重定时技术的估计时间。
 
-若$T_{est}\gt T_{nor}$，则按照上图排列。
+若$C_{b}\gt C_{e}$，则按照BaseLine的调度策略。
 
-计算$T_{est}$：固定步骤二中的$p_{per}$为1，计算得出前序时间$Pre_{est}$和周期时间$ub_{est}$。则$T_{est}\leftarrow Pre_{est}+p\times ub_{est}$
+计算$C_{e}$：在步骤二中，设置$p_{limited}\leftarrow1$，$h\leftarrow N_{PE}$，得出一个周期的排列。计算得出前序时间$C_{prelogue}$和周期时间$C_{p}$。则$C_{e}\leftarrow C_{prelogue}+X\times C_{p}$
 
-### Step Four：从关键节点开始向前扩散，确定周期内节点的位置
+### 4. 确定周期内每个任务节点的最终位置
 
-考虑到图$G$中有一些执行时间远大于其他的任务节点，他们在PE上的排列将影响整个图$G$的重定时次数$R$，所以需要先确定他们的位置。
+在步骤二中，我们生成了每个周期的初始排列，但是在生成这个排列的时候没有考虑任务之间的依赖关系，仅仅是考虑到每个任务的时间长短。那么在后续的调度时，通过调整初始排列中的任务节点的位置，以更好的满足任务之间的依赖关系。
+
+为了方便调整位置，我们首先确定一个顺序来依次调整任务节点的位置，先确定了位置的任务节点将不再会移动位置。根据之前对任务节点耗时的分析，关键节点在位置排列的时候会对其他节点的重定时值产生较大的影响。（<u>*是否需要举例说明*</u>）故本文的策略是从关键节点开始，按照拓扑序从后往前开始扩散。每次扩散时都标记已访问的节点，当扩散完成后，再从未访问的节点中选择新的关键节点继续开始扩散，直到所有节点都被访问过一次。
+
+以下面这个例子来解释扩散的过程。
 
 ![扩散过程](./pic/Spread.png)
 
-利用第四步所获取的关键节点集合$S_{Key}$，对其中的节点来确定其前继和后继节点的位置。当$S_{Key}$为空后，从未访问的节点集合$S_{UC}$中再次获取关键节点集合。
+图（a）中选择了关键节点$T_4$作为扩散的起始节点。从图（a）到图（c）展示了第一次的扩散过程。图（d）从未访问过的节点$T_5,T_6$中重新选择了关键节点$T_6$作为新的扩散起始节点。图（e）从$T_6$扩散至$T_5,T_4$，因为$T_4$已经被访问过，所以只需要它的位置不需要再进行改变。若$T_4$和$T_6$的位置之间的距离不满足边$I_{4,6}$的所需要的时间消耗的长度，则需要对$T_4$做重定时操作。当$R(4)$的值发生改变后，与其相连的前继节点对应的$R(i)$也需要更新。为了避免重复更新，在$R(4)$更新后，仅仅标记$T_4$节点，等待所有的节点都访问完成后，再从拓扑序最大的标记节点开始向前更新。
+
+对边$I_{3,4}$，若$T_2, T_4$的位置已经固定，下面解释如何确定$T_3$的位置，如下图，
+
+![place1](./pic/place1.png)
+
+因为$I_{3,4}$在SRAM中需要消耗2个单位时间，所以同一个周期内的$T_3$节点不满足要求，只能先看前一个周期的$T_3$节点。周期1的$T_3$与周期2的$T_4$节点之间相差3个单位时间，所以我们可以通过移动$T_1$或$T_5$的位置，是$T_3$与$T_4$之间刚好相差2个单位之间，得到如下的排列。
+
+![place2](./pic/place2.png)
+
+接下来再用同样的策略去确定其他的节点位置，直到所有的节点位置均已确定。
 
 >**Input**
 >
@@ -174,89 +190,44 @@ $p_{L}$的值依据$U_{L}$来确定。每按照上述算法排列一次图$G$，
 >
 >$SpreadFromKeyNodeSet():$
 >
->$Q_{wait}\leftarrow \emptyset$
+>$Q\leftarrow \emptyset$
 >
 >$do\; \{$
 >
->$\quad Get\;keynode\;set\;S_{Key}\;from\;an\;unchecked\;node\;set$
+>$\quad Get\;keynode\;set\;V_{keynode}\;from\;V_{unchecked}$
 >
->$\quad For\;each\;task\;T^l_i\in S_{UC}:$
+>$\quad For\;each\;task\;T^l_i\in V_{keynode}:$
 >
->$\quad \quad ENQUEUE(Q_{wait}, T^l_i) $
+>$\quad\quad Put\;T^l_iin\;nearest\;position,update\;s^l_i\;and\;d^l_i$
 >
->$\quad \quad While\; Q_{wait}\neq \emptyset:$
+>$\quad \quad ENQUEUE(Q, T^l_i) $
 >
->$\quad \quad \quad T^l_i\leftarrow DEQUEUE(Q_{wait})$
+>$\quad While\; Q\neq \emptyset:$
 >
->$\quad\quad \quad ArrangeKeyNode(T^l_i, Q_{wait})$
+>$\quad \quad T^l_i\leftarrow DEQUEUE(Q)$
 >
->$\}\;While(S_{UC}\neq \emptyset);$
+>$\quad\quad For\;each\;edge\;I^l_{ji}\in E$
+>
+>$\quad\quad\quad Put\;T^l_j\;in\;nearest\;position,update\;s^l_j\;and\;d^l_j$
+>
+>$\quad\quad\quad ENQUEUE(T^l_j)$
+>
+>$\}\;While(V_{unchecked}\neq \emptyset);$
 
-时间复杂度：$O(I_{per}\times m )$
+时间复杂度：$O(X_{p}\times m )$
 
-### Step Five：确定关键节点$T^l_i$的位置，并根据入度边确定前继节点的位置。
+### 5. 利用动态规划来分配任务的中间传输的数据存储位置
 
-在第二步中仅仅确定了每个PE中安排的任务节点都有哪些，但每个任务节点位置都是可以相互交换的。
+考虑到SRAM的容量有限，我们无法将所有的中间结果都存储在SRAM中，必定有一部分的中间结果需要存储到DRAM中。而选哪些中间结果存储到DRAM中，这可以被抽象成一个动态规划问题。
 
-**定义：**每个PE$E_k(s_j,d_j)$，其中$s_j$表示第$k$个PE上的第$j$个空闲区间的开始时间，$d_j$表示第$k$个PE上的第$j$个空闲区间的结束时间。
+假设有$m$个中间结果，即$\{I_1,\ldots,I_k,\ldots,I_m\}$。设$\mathbb B[S][k]$表示前$k$个中间结果，在容量为$S$的SRAM中能存储的最大容量。那么可以得到状态转移方程。
+$$
+\mathbb B[S][k]=
+\begin{cases}
+\mathbb B[S][k-1]&if\;I_k\gt S
+\\
+max\{\mathbb B[S][k-1],\mathbb B[S-I_k][k-1]+I_k\} & if \;I_k\le S
+\end{cases}
+$$
+当计算完$\mathbb B[S][m]$后，通过回溯法得到最优解。对放入DRAM的中间结果，与扩散方法类似的更新其所连接的节点的重定时值，最终计算出总共需要的时间。
 
-初始，每个PE上都只有一个空闲区间$[s_0, d_0]​$，其中$s_0\leftarrow 0​$，$d_0\leftarrow ub​$。每个PE上的任务节点都属于自己PE的空闲区间。
-
-接下来分为两个步骤：
-
-1. 确定节点$T^l_i$的位置。
-
-   将其放在它所属区间的最前面，即$s^l_i\leftarrow s_j$，$d^l_i\leftarrow s_j+c^l_i$。
-
-2. 确定$T^l_i$的前继节点的位置。
-
-   考虑入度边$I^l_{j,i}$，即$T^l_j$到$T^l_i$的边。默认都将传输的数据放入Cache中，等所有的都完成后，再检测Cache溢出。
-
-   若前继节点$T^l_j$未被访问过，根据$I^l_{j,i}$在Cache上的代价$P_{\alpha}(I^l_{j,i})$，得出$T^l_j$的最晚开始开始时间$s^l_j\leftarrow s^l_i - P_{\alpha}(I^l_{j,i})-c^l_j$。再将$T^l_j$所在的空闲区间中的其他节点填充在区间$[s_i, d_i]$的前面，调整$s^l_j\leftarrow s^l_j-shift$，$shift$是节点$T^l_j$根据填充的结果，向前的偏移量。
-
-   若前继节点$T^l_j$已经被访问过，根据$P_{\alpha}(I^l_{j,i})$更新$R(T^l_j)$。
-
-> **Input**
->
-> $Key\;Node\;T^l_i$
->
-> $Wait\;queue\;Q_{wait}$
->
-> **Output**
->
-> $Wait\;queue\;after\;update\;Q_{wait}$
->
-> $A\;set\;tasks\;S_{RC}\;to\;be\;rechecked$
->
-> **Content**
->
-> $ArrangeKeyNode(T^l_i, Q_{wait}):$
->
-> $s^l_i\leftarrow s_{j},d^l_i\leftarrow s_j+c^l_i$
->
-> $For\;each\;edge\;I^l_{ji}\in E:$
->
-> $\quad If\;T^l_j\;is\;certained:$
->
-> $\quad\quad Update\;R(T^l_j)$
->
-> $\quad\quad ENSET(S_{RC}, T^l_j)$
->
-> $\quad else:$
->
-> $\quad\quad Calculate\;s^l_j$
->
-> $\quad\quad ENQUEUE(Q_{wait}, T^l_j)$
-
-时间复杂度：$O(E)$
-
-### Step Six：检测Cache溢出，更新溢出节点的Retiming；重新Check，更新Retiming值
-
-因为Local Cache的容量有限，对溢出的边采用动态规划的方法选择部分放入Cache，剩下的放入DRAM，尽可能的有效利用Local Cache。
-
-如第五步中的最后一个图所示，通过$S_{RC}$集合中所标记的节点，按照拓扑序列大小，从大到小重新更新$Retiming$值。
-
-# 改进
-
-2. 解释Retiming
-3. 解释挪动位置
