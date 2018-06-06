@@ -5,7 +5,7 @@ resultdir = '../result'
 resultexcel = 'output.xlsx'
 algonumb = 3
 pes = [16, 32, 64, 128]
-attributes = ['TotalTime', 'Kernel', 'Prelogue', 'Retiming', 'RunOnCache', 'RunOnDRAM', 'MAXRatio', 'CPURatio'];
+attributes = ['GRAPH', 'TotalTime', 'Kernel', 'Prelogue', 'Retiming', 'RunOnCache', 'RunOnDRAM', 'MAXRatio', 'CPURatio'];
 
 def parse_graph(line):
   lines = line.split(' ')
@@ -16,11 +16,12 @@ def parse_filename(filename):
   assert(len(names) == 2)
   return (names[0], names[1])
 
-def parse_content(line, resultmap, peid, algo):
+def parse_content(line, resultmap, peid, algo, graph_name):
   onemap = {}
   for l in line.split(' '):
     key, value = l.split(':')
     onemap[key] = value
+  onemap['GRAPH'] = graph_name[:-3]
 
   for key in onemap:
     if key in resultmap:
@@ -36,7 +37,7 @@ def parse_filecontent(filename, resultmap, peid):
   algo = -1
   for l in lines:
     l = l.strip('\n');
-    if l.startswith('Dealing'):
+    if l.startswith('DEALING'):
       graph_name = parse_graph(l)
       # print(graph_name)
     elif l.startswith('##'):
@@ -50,7 +51,7 @@ def parse_filecontent(filename, resultmap, peid):
         theory_start = False
         algo = -1
     elif theory_start == True:
-      parse_content(l, resultmap, peid, algo - 1)
+      parse_content(l, resultmap, peid, algo - 1, graph_name)
 
 def loadresult(resultmap):
   wb = xlsxwriter.Workbook(os.path.join(resultdir, resultexcel))
