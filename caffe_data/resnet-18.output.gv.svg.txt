@@ -1,0 +1,70 @@
+36 33
+0 input input 0 0
+1 res2a res2a 640 1
+2 res3a res3a 330 1
+3 res4a res4a 250 1
+4 res5a res5a 130 1
+5 res2b_branch2a res2b_branch2a 5430 2
+6 res2b res2b 620 2
+7 res3b_branch2a res3b_branch2a 4930 2
+8 res3b res3b 330 2
+9 res4b_branch2a res4b_branch2a 6510 2
+10 res4b res4b 190 2
+11 res5b_branch2a res5b_branch2a 6640 2
+12 res5b res5b 130 2
+13 res2b_branch2b/bn2b_branch2b/scale2b_branch2b res2b_branch2b/bn2b_branch2b/scale2b_branch2b 5460 3
+14 res3a_branch1/bn3a_branch1/scale3a_branch1 res3a_branch1/bn3a_branch1/scale3a_branch1 750 3
+15 res3a_branch2a res3a_branch2a 2800 3
+16 res3b_branch2b/bn3b_branch2b/scale3b_branch2b res3b_branch2b/bn3b_branch2b/scale3b_branch2b 4950 3
+17 res4a_branch1/bn4a_branch1/scale4a_branch1 res4a_branch1/bn4a_branch1/scale4a_branch1 680 3
+18 res4a_branch2a res4a_branch2a 3860 3
+19 res4b_branch2b/bn4b_branch2b/scale4b_branch2b res4b_branch2b/bn4b_branch2b/scale4b_branch2b 6650 3
+20 res5a_branch1/bn5a_branch1/scale5a_branch1 res5a_branch1/bn5a_branch1/scale5a_branch1 730 3
+21 res5a_branch2a res5a_branch2a 5660 3
+22 res5b_branch2b/bn5b_branch2b/scale5b_branch2b res5b_branch2b/bn5b_branch2b/scale5b_branch2b 6710 3
+23 pool5 pool5 110 3
+24 res3a_branch2b/bn3a_branch2b/scale3a_branch2b res3a_branch2b/bn3a_branch2b/scale3a_branch2b 5060 4
+25 res4a_branch2b/bn4a_branch2b/scale4a_branch2b res4a_branch2b/bn4a_branch2b/scale4a_branch2b 6700 4
+26 res5a_branch2b/bn5a_branch2b/scale5a_branch2b res5a_branch2b/bn5a_branch2b/scale5a_branch2b 6730 4
+27 fc1000 fc1000 440 4
+28 data data 1000 5
+29 conv1 conv1 5710 5
+30 prob prob 100 5
+31 pool1 pool1 1150 6
+32 res2a_branch1/bn2a_branch1/scale2a_branch1 res2a_branch1/bn2a_branch1/scale2a_branch1 840 7
+33 res2a_branch2a res2a_branch2a 5430 7
+34 res2a_branch2b/bn2a_branch2b/scale2a_branch2b res2a_branch2b/bn2a_branch2b/scale2a_branch2b 5490 8
+35 output output 0 9
+0 1 0
+0 2 0
+1 35 601040
+2 3 575390
+3 4 377070
+3 5 377070
+5 6 647560
+7 10 406660
+7 12 406660
+8 7 578270
+9 7 305240
+10 11 510310
+12 14 381670
+12 15 381670
+13 12 644360
+15 16 1279090
+17 20 371460
+17 22 371460
+18 17 592230
+19 17 298650
+20 21 473330
+22 24 734330
+22 25 734330
+23 22 431330
+25 26 296370
+27 30 2245770
+27 32 2245770
+28 27 108073000
+29 27 2469980
+30 31 19310
+32 34 465740
+32 35 465740
+33 32 648140
