@@ -1,5 +1,6 @@
 #!/bin/bash
-datafolder="../data"
+datafolder="../caffe_data"
+# datafolder="../tensorflow_data"
 resultfolder="../result"
 suffix=".in"
 for (( pe=16; pe<=128; pe=pe*2 )) do
