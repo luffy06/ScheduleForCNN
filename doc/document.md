@@ -54,7 +54,7 @@ CNN的高准确率和适用性促进了许多AI应用的诞生，如DeepFace，P
 
 ## 输入
 
-**定义：**有向无环图DAG，$G=(V,E,P,R)$，其中$V$表示节点集合，$V=\{T_1, \ldots, T_n\}$；$E$表示边集合，$，E\subseteq V\times V$，$(T_i, T_j)\in E$，其中$T_i,T_j\in V$，边个数是$m$；$N_{PE}$表示PE个数；$R$表示图$G$的重定时次数。其中$T^l_i(s^l_i, c^l_i, d^l_i, e^l_i,tp^l_i)$表示第$l$次循环的第$i$个节点的开始时间$s^l_i$，执行时间$c^l_i$，结束时间$d^l_i$，所在PE$e^l_i$，拓扑序$tp^l_i$。$I^l_{i,j}(s^l_{i,j}, c^l_{i,j}, d^l_{i,j})$表示第$l$次循环节点$T_i$到$T_j$的边的开始时间$s^l_{i,j}$，内存消耗$c^l_{i,j}$，结束时间$d^l_{i,j}$。
+**定义：**有向无环图DAG，$G=(V,E,P,R)$，其中$V$表示节点集合，$V=\{T_1, \ldots, T_n\}$；$E$表示边集合，$，E\subseteq V\times V$，$(T_i, T_j)\in E$，其中$T_i,T_j\in V$，边个数是$m$；$P$表示PE个数；$R$表示图$G$的重定时次数。其中$T^l_i(s^l_i, c^l_i, d^l_i, e^l_i,tp^l_i)$表示第$l$次循环的第$i$个节点的开始时间$s^l_i$，执行时间$c^l_i$，结束时间$d^l_i$，所在PE$e^l_i$，拓扑序$tp^l_i$。$I^l_{i,j}(s^l_{i,j}, c^l_{i,j}, d^l_{i,j})$表示第$l$次循环节点$T_i$到$T_j$的边的开始时间$s^l_{i,j}$，内存消耗$c^l_{i,j}$，结束时间$d^l_{i,j}$。
 
 **定义：**$X$表示图$G$需要循环的次数。
 
@@ -112,7 +112,7 @@ CNN的高准确率和适用性促进了许多AI应用的诞生，如DeepFace，P
 
 前继节点$T_i$需要满足的条件是：$d_i + R(i) \times C_p + c_{i,j}\le s_j + R(j)\times C_p$
 
-$T_i$和$T_j$的中间处理结果$I_{i,j}$的存储优先考虑放在Cache中，若Cache中放不下，则放在DRAM中。
+$T_i​$和$T_j​$的中间处理结果$I_{i,j}​$的存储优先考虑放在Cache中，若Cache中放不下，则放在DRAM中。
 
 根据**公式1**计算$T_i$的Retiming值$R(i)$。
 
