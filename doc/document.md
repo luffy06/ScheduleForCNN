@@ -112,7 +112,7 @@ CNN的高准确率和适用性促进了许多AI应用的诞生，如DeepFace，P
 
 前继节点$T_i$需要满足的条件是：$d_i + R(i) \times C_p + c_{i,j}\le s_j + R(j)\times C_p$
 
-$T_i​$和$T_j​$的中间处理结果$I_{i,j}​$的存储优先考虑放在Cache中，若Cache中放不下，则放在DRAM中。
+$T_i$和$T_j$的中间处理结果$I_{i,j}$的存储优先考虑放在Cache中，若Cache中放不下，则放在DRAM中。
 
 根据**公式1**计算$T_i$的Retiming值$R(i)$。
 
@@ -128,19 +128,40 @@ $T_i​$和$T_j​$的中间处理结果$I_{i,j}​$的存储优先考虑放在C
 
 首先利用多发射技术，将$X$轮图$G$的运行均摊到$H$次发射之上，以达到更高效的并行性。
 
-每次发射所需要的PE的数量$h$的不同对最后的结果也会有所影响，我们认为$h$应该尽可能的接近图$G$的最大并发度$h_G$。总共需要的发射次数$H=\lceil P/h\rceil$。
+我们将$P$个PE分成尽可能平均得分成$H$组，将图$G$的$X$次循环也尽可能平均的分到每组上面，最终使得总时间$C$最短。
 
-> 每次发射图$G$需要循环的次数是$X_L$
->
-> 若$P\% h_G=0$，
->
-> * $h=h_G$
-> * $X_{L}=\lceil X/H\rceil$
->
-> 若$P\%h_G\neq0$，
->
-> * $h=\begin{cases}h_G&Previous\;H-1\;Launchs\\P\%h_G&Last\;one\;Launch\end{cases}$
-> * 若设前$H-1$次发射每次循环$X_{x}$次，最后一次发射循环$X_{y}$次。故$(X_{x},X_{y})$需要满足$X=(H-1)\times X_{x}+X_{y}$。对所有满足的$(X_{x}, X_{y})$选取使总时间$C$最小的一组$(X_{x},X_{y})$。
+我们称每组PE上的$X_L$次图$G$的排列为一次发射，那么$H$组PE就有$H$次发射。
+
+我们取图$G$的最大并发度$h_G$为每组中PE的个数，那么$H=\lceil P/h\rceil$。
+
+因为$h_G$不一定能够整除$P$，所以需要进行分类讨论，
+
+**若$h_G​$能整除$P​$，即$P\% h_G=0​$**，则
+
+- $h=h_G$
+- $X_{L}=\lceil X/H\rceil$
+
+**若$h_G$不能整除$P$，即$P\% h_G\not=0$**，则将前$H-1$次发射和最后一次发射区分出来，前$H-1$次发射的排列都是相同的，最后一次是不同的排列方案。
+
+* 在前$H-1$次发射，每次都是$h_G$个PE；最后一次发射，因为PE个数不够$h_G$个，所以只用$P\%h_G$个。
+
+* 我们认为前$H-1$次发射都是$X_x$次图G的排列，最后一次是$X_y$次图$G$的排列。所以$(X_x,X_y)$需要满足$X=(H-1)\times X_x + X_y\quad 公式2$。
+
+  因为在已经知道调度方案的前序时间$C_{prelogue}$和周期最大时间$C_p$后，可以在$O(1)$的时间内计算出执行$X$次图$G$的总时间$C=C_{prelogue} + X\times C_p$
+
+  所以此时的总时间取决于两种排列方案的最大值，设前$H-1$次发射的排列的前序时间是$C^x_{prelogue}$，周期最大时间消耗是$C^x_p$；最后一次发射的排列的前序时间是$C^y_{prelogue}$，周期最大时间消耗是$C^y_p$，则总时间为$C=MAX(C^x_{prelogue} + X_x\times C^x_p,C^y_{prelogue} + X_y\times C^y_p)\quad 公式3$。
+
+  将式2带入式3，得到关于$X_x$的函数：$C(X_x)=MAX(C^x_{prelogue} + X_x\times C^x_p,C^y_{prelogue} + (X-(H-1)\times X_x)\times C^y_p)\quad 0\le X_x\le X$。
+
+  注意到$MAX$函数两边都是一次函数，且一增一减，所以当两个函数直线相交是$C(X_x)$取到最小值。
+  $$
+  C^x_{prelogue} + X_x\times C^x_p=C^y_{prelogue} + (X-(H-1)\times X_x)\times C^y_p
+  \\
+  \Rightarrow X_x=\lfloor\displaystyle\frac{C^x_p+(H-1)\times C^y_p}{C^y_{prelogue}+X\times C^y_p - C^x_{prelogue}}\rfloor\quad 公式4
+  \\
+  \Rightarrow X_y=X-(H-1)\times X_x
+  $$
+
 
 ### 3. 生成周期的任务排列
 
