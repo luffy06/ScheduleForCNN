@@ -215,25 +215,61 @@ $X_{p}$的值依据$U_{p}$来确定。每按照上述算法排列一次图$G$，
 
 定义$dis_{i,j}$根据周期的排列$T_i$与$T_j$之间的实际距离，若$T_i$在$T_j$后面则$dis_{i,j}$为0。
 
-若$T_i$在$T_j$前面，
-
 * 若$dis_{i,j}\ge c_{i,j}$，对$T_i$前后未固定位置的所有任务节点构成集合$V_{move}$，通过**重排移动**这些任务节点让$T_i$与$T_j$的实际距离$dis_{i,j}$尽可能的接近$c_{i,j}$。重排移动可以看作是一个装箱问题，可以采用动态规划或者贪心的策略，把$V_{move}/\{T_i\}$中的任务节点的时间认为是物品的大小，$d_{i,j}-c_{i,j}$的值为箱子的大小，则未被选择的任务节点认为是放置在$T_i$和$T_j$之间的任务节点。标记$T_i$的位置已经固定。
 
   ![move_uncertain](./pic/move_uncertain.png)
 
-* 若$dis_{i,j}\lt c_{i,j}$，将$T_i$放置在可移动的区间的末尾，并标记$T_i$的位置已经固定，根据**公式1**计算$T_i$的Retiming值。
+* 若$dis_{i,j}\lt c_{i,j}$，将$T_i$放置在可移动的区间$[l_i,r_i]$的末尾，即$d_i\leftarrow r_i$，并标记$T_i$的位置已经固定，根据**公式1**计算$T_i$的Retiming值。
+
+  对于$T_i$在$T_j$前面，
 
   ![move_uncertain](./pic/move_uncertain1.png)
 
+  对于$T_i$在$T_j$后面，
 
-
-若$T_i$在$T_j$后面，$dis_{i,j}$为$T_i$到周期末端的距离，直接将$T_i$放置在周期的末尾，并标记$T_i$的位置已经固定，根据**公式1**计算$T_i$的Retiming值。
-
-![move_uncertain2](./pic/move_uncertain2.png)
+  ![move_uncertain2](./pic/move_uncertain2.png)
 
 ##### 若$T_i$的位置已经固定
 
 根据**公式1**更新$T_i$的Retiming值。
+
+> **Input**
+>
+> $Node \;T^l_i\;and\;T^l_j$
+>
+> $Moving\;Interval\;[l^l_i,r^l_i]$
+>
+> **Output**
+>
+> $Updated\;Node\;T^l_i\;and\;[l^l_i,r^l_i]$
+>
+> **Content**
+>
+> $UpdateNode():$
+>
+> $If\;T^l_i;isn't\;certained:$
+>
+> $\quad dis^l_{i,j}\leftarrow MAX(0,s^l_j-d^l_i)$
+>
+> $\quad If\;dis^l_{i,j} \le c^l_{i,j}:$
+>
+> $\quad \quad Using \;dynamic\;or\;greedy\;algorithm\;get\;unselected\;node\;set\;V_{unselected} $
+>
+> $\quad\quad d^l_i\leftarrow r^l_i-SUM_{T_k\in V_{unselected}}(c_k)$
+>
+> $\quad Else:$
+>
+> $\quad \quad d^l_i\leftarrow r^l_i$
+>
+> $\quad\quad R(i)\leftarrow MAX(R(i), \lfloor \displaystyle\frac{s^l_j + R(j) \times C_p-d^l_i -c^l_{i,j}}{C_p}\rfloor)$
+>
+> $\quad Set\;T^l_i\;certained$
+>
+> $Else:$
+>
+> $\quad R(i)\leftarrow MAX(R(i), \lfloor \displaystyle\frac{s^l_j + R(j) \times C_p-d^l_i -c^l_{i,j}}{C_p}\rfloor)$
+
+时间复杂度分析：$O(n)$
 
 #### 按照顺序依次调整任务节点
 
@@ -247,13 +283,13 @@ $X_{p}$的值依据$U_{p}$来确定。每按照上述算法排列一次图$G$，
 
 ![扩散过程](./pic/Spread.png)
 
-图（a）中选择了关键节点$T_4$作为扩散的起始节点。从图（a）到图（c）展示了第一次的扩散过程。图（d）从未访问过的节点$T_5,T_6$中重新选择了关键节点$T_6$作为新的扩散起始节点。图（e）从$T_6$扩散至$T_5,T_4$，因为$T_4$已经被访问过，所以只需要它的位置不需要再进行改变。若$T_4$和$T_6$的位置之间的距离不满足边$I_{4,6}$的所需要的时间消耗的长度，则需要对$T_4$做重定时操作。当$R(4)$的值发生改变后，与其相连的前继节点对应的$R(i)$也需要更新。为了避免重复更新，在$R(4)$更新后，仅仅标记$T_4$节点，等待所有的节 点都访问完成后，再从拓扑序最大的标记节点开始向前更新。
-
-
+图（a）中选择了关键节点$T_4$作为扩散的起始节点。从图（a）到图（c）展示了第一次的扩散过程。图（d）从未访问过的节点$T_5,T_6$中重新选择了关键节点$T_6$作为新的扩散起始节点。图（e）从$T_6$扩散至$T_5,T_4$，因为$T_4$已经被访问过，所以只需要它的位置不需要再进行改变。若$T_4$和$T_6$的位置之间的距离不满足边$I_{4,6}$的所需要的时间消耗的长度，则需要对$T_4$做重定时操作。当$R(4)$的值发生改变后，与其相连的前继节点对应的$R(i)$也需要更新。为了避免重复更新，在$R(4)$更新后，仅仅标记$T_4$节点，等待所有的节点都访问完成后，再从拓扑序最大的标记节点开始向前更新。
 
 >**Input**
 >
->$A\;set\;of\;n\;tasks\;\{T_1, \ldots,T_n\}\in V$
+>$An\;initial\;schedule\;with\;X_{p}\;repeat\;times\;tasks\;\{T^l_1,\ldots,T^l_n\}$
+>
+>$Moving\;Interval\;[l^l_i,r^l_i]$
 >
 >**Output**
 >
@@ -271,19 +307,21 @@ $X_{p}$的值依据$U_{p}$来确定。每按照上述算法排列一次图$G$，
 >
 >$\quad For\;each\;task\;T^l_i\in V_{keynode}:$
 >
->$\quad\quad Put\;T^l_iin\;nearest\;position,update\;s^l_i\;and\;d^l_i$
+>$\quad \quad s^l_i\leftarrow l^l_i$
+>
+>$\quad\quad Set\;T^l_i\;certained$
 >
 >$\quad \quad ENQUEUE(Q, T^l_i) $
 >
 >$\quad While\; Q\neq \emptyset:$
 >
->$\quad \quad T^l_i\leftarrow DEQUEUE(Q)$
+>$\quad \quad T^l_j\leftarrow DEQUEUE(Q)$
 >
->$\quad\quad For\;each\;edge\;I^l_{ji}\in E$
+>$\quad\quad For\;each\;edge\;I^l_{ij}\in E$
 >
->$\quad\quad\quad Put\;T^l_j\;in\;nearest\;position,update\;s^l_j\;and\;d^l_j$
+>$\quad \quad \quad UpdateNode(T^l_i, T^l_j)$
 >
->$\quad\quad\quad ENQUEUE(Q,T^l_j)$
+>$\quad\quad\quad ENQUEUE(Q,T^l_i)$
 >
 >$\}\;While(V_{unchecked}\neq \emptyset);$
 
@@ -291,16 +329,21 @@ $X_{p}$的值依据$U_{p}$来确定。每按照上述算法排列一次图$G$，
 
 ### 5. 利用动态规划来分配任务的中间传输的数据存储位置
 
-考虑到SRAM的容量有限，我们无法将所有的中间结果都存储在SRAM中，必定有一部分的中间结果需要存储到DRAM中。而选哪些中间结果存储到DRAM中，这可以被抽象成一个动态规划问题。
+在前面的步骤中，对中间处理结果$I_{i,j}$的传输时间$c_{i,j}$我们都是基于在SRAM的速度进行计算得到的结果，但考虑到SRAM的容量有限，我们无法将所有的中间结果都存储在SRAM中，必定有一部分的中间结果需要存储到DRAM中。
 
-假设有$m​$个中间结果，即$\{I_1,\ldots,I_k,\ldots,I_m\}​$。设$\mathbb B[S][k]​$表示前$k​$个中间结果，在容量为$S​$的SRAM中能存储的最大容量。那么可以得到状态转移方程。
+本步骤中对SRAM中溢出部分的中间处理结果，利用动态规划或贪心的思想，选择其中一部分任务放入DRAM中，更新这些任务的Retiming值。
+
+![exceedsram](./pic/exceedsram.png)
+
+这个问题可以被抽象成一个装箱问题，对每一个溢出部分的中间处理结果集合$E_{exceed}=\{I_{i1,j1},\ldots, I_{i_k,j_k},\ldots,I_{i_s,j_s}\}$，将它们看作是物品的大小，SRAM的容量$S$看作是箱子的大小，设$\mathbb B[S][k]$表示规模为$(k,S)$的最优解，若第$k$个中间处理结果的大小不大于容量$S$，则那么可以将问题转移到求解规模为$(k-1, S-I_k)$的最优解；若大于，则求解规模为$(S,k-1)$的最优解。最优解的状态转移方程：
 $$
 \mathbb B[S][k]=
 \begin{cases}
-\mathbb B[S][k-1]&if\;I_k\gt S
+\mathbb B[S][k-1]&if\;I_{i_k,j_k}\gt S
 \\
-max\{\mathbb B[S][k-1],\mathbb B[S-I_k][k-1]+I_k\} & if \;I_k\le S
+max\{\mathbb B[S][k-1],\mathbb B[S-I_{i_k,j_k}][k-1]+I_{i_k,j_k}\} & if \;I_{i_k,j_k}\le S
 \end{cases}
 $$
-当计算完$\mathbb B[S][m]$后，通过回溯法得到最优解。对放入DRAM的中间结果，与扩散方法类似的更新其所连接的节点的重定时值，最终计算出总共需要的时间。
+当计算完成后，通过回溯法得到最优解$\{I_{i1,j1},\ldots, I_{i_k,j_k}\}$。
 
+重新计算这些中间处理结果在DRAM中的传输时间$c_{i,j}$，对每个$I_{i,j}$，按照$T_j$的拓扑序大小从大到小，向前更新$T_i$的Retiming值。
