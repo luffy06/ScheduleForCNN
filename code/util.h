@@ -54,9 +54,9 @@ struct FinalResult {
     CPURatio = 0;
   }
 
-  void Show() {
-    printf("\nTotalTime:%lld\nKernel:%lld\nPrelogue:%lld\nRetiming:%d\nRunOnCache:%d\nRunOnDRAM:%d\nMAXRatio:%.6f\nCPURatio:%.6f\n", 
-            TotalTime, Kernel, Prelogue, Retiming, RunOnCache, RunOnDRAM, MAXRatio, CPURatio);
+  void Show(int TotalNode, int TotalEdge) {
+    printf("TotalNode:%d\nTotalEdge:%d\nTotalTime:%lld\nKernel:%lld\nPrelogue:%lld\nRetiming:%d\nRunOnCache:%d\nRunOnDRAM:%d\nMAXRatio:%.6f\nCPURatio:%.6f\n", 
+            TotalNode, TotalEdge, TotalTime, Kernel, Prelogue, Retiming, RunOnCache, RunOnDRAM, MAXRatio, CPURatio);
   }
 };
 
@@ -338,7 +338,7 @@ int DP[MAXN][MAXSIZE + 1];
 vector<CacheManager> Caches;
 vector<CacheBlock> DRAMBlocks;
 
-int TotalNode;
+int TotalNode, TotalEdge;
 int TotalPE, PeriodTimes, UpRound;
 
 

@@ -62,8 +62,7 @@ void GenPECommunication() {
 void Input() {
   ReadConfig();
   GenPECommunication();
-  int Line;
-  scanf("%d%d", &TotalNode, &Line);
+  scanf("%d%d", &TotalNode, &TotalEdge);
   long long MaxCost = -1;
   for (int i = 1; i <= TotalNode; i++) {
     long long Cost;
@@ -87,7 +86,7 @@ void Input() {
   long long MaxEdge = -1;
   int MaxDis = -1;
   int MinDis = INF;
-  for (int i = 0; i < Line; i++) {
+  for (int i = 0; i < TotalEdge; i++) {
     int From, To;
     long long Memory;
     scanf("%d%d%lld", &From, &To, &Memory);
@@ -116,6 +115,6 @@ void Input() {
 int main() {
   Input();
   FinalResult FR = Solve(TotalPE, PeriodTimes, UpRound);
-  FR.Show();
+  FR.Show(TotalNode, TotalEdge);
   return 0;
 }
