@@ -1,6 +1,6 @@
 #!/bin/bash
-datafolder="../caffe_data"
-# datafolder="../tensorflow_data"
+# datafolder="../caffe_data"
+datafolder="../tensorflow_data"
 resultfolder="../result"
 suffix=".in"
 algos=(ext algo lctes base)
@@ -28,4 +28,4 @@ for pe in ${pes[*]}; do
   done
 done
 echo 'LOADING RESULT'
-# echo `python3 loadresult.py`
+echo `python3 loadresult.py`

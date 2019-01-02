@@ -3,10 +3,11 @@ import os
 
 resultdir = '../result'
 resultexcel = 'output.xlsx'
-algorithms = ['algo', 'ext', 'lctes', 'base']
+algorithms = ['ext', 'algo', 'lctes', 'base']
 pes = [16, 32, 64, 128]
 attributes = ['Benchmark', 'Node', 'Edge']
 metrics = ['TotalTime', 'Kernel', 'Prelogue', 'Retiming', 'RunOnCache', 'RunOnDRAM', 'MAXRatio', 'CPURatio']
+drop_benchmark = ['mnist', 'mobilenet_v1_1']
 
 def parse_graph(line):
   lines = line.split(' ')
@@ -39,8 +40,10 @@ def parse_filecontent(filename, resultmap, peid, attribute):
   for i in range(0, len(lines), 2):
     benchmark, algo = parse_trace(lines[i].strip())
     data = parse_content(lines[i + 1].strip())
+    if benchmark in drop_benchmark:
+      continue
     if benchmark not in attr_set:
-      attr.append([benchmark, data['Node'], data['Edge']])
+      attr.append([benchmark, data['TotalNode'], data['TotalEdge']])
       attr_set.add(benchmark)
     for m in metrics:
       resultmap[m][algo][peid].append([benchmark, data[m]])
