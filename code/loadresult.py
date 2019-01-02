@@ -3,9 +3,10 @@ import os
 
 resultdir = '../result'
 resultexcel = 'output.xlsx'
-algonumb = 3
+algorithms = ['algo', 'ext', 'lctes', 'base']
 pes = [16, 32, 64, 128]
-attributes = ['GRAPH', 'TotalTime', 'Kernel', 'Prelogue', 'Retiming', 'RunOnCache', 'RunOnDRAM', 'MAXRatio', 'CPURatio'];
+attributes = ['Benchmark', 'Node', 'Edge']
+metrics = ['TotalTime', 'Kernel', 'Prelogue', 'Retiming', 'RunOnCache', 'RunOnDRAM', 'MAXRatio', 'CPURatio']
 
 def parse_graph(line):
   lines = line.split(' ')
@@ -16,86 +17,93 @@ def parse_filename(filename):
   assert(len(names) == 2)
   return (names[0], names[1])
 
-def parse_content(line, resultmap, peid, algo, graph_name):
-  onemap = {}
+def parse_trace(line):
+  ls = line.split(' ')
+  trace_name = ls[1].split('.')[0]
+  return trace_name, ls[2]
+
+def parse_content(line):
+  res = {}
   for l in line.split(' '):
-    key, value = l.split(':')
-    onemap[key] = value
-  onemap['GRAPH'] = graph_name[:-3]
+    maps = l.split(':')
+    assert(len(maps) == 2)
+    res[maps[0]] = maps[1]
+  return res
 
-  for key in onemap:
-    if key in resultmap:
-      resultmap[key][algo][peid].append(onemap[key])
-    else:
-      print('not find key:' + key)
-
-def parse_filecontent(filename, resultmap, peid):
+def parse_filecontent(filename, resultmap, peid, attribute):
   f = open(filename, 'r')
   lines = f.readlines();
   f.close()
-  theory_start = False
-  algo = -1
-  for l in lines:
-    l = l.strip('\n');
-    if l.startswith('DEALING'):
-      graph_name = parse_graph(l)
-      # print(graph_name)
-    elif l.startswith('##'):
-      if theory_start == False:
-        theory_start = True
-        for i in l:
-          if i >= '0' and i <= '9':
-            algo = int(i)
-        assert(algo != -1)
-      else:
-        theory_start = False
-        algo = -1
-    elif theory_start == True:
-      parse_content(l, resultmap, peid, algo - 1, graph_name)
+  attr = []
+  attr_set = set()
+  for i in range(0, len(lines), 2):
+    benchmark, algo = parse_trace(lines[i].strip())
+    data = parse_content(lines[i + 1].strip())
+    if benchmark not in attr_set:
+      attr.append([benchmark, data['Node'], data['Edge']])
+      attr_set.add(benchmark)
+    for m in metrics:
+      resultmap[m][algo][peid].append([benchmark, data[m]])
+  if len(attribute) == 0:
+    for a in attr:
+      attribute.append(a)
+  else:
+    assert(len(attr) == len(attribute))
+    for i, a in enumerate(attr):
+      for j in range(3):
+        assert(a[j] == attribute[i][j])
 
-def loadresult(resultmap):
+def loadresult(attribute, resultmap):
   wb = xlsxwriter.Workbook(os.path.join(resultdir, resultexcel))
   st = wb.add_worksheet()
   r = 0
-  for attr in resultmap:
-    ths = resultmap[attr]
-    maxr = r
-    c = 0
-    st.write(r, c, attr)
+  for m in metrics:
+    st.write(r, 0, m)
     r = r + 1
-    for thmap in ths:
-      for p in pes:
-        for j in range(len(thmap[p])):
-          st.write(r + j, c, thmap[p][j])
-          maxr = max(maxr, r + j)
-        c = c + 1
-    r = maxr + 1
+
+    # write attributes
+    for j, a in enumerate(attributes):
+      st.write(r, j, a)
+
+    for j, a in enumerate(algorithms):
+      st.write(r - 1, j * len(pes) + len(attributes), a)
+      for k, p in enumerate(pes):
+        st.write(r, j * len(pes) + len(attributes) + k, p)
+    r = r + 1
+
+    # write trace
+    for i, a in enumerate(attribute):
+      for j, v in enumerate(a):
+        st.write(r, j, v)
+      for j, algo in enumerate(algorithms):
+        for k, p in enumerate(pes):
+          st.write(r, j * len(pes) + len(a) + k, resultmap[m][algo][p][i][1])
+      r = r + 1
+    r = r + 1
   wb.close()
 
 def main():
   resultmap = {}
-  for attr in attributes:
-    result = []
-    for i in range(algonumb):
-      result.append({})
-    for r in result:
-      for p in pes:
-        r[p] = []
-    resultmap[attr] = result
 
+  for m in metrics:
+    resultmap[m] = {}
+    for algo in algorithms:
+      resultmap[m][algo] = {}
+      for pe in pes:
+        resultmap[m][algo][pe] = []
+
+  attr = []
   for f in os.listdir(resultdir):
-    # if os.path.isfile(f) == False:
-    #   continue
     peid, suffix = parse_filename(f)
     if suffix != 'out':
       continue
     if int(peid) not in pes:
       continue
     print('Loading ' + peid)
-    parse_filecontent(os.path.join(resultdir, f), resultmap, int(peid))
+    parse_filecontent(os.path.join(resultdir, f), resultmap, int(peid), attr)
 
   # print(resultmap)
-  loadresult(resultmap)
+  loadresult(attr, resultmap)
 
 if __name__ == '__main__':
   # test()

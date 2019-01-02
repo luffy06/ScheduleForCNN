@@ -3,7 +3,9 @@ datafolder="../caffe_data"
 # datafolder="../tensorflow_data"
 resultfolder="../result"
 suffix=".in"
-for (( pe=16; pe<=128; pe=pe*2 )) do
+algos=(ext algo lctes base)
+pes=(16 32 64 128)
+for pe in ${pes[*]}; do
   echo 'CALC PE-'$pe
   if [[ -f 'config.in' ]]; then
     rm 'config.in'
@@ -18,14 +20,12 @@ for (( pe=16; pe<=128; pe=pe*2 )) do
   for file in ${datafolder}/*${suffix}; do
     filename=`basename $file`
     echo 'GRAPH '$filename
-    echo 'DEALING WITH '$filename >> ${resultname}
-    for (( i = 1; i <= 3; i++ )); do
-      echo 'RUN TH-'$i
-      echo '######### Using Theory'$i' #########' >> ${resultname}
-      echo `./run$i < $datafolder/$filename` >> ${resultname}
-      echo '######### End #########' >> ${resultname}
+    for algo in ${algos[*]}; do
+      echo 'RUNNING '$algo
+      echo 'RUNNING '$filename' '$algo >> ${resultname}
+      echo `./run_$algo < $datafolder/$filename` >> ${resultname}
     done
   done
 done
 echo 'LOADING RESULT'
-echo `python3 loadresult.py`
+# echo `python3 loadresult.py`
