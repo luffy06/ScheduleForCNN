@@ -171,13 +171,14 @@ int CalculateToNodeRetiming(long long FE, long long FR, long long P, long long E
   return Retiming;
 }
 
-long long GetStartTime(long long StartTime, int NodeId, int Round) {
+long long GetStartTime(long long StartTime, int NodeId, int Round, int PEId) {
   vector<Edge> Edges = ReEdgeList[NodeId];
   for (int i = 0; i < Edges.size(); i++) {
     Edge e = Edges[i];
     if (e.Memory > CACHESIZE)
       continue;
-    long long NStartTime = NodeTime[Round][e.From].EndTime + Ceil(e.Memory, CACHESPEED);
+    long long Com = (PEEdge[NodeTime[Round][e.From].PEId][PEId] == 0 ? 0 : Ceil(e.Memory, PEEdge[NodeTime[Round][e.From].PEId][PEId]));
+    long long NStartTime = NodeTime[Round][e.From].EndTime + Ceil(e.Memory, CACHESPEED) + Com;
     StartTime = max(StartTime, NStartTime);
   }
   return StartTime;
@@ -208,7 +209,7 @@ void InitPhaseOrigin(Phase &phase) {
         for (int k = 1; k <= REPEAT; ++ k, ++ PEIndex) {
           if (PEIndex == IntervalQue.size())
             PEIndex = 0;
-          long long StartTime = GetStartTime(IntervalQue[PEIndex].EndTime, node.Id, k);
+          long long StartTime = GetStartTime(IntervalQue[PEIndex].EndTime, node.Id, k, IntervalQue[PEIndex].PEId);
           node.PEId = IntervalQue[PEIndex].PEId;
           node.Round = k;
           node.SetTime(StartTime, StartTime + node.Cost);
@@ -221,7 +222,7 @@ void InitPhaseOrigin(Phase &phase) {
           Node node = NodeQue.top();
           NodeQue.pop();
           for (int k = 1; k <= REPEAT; ++ k) {
-            long long StartTime = GetStartTime(IntervalQue[PEIndex].EndTime, node.Id, k);
+            long long StartTime = GetStartTime(IntervalQue[PEIndex].EndTime, node.Id, k, IntervalQue[PEIndex].PEId);
             if (k > 1)
               StartTime = max(StartTime, NodeTime[k - 1][node.Id].EndTime);
             node.PEId = IntervalQue[PEIndex].PEId;
@@ -336,11 +337,13 @@ void PutEdgeIntoCache(int PENumb, int UpBound) {
       for (int k = 0; k < Edges.size(); ++ k) {
         Edge e = Edges[k];
         Node ToNode = IterNodeTime[j][e.To];
+        long long Com = (PEEdge[FromNode.PEId][ToNode.PEId] == 0 ? 0 : Ceil(e.Memory, PEEdge[FromNode.PEId][ToNode.PEId]));
+        long long Cost = Ceil(e.Memory, CACHESPEED) + Com;
         if (e.Memory <= CACHESIZE && FromNode.EndTime + FromNode.Retiming * UpBound 
-              + Ceil(e.Memory, CACHESPEED) >= ToNode.StartTime + ToNode.Retiming 
+              + Cost >= ToNode.StartTime + ToNode.Retiming 
               * UpBound) {
           int Retiming = CalculateToNodeRetiming(FromNode.EndTime, FromNode.Retiming, 
-                          UpBound, Ceil(e.Memory, CACHESPEED), ToNode.StartTime);
+                          UpBound, Cost, ToNode.StartTime);
           ToNode.Retiming = max(ToNode.Retiming, Retiming);
           IterNodeTime[j][e.To].Copy(ToNode);
           assert(FromNode.EndTime + FromNode.Retiming * UpBound < ToNode.StartTime + ToNode.Retiming * UpBound);
@@ -393,7 +396,7 @@ void DetectCacheOverflow(Iteration &iteration) {
       vector<int> Memory;
       for (int k = 0; k < Blocks.size(); ++ k)
         Memory.push_back(Blocks[k].Memory);
-      set<int> ArrangedSet = ArrangeInFixedSize(Memory, CACHESIZE);
+      set<int> ArrangedSet = ArrangeInFixedSize(Memory, CACHESIZE, "Auto");
       
       iteration.RunOnDRAM = iteration.RunOnDRAM + Blocks.size();
       iteration.RunOnCache = iteration.RunOnCache - Blocks.size();
@@ -434,8 +437,9 @@ void BFS(Node KeyNode, Iteration &iteration) {
     for (int i = 0; i < Edges.size(); ++ i) {
       Edge e = Edges[i];
       Node ToNode = IterNodeTime[FromNode.Round][Edges[i].To];
+      long long Com = (PEEdge[FromNode.PEId][ToNode.PEId] == 0 ? 0 : Ceil(e.Memory, PEEdge[FromNode.PEId][ToNode.PEId]));
       long long Cost = (GetStrogePos(FromNode.Id, FromNode.Round, ToNode.Id, ToNode.Round) 
-                      ? Ceil(e.Memory, CACHESPEED) : Ceil(e.Memory, DRAMSPEED));
+                      ? Ceil(e.Memory, CACHESPEED) : Ceil(e.Memory, DRAMSPEED)) + Com;
       if (FromNode.EndTime + FromNode.Retiming * PeriodTime + Cost > ToNode.StartTime + ToNode.Retiming * PeriodTime) {
         ToNode.Retiming = CalculateToNodeRetiming(FromNode.EndTime, FromNode.Retiming, PeriodTime, Cost, ToNode.StartTime);
         IterNodeTime[ToNode.Round][ToNode.Id].Copy(ToNode);

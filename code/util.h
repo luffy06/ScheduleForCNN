@@ -1,4 +1,4 @@
-#define THEORY 3
+#define THEORY 4
 #define MAXM 70000
 #define MAXN 2000
 #define MAXSIZE 50000
@@ -10,6 +10,8 @@
 const int INF = 0x3f3f3f3f;
 const long long DRAMSPEED = 10000;
 const long long CACHESPEED = 100000;
+// const long long DRAMSPEED = 1;
+// const long long CACHESPEED = 2;
 const long long CACHESIZE = 20480;
 
 typedef pair<int, int> TwoInt;
@@ -183,6 +185,7 @@ struct CacheManager {
 };
 
 struct Node {
+  // Constant Attributes
   int Id;
   long long Cost;
   char Name[200];
@@ -191,6 +194,7 @@ struct Node {
   int OutDegree;
   int TopoOrder;
 
+  // Variant Attributes
   int PEId;
   int Round;
   int Retiming;
@@ -324,9 +328,9 @@ struct TimeInterval : PEInterval {
   }
 };
 
-
 vector<Edge> EdgeList[MAXN];
 vector<Edge> ReEdgeList[MAXN];
+int PEEdge[MAXPE][MAXPE];
 Node NodeList[MAXN];
 int Degree[MAXN];
 int DP[MAXN][MAXSIZE + 1];
@@ -513,7 +517,7 @@ set<int> Greedy(vector<TwoInt> Goods, int BinSize) {
   return ArrangedGoods;  
 }
 
-set<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
+set<int> ArrangeInFixedSize(vector<int> Goods, int BinSize, string Algo) {
   set<int> ArrangedGoods;
   long long Sum = 0;
   for (int i = 0; i < Goods.size(); ++ i)
@@ -536,12 +540,17 @@ set<int> ArrangeInFixedSize(vector<int> Goods, int BinSize) {
   if (Sum == 0)
     return ArrangedGoods;
 
-  if (RestGoods.size() >= MAXN || BinSize > MAXSIZE) {
-    // printf("Greedy\n");
+  if (Algo == "Greedy") {
     return Greedy(RestGoods, BinSize);
   }
   else {
-    // printf("Dynamic\n");
-    return Dynamic(RestGoods, BinSize);
+    if (RestGoods.size() >= MAXN || BinSize > MAXSIZE) {
+      // printf("Greedy\n");
+      return Greedy(RestGoods, BinSize);
+    }
+    else {
+      // printf("Dynamic\n");
+      return Dynamic(RestGoods, BinSize);
+    }
   }
 }

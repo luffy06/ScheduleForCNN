@@ -35,7 +35,7 @@ TwoInt DetectCacheOverflow(int PENumb, int RunOnCache) {
       vector<int> Memory;
       for (int k = 0; k < Blocks.size(); ++ k)
         Memory.push_back(Blocks[k].Memory);
-      set<int> ArrangedSet = ArrangeInFixedSize(Memory, CACHESIZE);
+      set<int> ArrangedSet = ArrangeInFixedSize(Memory, CACHESIZE, "Auto");
       
       RunPlace.first = RunPlace.first - Blocks.size();
       RunPlace.second = RunPlace.second + Blocks.size();
@@ -77,7 +77,8 @@ void BFS() {
       vector<Edge> Edges = EdgeList[FromNode.Id];
       for (int j = 0; j < Edges.size(); ++ j) {
         Edge e = Edges[j];
-        long long StartTime = FromNode.EndTime + Ceil(e.Memory, DRAMSPEED);
+        long long Com = (PEEdge[FromNode.PEId][NodeTime[FromNode.Round][e.To].PEId] == 0 ? 0 : Ceil(e.Memory, PEEdge[FromNode.PEId][NodeTime[FromNode.Round][e.To].PEId]));
+        long long StartTime = FromNode.EndTime + Ceil(e.Memory, DRAMSPEED) + Com;
         long long EndTime = StartTime + NodeTime[FromNode.Round][e.To].Cost;
         if (NodeTime[FromNode.Round][e.To].StartTime < StartTime) {
           NodeTime[FromNode.Round][e.To].SetTime(StartTime, EndTime);
@@ -121,13 +122,15 @@ int Init() {
         for (int j = 0; j < Edges.size(); ++ j) {
           Edge e = Edges[j];
           Node FromNode = NodeTime[node.Round][e.From];
-          StartTime = max(StartTime, FromNode.EndTime + Ceil(e.Memory, CACHESPEED));
+          long long Com = (PEEdge[FromNode.PEId][TI.PEId] == 0 ? 0 : Ceil(e.Memory, PEEdge[FromNode.PEId][TI.PEId]));
+          StartTime = max(StartTime, FromNode.EndTime + Ceil(e.Memory, CACHESPEED) + Com);
         }
 
         for (int j = 0; j < Edges.size(); ++ j) {
           Edge e = Edges[j];
           Node FromNode = NodeTime[node.Round][e.From];
-          long long Cost = Ceil(e.Memory, CACHESPEED);
+          long long Com = (PEEdge[FromNode.PEId][TI.PEId] == 0 ? 0 : Ceil(e.Memory, PEEdge[FromNode.PEId][TI.PEId]));
+          long long Cost = Ceil(e.Memory, CACHESPEED) + Com;
           CacheBlock CB = CacheBlock(e.From, node.Round, e.To, node.Round, e.Memory, 
                                     FromNode.EndTime, StartTime + Cost);
           Caches[TI.PEId - 1].AddCacheBlock(CB);

@@ -19,22 +19,51 @@ using namespace std;
 #elif THEORY == 3
   #include "theoryBASE_LS.h"
 #elif THEORY == 4
-  #include "theoryBASE_RE.h"
+  #include "theory_EXT.h"
 #endif
 
 void ReadConfig() {
-  FILE* Fp = fopen("config.in", "r");
+  FILE* fp = fopen("config.in", "r");
   char Op[20];
-  fscanf(Fp, "%s%d", Op, &TotalPE);
-  fscanf(Fp, "%s%d", Op, &PeriodTimes);
-  fscanf(Fp, "%s%d", Op, &UpRound);
-  fclose(Fp);  
+  fscanf(fp, "%s%d", Op, &TotalPE);
+  fscanf(fp, "%s%d", Op, &PeriodTimes);
+  fscanf(fp, "%s%d", Op, &UpRound);
+  fclose(fp);  
+}
+
+void GenPECommunication() {
+  int n = 1;
+  int m = 1;
+  for (int i = 1; i <= TotalPE; ++ i) {
+    if (TotalPE % i == 0 && i < TotalPE / i) {
+      n = i;
+      m = TotalPE / i;
+    }
+  }
+
+  vector<TwoInt> points;
+  for (int i = 0; i < n; ++ i)
+    for (int j = 0; j < m; ++ j)
+      points.push_back(make_pair(i, j));
+
+  memset(PEEdge, 0, sizeof(PEEdge));
+  int max_speed = CACHESPEED * 100;
+  for (int i = 0; i < points.size(); ++ i) {
+    for (int j = 0; j < points.size(); ++ j) {
+      int dis = abs(points[i].first - points[j].first) + abs(points[i].second - points[j].second);
+      if (dis == 0)
+        PEEdge[i + 1][j + 1] = 0;
+      else
+        PEEdge[i + 1][j + 1] = max_speed / dis;
+    }
+  }
 }
 
 void Input() {
+  ReadConfig();
+  GenPECommunication();
   int Line;
   scanf("%d%d", &TotalNode, &Line);
-  ReadConfig();
   long long MaxCost = -1;
   for (int i = 1; i <= TotalNode; i++) {
     long long Cost;
@@ -55,7 +84,6 @@ void Input() {
       NodeList[i].Cost = ceil((NodeList[i].Cost * 1.0 / MaxCost) * MAXM / 2);
     }
   }
-
   long long MaxEdge = -1;
   int MaxDis = -1;
   int MinDis = INF;
