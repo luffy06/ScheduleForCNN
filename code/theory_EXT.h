@@ -21,15 +21,22 @@ struct NodeGenerator {
   int Retiming;
   long long RunOnCache;
   long long RunOnDRAM;
+  double CacheRatio;
   double MaxRatio;
   vector<Node> StartTable;
+  
+  int TotalRound;
+  long long TotalTime;
 
   NodeGenerator() {
     TotalNode = 0;
+    NeedPE = 0;
     UpBound = 0;
+    TotalRound = 0;
+    TotalTime = 0;
     Prelogue = -1;
     RunOnCache = RunOnDRAM = 0;
-    MaxRatio = 0;
+    MaxRatio = CacheRatio = 0;
     StartTable.clear();
   }
 
@@ -37,9 +44,11 @@ struct NodeGenerator {
     TotalNode = a;
     NeedPE = b;
     UpBound = 0;
+    TotalRound = 0;
+    TotalTime = 0;
     Prelogue = -1;
     RunOnCache = RunOnDRAM = 0;
-    MaxRatio = 0;
+    MaxRatio = CacheRatio = 0;
     StartTable.clear();
     CalcBound(MaxRound, NodeList);
   }
@@ -272,6 +281,11 @@ struct NodeGenerator {
     Prelogue = Retiming * UpBound;
   }
 
+  void PlaceOnePeriod() {
+    TotalRound = TotalRound + UpRound;
+    TotalTime = TotalTime + UpBound;
+  }
+
   void Show() {
     sort(StartTable.begin(), StartTable.end(), CmpByPE);
     int LastPEId = -1;
@@ -311,11 +325,17 @@ struct NodeGenerator {
         StartTable[i].Show();
     }
   }
+};
 
+struct NodeGeneratorComparator {
+  bool operator()(NodeGenerator &a, NodeGenerator &b) const {
+    if (a.TotalTime != b.TotalTime)
+      return a.TotalTime > b.TotalTime;
+    return a.UpBound * 1. / a.UpRound > b.UpBound * 1. / b.UpRound;
+  }  
 };
 
 vector<NodeGenerator> NgList;
-
 vector<PEInterval> PEIntervals[MAXPE];
 
 bool Checked[MAXN][MINR];
@@ -344,26 +364,10 @@ void Init(int TotalPE, int UpRound) {
     }
   }
 
-  int NeedPE = GetTopology();
-  // printf("Multi:%d\n", NeedPE);
+  // int NeedPE = GetTopology();
 
-  if (TotalPE >= NeedPE) {
-    for (int i = 1; i <= TotalPE; ++ i) {
-      if (TotalPE % i)
-        continue;
-      NeedPE = i;
-      int j = TotalPE / i;
-      if (j < i)
-        break;
-    }
-    // printf("%d\n", NeedPE);
-    NgList.push_back(NodeGenerator(TotalNode, NeedPE, UpRound, NodeList));
-    if (TotalPE % NeedPE != 0)
-      NgList.push_back(NodeGenerator(TotalNode, TotalPE % NeedPE, UpRound, NodeList));
-  }
-  else {
-    NgList.push_back(NodeGenerator(TotalNode, TotalPE, UpRound, NodeList));
-  }
+  for (int i = 1; i <= TotalPE; ++ i)
+    NgList.push_back(NodeGenerator(TotalNode, i, UpRound, NodeList));
 }
 
 vector<Node> GetKeyNodeSet(vector<Node> &ChoosedNodes) {
@@ -484,7 +488,6 @@ void ArrangeKeyNode(Node KeyNode, NodeGenerator &ng, priority_queue<Node, vector
   long long PeriodTime = ng.UpBound;
   vector<Edge> InEdges = ReEdgeList[KeyNode.Id];
   sort(InEdges.begin(), InEdges.end(), CmpEdgeByFromCost);
-  ng.RunOnCache = ng.RunOnCache + (int)InEdges.size();
   for (int i = 0; i < InEdges.size(); ++ i) {
     Edge e = InEdges[i];
     bool InQ = false;
@@ -561,6 +564,7 @@ void DetectCacheOverflow(NodeGenerator &ng) {
       vector<CacheBlock> Blocks;
       long long MemorySum = 0;
       Index = Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks, MemorySum, Index);
+      ng.RunOnCache = ng.RunOnCache + Blocks.size();
       if (MemorySum <= CACHESIZE)
         continue;
 
@@ -569,18 +573,34 @@ void DetectCacheOverflow(NodeGenerator &ng) {
         Memory.push_back(Blocks[k].Memory);
       set<int> ArrangedSet = ArrangeInFixedSize(Memory, CACHESIZE, "Auto");
       
-      ng.RunOnDRAM = ng.RunOnDRAM + Blocks.size();
-      ng.RunOnCache = ng.RunOnCache - Blocks.size();
       for (int k = 0; k < Blocks.size(); ++ k) {
         if (ArrangedSet.find(k) != ArrangedSet.end())
           continue;
         CacheBlock CB = Blocks[k];
         Caches[i - 1].DeleteCacheBlock(CB);
+        ng.RunOnCache = ng.RunOnCache - 1;
         DRAMBlocks.push_back(CB);
         ReChecked[CB.NodeIds.second][CB.Rounds.second] = true;
       }
     }
   }
+  ng.RunOnDRAM = DRAMBlocks.size();
+  long long CacheMemorySum = 0;
+  for (int i = 1; i <= ng.NeedPE; ++ i) {
+    Caches[i - 1].SortCacheBlock();
+    vector<long long> TimeTrace = Caches[i - 1].GetTimeTrace();
+    int Index = 0;
+    for (int j = 0; j < TimeTrace.size() - 1; ++ j) {
+      long long ST = TimeTrace[j];
+      long long ED = TimeTrace[j + 1];
+      vector<CacheBlock> Blocks;
+      long long MemorySum = 0;
+      Index = Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks, MemorySum, Index);
+      CacheMemorySum = CacheMemorySum + MemorySum * (ED - ST);
+      assert(MemorySum <= CACHESIZE);
+    }
+  }
+  ng.CacheRatio = (CacheMemorySum * 1.0) / (CACHESIZE * ng.UpBound * ng.NeedPE);
 }
 
 bool GetStrogePos(int FromId, int FromRound, int ToId, int ToRound) {
@@ -661,6 +681,47 @@ void ReCheck(NodeGenerator &ng) {
   }
 }
 
+vector<TwoInt> SelectSchedules(int TotalPE) {
+  // dp[i][j] = min(dp[i - 1][j], dp[i - 1][j - v[i] * k] + w[i] * k)
+  for (int i = 0; i < MAXN; ++ i) {
+    for (int j = 0; j <= MAXSIZE; ++ j) {
+      DP[i][j] = LLINF;
+      Trace[i][j] = -1;
+    }
+  }
+  DP[0][0] = 0;
+
+  for (int i = 1; i <= NgList.size(); ++ i) {
+    int V = NgList[i - 1].NeedPE;
+    long long W = NgList[i - 1].Retiming * NgList[i - 1].UpBound + NgList[i - 1].UpBound / NgList[i - 1].UpRound;
+    for (int j = TotalPE; j >= 0; -- j) {
+      DP[i][j] = DP[i - 1][j];
+      Trace[i][j] = j;
+      if (j >= V) {
+        for (int k = 0; k <= j / V; ++ k) {
+          if (DP[i - 1][j - k * V] + k * W < DP[i][j]) {
+            DP[i][j] = DP[i - 1][j - k * V] + W;
+            Trace[i][j] = j - k * V;
+          }
+        }
+      }
+    }
+  }
+
+  vector<TwoInt> ChooseSchedules;
+  int last = TotalPE;
+  for (int i = NgList.size(); i > 0; -- i) {
+    int now = Trace[i][last];
+    long long W = NgList[i - 1].Retiming * NgList[i - 1].UpBound + NgList[i - 1].UpBound / NgList[i - 1].UpRound;
+    if (DP[i][last] != DP[i - 1][now]) {
+      assert(DP[i][last] > DP[i - 1][now]);
+      ChooseSchedules.push_back(make_pair(i - 1, (DP[i][last] - DP[i - 1][now]) / W));
+    }
+    last = now;
+  }
+  return ChooseSchedules;
+}
+
 FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
   Init(TotalPE, UpRound);
   for (int i = 0; i < NgList.size(); ++ i) {
@@ -680,44 +741,54 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
     NgList[i].CalcPrelogue();
   }
 
+  priority_queue<NodeGenerator, vector<NodeGenerator>, NodeGeneratorComparator> q;
+  vector<TwoInt> ChooseSchedules = SelectSchedules(TotalPE);
+  for (int i = 0; i < ChooseSchedules.size(); ++ i) {
+    int index = ChooseSchedules[i].first;
+    NgList[index].TotalTime = NgList[index].Retiming * NgList[index].UpBound;
+    for (int j = 0; j < ChooseSchedules[i].second; ++ j) 
+      q.push(NgList[ChooseSchedules[i].first]);
+  }
+
+  int TotalRound = PeriodTimes;
+  while (TotalRound > 0 && !q.empty()) {
+    NodeGenerator ng = q.top();
+    q.pop();
+    TotalRound = TotalRound - ng.UpRound;
+    ng.PlaceOnePeriod();
+    q.push(ng);
+  }
+
   long long TotalCost = 0;
   for (int i = 1; i <= TotalNode; ++ i)
     TotalCost = TotalCost + NodeList[i].Cost;
 
-  FinalResult FR = FinalResult();
+  vector<NodeGenerator> res;
+  while (!q.empty()) {
+    res.push_back(q.top());
+    q.pop();
+  }
 
-  if (NgList.size() == 1) {
-    int Launches = Ceil(TotalPE, NgList[0].NeedPE);
-    int X = Ceil(Ceil(PeriodTimes, Launches), NgList[0].UpRound);
-    FR.TotalTime = NgList[0].Prelogue + 1LL * max(0, X - 1) * NgList[0].UpBound;
-    FR.Kernel = NgList[0].UpBound;
-    FR.Prelogue = NgList[0].Prelogue;
-    FR.Retiming = NgList[0].Retiming;
-    FR.RunOnCache = NgList[0].RunOnCache * X * Launches;
-    FR.RunOnDRAM = NgList[0].RunOnDRAM * X * Launches;
-    FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
-    FR.MAXRatio = NgList[0].MaxRatio;
-  }
-  else {
-    int Launches = TotalPE / NgList[0].NeedPE;
-    for (int EachX = 0; EachX <= PeriodTimes; ++ EachX) {
-      int EachY = PeriodTimes - EachX;
-      int X = Ceil(Ceil(EachX, Launches), NgList[0].UpRound);
-      int Y = Ceil(EachY, NgList[1].UpRound);
-      long long TotalTimeX = NgList[0].Prelogue + 1LL * max(0, X - 1) * NgList[0].UpBound;
-      long long TotalTimeY = NgList[1].Prelogue + 1LL * max(0, Y - 1) * NgList[1].UpBound;
-      long long TotalTime = max(TotalTimeX, TotalTimeY);
-      if (FR.TotalTime == -1 || TotalTime < FR.TotalTime) {
-        FR.TotalTime = TotalTime;
-        FR.Kernel = (NgList[0].UpBound + NgList[1].UpBound) / 2.0;
-        FR.RunOnCache = NgList[0].RunOnCache * X * Launches + NgList[1].RunOnCache * Y;
-        FR.RunOnDRAM = NgList[0].RunOnDRAM * X * Launches + NgList[1].RunOnDRAM * Y;
-      }
+  FinalResult FR = FinalResult();
+  long long TotalTime = 0;
+  double MaxRatio = 0.;
+  int used = 0;
+  for (int i = 0; i < res.size(); ++ i) {
+    // printf("%d\t%8d\t%.6f\n", res[i].NeedPE, res[i].Retiming * res[i].UpBound, res[i].UpBound * 1. / res[i].UpRound);
+    // printf("%d\t%d\t%lld\n", res[i].NeedPE, res[i].TotalRound, res[i].TotalTime);
+    if (res[i].TotalRound == 0)
+      continue;
+    used = used + 1;
+    FR.TotalTime = max(FR.TotalTime, res[i].TotalTime);
+    if (res[i].Prelogue > FR.Prelogue) {
+      FR.Prelogue = res[i].Prelogue;
+      FR.Retiming = res[i].Retiming;
     }
-    FR.Prelogue = NgList[0].Prelogue;
-    FR.Retiming = NgList[0].Retiming;
-    FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
-    FR.MAXRatio = (NgList[0].MaxRatio + NgList[1].MaxRatio) / 2;
+    FR.RunOnCache = FR.RunOnCache + res[i].RunOnCache * res[i].TotalRound;
+    FR.RunOnDRAM = FR.RunOnDRAM + res[i].RunOnDRAM * res[i].TotalRound;
+    MaxRatio = MaxRatio + res[i].MaxRatio;
   }
+  FR.CPURatio = (1.0 * PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
+  FR.MAXRatio = MaxRatio / used;
   return FR;
 }

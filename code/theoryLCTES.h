@@ -56,6 +56,7 @@ struct Iteration {
   int Retiming;
   int RunOnCache;
   int RunOnDRAM;
+  double CacheRatio;
   double MaxRatio;
 
   Iteration(int a, int b, int c) {
@@ -382,7 +383,7 @@ void DetectCacheOverflow(Iteration &iteration) {
     assert(i - 1 >= 0 && i - 1 < Caches.size());
     Caches[i - 1].SortCacheBlock();
     vector<long long> TimeTrace = Caches[i - 1].GetTimeTrace();
-    // printf("PE:%d/%d\tTimeTrace Size:%lu\n", i, iteration.PENumb, TimeTrace.size());
+    iteration.RunOnCache = 0;
     int Index = 0;
     for (int j = 0; j < TimeTrace.size() - 1; ++ j) {
       long long ST = TimeTrace[j];
@@ -390,6 +391,7 @@ void DetectCacheOverflow(Iteration &iteration) {
       vector<CacheBlock> Blocks;
       long long MemorySum = 0;
       Index = Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks, MemorySum, Index);
+      iteration.RunOnCache = iteration.RunOnCache + Blocks.size();
       if (MemorySum <= CACHESIZE)
         continue;
 
@@ -397,19 +399,35 @@ void DetectCacheOverflow(Iteration &iteration) {
       for (int k = 0; k < Blocks.size(); ++ k)
         Memory.push_back(Blocks[k].Memory);
       set<int> ArrangedSet = ArrangeInFixedSize(Memory, CACHESIZE, "Auto");
-      
-      iteration.RunOnDRAM = iteration.RunOnDRAM + Blocks.size();
-      iteration.RunOnCache = iteration.RunOnCache - Blocks.size();
+
       for (int k = 0; k < Blocks.size(); ++ k) {
         if (ArrangedSet.find(k) != ArrangedSet.end())
           continue;
         CacheBlock CB = Blocks[k];
         Caches[i - 1].DeleteCacheBlock(CB);
+        iteration.RunOnCache = iteration.RunOnCache - 1;
         DRAMBlocks.push_back(CB);
         ReChecked[CB.NodeIds.first][CB.Rounds.first] = true;
       }
     }
   }
+  iteration.RunOnDRAM = DRAMBlocks.size();
+  long long CacheMemorySum = 0;
+  for (int i = 1; i <= iteration.PENumb; ++ i) {
+    Caches[i - 1].SortCacheBlock();
+    vector<long long> TimeTrace = Caches[i - 1].GetTimeTrace();
+    int Index = 0;
+    for (int j = 0; j < TimeTrace.size() - 1; ++ j) {
+      long long ST = TimeTrace[j];
+      long long ED = TimeTrace[j + 1];
+      vector<CacheBlock> Blocks;
+      long long MemorySum = 0;
+      Index = Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks, MemorySum, Index);
+      CacheMemorySum = CacheMemorySum + MemorySum * (ED - ST);
+      assert(MemorySum <= CACHESIZE);
+    }
+  }
+  iteration.CacheRatio = (CacheMemorySum * 1.0) / (CACHESIZE * iteration.UpBound * iteration.PENumb);
 }
 
 bool GetStrogePos(int FromId, int FromRound, int ToId, int ToRound) {
@@ -515,8 +533,6 @@ void InitIteration(Iteration &iteration) {
   // printf("UpBound:%lld\n", iteration.UpBound);
 
   assert(iteration.UpBound > 0);
-  for (int i = 0; i < Caches.size(); ++ i)
-    iteration.RunOnCache = iteration.RunOnCache + Caches[i].Cache.size();
 
   // printf("Detect Cache Overflow\n");
   DetectCacheOverflow(iteration);
@@ -562,6 +578,7 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
     FR.Retiming = iteration.Retiming;
     FR.RunOnCache = X * iteration.RunOnCache * Launches;
     FR.RunOnDRAM = X * iteration.RunOnDRAM * Launches;
+    FR.CacheRatio = iteration.CacheRatio;
     FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
     FR.MAXRatio = IterList[0].MaxRatio;
   }
@@ -586,6 +603,7 @@ FinalResult CalcResult(int TotalPE, int NeedPE, int PeriodTimes) {
     }
     FR.Retiming = iterationX.Retiming;
     FR.Prelogue = iterationX.Prelogue;
+    FR.CacheRatio = (IterList[0].CacheRatio + IterList[1].CacheRatio) / 2;
     FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
     FR.MAXRatio = (IterList[0].MaxRatio + IterList[1].MaxRatio) / 2;
   }

@@ -8,6 +8,7 @@
 #define LIMITEDRATIO 0.95
 #define ALPHA 0.8
 const int INF = 0x3f3f3f3f;
+const long long LLINF = 0x3f3f3f3f3f3f3f3f;
 const long long DRAMSPEED = 10000;
 const long long CACHESPEED = 100000;
 // const long long DRAMSPEED = 1;
@@ -40,23 +41,25 @@ struct FinalResult {
   int Retiming;
   int RunOnCache;
   int RunOnDRAM;
+  double CacheRatio;
   double MAXRatio;
   double CPURatio;
 
   FinalResult() {
-    TotalTime = -1;
+    TotalTime = 0;
     Kernel = 0;
     Prelogue = 0;
     Retiming = 0;
     RunOnCache = 0;
     RunOnDRAM = 0;
+    CacheRatio = 0;
     MAXRatio = 0;
     CPURatio = 0;
   }
 
   void Show(int TotalNode, int TotalEdge) {
-    printf("TotalNode:%d\nTotalEdge:%d\nTotalTime:%lld\nKernel:%lld\nPrelogue:%lld\nRetiming:%d\nRunOnCache:%d\nRunOnDRAM:%d\nMAXRatio:%.6f\nCPURatio:%.6f\n", 
-            TotalNode, TotalEdge, TotalTime, Kernel, Prelogue, Retiming, RunOnCache, RunOnDRAM, MAXRatio, CPURatio);
+    printf("TotalNode:%d\nTotalEdge:%d\nTotalTime:%lld\nKernel:%lld\nPrelogue:%lld\nRetiming:%d\nRunOnCache:%d\nRunOnDRAM:%d\nMAXRatio:%.6f\nCPURatio:%.6f\nCacheRatio:%.6f\n", 
+            TotalNode, TotalEdge, TotalTime, Kernel, Prelogue, Retiming, RunOnCache, RunOnDRAM, MAXRatio, CPURatio, CacheRatio);
   }
 };
 
@@ -160,6 +163,7 @@ struct CacheManager {
   // OPTIMIZING
   int GetCacheBlockByTime(long long StartTime, long long EndTime, vector<CacheBlock> &Blocks, long long &MemorySum, int Index) {
     MemorySum = 0;
+    Blocks.clear();
     for (int i = Index; i < Cache.size(); ++ i) {
       if (Cache[i].StartTime > StartTime) {
         Index = i;
@@ -333,7 +337,8 @@ vector<Edge> ReEdgeList[MAXN];
 int PEEdge[MAXPE][MAXPE];
 Node NodeList[MAXN];
 int Degree[MAXN];
-int DP[MAXN][MAXSIZE + 1];
+long long DP[MAXN][MAXSIZE + 1];
+int Trace[MAXN][MAXSIZE + 1];
 
 vector<CacheManager> Caches;
 vector<CacheBlock> DRAMBlocks;
@@ -501,7 +506,7 @@ set<int> Dynamic(vector<TwoInt> Goods, int BinSize) {
       ArrangedGoods.insert(Goods[i - 1].second);
     }
   }
-  return ArrangedGoods;  
+  return ArrangedGoods; 
 }
 
 set<int> Greedy(vector<TwoInt> Goods, int BinSize) {

@@ -21,6 +21,7 @@ struct NodeGenerator {
   int Retiming;
   long long RunOnCache;
   long long RunOnDRAM;
+  double CacheRatio;
   double MaxRatio;
   vector<Node> StartTable;
 
@@ -30,7 +31,7 @@ struct NodeGenerator {
     UpBound = 0;
     Prelogue = -1;
     RunOnCache = RunOnDRAM = 0;
-    MaxRatio = 0;
+    MaxRatio = CacheRatio = 0;
     StartTable.clear();
   }
 
@@ -40,7 +41,7 @@ struct NodeGenerator {
     UpBound = 0;
     Prelogue = -1;
     RunOnCache = RunOnDRAM = 0;
-    MaxRatio = 0;
+    MaxRatio = CacheRatio = 0;
     StartTable.clear();
     CalcBound(MaxRound, NodeList);
   }
@@ -407,7 +408,6 @@ void ArrangeKeyNode(Node KeyNode, NodeGenerator &ng, priority_queue<Node, vector
   long long PeriodTime = ng.UpBound;
   vector<Edge> InEdges = ReEdgeList[KeyNode.Id];
   sort(InEdges.begin(), InEdges.end(), CmpEdgeByFromCost);
-  ng.RunOnCache = ng.RunOnCache + (int)InEdges.size();
   for (int i = 0; i < InEdges.size(); ++ i) {
     Edge e = InEdges[i];
     bool InQ = false;
@@ -484,6 +484,7 @@ void DetectCacheOverflow(NodeGenerator &ng) {
       vector<CacheBlock> Blocks;
       long long MemorySum = 0;
       Index = Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks, MemorySum, Index);
+      ng.RunOnCache = ng.RunOnCache + Blocks.size();
       if (MemorySum <= CACHESIZE)
         continue;
 
@@ -492,18 +493,34 @@ void DetectCacheOverflow(NodeGenerator &ng) {
         Memory.push_back(Blocks[k].Memory);
       set<int> ArrangedSet = ArrangeInFixedSize(Memory, CACHESIZE, "Greedy");
       
-      ng.RunOnDRAM = ng.RunOnDRAM + Blocks.size();
-      ng.RunOnCache = ng.RunOnCache - Blocks.size();
       for (int k = 0; k < Blocks.size(); ++ k) {
         if (ArrangedSet.find(k) != ArrangedSet.end())
           continue;
         CacheBlock CB = Blocks[k];
         Caches[i - 1].DeleteCacheBlock(CB);
+        ng.RunOnCache = ng.RunOnCache - 1;
         DRAMBlocks.push_back(CB);
         ReChecked[CB.NodeIds.second][CB.Rounds.second] = true;
       }
     }
   }
+  ng.RunOnDRAM = DRAMBlocks.size();
+  long long CacheMemorySum = 0;
+  for (int i = 1; i <= ng.NeedPE; ++ i) {
+    Caches[i - 1].SortCacheBlock();
+    vector<long long> TimeTrace = Caches[i - 1].GetTimeTrace();
+    int Index = 0;
+    for (int j = 0; j < TimeTrace.size() - 1; ++ j) {
+      long long ST = TimeTrace[j];
+      long long ED = TimeTrace[j + 1];
+      vector<CacheBlock> Blocks;
+      long long MemorySum = 0;
+      Index = Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks, MemorySum, Index);
+      CacheMemorySum = CacheMemorySum + MemorySum * (ED - ST);
+      assert(MemorySum <= CACHESIZE);
+    }
+  }
+  ng.CacheRatio = (CacheMemorySum * 1.0) / (CACHESIZE * ng.UpBound * ng.NeedPE);
 }
 
 bool GetStrogePos(int FromId, int FromRound, int ToId, int ToRound) {
@@ -617,6 +634,7 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
     FR.Retiming = NgList[0].Retiming;
     FR.RunOnCache = NgList[0].RunOnCache * X * Launches;
     FR.RunOnDRAM = NgList[0].RunOnDRAM * X * Launches;
+    FR.CacheRatio = NgList[0].CacheRatio;
     FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
     FR.MAXRatio = NgList[0].MaxRatio;
   }
@@ -638,6 +656,7 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
     }
     FR.Prelogue = NgList[0].Prelogue;
     FR.Retiming = NgList[0].Retiming;
+    FR.CacheRatio = (NgList[0].CacheRatio + NgList[1].CacheRatio) / 2;
     FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
     FR.MAXRatio = (NgList[0].MaxRatio + NgList[1].MaxRatio) / 2;
   }

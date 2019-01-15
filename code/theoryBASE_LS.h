@@ -13,8 +13,9 @@ struct NodeComparationByCost {
   }
 };
 
-TwoInt DetectCacheOverflow(int PENumb, int RunOnCache) {
-  TwoInt RunPlace = make_pair(RunOnCache, 0);
+TwoInt DetectCacheOverflow(int PENumb) {
+  int RunOnCache = 0;
+  int RunOnDRAM = 0;
   for (int i = 1; i <= PENumb; ++ i) {
     assert(i - 1 >= 0 && i - 1 < Caches.size());
     Caches[i - 1].SortCacheBlock();
@@ -29,6 +30,7 @@ TwoInt DetectCacheOverflow(int PENumb, int RunOnCache) {
       vector<CacheBlock> Blocks;
       long long MemorySum = 0;
       Index = Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks, MemorySum, Index);
+      RunOnCache = RunOnCache + Blocks.size();
       if (MemorySum <= CACHESIZE)
         continue;
 
@@ -36,19 +38,18 @@ TwoInt DetectCacheOverflow(int PENumb, int RunOnCache) {
       for (int k = 0; k < Blocks.size(); ++ k)
         Memory.push_back(Blocks[k].Memory);
       set<int> ArrangedSet = ArrangeInFixedSize(Memory, CACHESIZE, "Auto");
-      
-      RunPlace.first = RunPlace.first - Blocks.size();
-      RunPlace.second = RunPlace.second + Blocks.size();
       for (int k = 0; k < Blocks.size(); ++ k) {
         if (ArrangedSet.find(k) != ArrangedSet.end())
           continue;
         CacheBlock CB = Blocks[k];
         Caches[i -  1].DeleteCacheBlock(CB);
+        RunOnCache = RunOnCache - 1;
+        RunOnDRAM = RunOnDRAM + 1;
         NodeTime[CB.NodeIds.first][CB.Rounds.first].Certained = false;
       }
     }
   }
-  return RunPlace;
+  return make_pair(RunOnCache, RunOnDRAM);
 }
 
 void BFS() {
@@ -89,10 +90,9 @@ void BFS() {
   }
 }
 
-int Init() {
+void Init() {
   GetTopology();
 
-  int RunOnCache = 0;
   queue<TimeInterval> PEs;
   for (int i = 1; i <= TotalPE; ++ i) {
     PEs.push(TimeInterval(i, 0, 0));
@@ -134,7 +134,6 @@ int Init() {
           CacheBlock CB = CacheBlock(e.From, node.Round, e.To, node.Round, e.Memory, 
                                     FromNode.EndTime, StartTime + Cost);
           Caches[TI.PEId - 1].AddCacheBlock(CB);
-          RunOnCache = RunOnCache + 1;
         }
 
         node.Certained = true;
@@ -166,17 +165,15 @@ int Init() {
       PEs.push(TI);
     }
   }
-
-  return RunOnCache;
 }
 
-FinalResult CalcFinalResult(int RunOnCache) {
+FinalResult CalcFinalResult() {
   long long TotalCost = 0;
   for (int i = 1; i <= TotalNode; ++ i)
     TotalCost = TotalCost + NodeList[i].Cost;
 
   // printf("Detect Cache Overflow\n");
-  TwoInt RunPlace = DetectCacheOverflow(TotalPE, RunOnCache);
+  TwoInt RunPlace = DetectCacheOverflow(TotalPE);
   // printf("BFS\n");
   BFS();
   // printf("Calculate FinalResult\n");
@@ -207,6 +204,23 @@ FinalResult CalcFinalResult(int RunOnCache) {
     }
   }
 
+  long long CacheMemorySum = 0;
+  for (int i = 1; i <= TotalPE; ++ i) {
+    Caches[i - 1].SortCacheBlock();
+    vector<long long> TimeTrace = Caches[i - 1].GetTimeTrace();
+    int Index = 0;
+    for (int j = 0; j < TimeTrace.size() - 1; ++ j) {
+      long long ST = TimeTrace[j];
+      long long ED = TimeTrace[j + 1];
+      vector<CacheBlock> Blocks;
+      long long MemorySum = 0;
+      Index = Caches[i - 1].GetCacheBlockByTime(ST, ED, Blocks, MemorySum, Index);
+      CacheMemorySum = CacheMemorySum + MemorySum * (ED - ST);
+      assert(MemorySum <= CACHESIZE);
+    }
+  }
+  double CacheRatio = (CacheMemorySum * 1.0) / (CACHESIZE * TotalTime * TotalPE);
+
   FinalResult FR = FinalResult();
   FR.TotalTime = TotalTime;
   FR.Prelogue = 0;
@@ -214,13 +228,14 @@ FinalResult CalcFinalResult(int RunOnCache) {
   FR.RunOnCache = RunPlace.first;
   FR.RunOnDRAM = RunPlace.second;
   FR.MAXRatio = (1.0 * TotalCost * PeriodTimes) / (1.0 * TotalTime * TotalPE);
+  FR.CacheRatio = CacheRatio;
   FR.CPURatio = FR.MAXRatio;
 
   return FR;
 }
 
 FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
-  int RunOnCache = Init();
-  FinalResult FR = CalcFinalResult(RunOnCache);
+  Init();
+  FinalResult FR = CalcFinalResult();
   return FR;
 }
