@@ -605,7 +605,6 @@ void SpreadKeyNodeSet(NodeGenerator &ng) {
 FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
   Init(TotalPE, UpRound);
   for (int i = 0; i < NgList.size(); ++ i) {
-    // printf("\nUpBound:%d\tUpRound:%d\n", NgList[i].UpBound, NgList[i].UpRound);
     memset(Checked, false, sizeof(Checked));
     Caches.clear();
     DRAMBlocks.clear();
@@ -617,6 +616,7 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
 
     SpreadKeyNodeSet(NgList[i]);
     NgList[i].CalcPrelogue();
+    // printf("Schedule:PE:%2d\tUpBound:%d\tUpRound:%d\n", NgList[i].NeedPE, NgList[i].UpBound, NgList[i].UpRound);
   }
 
   long long TotalCost = 0;

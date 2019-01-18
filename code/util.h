@@ -46,7 +46,7 @@ struct FinalResult {
   double CPURatio;
 
   FinalResult() {
-    TotalTime = 0;
+    TotalTime = -1;
     Kernel = 0;
     Prelogue = 0;
     Retiming = 0;
