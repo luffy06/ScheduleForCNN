@@ -112,9 +112,18 @@ void Input() {
   // printf("MinDis:%d\tMaxDis:%d\tMaxEdge:%lld\n", MinDis, MaxDis, MaxEdge);
 }
 
+void AnalyseGraph() {
+  printf("Node:%d\tEdge:%d\n", TotalNode, TotalEdge);
+  int NeedPE = GetTopology();
+  printf("NeedPE:%d\n", NeedPE);
+}
+
 int main() {
   Input();
-  FinalResult FR = Solve(TotalPE, PeriodTimes, UpRound);
-  FR.Show(TotalNode, TotalEdge);
+  AnalyseGraph();
+  #if THEORY != 0
+    FinalResult FR = Solve(TotalPE, PeriodTimes, UpRound);
+    FR.Show(TotalNode, TotalEdge);
+  #endif
   return 0;
 }

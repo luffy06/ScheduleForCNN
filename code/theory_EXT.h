@@ -698,13 +698,12 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
     SpreadKeyNodeSet(NgList[i]);
     NgList[i].CalcPrelogue();
     NgList[i].AllRound = PeriodTimes;
-    // printf("PE:%2d\tUpRound:%2d\tUpBound:%5d\tRetiming:%2d\tBoundPerRound:%d\tPrelogue:%lld\n", NgList[i].NeedPE, NgList[i].UpRound, NgList[i].UpBound, NgList[i].Retiming, NgList[i].UpBound / NgList[i].UpRound, NgList[i].Prelogue);
-    // printf("%.6f\t%.6f\n", NgList[i].UpBound * 1. / (NgList[i].UpRound * NgList[i].Div), NgList[i].Prelogue * 1. / NgList[i].Div);
-    // printf("%lld\n", NgList[i].Prelogue + (Ceil(NgList[i].AllRound / NgList[i].Div, NgList[i].UpRound) - 1) * NgList[i].UpBound);
+    // printf("PE:%2d\tDiv:%2d\tUpRound:%2d\tUpBound:%5d\tRetiming:%2d\tBoundPerRound:%d\tPrelogue:%lld\n", NgList[i].NeedPE, NgList[i].Div, NgList[i].UpRound, NgList[i].UpBound, NgList[i].Retiming, NgList[i].UpBound / NgList[i].UpRound, NgList[i].Prelogue);
+    // printf("%d\t%lld\n", NgList[i].AllRound, NgList[i].Prelogue + (Ceil(Ceil(NgList[i].AllRound, NgList[i].Div), NgList[i].UpRound) - 1) * NgList[i].UpBound);
   }
 
   sort(NgList.begin(), NgList.end(), [](NodeGenerator a, NodeGenerator b) {
-    return a.Prelogue + (Ceil(a.AllRound / a.Div, a.UpRound) - 1) * a.UpBound < b.Prelogue + (Ceil(b.AllRound / b.Div, b.UpRound) - 1) * b.UpBound;
+    return a.Prelogue + (Ceil(Ceil(a.AllRound, a.Div), a.UpRound) - 1) * a.UpBound < b.Prelogue + (Ceil(Ceil(b.AllRound, b.Div), b.UpRound) - 1) * b.UpBound;
   });
 
   priority_queue<NodeGenerator, vector<NodeGenerator>, NodeGeneratorComparator> q;
@@ -758,7 +757,7 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
 
   vector<NodeGenerator> res;
   while (!q.empty()) {
-    // printf("Schedule:%d\tRound:%d\tTotalTime:%lld\n", q.top().NeedPE, q.top().TotalRound, q.top().TotalTime);
+    printf("Schedule:%d\tRound:%d\tTotalTime:%lld\n", q.top().NeedPE, q.top().TotalRound, q.top().TotalTime);
     res.push_back(q.top());
     q.pop();
   }

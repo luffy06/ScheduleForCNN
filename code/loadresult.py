@@ -3,7 +3,8 @@ import os
 
 resultdir = '../result'
 resultexcel = 'output.xlsx'
-algorithms = ['ext', 'algo', 'lctes', 'base']
+# algorithms = ['ext', 'algo', 'lctes', 'base']
+algorithms = ['ext', 'algo']
 pes = [16, 32, 64, 128]
 attributes = ['Benchmark', 'Node', 'Edge']
 metrics = ['TotalTime', 'Kernel', 'Prelogue', 'Retiming', 'RunOnCache', 'RunOnDRAM', 'MAXRatio', 'CPURatio', 'CacheRatio']
