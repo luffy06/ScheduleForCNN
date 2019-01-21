@@ -1,0 +1,18 @@
+9 8
+0 input input 0 0
+1 conv1/Relu conv1/Relu 220 1
+2 pool1/MaxPool pool1/MaxPool 110 2
+3 conv2/Relu conv2/Relu 1020 3
+4 pool2/MaxPool pool2/MaxPool 60 4
+5 fc1/Relu fc1/Relu 2890 5
+6 fc2/add fc2/add 100 6
+7 output output 60 7
+8 output output 0 8
+0 1 0
+1 2 185980
+2 3 453800
+3 4 390210
+4 5 394550
+5 6 2124920
+6 7 207360
+7 8 670
