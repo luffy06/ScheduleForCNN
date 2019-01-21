@@ -1,9 +1,9 @@
-#define THEORY 0
+#define THEORY 4
 #define MAXM 70000
-#define MAXN 2000
-#define MAXSIZE 50000
+#define MAXN 15000
+#define MAXSIZE 5000
 #define MAXPE 300
-#define MINR 505
+#define MINR 55
 #define MAXR 6005
 #define LIMITEDRATIO 0.95
 #define ALPHA 0.8
@@ -433,7 +433,9 @@ struct NodeComparationByEndTime {
 };
 
 int GetTopology() {
+  int vis[MAXR];
   memset(Degree, 0, sizeof(Degree));
+  memset(vis, 0, sizeof(vis));
   vector<TwoInt> TopoCount;
   for (int i = 1; i <= TotalNode; ++ i) {
     for (int j = 0; j < EdgeList[i].size(); ++ j) {
@@ -443,13 +445,13 @@ int GetTopology() {
     }
   }
 
-  int Count = 0, Order = 0;
+  int Count = 0, Order = 0, NeedPE = 0;
   queue<Node> q;
   for (int i = 1; i <= TotalNode; ++ i)
     if (Degree[i] == 0)
       q.push(NodeList[i]);
-  Count = q.size();
-
+  NeedPE = Count = q.size();
+  vis[Count] = vis[Count] + 1;
   while (!q.empty()) {
     Node f = q.front();
     q.pop();
@@ -466,22 +468,35 @@ int GetTopology() {
 
     if (Count == 0) {
       Count = q.size();
+      NeedPE = max(NeedPE, Count);
       Order = Order + 1;
+      vis[Count] = vis[Count] + 1;
     }
   }
 
-  sort(NodeList + 1, NodeList + TotalNode + 1, CmpByLayer);
-  Count = 0, Order = 0;
-  int NeedPE = 0;
-  for (int i = 1; i <= TotalNode; ++ i) {
-    if (NodeList[i].Layer != Order) {
-      NeedPE = max(NeedPE, Count);
-      Count = 0;
-      Order = NodeList[i].Layer;
+  if (NeedPE > TotalPE) {
+    int MaxCount = vis[0];
+    NeedPE = 0;
+    for (int i = 1; i < Order; ++ i) {
+      if (MaxCount < vis[i]) {
+        MaxCount = vis[i];
+        NeedPE = i;
+      }
     }
-    Count = Count + 1;
   }
-  NeedPE = max(NeedPE, Count);
+
+  // sort(NodeList + 1, NodeList + TotalNode + 1, CmpByLayer);
+  // Count = 0, Order = 0;
+  // NeedPE = 0;
+  // for (int i = 1; i <= TotalNode; ++ i) {
+  //   if (NodeList[i].Layer != Order) {
+  //     NeedPE = max(NeedPE, Count);
+  //     Count = 0;
+  //     Order = NodeList[i].Layer;
+  //   }
+  //   Count = Count + 1;
+  // }
+  // NeedPE = max(NeedPE, Count);
   return NeedPE;
 }
 

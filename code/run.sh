@@ -1,6 +1,7 @@
 #!/bin/bash
-datafolder="../caffe_data"
+# datafolder="../caffe_data"
 # datafolder="../tensorflow_data"
+datafolder="../extdata"
 resultfolder="../result"
 suffix=".in"
 # algos=(ext algo lctes base)

@@ -757,7 +757,7 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
 
   vector<NodeGenerator> res;
   while (!q.empty()) {
-    printf("Schedule:%d\tRound:%d\tTotalTime:%lld\n", q.top().NeedPE, q.top().TotalRound, q.top().TotalTime);
+    // printf("Schedule:%d\tRound:%d\tTotalTime:%lld\n", q.top().NeedPE, q.top().TotalRound, q.top().TotalTime);
     res.push_back(q.top());
     q.pop();
   }

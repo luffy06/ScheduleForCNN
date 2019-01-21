@@ -1,4 +1,4 @@
-const int REPEATLIMITED = 505;
+const int REPEATLIMITED = 55;
 int REPEAT = 2;
 
 // TopoOrder:         small -> big

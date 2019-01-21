@@ -1,6 +1,7 @@
 #!/bin/bash
-# datafolder="../caffe_data"
-datafolder="../tensorflow_data"
+datafolder="../caffe_data"
+# datafolder="../tensorflow_data"
+# datafolder="../bigdata"
 resultname="analyse.out"
 suffix=".in"
 seg=' #################### '
