@@ -1,0 +1,915 @@
+385 529
+0 is_training VariableV2 3 1
+1 is_training/read Identity 3 1
+2 Embedding/W VariableV2 2 1
+3 Embedding/W/read Identity 5 1
+4 Embedding/Cast Cast 22 1
+5 Embedding/embedding_lookup Gather 1296 1
+6 Conv1D/W VariableV2 2 2
+7 Conv1D/W/read Identity 14 2
+8 Conv1D/W/Regularizer/L2Loss L2Loss 53 2
+9 Conv1D/W/Regularizer/L2-Loss/y Const 1 2
+10 Conv1D/W/Regularizer/L2-Loss Mul 3 2
+11 Conv1D/b VariableV2 15 2
+12 Conv1D/b/read Identity 1 2
+13 Conv1D/ExpandDims/dim Const 4 2
+14 Conv1D/ExpandDims ExpandDims 8 2
+15 Conv1D/Conv2D Conv2D 4892 2
+16 Conv1D/BiasAdd BiasAdd 282 2
+17 Conv1D/Squeeze Squeeze 3 2
+18 Conv1D/Relu Relu 292 2
+19 Conv1D_1/W VariableV2 3 1
+20 Conv1D_1/W/read Identity 16 1
+21 Conv1D_1/W/Regularizer/L2Loss L2Loss 43 1
+22 Conv1D_1/W/Regularizer/L2-Loss/y Const 2 1
+23 Conv1D_1/W/Regularizer/L2-Loss Mul 3 1
+24 Conv1D_1/b VariableV2 23 1
+25 Conv1D_1/b/read Identity 2 1
+26 Conv1D_1/Conv2D Conv2D 4087 1
+27 Conv1D_1/BiasAdd BiasAdd 157 1
+28 Conv1D_1/Squeeze Squeeze 9 1
+29 Conv1D_1/Relu Relu 277 1
+30 Conv1D_2/W VariableV2 2 1
+31 Conv1D_2/W/read Identity 1 1
+32 Conv1D_2/W/Regularizer/L2Loss L2Loss 28 1
+33 Conv1D_2/W/Regularizer/L2-Loss/y Const 2 1
+34 Conv1D_2/W/Regularizer/L2-Loss Mul 25 1
+35 Conv1D_2/b VariableV2 2 1
+36 Conv1D_2/b/read Identity 1 1
+37 Conv1D_2/Conv2D Conv2D 4431 1
+38 Conv1D_2/BiasAdd BiasAdd 390 1
+39 Conv1D_2/Squeeze Squeeze 7 1
+40 Conv1D_2/Relu Relu 286 1
+41 Merge/concat ConcatV2 615 3
+42 ExpandDims ExpandDims 3 4
+43 GlobalMaxPool/Max/reduction_indices Const 3 5
+44 GlobalMaxPool/Max Max 139 5
+45 Dropout/cond/Switch Switch 2 6
+46 Dropout/cond/switch_t Identity 2 6
+47 Dropout/cond/dropout/keep_prob Const 1 6
+48 Dropout/cond/dropout/Shape Shape 3 6
+49 Dropout/cond/dropout/random_uniform/RandomUniform RandomUniform 53 6
+50 Dropout/cond/dropout/add Add 4 6
+51 Dropout/cond/dropout/Floor Floor 3 6
+52 Dropout/cond/dropout/mul Mul 6 6
+53 Dropout/cond/Switch_1 Switch 3 6
+54 Dropout/cond/Merge Merge 3 6
+55 FullyConnected/W VariableV2 221 7
+56 FullyConnected/W/read Identity 5 7
+57 FullyConnected/b VariableV2 4 7
+58 FullyConnected/b/read Identity 2 7
+59 FullyConnected/MatMul MatMul 7 7
+60 FullyConnected/BiasAdd BiasAdd 3 7
+61 FullyConnected/Softmax Softmax 6 7
+62 Accuracy/ArgMax ArgMax 13 8
+63 Accuracy/ArgMax_1 ArgMax 8 8
+64 Accuracy/Equal Equal 5 8
+65 Accuracy/Cast Cast 5 8
+66 Accuracy/Mean Mean 19 8
+67 Crossentropy/Sum/reduction_indices Const 2 8
+68 Crossentropy/Sum Sum 4 8
+69 Crossentropy/truediv RealDiv 18 8
+70 Crossentropy/Cast/x Const 1 8
+71 Crossentropy/clip_by_value/Minimum Minimum 2 8
+72 Crossentropy/clip_by_value Maximum 3 8
+73 Crossentropy/Log Log 2 8
+74 Crossentropy/mul Mul 2 8
+75 Crossentropy/Sum_1 Sum 3 8
+76 Crossentropy/Neg Neg 2 8
+77 Crossentropy/Const Const 2 8
+78 Crossentropy/Mean Mean 3 8
+79 Training_step VariableV2 3 1
+80 Training_step/read Identity 2 1
+81 Accuracy/Mean/moving_avg VariableV2 2 8
+82 Accuracy/Mean/moving_avg/read Identity 1 8
+83 moving_avg/AssignMovingAvg/sub/x Const 2 9
+84 moving_avg/AssignMovingAvg/sub Sub 3 9
+85 moving_avg/AssignMovingAvg/sub_1 Sub 8 9
+86 moving_avg/AssignMovingAvg/mul Mul 4 9
+87 moving_avg/AssignMovingAvg AssignSub 4 9
+88 Adam/Total_Loss AddN 19 9
+89 Adam/Total_Loss/moving_avg VariableV2 2 9
+90 Adam/Total_Loss/moving_avg/read Identity 1 9
+91 Crossentropy/Mean/moving_avg VariableV2 2 8
+92 Crossentropy/Mean/moving_avg/read Identity 2 8
+93 Conv1D/W/Regularizer/L2-Loss/moving_avg VariableV2 2 2
+94 Conv1D/W/Regularizer/L2-Loss/moving_avg/read Identity 21 2
+95 Conv1D_1/W/Regularizer/L2-Loss/moving_avg VariableV2 3 1
+96 Conv1D_1/W/Regularizer/L2-Loss/moving_avg/read Identity 1 1
+97 Conv1D_2/W/Regularizer/L2-Loss/moving_avg VariableV2 2 1
+98 Conv1D_2/W/Regularizer/L2-Loss/moving_avg/read Identity 1 1
+99 Adam/moving_avg/add/x Const 2 9
+100 Adam/moving_avg/add Add 4 9
+101 Adam/moving_avg/add_1/x Const 3 9
+102 Adam/moving_avg/add_1 Add 5 9
+103 Adam/moving_avg/truediv RealDiv 3 9
+104 Adam/moving_avg/Minimum Minimum 5 9
+105 Adam/moving_avg/AssignMovingAvg/sub/x Const 3 9
+106 Adam/moving_avg/AssignMovingAvg/sub Sub 4 9
+107 Adam/moving_avg/AssignMovingAvg/sub_1 Sub 6 9
+108 Adam/moving_avg/AssignMovingAvg/mul Mul 4 9
+109 Adam/moving_avg/AssignMovingAvg AssignSub 3 9
+110 Adam/moving_avg/AssignMovingAvg_1/sub/x Const 1 9
+111 Adam/moving_avg/AssignMovingAvg_1/sub Sub 11 9
+112 Adam/moving_avg/AssignMovingAvg_1/sub_1 Sub 23 9
+113 Adam/moving_avg/AssignMovingAvg_1/mul Mul 3 9
+114 Adam/moving_avg/AssignMovingAvg_1 AssignSub 2 9
+115 Adam/moving_avg/AssignMovingAvg_2/sub/x Const 2 9
+116 Adam/moving_avg/AssignMovingAvg_2/sub Sub 2 9
+117 Adam/moving_avg/AssignMovingAvg_2/sub_1 Sub 4 9
+118 Adam/moving_avg/AssignMovingAvg_2/mul Mul 3 9
+119 Adam/moving_avg/AssignMovingAvg_2 AssignSub 3 9
+120 Adam/moving_avg/AssignMovingAvg_3/sub/x Const 2 9
+121 Adam/moving_avg/AssignMovingAvg_3/sub Sub 3 9
+122 Adam/moving_avg/AssignMovingAvg_3/sub_1 Sub 32 9
+123 Adam/moving_avg/AssignMovingAvg_3/mul Mul 4 9
+124 Adam/moving_avg/AssignMovingAvg_3 AssignSub 3 9
+125 Adam/moving_avg/AssignMovingAvg_4/sub/x Const 3 9
+126 Adam/moving_avg/AssignMovingAvg_4/sub Sub 3 9
+127 Adam/moving_avg/AssignMovingAvg_4/sub_1 Sub 3 9
+128 Adam/moving_avg/AssignMovingAvg_4/mul Mul 3 9
+129 Adam/moving_avg/AssignMovingAvg_4 AssignSub 3 9
+130 Adam/moving_avg NoOp 5 9
+131 Loss_var_loss/tags Const 4 10
+132 Loss_var_loss ScalarSummary 14 10
+133 Adam/Loss_var_loss/raw/tags Const 3 9
+134 Adam/Loss_var_loss/raw ScalarSummary 3 9
+135 Loss/tags Const 3 9
+136 Loss ScalarSummary 9 9
+137 Adam/Loss/raw/tags Const 3 9
+138 Adam/Loss/raw ScalarSummary 22 9
+139 Adam/Conv1D/W/Regularizer/L2-Loss/tags Const 2 9
+140 Adam/Conv1D/W/Regularizer/L2-Loss ScalarSummary 91 9
+141 Adam/Conv1D/W/Regularizer/L2-Lossraw/tags Const 1 9
+142 Adam/Conv1D/W/Regularizer/L2-Lossraw ScalarSummary 4 9
+143 Adam/Conv1D_1/W/Regularizer/L2-Loss/tags Const 2 9
+144 Adam/Conv1D_1/W/Regularizer/L2-Loss ScalarSummary 21 9
+145 Adam/Conv1D_1/W/Regularizer/L2-Lossraw/tags Const 2 9
+146 Adam/Conv1D_1/W/Regularizer/L2-Lossraw ScalarSummary 3 9
+147 Adam/Conv1D_2/W/Regularizer/L2-Loss/tags Const 1 9
+148 Adam/Conv1D_2/W/Regularizer/L2-Loss ScalarSummary 29 9
+149 Adam/Conv1D_2/W/Regularizer/L2-Lossraw/tags Const 15 9
+150 Adam/Conv1D_2/W/Regularizer/L2-Lossraw ScalarSummary 7 9
+151 Adam/gradients/Crossentropy/Mean_grad/Shape Shape 2 9
+152 Adam/gradients/Crossentropy/Mean_grad/Tile Tile 20 9
+153 Adam/gradients/Crossentropy/Mean_grad/Const Const 3 9
+154 Adam/gradients/Crossentropy/Mean_grad/Prod Prod 3 9
+155 Adam/gradients/Crossentropy/Mean_grad/Cast Cast 4 9
+156 Adam/gradients/Crossentropy/Mean_grad/truediv RealDiv 4 9
+157 Adam/gradients/Crossentropy/Neg_grad/Neg Neg 2 9
+158 Adam/gradients/Conv1D/W/Regularizer/L2Loss_grad/mul Mul 89 9
+159 Adam/gradients/Conv1D_1/W/Regularizer/L2Loss_grad/mul Mul 128 9
+160 Adam/gradients/Conv1D_2/W/Regularizer/L2Loss_grad/mul Mul 174 9
+161 Adam/gradients/Crossentropy/Sum_1_grad/Shape Shape 4 9
+162 Adam/gradients/Crossentropy/Sum_1_grad/DynamicStitch DynamicStitch 5 9
+163 Adam/gradients/Crossentropy/Sum_1_grad/Maximum/y Const 2 9
+164 Adam/gradients/Crossentropy/Sum_1_grad/Maximum Maximum 5 9
+165 Adam/gradients/Crossentropy/Sum_1_grad/floordiv FloorDiv 3 9
+166 Adam/gradients/Crossentropy/Sum_1_grad/Reshape Reshape 2 9
+167 Adam/gradients/Crossentropy/Sum_1_grad/Tile Tile 5 9
+168 Adam/gradients/Crossentropy/mul_grad/Shape Shape 2 9
+169 Adam/gradients/Crossentropy/mul_grad/Shape_1 Shape 2 9
+170 Adam/gradients/Crossentropy/mul_grad/BroadcastGradientArgs BroadcastGradientArgs 3 9
+171 Adam/gradients/Crossentropy/mul_grad/Mul_1 Mul 2 9
+172 Adam/gradients/Crossentropy/mul_grad/Sum_1 Sum 3 9
+173 Adam/gradients/Crossentropy/mul_grad/Reshape_1 Reshape 3 9
+174 Adam/gradients/Crossentropy/Log_grad/Reciprocal Reciprocal 3 9
+175 Adam/gradients/Crossentropy/Log_grad/mul Mul 3 9
+176 Adam/gradients/Crossentropy/clip_by_value_grad/Shape Shape 2 9
+177 Adam/gradients/Crossentropy/clip_by_value_grad/Shape_2 Shape 3 9
+178 Adam/gradients/Crossentropy/clip_by_value_grad/zeros Fill 2 9
+179 Adam/gradients/Crossentropy/clip_by_value_grad/GreaterEqual GreaterEqual 4 9
+180 Adam/gradients/Crossentropy/clip_by_value_grad/BroadcastGradientArgs BroadcastGradientArgs 4 9
+181 Adam/gradients/Crossentropy/clip_by_value_grad/Select Select 5 9
+182 Adam/gradients/Crossentropy/clip_by_value_grad/Sum Sum 2 9
+183 Adam/gradients/Crossentropy/clip_by_value_grad/Reshape Reshape 2 9
+184 Adam/gradients/Crossentropy/clip_by_value/Minimum_grad/Shape Shape 3 9
+185 Adam/gradients/Crossentropy/clip_by_value/Minimum_grad/Shape_2 Shape 2 9
+186 Adam/gradients/Crossentropy/clip_by_value/Minimum_grad/zeros Fill 3 9
+187 Adam/gradients/Crossentropy/clip_by_value/Minimum_grad/LessEqual LessEqual 21 9
+188 Adam/gradients/Crossentropy/clip_by_value/Minimum_grad/BroadcastGradientArgs BroadcastGradientArgs 4 9
+189 Adam/gradients/Crossentropy/clip_by_value/Minimum_grad/Select Select 4 9
+190 Adam/gradients/Crossentropy/clip_by_value/Minimum_grad/Sum Sum 3 9
+191 Adam/gradients/Crossentropy/clip_by_value/Minimum_grad/Reshape Reshape 2 9
+192 Adam/gradients/Crossentropy/truediv_grad/Shape Shape 2 9
+193 Adam/gradients/Crossentropy/truediv_grad/RealDiv RealDiv 9 9
+194 Adam/gradients/Crossentropy/truediv_grad/Neg Neg 3 9
+195 Adam/gradients/Crossentropy/truediv_grad/RealDiv_1 RealDiv 24 9
+196 Adam/gradients/Crossentropy/truediv_grad/RealDiv_2 RealDiv 6 9
+197 Adam/gradients/Crossentropy/truediv_grad/mul Mul 3 9
+198 Adam/gradients/Crossentropy/truediv_grad/Sum_1 Sum 5 9
+199 Adam/gradients/Crossentropy/Sum_grad/DynamicStitch DynamicStitch 4 9
+200 Adam/gradients/Crossentropy/Sum_grad/Maximum/y Const 3 9
+201 Adam/gradients/Crossentropy/Sum_grad/Maximum Maximum 4 9
+202 Adam/gradients/Crossentropy/Sum_grad/floordiv FloorDiv 3 9
+203 Adam/gradients/Crossentropy/Sum_grad/Reshape Reshape 2 9
+204 Adam/gradients/Crossentropy/Sum_grad/Tile Tile 5 9
+205 Adam/gradients/AddN AddN 3 9
+206 Adam/gradients/FullyConnected/Softmax_grad/mul Mul 3 9
+207 Adam/gradients/FullyConnected/Softmax_grad/Sum/reduction_indices Const 2 9
+208 Adam/gradients/FullyConnected/Softmax_grad/Sum Sum 4 9
+209 Adam/gradients/FullyConnected/Softmax_grad/Reshape/shape Const 3 9
+210 Adam/gradients/FullyConnected/Softmax_grad/Reshape Reshape 2 9
+211 Adam/gradients/FullyConnected/Softmax_grad/sub Sub 5 9
+212 Adam/gradients/FullyConnected/Softmax_grad/mul_1 Mul 3 9
+213 Adam/gradients/FullyConnected/BiasAdd_grad/BiasAddGrad BiasAddGrad 4 9
+214 Adam/gradients/FullyConnected/MatMul_grad/MatMul MatMul 13 9
+215 Adam/gradients/FullyConnected/MatMul_grad/MatMul_1 MatMul 14 9
+216 Adam/gradients/Dropout/cond/Merge_grad/cond_grad Switch 3 9
+217 Adam/gradients/Switch Switch 3 9
+218 Adam/gradients/Shape_1 Shape 2 9
+219 Adam/gradients/zeros/Const Const 3 9
+220 Adam/gradients/zeros Fill 11 9
+221 Adam/gradients/Dropout/cond/Switch_1_grad/cond_grad Merge 3 9
+222 Adam/gradients/Dropout/cond/dropout/mul_grad/Shape Shape 4 9
+223 Adam/gradients/Dropout/cond/dropout/mul_grad/Shape_1 Shape 2 9
+224 Adam/gradients/Dropout/cond/dropout/mul_grad/BroadcastGradientArgs BroadcastGradientArgs 4 9
+225 Adam/gradients/Dropout/cond/dropout/mul_grad/Mul Mul 5 9
+226 Adam/gradients/Dropout/cond/dropout/mul_grad/Sum Sum 2 9
+227 Adam/gradients/Dropout/cond/dropout/mul_grad/Reshape Reshape 2 9
+228 Adam/gradients/Dropout/cond/dropout/div_grad/Shape Shape 2 9
+229 Adam/gradients/Dropout/cond/dropout/div_grad/Shape_1 Const 2 9
+230 Adam/gradients/Dropout/cond/dropout/div_grad/BroadcastGradientArgs BroadcastGradientArgs 3 9
+231 Adam/gradients/Dropout/cond/dropout/div_grad/Sum Sum 2 9
+232 Adam/gradients/Dropout/cond/dropout/div_grad/Reshape Reshape 2 9
+233 Adam/gradients/Dropout/cond/dropout/Shape/Switch_grad/cond_grad Merge 3 9
+234 Adam/gradients/AddN_1 AddN 4 9
+235 Adam/gradients/GlobalMaxPool/Max_grad/Shape Shape 2 9
+236 Adam/gradients/GlobalMaxPool/Max_grad/DynamicStitch DynamicStitch 7 9
+237 Adam/gradients/GlobalMaxPool/Max_grad/Reshape Reshape 4 9
+238 Adam/gradients/GlobalMaxPool/Max_grad/Reshape_1 Reshape 2 9
+239 Adam/gradients/GlobalMaxPool/Max_grad/Equal Equal 6023 9
+240 Adam/gradients/GlobalMaxPool/Max_grad/Cast Cast 515 9
+241 Adam/gradients/GlobalMaxPool/Max_grad/Sum Sum 154 9
+242 Adam/gradients/GlobalMaxPool/Max_grad/Reshape_2 Reshape 3 9
+243 Adam/gradients/GlobalMaxPool/Max_grad/div RealDiv 824 9
+244 Adam/gradients/GlobalMaxPool/Max_grad/mul Mul 850 9
+245 Adam/gradients/ExpandDims_grad/Shape Shape 3 9
+246 Adam/gradients/ExpandDims_grad/Reshape Reshape 3 9
+247 Adam/gradients/Merge/concat_grad/ShapeN ShapeN 5 9
+248 Adam/gradients/Merge/concat_grad/ConcatOffset ConcatOffset 4 9
+249 Adam/gradients/Merge/concat_grad/Slice Slice 810 9
+250 Adam/gradients/Merge/concat_grad/Slice_1 Slice 409 9
+251 Adam/gradients/Merge/concat_grad/Slice_2 Slice 415 9
+252 Adam/gradients/Conv1D/Relu_grad/ReluGrad ReluGrad 330 9
+253 Adam/gradients/Conv1D_1/Relu_grad/ReluGrad ReluGrad 722 9
+254 Adam/gradients/Conv1D_2/Relu_grad/ReluGrad ReluGrad 551 9
+255 Adam/gradients/Conv1D/Squeeze_grad/Shape Shape 6 9
+256 Adam/gradients/Conv1D/Squeeze_grad/Reshape Reshape 4 9
+257 Adam/gradients/Conv1D_1/Squeeze_grad/Shape Shape 5 9
+258 Adam/gradients/Conv1D_1/Squeeze_grad/Reshape Reshape 6 9
+259 Adam/gradients/Conv1D_2/Squeeze_grad/Shape Shape 4 9
+260 Adam/gradients/Conv1D_2/Squeeze_grad/Reshape Reshape 10 9
+261 Adam/gradients/Conv1D/BiasAdd_grad/BiasAddGrad BiasAddGrad 1389 9
+262 Adam/gradients/Conv1D_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 2005 9
+263 Adam/gradients/Conv1D_2/BiasAdd_grad/BiasAddGrad BiasAddGrad 1137 9
+264 Adam/gradients/Conv1D/Conv2D_grad/ShapeN ShapeN 4 9
+265 Adam/gradients/Conv1D/Conv2D_grad/Const Const 3 9
+266 Adam/gradients/Conv1D/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 7944 9
+267 Adam/gradients/Conv1D/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 11708 9
+268 Adam/gradients/Conv1D_1/Conv2D_grad/ShapeN ShapeN 4 9
+269 Adam/gradients/Conv1D_1/Conv2D_grad/Const Const 4 9
+270 Adam/gradients/Conv1D_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 12249 9
+271 Adam/gradients/Conv1D_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 11581 9
+272 Adam/gradients/Conv1D_2/Conv2D_grad/ShapeN ShapeN 19 9
+273 Adam/gradients/Conv1D_2/Conv2D_grad/Const Const 4 9
+274 Adam/gradients/Conv1D_2/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 9529 9
+275 Adam/gradients/Conv1D_2/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 12035 9
+276 Adam/gradients/Conv1D/ExpandDims_grad/Reshape Reshape 22 9
+277 Adam/gradients/AddN_2 AddN 66 9
+278 Adam/gradients/Conv1D_1/ExpandDims_grad/Shape Shape 2 9
+279 Adam/gradients/Conv1D_1/ExpandDims_grad/Reshape Reshape 4 9
+280 Adam/gradients/AddN_3 AddN 83 9
+281 Adam/gradients/Conv1D_2/ExpandDims_grad/Reshape Reshape 9 9
+282 Adam/gradients/AddN_4 AddN 108 9
+283 Adam/gradients/AddN_5 AddN 450 9
+284 Adam/gradients/Embedding/embedding_lookup_grad/Size Size 2 9
+285 Adam/gradients/Embedding/embedding_lookup_grad/ExpandDims ExpandDims 3 9
+286 Adam/gradients/Embedding/embedding_lookup_grad/concat/axis Const 20 9
+287 Adam/gradients/Embedding/embedding_lookup_grad/concat ConcatV2 5 9
+288 Adam/gradients/Embedding/embedding_lookup_grad/Reshape Reshape 17 9
+289 Adam/gradients/Embedding/embedding_lookup_grad/Reshape_1 Reshape 2 9
+290 Adam/global_norm/L2Loss L2Loss 104 9
+291 Adam/global_norm/L2Loss_1 L2Loss 13 9
+292 Adam/global_norm/L2Loss_2 L2Loss 10 9
+293 Adam/global_norm/L2Loss_3 L2Loss 12 9
+294 Adam/global_norm/L2Loss_4 L2Loss 11 9
+295 Adam/global_norm/L2Loss_5 L2Loss 14 9
+296 Adam/global_norm/L2Loss_6 L2Loss 11 9
+297 Adam/global_norm/L2Loss_7 L2Loss 2 9
+298 Adam/global_norm/L2Loss_8 L2Loss 3 9
+299 Adam/global_norm/stack Pack 30 9
+300 Adam/global_norm/Sum Sum 5 9
+301 Adam/global_norm/Const_1 Const 2 9
+302 Adam/global_norm/mul Mul 17 9
+303 Adam/global_norm/global_norm Sqrt 1 9
+304 Adam/clip_by_global_norm/Minimum Minimum 2 9
+305 Adam/clip_by_global_norm/mul/x Const 2 9
+306 Adam/clip_by_global_norm/mul Mul 3 9
+307 Adam/clip_by_global_norm/mul_1 Mul 81 9
+308 Adam/clip_by_global_norm/mul_2 Mul 43 9
+309 Adam/clip_by_global_norm/mul_3 Mul 30 9
+310 Adam/clip_by_global_norm/mul_4 Mul 43 9
+311 Adam/clip_by_global_norm/mul_5 Mul 10 9
+312 Adam/clip_by_global_norm/mul_6 Mul 40 9
+313 Adam/clip_by_global_norm/mul_7 Mul 9 9
+314 Adam/clip_by_global_norm/mul_8 Mul 10 9
+315 Adam/clip_by_global_norm/mul_9 Mul 4 9
+316 Adam/beta1_power VariableV2 2 9
+317 Adam/beta1_power/read Identity 2 9
+318 Adam/beta2_power VariableV2 2 9
+319 Adam/beta2_power/read Identity 2 9
+320 Embedding/W/Adam VariableV2 4 1
+321 Embedding/W/Adam/read Identity 5 1
+322 Embedding/W/Adam_1 VariableV2 2 1
+323 Embedding/W/Adam_1/read Identity 1 1
+324 Conv1D/W/Adam VariableV2 8 2
+325 Conv1D/W/Adam_1 VariableV2 30 2
+326 Conv1D/b/Adam VariableV2 143 2
+327 Conv1D/b/Adam_1 VariableV2 8 2
+328 Conv1D_1/W/Adam VariableV2 218 1
+329 Conv1D_1/W/Adam_1 VariableV2 185 1
+330 Conv1D_1/b/Adam VariableV2 7 1
+331 Conv1D_1/b/Adam_1 VariableV2 16 1
+332 Conv1D_2/W/Adam VariableV2 3 1
+333 Conv1D_2/W/Adam_1 VariableV2 3 1
+334 Conv1D_2/b/Adam VariableV2 2 1
+335 Conv1D_2/b/Adam_1 VariableV2 2 1
+336 FullyConnected/W/Adam VariableV2 3 7
+337 FullyConnected/W/Adam_1 VariableV2 2 7
+338 FullyConnected/b/Adam VariableV2 2 7
+339 FullyConnected/b/Adam_1 VariableV2 3 7
+340 Adam/apply_grad_op_0/learning_rate Const 4 9
+341 Adam/apply_grad_op_0/beta1 Const 2 9
+342 Adam/apply_grad_op_0/beta2 Const 3 9
+343 Adam/apply_grad_op_0/epsilon Const 4 9
+344 Adam/apply_grad_op_0/update_Embedding/W/Unique Unique 202 9
+345 Adam/apply_grad_op_0/update_Embedding/W/Shape Shape 2 9
+346 Adam/apply_grad_op_0/update_Embedding/W/strided_slice/stack Const 4 9
+347 Adam/apply_grad_op_0/update_Embedding/W/strided_slice/stack_1 Const 3 9
+348 Adam/apply_grad_op_0/update_Embedding/W/strided_slice StridedSlice 5 9
+349 Adam/apply_grad_op_0/update_Embedding/W/UnsortedSegmentSum UnsortedSegmentSum 434 9
+350 Adam/apply_grad_op_0/update_Embedding/W/sub/x Const 234 9
+351 Adam/apply_grad_op_0/update_Embedding/W/sub Sub 10 9
+352 Adam/apply_grad_op_0/update_Embedding/W/Sqrt Sqrt 4 9
+353 Adam/apply_grad_op_0/update_Embedding/W/mul Mul 4 9
+354 Adam/apply_grad_op_0/update_Embedding/W/sub_1 Sub 7 9
+355 Adam/apply_grad_op_0/update_Embedding/W/truediv RealDiv 4 9
+356 Adam/apply_grad_op_0/update_Embedding/W/mul_1 Mul 109 9
+357 Adam/apply_grad_op_0/update_Embedding/W/mul_2 Mul 1142 9
+358 Adam/apply_grad_op_0/update_Embedding/W/Assign Assign 1596 9
+359 Adam/apply_grad_op_0/update_Embedding/W/ScatterAdd ScatterAdd 232 9
+360 Adam/apply_grad_op_0/update_Embedding/W/mul_3 Mul 116 9
+361 Adam/apply_grad_op_0/update_Embedding/W/mul_4 Mul 142 9
+362 Adam/apply_grad_op_0/update_Embedding/W/mul_5 Mul 1089 9
+363 Adam/apply_grad_op_0/update_Embedding/W/Assign_1 Assign 1590 9
+364 Adam/apply_grad_op_0/update_Embedding/W/ScatterAdd_1 ScatterAdd 111 9
+365 Adam/apply_grad_op_0/update_Embedding/W/Sqrt_1 Sqrt 967 9
+366 Adam/apply_grad_op_0/update_Embedding/W/mul_6 Mul 1069 9
+367 Adam/apply_grad_op_0/update_Embedding/W/add Add 185 9
+368 Adam/apply_grad_op_0/update_Embedding/W/truediv_1 RealDiv 463 9
+369 Adam/apply_grad_op_0/update_Embedding/W/AssignSub AssignSub 708 9
+370 Adam/apply_grad_op_0/update_Conv1D/W/ApplyAdam ApplyAdam 236 9
+371 Adam/apply_grad_op_0/update_Conv1D/b/ApplyAdam ApplyAdam 12 9
+372 Adam/apply_grad_op_0/update_Conv1D_1/W/ApplyAdam ApplyAdam 411 9
+373 Adam/apply_grad_op_0/update_Conv1D_1/b/ApplyAdam ApplyAdam 16 9
+374 Adam/apply_grad_op_0/update_Conv1D_2/W/ApplyAdam ApplyAdam 383 9
+375 Adam/apply_grad_op_0/update_Conv1D_2/b/ApplyAdam ApplyAdam 9 9
+376 Adam/apply_grad_op_0/update_FullyConnected/W/ApplyAdam ApplyAdam 11 9
+377 Adam/apply_grad_op_0/update_FullyConnected/b/ApplyAdam ApplyAdam 15 9
+378 Adam/apply_grad_op_0/mul Mul 7 9
+379 Adam/apply_grad_op_0/Assign Assign 3 9
+380 Adam/apply_grad_op_0/mul_1 Mul 21 9
+381 Adam/apply_grad_op_0/Assign_1 Assign 3 9
+382 Adam/apply_grad_op_0/value Const 3 9
+383 Adam/apply_grad_op_0 AssignAdd 2 9
+384 Adam/train_op_0 NoOp 5 9
+0 1 1
+2 3 5120000
+3 5 5120000
+4 5 12800
+6 7 196608
+7 8 196608
+8 10 4
+9 10 4
+11 12 512
+5 14 1638400
+13 14 4
+14 15 1638400
+7 15 196608
+15 16 1605632
+12 16 512
+16 17 1605632
+17 18 1605632
+19 20 262144
+20 21 262144
+21 23 4
+22 23 4
+24 25 512
+20 26 262144
+26 27 1589248
+25 27 512
+27 28 1589248
+28 29 1589248
+30 31 327680
+31 32 327680
+32 34 4
+33 34 4
+35 36 512
+31 37 327680
+37 38 1572864
+36 38 512
+38 39 1572864
+39 40 1572864
+18 41 1605632
+29 41 1589248
+40 41 1572864
+41 42 4767744
+42 44 4767744
+43 44 8
+0 45 1
+1 45 1
+48 49 8
+47 50 4
+50 51 16384
+51 52 16384
+44 53 16384
+53 54 16384
+52 54 16384
+55 56 1024
+57 58 8
+54 59 4
+56 59 1024
+59 60 256
+58 60 8
+60 61 256
+61 62 256
+62 64 256
+63 64 256
+64 65 32
+65 66 128
+61 68 256
+67 68 4
+61 69 256
+68 69 128
+69 71 256
+71 72 256
+70 72 4
+72 73 256
+73 74 256
+74 75 256
+75 76 128
+76 78 128
+77 78 4
+79 80 4
+81 82 4
+83 84 4
+82 85 4
+66 85 4
+85 86 4
+84 86 4
+81 87 4
+86 87 4
+78 88 4
+10 88 4
+23 88 4
+34 88 4
+89 90 4
+91 92 4
+93 94 4
+95 96 4
+97 98 4
+99 100 4
+80 100 4
+101 102 4
+80 102 4
+100 103 4
+102 103 4
+103 104 4
+105 106 4
+104 106 4
+90 107 4
+88 107 4
+107 108 4
+106 108 4
+89 109 4
+108 109 4
+110 111 4
+104 111 4
+92 112 4
+78 112 4
+112 113 4
+111 113 4
+91 114 4
+113 114 4
+115 116 4
+104 116 4
+94 117 4
+10 117 4
+117 118 4
+116 118 4
+93 119 4
+118 119 4
+120 121 4
+104 121 4
+96 122 4
+23 122 4
+122 123 4
+121 123 4
+95 124 4
+123 124 4
+125 126 4
+104 126 4
+98 127 4
+34 127 4
+127 128 4
+126 128 4
+97 129 4
+128 129 4
+131 132 8
+90 132 4
+133 134 8
+88 134 4
+135 136 8
+92 136 4
+137 138 8
+78 138 4
+139 140 8
+94 140 4
+141 142 8
+10 142 4
+143 144 8
+96 144 4
+145 146 8
+23 146 4
+147 148 8
+98 148 4
+149 150 8
+34 150 4
+76 151 128
+151 152 4
+153 154 4
+152 156 128
+155 156 4
+156 157 128
+7 158 196608
+20 159 262144
+31 160 327680
+74 161 256
+161 162 8
+162 164 8
+163 164 4
+161 165 8
+164 165 8
+157 166 128
+162 166 8
+166 167 128
+165 167 8
+73 169 256
+168 170 8
+169 170 8
+167 171 256
+171 172 256
+172 173 256
+169 173 8
+72 174 256
+173 175 256
+174 175 256
+71 176 256
+175 177 256
+177 178 8
+71 179 256
+70 179 4
+176 180 8
+179 181 64
+175 181 256
+178 181 256
+181 182 256
+180 182 8
+182 183 256
+176 183 8
+69 184 256
+183 185 256
+185 186 8
+69 187 256
+184 188 8
+187 189 64
+183 189 256
+186 189 256
+189 190 256
+188 190 8
+190 191 256
+184 191 8
+61 192 256
+191 193 256
+68 193 128
+61 194 256
+194 195 256
+68 195 128
+195 196 256
+68 196 128
+191 197 256
+196 197 256
+197 198 256
+199 201 8
+200 201 4
+201 202 8
+199 203 8
+203 204 128
+202 204 8
+204 205 256
+205 206 256
+61 206 256
+206 208 256
+207 208 4
+208 210 128
+209 210 8
+205 211 256
+210 211 128
+211 212 256
+61 212 256
+212 213 256
+212 214 256
+56 214 1024
+54 215 4
+212 215 256
+214 216 16384
+44 217 16384
+218 220 8
+219 220 4
+216 221 16384
+220 221 16384
+51 223 16384
+222 224 8
+223 224 8
+51 225 16384
+225 226 16384
+224 226 0
+226 227 16384
+222 227 8
+228 230 8
+229 230 0
+230 231 8
+231 232 16384
+228 232 8
+232 233 16384
+221 234 4
+233 234 4
+42 235 4767744
+235 236 16
+44 237 16384
+236 237 16
+234 238 16384
+236 238 16
+237 239 16384
+42 239 4767744
+239 240 1191936
+240 241 4767744
+43 241 8
+241 242 16384
+236 242 16
+240 243 4767744
+242 243 16384
+243 244 4767744
+238 244 16384
+41 245 4767744
+244 246 4767744
+245 246 12
+18 247 1605632
+29 247 1589248
+40 247 1572864
+247 248 12
+246 249 4767744
+248 249 12
+247 249 12
+246 250 4767744
+246 251 4767744
+249 252 1605632
+18 252 1605632
+250 253 1589248
+29 253 1589248
+251 254 1572864
+40 254 1572864
+16 255 1605632
+252 256 1605632
+255 256 16
+27 257 1589248
+253 258 1589248
+257 258 16
+38 259 1572864
+254 260 1572864
+259 260 16
+256 261 1605632
+258 262 1589248
+260 263 1572864
+14 264 1638400
+7 264 196608
+264 266 16
+7 266 196608
+256 266 1605632
+14 267 1638400
+265 267 16
+256 267 1605632
+20 268 262144
+268 270 16
+20 270 262144
+258 270 1589248
+269 271 16
+258 271 1589248
+31 272 327680
+272 274 16
+31 274 327680
+260 274 1572864
+273 275 16
+260 275 1572864
+266 276 1638400
+158 277 196608
+267 277 196608
+5 278 1638400
+270 279 1638400
+278 279 12
+159 280 262144
+271 280 262144
+274 281 1638400
+160 282 327680
+275 282 327680
+276 283 1638400
+279 283 1638400
+281 283 1638400
+4 284 12800
+284 285 4
+285 287 4
+286 287 4
+283 288 1638400
+287 288 8
+4 289 12800
+285 289 4
+288 290 1638400
+277 291 196608
+261 292 512
+280 293 262144
+262 294 512
+282 295 327680
+263 296 512
+215 297 1024
+213 298 8
+290 299 4
+291 299 4
+292 299 4
+293 299 4
+294 299 4
+295 299 4
+296 299 4
+297 299 4
+298 299 4
+299 300 36
+300 302 4
+301 302 4
+302 303 4
+305 306 4
+304 306 4
+288 307 1638400
+306 307 4
+277 308 196608
+306 308 4
+261 309 512
+306 309 4
+280 310 262144
+306 310 4
+262 311 512
+306 311 4
+282 312 327680
+306 312 4
+263 313 512
+306 313 4
+215 314 1024
+306 314 4
+213 315 8
+306 315 4
+316 317 4
+318 319 4
+320 321 5120000
+322 323 5120000
+289 344 12800
+344 345 12800
+345 348 4
+346 348 4
+347 348 4
+348 349 4
+350 351 4
+319 351 4
+351 352 4
+340 353 4
+352 353 4
+317 354 4
+353 355 4
+354 355 4
+349 356 479232
+321 357 5120000
+341 357 4
+320 358 5120000
+357 358 5120000
+320 359 5120000
+344 359 12800
+356 359 479232
+349 360 479232
+349 360 479232
+360 361 479232
+323 362 5120000
+342 362 4
+322 363 5120000
+362 363 5120000
+322 364 5120000
+344 364 12800
+361 364 479232
+364 365 5120000
+355 366 4
+359 366 5120000
+365 367 5120000
+343 367 4
+366 368 5120000
+367 368 5120000
+2 369 5120000
+368 369 5120000
+6 370 196608
+324 370 196608
+325 370 196608
+317 370 4
+319 370 4
+340 370 4
+341 370 4
+342 370 4
+343 370 4
+11 371 512
+326 371 512
+327 371 512
+317 371 4
+319 371 4
+340 371 4
+341 371 4
+342 371 4
+343 371 4
+19 372 262144
+328 372 262144
+329 372 262144
+317 372 4
+319 372 4
+340 372 4
+341 372 4
+342 372 4
+343 372 4
+24 373 512
+330 373 512
+331 373 512
+317 373 4
+319 373 4
+340 373 4
+341 373 4
+342 373 4
+343 373 4
+30 374 327680
+332 374 327680
+333 374 327680
+317 374 4
+319 374 4
+340 374 4
+341 374 4
+342 374 4
+343 374 4
+35 375 512
+334 375 512
+335 375 512
+317 375 4
+319 375 4
+340 375 4
+341 375 4
+342 375 4
+343 375 4
+55 376 1024
+336 376 1024
+337 376 1024
+317 376 4
+319 376 4
+340 376 4
+341 376 4
+342 376 4
+343 376 4
+57 377 8
+338 377 8
+339 377 8
+317 377 4
+319 377 4
+340 377 4
+341 377 4
+342 377 4
+343 377 4
+317 378 4
+341 378 4
+316 379 4
+378 379 4
+319 380 4
+342 380 4
+318 381 4
+380 381 4
+79 383 4
+382 383 4
