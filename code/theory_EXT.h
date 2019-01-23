@@ -109,8 +109,10 @@ struct NodeGenerator {
     UpRound = TargetRound;
     MaxRatio = Init(NodeList);
     // printf("MaxRatio:%.6f\n", MaxRatio);
-    for (int i = 0; i < StartTable.size(); ++ i)
+    for (int i = 0; i < StartTable.size(); ++ i) {
       StartTable[i].SetTime(0, UpBound);
+      // StartTable[i].Certained = true;
+    }
     sort(StartTable.begin(), StartTable.end(), CmpById);
   }
 
@@ -621,67 +623,6 @@ void SpreadKeyNodeSet(NodeGenerator &ng) {
   }
 }
 
-// vector<TwoInt> SelectSchedules(int TotalPE) {
-//   vector<NodeGenerator> Candidate;
-//   vector<int> Indexs;
-//   for (int j = -1, i = NgList.size() - 1; i >= 0; -- i) {
-//     Candidate.push_back(NgList[i]);
-//     Indexs.push_back(i);
-//     printf("%2d\t%d\t%d\t%lld\t%d\n", NgList[i].NeedPE, NgList[i].UpBound, NgList[i].Retiming, NgList[i].UpBound * 1LL * NgList[i].Retiming, NgList[i].UpBound / NgList[i].UpRound);
-//     // if (j == -1 || NgList[i].Retiming * NgList[i].UpBound < NgList[j].Retiming * NgList[j].UpBound) {
-//     //   printf("Candidate\n");
-//     //   Indexs.push_back(i);
-//     //   j = i;
-//     // }
-//   }
-
-//   // dp[i][j] = min(dp[i - 1][j], dp[i - 1][j - v[i] * k] + w[i] * k)
-//   for (int i = 0; i < MAXN; ++ i) {
-//     for (int j = 0; j <= MAXSIZE; ++ j) {
-//       DP[i][j] = LLINF;
-//       Trace[i][j] = -1;
-//     }
-//   }
-//   DP[0][0] = 0;
-
-//   for (int i = 1; i <= Candidate.size(); ++ i) {
-//     int V = Candidate[i - 1].NeedPE;
-//     long long W = Candidate[i - 1].Retiming * Candidate[i - 1].UpBound + Candidate[i - 1].UpBound / Candidate[i - 1].UpRound;
-//     for (int j = TotalPE; j >= 0; -- j) {
-//       DP[i][j] = DP[i - 1][j];
-//       Trace[i][j] = j;
-//       if (j >= V) {
-//         for (int k = 0; k <= j / V; ++ k) {
-//           if (DP[i - 1][j - k * V] + W < DP[i][j]) {
-//             DP[i][j] = DP[i - 1][j - k * V] + W;
-//             Trace[i][j] = j - k * V;
-//           }
-//         }
-//       }
-//     }
-//   }
-
-//   for (int i = 0; i <= Candidate.size(); ++ i) {
-//     for (int j = 0; j <= TotalPE; ++ j)
-//       printf("%lld\t", DP[i][j]);
-//     printf("\n");
-//   }
-
-//   printf("Minimal Value:%lld\n", DP[Candidate.size()][TotalPE]);
-//   vector<TwoInt> ChooseSchedules;
-//   int last = TotalPE;
-//   for (int i = Candidate.size(); i > 0; -- i) {
-//     int now = Trace[i][last];
-//     long long W = Candidate[i - 1].Retiming * Candidate[i - 1].UpBound + Candidate[i - 1].UpBound / Candidate[i - 1].UpRound;
-//     if (DP[i][last] != DP[i - 1][now]) {
-//       assert(DP[i][last] > DP[i - 1][now]);
-//       ChooseSchedules.push_back(make_pair(Indexs[i - 1], (DP[i][last] - DP[i - 1][now]) / W));
-//     }
-//     last = now;
-//   }
-//   return ChooseSchedules;
-// }
-
 FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
   Init(TotalPE, UpRound);
   for (int i = 0; i < NgList.size(); ++ i) {
@@ -707,21 +648,6 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
   });
 
   priority_queue<NodeGenerator, vector<NodeGenerator>, NodeGeneratorComparator> q;
-  // vector<TwoInt> ChooseSchedules = SelectSchedules(TotalPE);
-  // for (int i = 0; i < ChooseSchedules.size(); ++ i) {
-  //   int index = ChooseSchedules[i].first;
-  //   NgList[index].TotalTime = NgList[index].Retiming * NgList[index].UpBound;
-  //   // printf("%d\t%d\t%d\t%lld\n", NgList[index].NeedPE, NgList[index].UpBound, NgList[index].Retiming, NgList[index].UpBound * 1LL * NgList[index].Retiming);
-  //   RestPE = RestPE - NgList[index].NeedPE * ChooseSchedules[i].second;
-  //   for (int j = 0; j < ChooseSchedules[i].second; ++ j)
-  //     q.push(NgList[ChooseSchedules[i].first]);
-  // }
-  // printf("%d\n", RestPE);
-  // if (RestPE > 0) {
-  //   assert(RestPE == NgList[RestPE - 1].NeedPE);
-  //   // printf("%d\t%d\t%d\t%lld\n", NgList[RestPE - 1].NeedPE, NgList[RestPE - 1].UpBound, NgList[RestPE - 1].Retiming, NgList[RestPE - 1].UpBound * 1LL * NgList[RestPE - 1].Retiming);
-  //   q.push(NgList[RestPE - 1]);
-  // }
   int RestPE = TotalPE;
   for (int i = 0; i < NgList.size() && RestPE > 0; ++ i) {
     if (NgList[i].NeedPE > RestPE)
@@ -730,8 +656,6 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
     RestPE = RestPE - (RestPE / NgList[i].NeedPE) * NgList[i].NeedPE;
     // printf("PUSH:%d\t%d\n", NgList[i].NeedPE, RestPE);
   }
-  // for (int i = 0; i < NgList[7].Div; ++ i)
-  //   q.push(NgList[7]);
 
   int TotalRound = PeriodTimes;
   RestPE = TotalPE;
