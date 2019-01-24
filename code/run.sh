@@ -22,14 +22,16 @@ for pt in ${period_times[*]}; do
     fi
     echo 'TOTAL_PE '$pe >> config.in
     echo 'PERIOD_TIMES '$pt >> config.in
-    echo 'UPROUND 300' >> config.in
+    echo 'UPROUND 55' >> config.in
     for file in ${datafolder}/*${suffix}; do
       filename=`basename $file`
       echo $seg'GRAPH '$filename$seg
       for algo in ${algos[*]}; do
+        date
         echo 'RUNNING '$algo
         echo 'RUNNING '$filename' '$algo >> ${resultname}
         echo `./run_$algo < $datafolder/$filename` >> ${resultname}
+        date
       done
     done
   done
