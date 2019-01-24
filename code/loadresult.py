@@ -7,8 +7,8 @@ resultexcel = 'output.xlsx'
 algorithms = ['ext', 'algo', 'lctes']
 pes = [16, 32, 64, 128]
 attributes = ['Benchmark', 'Node', 'Edge']
-metrics = ['TotalTime', 'Kernel', 'Prelogue', 'Retiming', 'RunOnCache', 'RunOnDRAM', 'MAXRatio', 'CPURatio', 'CacheRatio']
-drop_benchmark = ['mnist', 'mobilenet_v1_1']
+metrics = ['TotalTime', 'Prelogue', 'Retiming', 'CPURatio']
+drop_benchmark = []
 
 def parse_graph(line):
   lines = line.split(' ')
