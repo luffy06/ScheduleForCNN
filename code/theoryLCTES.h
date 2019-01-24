@@ -146,8 +146,7 @@ int Init(int TotalPE) {
     REPEAT = (MaxRepeat + MinRepeat) / 2;
   REPEAT = min(REPEAT, REPEATLIMITED);
   REPEAT = max(REPEAT, 2);
-  // printf("Min:%d\tMAX:%d\tREPEAT:%d\tAverage Repeat:%d\n", MinRepeat, MaxRepeat, 
-  //                     REPEAT, (RepeatCount == 0 ? 0 : SumRepeat / RepeatCount));
+  // printf("Min:%d\tMAX:%d\tREPEAT:%d\tAverage Repeat:%d\n", MinRepeat, MaxRepeat, REPEAT, (RepeatCount == 0 ? 0 : SumRepeat / RepeatCount));
 
   if (TotalPE >= NeedPE) {
     IterList.push_back(Iteration(NeedPE, NeedPE, TotalNode));
@@ -471,12 +470,20 @@ void InitIteration(Iteration &iteration) {
   int PhasePE = iteration.PhasePE;
   Phase phase = Phase(PhasePE, TotalNode);
   // printf("Init Phase\n");
+  int MaxRepeat = 1;
+  double MAXRatio = 0.;
   for (REPEAT = 2; REPEAT <= REPEATLIMITED; ++ REPEAT) {
     InitPhasePriority(phase);
+    if (phase.Ratio > MAXRatio) {
+      MAXRatio = phase.Ratio;
+      MaxRepeat = REPEAT;
+    }
     // InitPhaseOrigin(phase);
     if (phase.Ratio >= LIMITEDRATIO)
       break;
   }
+  if (REPEAT > REPEATLIMITED)
+    REPEAT = MaxRepeat;
   // printf("Init Iteration\n");
 
   for (int i = 1; i <= TotalNode; ++ i)
