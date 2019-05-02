@@ -1,0 +1,272 @@
+87 184
+0 input input 0 0
+1 InceptionV2/InceptionV2/Conv2d_1a_7x7/Relu InceptionV2/InceptionV2/Conv2d_1a_7x7/Relu 7390 1
+2 InceptionV2/InceptionV2/MaxPool_2a_3x3/MaxPool InceptionV2/InceptionV2/MaxPool_2a_3x3/MaxPool 1150 2
+3 InceptionV2/InceptionV2/Conv2d_2b_1x1/Relu InceptionV2/InceptionV2/Conv2d_2b_1x1/Relu 820 3
+4 InceptionV2/InceptionV2/Conv2d_2c_3x3/Relu InceptionV2/InceptionV2/Conv2d_2c_3x3/Relu 11880 4
+5 InceptionV2/InceptionV2/MaxPool_3a_3x3/MaxPool InceptionV2/InceptionV2/MaxPool_3a_3x3/MaxPool 830 5
+6 InceptionV2/InceptionV2/Mixed_3b/Branch_1/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_3b/Branch_1/Conv2d_0a_1x1/Relu 600 6
+7 InceptionV2/InceptionV2/Mixed_3b/Branch_2/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_3b/Branch_2/Conv2d_0a_1x1/Relu 560 6
+8 InceptionV2/InceptionV2/Mixed_3b/Branch_3/AvgPool_0a_3x3/AvgPool InceptionV2/InceptionV2/Mixed_3b/Branch_3/AvgPool_0a_3x3/AvgPool 600 6
+9 InceptionV2/InceptionV2/Mixed_3b/Branch_2/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_3b/Branch_2/Conv2d_0b_3x3/Relu 2200 7
+10 InceptionV2/InceptionV2/Mixed_3b/Branch_0/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_3b/Branch_0/Conv2d_0a_1x1/Relu 590 8
+11 InceptionV2/InceptionV2/Mixed_3b/Branch_1/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_3b/Branch_1/Conv2d_0b_3x3/Relu 1750 8
+12 InceptionV2/InceptionV2/Mixed_3b/Branch_2/Conv2d_0c_3x3/Relu InceptionV2/InceptionV2/Mixed_3b/Branch_2/Conv2d_0c_3x3/Relu 2940 8
+13 InceptionV2/InceptionV2/Mixed_3b/Branch_3/Conv2d_0b_1x1/Relu InceptionV2/InceptionV2/Mixed_3b/Branch_3/Conv2d_0b_1x1/Relu 480 8
+14 InceptionV2/InceptionV2/Mixed_3c/Branch_0/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_3c/Branch_0/Conv2d_0a_1x1/Relu 650 9
+15 InceptionV2/InceptionV2/Mixed_3c/Branch_1/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_3c/Branch_1/Conv2d_0a_1x1/Relu 650 9
+16 InceptionV2/InceptionV2/Mixed_3c/Branch_2/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_3c/Branch_2/Conv2d_0a_1x1/Relu 680 9
+17 InceptionV2/InceptionV2/Mixed_3c/Branch_3/AvgPool_0a_3x3/AvgPool InceptionV2/InceptionV2/Mixed_3c/Branch_3/AvgPool_0a_3x3/AvgPool 760 9
+18 InceptionV2/InceptionV2/Mixed_3c/Branch_2/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_3c/Branch_2/Conv2d_0b_3x3/Relu 2150 10
+19 InceptionV2/InceptionV2/Mixed_3c/Branch_1/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_3c/Branch_1/Conv2d_0b_3x3/Relu 2170 11
+20 InceptionV2/InceptionV2/Mixed_3c/Branch_2/Conv2d_0c_3x3/Relu InceptionV2/InceptionV2/Mixed_3c/Branch_2/Conv2d_0c_3x3/Relu 2930 11
+21 InceptionV2/InceptionV2/Mixed_3c/Branch_3/Conv2d_0b_1x1/Relu InceptionV2/InceptionV2/Mixed_3c/Branch_3/Conv2d_0b_1x1/Relu 670 11
+22 InceptionV2/InceptionV2/Mixed_4a/Branch_0/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_4a/Branch_0/Conv2d_0a_1x1/Relu 1170 12
+23 InceptionV2/InceptionV2/Mixed_4a/Branch_1/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_4a/Branch_1/Conv2d_0a_1x1/Relu 750 12
+24 InceptionV2/InceptionV2/Mixed_4a/Branch_2/MaxPool_1a_3x3/MaxPool InceptionV2/InceptionV2/Mixed_4a/Branch_2/MaxPool_1a_3x3/MaxPool 380 13
+25 InceptionV2/InceptionV2/Mixed_4a/Branch_1/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_4a/Branch_1/Conv2d_0b_3x3/Relu 2130 13
+26 InceptionV2/InceptionV2/Mixed_4a/Branch_0/Conv2d_1a_3x3/Relu InceptionV2/InceptionV2/Mixed_4a/Branch_0/Conv2d_1a_3x3/Relu 2510 14
+27 InceptionV2/InceptionV2/Mixed_4a/Branch_1/Conv2d_1a_3x3/Relu InceptionV2/InceptionV2/Mixed_4a/Branch_1/Conv2d_1a_3x3/Relu 1240 14
+28 InceptionV2/InceptionV2/Mixed_4b/Branch_1/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_4b/Branch_1/Conv2d_0a_1x1/Relu 620 15
+29 InceptionV2/InceptionV2/Mixed_4b/Branch_2/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_4b/Branch_2/Conv2d_0a_1x1/Relu 710 15
+30 InceptionV2/InceptionV2/Mixed_4b/Branch_3/AvgPool_0a_3x3/AvgPool InceptionV2/InceptionV2/Mixed_4b/Branch_3/AvgPool_0a_3x3/AvgPool 570 15
+31 InceptionV2/InceptionV2/Mixed_4b/Branch_2/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_4b/Branch_2/Conv2d_0b_3x3/Relu 1570 16
+32 InceptionV2/InceptionV2/Mixed_4b/Branch_0/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_4b/Branch_0/Conv2d_0a_1x1/Relu 1490 17
+33 InceptionV2/InceptionV2/Mixed_4b/Branch_1/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_4b/Branch_1/Conv2d_0b_3x3/Relu 790 17
+34 InceptionV2/InceptionV2/Mixed_4b/Branch_2/Conv2d_0c_3x3/Relu InceptionV2/InceptionV2/Mixed_4b/Branch_2/Conv2d_0c_3x3/Relu 1930 17
+35 InceptionV2/InceptionV2/Mixed_4b/Branch_3/Conv2d_0b_1x1/Relu InceptionV2/InceptionV2/Mixed_4b/Branch_3/Conv2d_0b_1x1/Relu 790 17
+36 InceptionV2/InceptionV2/Mixed_4c/Branch_1/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_4c/Branch_1/Conv2d_0a_1x1/Relu 640 18
+37 InceptionV2/InceptionV2/Mixed_4c/Branch_2/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_4c/Branch_2/Conv2d_0a_1x1/Relu 650 18
+38 InceptionV2/InceptionV2/Mixed_4c/Branch_3/AvgPool_0a_3x3/AvgPool InceptionV2/InceptionV2/Mixed_4c/Branch_3/AvgPool_0a_3x3/AvgPool 570 18
+39 InceptionV2/InceptionV2/Mixed_4c/Branch_0/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_4c/Branch_0/Conv2d_0a_1x1/Relu 1180 19
+40 InceptionV2/InceptionV2/Mixed_4c/Branch_2/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_4c/Branch_2/Conv2d_0b_3x3/Relu 1640 19
+41 InceptionV2/InceptionV2/Mixed_4c/Branch_1/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_4c/Branch_1/Conv2d_0b_3x3/Relu 1570 20
+42 InceptionV2/InceptionV2/Mixed_4c/Branch_2/Conv2d_0c_3x3/Relu InceptionV2/InceptionV2/Mixed_4c/Branch_2/Conv2d_0c_3x3/Relu 1950 20
+43 InceptionV2/InceptionV2/Mixed_4c/Branch_3/Conv2d_0b_1x1/Relu InceptionV2/InceptionV2/Mixed_4c/Branch_3/Conv2d_0b_1x1/Relu 830 20
+44 InceptionV2/InceptionV2/Mixed_4d/Branch_1/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_4d/Branch_1/Conv2d_0a_1x1/Relu 800 21
+45 InceptionV2/InceptionV2/Mixed_4d/Branch_2/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_4d/Branch_2/Conv2d_0a_1x1/Relu 830 21
+46 InceptionV2/InceptionV2/Mixed_4d/Branch_3/AvgPool_0a_3x3/AvgPool InceptionV2/InceptionV2/Mixed_4d/Branch_3/AvgPool_0a_3x3/AvgPool 560 21
+47 InceptionV2/InceptionV2/Mixed_4d/Branch_0/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_4d/Branch_0/Conv2d_0a_1x1/Relu 900 22
+48 InceptionV2/InceptionV2/Mixed_4d/Branch_2/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_4d/Branch_2/Conv2d_0b_3x3/Relu 2560 22
+49 InceptionV2/InceptionV2/Mixed_4d/Branch_1/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_4d/Branch_1/Conv2d_0b_3x3/Relu 2430 23
+50 InceptionV2/InceptionV2/Mixed_4d/Branch_2/Conv2d_0c_3x3/Relu InceptionV2/InceptionV2/Mixed_4d/Branch_2/Conv2d_0c_3x3/Relu 3130 23
+51 InceptionV2/InceptionV2/Mixed_4d/Branch_3/Conv2d_0b_1x1/Relu InceptionV2/InceptionV2/Mixed_4d/Branch_3/Conv2d_0b_1x1/Relu 690 23
+52 InceptionV2/InceptionV2/Mixed_4e/Branch_0/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_4e/Branch_0/Conv2d_0a_1x1/Relu 650 24
+53 InceptionV2/InceptionV2/Mixed_4e/Branch_1/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_4e/Branch_1/Conv2d_0a_1x1/Relu 780 24
+54 InceptionV2/InceptionV2/Mixed_4e/Branch_2/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_4e/Branch_2/Conv2d_0a_1x1/Relu 920 24
+55 InceptionV2/InceptionV2/Mixed_4e/Branch_3/AvgPool_0a_3x3/AvgPool InceptionV2/InceptionV2/Mixed_4e/Branch_3/AvgPool_0a_3x3/AvgPool 560 24
+56 InceptionV2/InceptionV2/Mixed_4e/Branch_2/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_4e/Branch_2/Conv2d_0b_3x3/Relu 3080 25
+57 InceptionV2/InceptionV2/Mixed_4e/Branch_1/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_4e/Branch_1/Conv2d_0b_3x3/Relu 2660 26
+58 InceptionV2/InceptionV2/Mixed_4e/Branch_2/Conv2d_0c_3x3/Relu InceptionV2/InceptionV2/Mixed_4e/Branch_2/Conv2d_0c_3x3/Relu 3830 26
+59 InceptionV2/InceptionV2/Mixed_4e/Branch_3/Conv2d_0b_1x1/Relu InceptionV2/InceptionV2/Mixed_4e/Branch_3/Conv2d_0b_1x1/Relu 660 26
+60 InceptionV2/InceptionV2/Mixed_5a/Branch_0/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_5a/Branch_0/Conv2d_0a_1x1/Relu 780 27
+61 InceptionV2/InceptionV2/Mixed_5a/Branch_1/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_5a/Branch_1/Conv2d_0a_1x1/Relu 1210 27
+62 InceptionV2/InceptionV2/Mixed_5a/Branch_2/MaxPool_1a_3x3/MaxPool InceptionV2/InceptionV2/Mixed_5a/Branch_2/MaxPool_1a_3x3/MaxPool 190 28
+63 InceptionV2/InceptionV2/Mixed_5a/Branch_1/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_5a/Branch_1/Conv2d_0b_3x3/Relu 4820 28
+64 InceptionV2/InceptionV2/Mixed_5a/Branch_0/Conv2d_1a_3x3/Relu InceptionV2/InceptionV2/Mixed_5a/Branch_0/Conv2d_1a_3x3/Relu 1040 29
+65 InceptionV2/InceptionV2/Mixed_5a/Branch_1/Conv2d_1a_3x3/Relu InceptionV2/InceptionV2/Mixed_5a/Branch_1/Conv2d_1a_3x3/Relu 2690 29
+66 InceptionV2/InceptionV2/Mixed_5b/Branch_1/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_5b/Branch_1/Conv2d_0a_1x1/Relu 730 30
+67 InceptionV2/InceptionV2/Mixed_5b/Branch_2/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_5b/Branch_2/Conv2d_0a_1x1/Relu 960 30
+68 InceptionV2/InceptionV2/Mixed_5b/Branch_3/AvgPool_0a_3x3/AvgPool InceptionV2/InceptionV2/Mixed_5b/Branch_3/AvgPool_0a_3x3/AvgPool 430 30
+69 InceptionV2/InceptionV2/Mixed_5b/Branch_2/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_5b/Branch_2/Conv2d_0b_3x3/Relu 1550 31
+70 InceptionV2/InceptionV2/Mixed_5b/Branch_0/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_5b/Branch_0/Conv2d_0a_1x1/Relu 1270 32
+71 InceptionV2/InceptionV2/Mixed_5b/Branch_1/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_5b/Branch_1/Conv2d_0b_3x3/Relu 1840 32
+72 InceptionV2/InceptionV2/Mixed_5b/Branch_2/Conv2d_0c_3x3/Relu InceptionV2/InceptionV2/Mixed_5b/Branch_2/Conv2d_0c_3x3/Relu 2170 32
+73 InceptionV2/InceptionV2/Mixed_5b/Branch_3/Conv2d_0b_1x1/Relu InceptionV2/InceptionV2/Mixed_5b/Branch_3/Conv2d_0b_1x1/Relu 670 32
+74 InceptionV2/InceptionV2/Mixed_5c/Branch_0/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_5c/Branch_0/Conv2d_0a_1x1/Relu 1210 33
+75 InceptionV2/InceptionV2/Mixed_5c/Branch_1/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_5c/Branch_1/Conv2d_0a_1x1/Relu 720 33
+76 InceptionV2/InceptionV2/Mixed_5c/Branch_2/Conv2d_0a_1x1/Relu InceptionV2/InceptionV2/Mixed_5c/Branch_2/Conv2d_0a_1x1/Relu 760 33
+77 InceptionV2/InceptionV2/Mixed_5c/Branch_3/MaxPool_0a_3x3/MaxPool InceptionV2/InceptionV2/Mixed_5c/Branch_3/MaxPool_0a_3x3/MaxPool 190 33
+78 InceptionV2/InceptionV2/Mixed_5c/Branch_2/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_5c/Branch_2/Conv2d_0b_3x3/Relu 1550 34
+79 InceptionV2/InceptionV2/Mixed_5c/Branch_3/Conv2d_0b_1x1/Relu InceptionV2/InceptionV2/Mixed_5c/Branch_3/Conv2d_0b_1x1/Relu 650 34
+80 InceptionV2/InceptionV2/Mixed_5c/Branch_1/Conv2d_0b_3x3/Relu InceptionV2/InceptionV2/Mixed_5c/Branch_1/Conv2d_0b_3x3/Relu 1920 35
+81 InceptionV2/InceptionV2/Mixed_5c/Branch_2/Conv2d_0c_3x3/Relu InceptionV2/InceptionV2/Mixed_5c/Branch_2/Conv2d_0c_3x3/Relu 2170 35
+82 InceptionV2/Logits/AvgPool_1a_7x7/AvgPool InceptionV2/Logits/AvgPool_1a_7x7/AvgPool 160 36
+83 InceptionV2/Logits/Conv2d_1c_1x1/BiasAdd InceptionV2/Logits/Conv2d_1c_1x1/BiasAdd 970 37
+84 InceptionV2/Predictions/Softmax InceptionV2/Predictions/Softmax 200 38
+85 Softmax Softmax 190 38
+86 output output 0 39
+0 1 0
+1 2 1907760
+2 3 1337430
+3 4 478920
+4 5 307910
+5 6 1391310
+5 7 1391310
+5 9 1391310
+5 12 1391310
+6 14 517890
+6 15 517890
+6 17 517890
+6 20 517890
+7 8 550480
+8 14 475440
+8 15 475440
+8 17 475440
+8 20 475440
+9 10 440400
+10 11 528480
+11 14 533750
+11 15 533750
+11 17 533750
+11 20 533750
+12 13 493290
+13 14 626560
+13 15 626560
+13 17 626560
+13 20 626560
+14 22 632580
+14 24 632580
+14 27 632580
+15 16 636440
+16 22 610210
+16 24 610210
+16 27 610210
+17 18 504420
+18 19 450920
+19 22 446690
+19 24 446690
+19 27 446690
+20 21 496070
+21 22 617700
+21 24 617700
+21 27 617700
+22 23 474800
+23 28 689820
+23 29 689820
+23 31 689820
+23 34 689820
+24 25 1276030
+25 26 453880
+26 28 828960
+26 29 828960
+26 31 828960
+26 34 828960
+27 28 1172900
+27 29 1172900
+27 31 1172900
+27 34 1172900
+28 36 463690
+28 37 463690
+28 39 463690
+28 42 463690
+29 30 449940
+30 36 381000
+30 37 381000
+30 39 381000
+30 42 381000
+31 32 340710
+32 33 309260
+33 36 406340
+33 37 406340
+33 39 406340
+33 42 406340
+34 35 370020
+35 36 449130
+35 37 449130
+35 39 449130
+35 42 449130
+36 44 503680
+36 45 503680
+36 47 503680
+36 50 503680
+37 38 496680
+38 44 381020
+38 45 381020
+38 47 381020
+38 50 381020
+39 40 360710
+40 41 326820
+41 44 340620
+41 45 340620
+41 47 340620
+41 50 340620
+42 43 366450
+43 44 430850
+43 45 430850
+43 47 430850
+43 50 430850
+44 52 445930
+44 53 445930
+44 55 445930
+44 58 445930
+45 46 429290
+46 52 388630
+46 53 388630
+46 55 388630
+46 58 388630
+47 48 436270
+48 49 306880
+49 52 322550
+49 53 322550
+49 55 322550
+49 58 322550
+50 51 313590
+51 52 466520
+51 53 466520
+51 55 466520
+51 58 466520
+52 60 494070
+52 62 494070
+52 65 494070
+53 54 454860
+54 60 427550
+54 62 427550
+54 65 427550
+55 56 385510
+56 57 347390
+57 60 321730
+57 62 321730
+57 65 321730
+58 59 334800
+59 60 484510
+59 62 484510
+59 65 484510
+60 61 458640
+61 66 351840
+61 67 351840
+61 69 351840
+61 72 351840
+62 63 1126370
+63 64 310030
+64 66 820220
+64 67 820220
+64 69 820220
+64 72 820220
+65 66 740800
+65 67 740800
+65 69 740800
+65 72 740800
+66 74 643130
+66 75 643130
+66 77 643130
+66 80 643130
+67 68 426960
+68 74 229090
+68 75 229090
+68 77 229090
+68 80 229090
+69 70 484780
+70 71 617470
+71 74 664850
+71 75 664850
+71 77 664850
+71 80 664850
+72 73 486610
+73 74 519059
+73 75 519059
+73 77 519059
+73 80 519059
+74 82 650100
+75 76 650680
+76 82 620380
+77 78 519750
+78 79 581140
+79 82 532660
+80 81 636240
+81 82 485080
+82 83 600220
+83 84 2011460
+83 85 2011460
+84 86 19040
+85 86 19720

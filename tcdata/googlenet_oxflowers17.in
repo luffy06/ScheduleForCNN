@@ -1,0 +1,4509 @@
+1921 2587
+0 is_training VariableV2 4 1
+1 is_training/read Identity 2 1
+2 conv1_7_7_s2/W VariableV2 4 1
+3 conv1_7_7_s2/W/read Identity 3 1
+4 conv1_7_7_s2/b VariableV2 6 1
+5 conv1_7_7_s2/b/read Identity 5 1
+6 conv1_7_7_s2/Conv2D Conv2D 152881 1
+7 conv1_7_7_s2/BiasAdd BiasAdd 22361 1
+8 conv1_7_7_s2/Relu Relu 22213 1
+9 MaxPool2D/MaxPool MaxPool 16549 2
+10 LocalResponseNormalization/LocalResponseNormalization LRN 23005 3
+11 conv2_3_3_reduce/W VariableV2 5 4
+12 conv2_3_3_reduce/W/read Identity 4 4
+13 conv2_3_3_reduce/b VariableV2 4 4
+14 conv2_3_3_reduce/b/read Identity 3 4
+15 conv2_3_3_reduce/Conv2D Conv2D 11781 4
+16 conv2_3_3_reduce/BiasAdd BiasAdd 5320 4
+17 conv2_3_3_reduce/Relu Relu 5321 4
+18 conv2_3_3/W VariableV2 4 5
+19 conv2_3_3/W/read Identity 3 5
+20 conv2_3_3/b VariableV2 3 5
+21 conv2_3_3/b/read Identity 2 5
+22 conv2_3_3/Conv2D Conv2D 145679 5
+23 conv2_3_3/BiasAdd BiasAdd 16723 5
+24 conv2_3_3/Relu Relu 16638 5
+25 LocalResponseNormalization_1/LocalResponseNormalization LRN 81095 6
+26 pool2_3_3_s2/MaxPool MaxPool 11639 7
+27 inception_3a_1_1/W VariableV2 4 8
+28 inception_3a_1_1/W/read Identity 3 8
+29 inception_3a_1_1/b VariableV2 2 8
+30 inception_3a_1_1/b/read Identity 3 8
+31 inception_3a_1_1/Conv2D Conv2D 26411 8
+32 inception_3a_1_1/BiasAdd BiasAdd 5778 8
+33 inception_3a_1_1/Relu Relu 6821 8
+34 inception_3a_3_3_reduce/W VariableV2 4 8
+35 inception_3a_3_3_reduce/W/read Identity 3 8
+36 inception_3a_3_3_reduce/b VariableV2 7 8
+37 inception_3a_3_3_reduce/b/read Identity 2 8
+38 inception_3a_3_3_reduce/Conv2D Conv2D 40621 8
+39 inception_3a_3_3_reduce/BiasAdd BiasAdd 2663 8
+40 inception_3a_3_3_reduce/Relu Relu 4222 8
+41 inception_3a_3_3/W VariableV2 5 9
+42 inception_3a_3_3/W/read Identity 3 9
+43 inception_3a_3_3/b VariableV2 3 9
+44 inception_3a_3_3/b/read Identity 2 9
+45 inception_3a_3_3/Conv2D Conv2D 43034 9
+46 inception_3a_3_3/BiasAdd BiasAdd 2853 9
+47 inception_3a_3_3/Relu Relu 2651 9
+48 inception_3a_5_5_reduce/W VariableV2 6 8
+49 inception_3a_5_5_reduce/W/read Identity 3 8
+50 inception_3a_5_5_reduce/b VariableV2 5 8
+51 inception_3a_5_5_reduce/b/read Identity 3 8
+52 inception_3a_5_5_reduce/Conv2D Conv2D 16119 8
+53 inception_3a_5_5_reduce/BiasAdd BiasAdd 4308 8
+54 inception_3a_5_5_reduce/Relu Relu 4295 8
+55 inception_3a_5_5/W VariableV2 6 9
+56 inception_3a_5_5/W/read Identity 3 9
+57 inception_3a_5_5/b VariableV2 3 9
+58 inception_3a_5_5/b/read Identity 2 9
+59 inception_3a_5_5/Conv2D Conv2D 24989 9
+60 inception_3a_5_5/BiasAdd BiasAdd 897 9
+61 inception_3a_5_5/Relu Relu 11466 9
+62 inception_3a_pool/MaxPool MaxPool 9926 8
+63 inception_3a_pool_1_1/W VariableV2 3 9
+64 inception_3a_pool_1_1/W/read Identity 2 9
+65 inception_3a_pool_1_1/b VariableV2 4 9
+66 inception_3a_pool_1_1/b/read Identity 4 9
+67 inception_3a_pool_1_1/Conv2D Conv2D 23300 9
+68 inception_3a_pool_1_1/BiasAdd BiasAdd 3979 9
+69 inception_3a_pool_1_1/Relu Relu 1979 9
+70 Merge/concat/axis Const 3 10
+71 Merge/concat ConcatV2 6746 10
+72 inception_3b_1_1/W VariableV2 3 11
+73 inception_3b_1_1/W/read Identity 2 11
+74 inception_3b_1_1/b VariableV2 3 11
+75 inception_3b_1_1/b/read Identity 2 11
+76 inception_3b_1_1/Conv2D Conv2D 57907 11
+77 inception_3b_1_1/BiasAdd BiasAdd 9951 11
+78 inception_3b_1_1/Relu Relu 14036 11
+79 inception_3b_3_3_reduce/W VariableV2 3 11
+80 inception_3b_3_3_reduce/W/read Identity 2 11
+81 inception_3b_3_3_reduce/b VariableV2 6 11
+82 inception_3b_3_3_reduce/b/read Identity 2 11
+83 inception_3b_3_3_reduce/Conv2D Conv2D 39114 11
+84 inception_3b_3_3_reduce/BiasAdd BiasAdd 8446 11
+85 inception_3b_3_3_reduce/Relu Relu 9138 11
+86 inception_3b_3_3/W VariableV2 4 12
+87 inception_3b_3_3/W/read Identity 4 12
+88 inception_3b_3_3/b VariableV2 3 12
+89 inception_3b_3_3/b/read Identity 1 12
+90 inception_3b_3_3/Conv2D Conv2D 98686 12
+91 inception_3b_3_3/BiasAdd BiasAdd 4196 12
+92 inception_3b_3_3/Relu Relu 4103 12
+93 inception_3b_5_5_reduce/W VariableV2 3 11
+94 inception_3b_5_5_reduce/W/read Identity 2 11
+95 inception_3b_5_5_reduce/b VariableV2 2 11
+96 inception_3b_5_5_reduce/b/read Identity 4 11
+97 inception_3b_5_5_reduce/Conv2D Conv2D 24537 11
+98 inception_3b_5_5_reduce/BiasAdd BiasAdd 3071 11
+99 inception_3b_5_5_reduce/Relu Relu 10211 11
+100 inception_3b_5_5/W VariableV2 5 12
+101 inception_3b_5_5/W/read Identity 3 12
+102 inception_3b_5_5/b VariableV2 3 12
+103 inception_3b_5_5/b/read Identity 3 12
+104 inception_3b_5_5/Conv2D Conv2D 106893 12
+105 inception_3b_5_5/BiasAdd BiasAdd 7457 12
+106 inception_3b_pool/MaxPool MaxPool 15420 11
+107 inception_3b_pool_1_1/W VariableV2 3 12
+108 inception_3b_pool_1_1/W/read Identity 7 12
+109 inception_3b_pool_1_1/b VariableV2 4 12
+110 inception_3b_pool_1_1/b/read Identity 2 12
+111 inception_3b_pool_1_1/Conv2D Conv2D 33233 12
+112 inception_3b_pool_1_1/BiasAdd BiasAdd 7354 12
+113 inception_3b_pool_1_1/Relu Relu 7267 12
+114 inception_3b_output/concat ConcatV2 12336 13
+115 pool3_3_3/MaxPool MaxPool 7401 14
+116 inception_4a_1_1/W VariableV2 3 15
+117 inception_4a_1_1/W/read Identity 2 15
+118 inception_4a_1_1/b VariableV2 4 15
+119 inception_4a_1_1/b/read Identity 3 15
+120 inception_4a_1_1/Conv2D Conv2D 29275 15
+121 inception_4a_1_1/BiasAdd BiasAdd 5611 15
+122 inception_4a_1_1/Relu Relu 1530 15
+123 inception_4a_3_3_reduce/W VariableV2 4 15
+124 inception_4a_3_3_reduce/W/read Identity 5 15
+125 inception_4a_3_3_reduce/b VariableV2 2 15
+126 inception_4a_3_3_reduce/b/read Identity 5 15
+127 inception_4a_3_3_reduce/Conv2D Conv2D 20072 15
+128 inception_4a_3_3_reduce/BiasAdd BiasAdd 5259 15
+129 inception_4a_3_3_reduce/Relu Relu 1741 15
+130 inception_4a_3_3/W VariableV2 4 16
+131 inception_4a_3_3/W/read Identity 2 16
+132 inception_4a_3_3/b VariableV2 3 16
+133 inception_4a_3_3/b/read Identity 2 16
+134 inception_4a_3_3/Conv2D Conv2D 19783 16
+135 inception_4a_3_3/BiasAdd BiasAdd 1002 16
+136 inception_4a_3_3/Relu Relu 822 16
+137 inception_4a_5_5_reduce/W VariableV2 3 15
+138 inception_4a_5_5_reduce/W/read Identity 4 15
+139 inception_4a_5_5_reduce/b VariableV2 7 15
+140 inception_4a_5_5_reduce/b/read Identity 3 15
+141 inception_4a_5_5_reduce/Conv2D Conv2D 11162 15
+142 inception_4a_5_5_reduce/BiasAdd BiasAdd 953 15
+143 inception_4a_5_5_reduce/Relu Relu 2613 15
+144 inception_4a_5_5/W VariableV2 4 16
+145 inception_4a_5_5/W/read Identity 2 16
+146 inception_4a_5_5/b VariableV2 3 16
+147 inception_4a_5_5/b/read Identity 2 16
+148 inception_4a_5_5/Conv2D Conv2D 15004 16
+149 inception_4a_5_5/BiasAdd BiasAdd 2937 16
+150 inception_4a_5_5/Relu Relu 1387 16
+151 inception_4a_pool/MaxPool MaxPool 11770 15
+152 inception_4a_pool_1_1/W VariableV2 4 16
+153 inception_4a_pool_1_1/W/read Identity 3 16
+154 inception_4a_pool_1_1/b VariableV2 4 16
+155 inception_4a_pool_1_1/b/read Identity 2 16
+156 inception_4a_pool_1_1/Conv2D Conv2D 15859 16
+157 inception_4a_pool_1_1/BiasAdd BiasAdd 908 16
+158 inception_4a_pool_1_1/Relu Relu 5385 16
+159 inception_4a_output/concat ConcatV2 3679 17
+160 inception_4a_1_1_1/W VariableV2 6 18
+161 inception_4a_1_1_1/W/read Identity 5 18
+162 inception_4a_1_1_1/b VariableV2 2 18
+163 inception_4a_1_1_1/b/read Identity 3 18
+164 inception_4a_1_1_1/Conv2D Conv2D 28227 18
+165 inception_4a_1_1_1/BiasAdd BiasAdd 2655 18
+166 inception_4a_1_1_1/Relu Relu 3537 18
+167 inception_4b_3_3_reduce/W VariableV2 4 18
+168 inception_4b_3_3_reduce/W/read Identity 3 18
+169 inception_4b_3_3_reduce/b VariableV2 2 18
+170 inception_4b_3_3_reduce/b/read Identity 2 18
+171 inception_4b_3_3_reduce/Conv2D Conv2D 20798 18
+172 inception_4b_3_3_reduce/BiasAdd BiasAdd 2945 18
+173 inception_4b_3_3_reduce/Relu Relu 2655 18
+174 inception_4b_3_3/W VariableV2 4 19
+175 inception_4b_3_3/W/read Identity 5 19
+176 inception_4b_3_3/b VariableV2 2 19
+177 inception_4b_3_3/b/read Identity 2 19
+178 inception_4b_3_3/Conv2D Conv2D 27302 19
+179 inception_4b_3_3/BiasAdd BiasAdd 952 19
+180 inception_4b_3_3/Relu Relu 821 19
+181 inception_4b_5_5_reduce/W VariableV2 8 18
+182 inception_4b_5_5_reduce/W/read Identity 3 18
+183 inception_4b_5_5_reduce/b VariableV2 6 18
+184 inception_4b_5_5_reduce/b/read Identity 6 18
+185 inception_4b_5_5_reduce/Conv2D Conv2D 21624 18
+186 inception_4b_5_5_reduce/BiasAdd BiasAdd 2459 18
+187 inception_4b_5_5_reduce/Relu Relu 882 18
+188 inception_4b_5_5/W VariableV2 3 19
+189 inception_4b_5_5/W/read Identity 3 19
+190 inception_4b_5_5/b VariableV2 4 19
+191 inception_4b_5_5/b/read Identity 2 19
+192 inception_4b_5_5/Conv2D Conv2D 14621 19
+193 inception_4b_5_5/BiasAdd BiasAdd 4347 19
+194 inception_4b_5_5/Relu Relu 1152 19
+195 inception_4b_pool/MaxPool MaxPool 5180 18
+196 inception_4b_pool_1_1/W VariableV2 4 19
+197 inception_4b_pool_1_1/W/read Identity 3 19
+198 inception_4b_pool_1_1/b VariableV2 5 19
+199 inception_4b_pool_1_1/b/read Identity 3 19
+200 inception_4b_pool_1_1/Conv2D Conv2D 22166 19
+201 inception_4b_pool_1_1/BiasAdd BiasAdd 2609 19
+202 inception_4b_pool_1_1/Relu Relu 984 19
+203 inception_4b_output/concat ConcatV2 3692 20
+204 inception_4c_1_1/W VariableV2 4 21
+205 inception_4c_1_1/W/read Identity 3 21
+206 inception_4c_1_1/b VariableV2 3 21
+207 inception_4c_1_1/b/read Identity 2 21
+208 inception_4c_1_1/Conv2D Conv2D 20751 21
+209 inception_4c_1_1/BiasAdd BiasAdd 5110 21
+210 inception_4c_1_1/Relu Relu 1208 21
+211 inception_4c_3_3_reduce/W VariableV2 7 21
+212 inception_4c_3_3_reduce/W/read Identity 5 21
+213 inception_4c_3_3_reduce/b VariableV2 3 21
+214 inception_4c_3_3_reduce/b/read Identity 2 21
+215 inception_4c_3_3_reduce/Conv2D Conv2D 27708 21
+216 inception_4c_3_3_reduce/BiasAdd BiasAdd 2183 21
+217 inception_4c_3_3_reduce/Relu Relu 2042 21
+218 inception_4c_3_3/W VariableV2 8 22
+219 inception_4c_3_3/W/read Identity 4 22
+220 inception_4c_3_3/b VariableV2 4 22
+221 inception_4c_3_3/b/read Identity 5 22
+222 inception_4c_3_3/Conv2D Conv2D 27156 22
+223 inception_4c_3_3/BiasAdd BiasAdd 1202 22
+224 inception_4c_3_3/Relu Relu 1121 22
+225 inception_4c_5_5_reduce/W VariableV2 5 21
+226 inception_4c_5_5_reduce/W/read Identity 2 21
+227 inception_4c_5_5_reduce/b VariableV2 7 21
+228 inception_4c_5_5_reduce/b/read Identity 3 21
+229 inception_4c_5_5_reduce/Conv2D Conv2D 14498 21
+230 inception_4c_5_5_reduce/BiasAdd BiasAdd 3436 21
+231 inception_4c_5_5_reduce/Relu Relu 899 21
+232 inception_4c_5_5/W VariableV2 4 22
+233 inception_4c_5_5/W/read Identity 2 22
+234 inception_4c_5_5/b VariableV2 4 22
+235 inception_4c_5_5/b/read Identity 3 22
+236 inception_4c_5_5/Conv2D Conv2D 15082 22
+237 inception_4c_5_5/BiasAdd BiasAdd 502 22
+238 inception_4c_5_5/Relu Relu 2893 22
+239 MaxPool2D_1/MaxPool MaxPool 12058 21
+240 inception_4c_pool_1_1/W VariableV2 4 22
+241 inception_4c_pool_1_1/W/read Identity 3 22
+242 inception_4c_pool_1_1/b VariableV2 4 22
+243 inception_4c_pool_1_1/b/read Identity 2 22
+244 inception_4c_pool_1_1/Conv2D Conv2D 20620 22
+245 inception_4c_pool_1_1/BiasAdd BiasAdd 465 22
+246 inception_4c_pool_1_1/Relu Relu 263 22
+247 inception_4c_output/concat ConcatV2 3580 23
+248 inception_4d_1_1/W VariableV2 10 24
+249 inception_4d_1_1/W/read Identity 4 24
+250 inception_4d_1_1/b VariableV2 4 24
+251 inception_4d_1_1/b/read Identity 11 24
+252 inception_4d_1_1/Conv2D Conv2D 26766 24
+253 inception_4d_1_1/BiasAdd BiasAdd 2543 24
+254 inception_4d_1_1/Relu Relu 2146 24
+255 inception_4d_3_3_reduce/W VariableV2 3 24
+256 inception_4d_3_3_reduce/W/read Identity 2 24
+257 inception_4d_3_3_reduce/b VariableV2 2 24
+258 inception_4d_3_3_reduce/b/read Identity 2 24
+259 inception_4d_3_3_reduce/Conv2D Conv2D 19616 24
+260 inception_4d_3_3_reduce/BiasAdd BiasAdd 3975 24
+261 inception_4d_3_3_reduce/Relu Relu 1557 24
+262 inception_4d_3_3/W VariableV2 4 25
+263 inception_4d_3_3/W/read Identity 4 25
+264 inception_4d_3_3/b VariableV2 4 25
+265 inception_4d_3_3/b/read Identity 3 25
+266 inception_4d_3_3/Conv2D Conv2D 42441 25
+267 inception_4d_3_3/BiasAdd BiasAdd 1307 25
+268 inception_4d_3_3/Relu Relu 1243 25
+269 inception_4d_5_5_reduce/W VariableV2 4 24
+270 inception_4d_5_5_reduce/W/read Identity 5 24
+271 inception_4d_5_5_reduce/b VariableV2 3 24
+272 inception_4d_5_5_reduce/b/read Identity 3 24
+273 inception_4d_5_5_reduce/Conv2D Conv2D 18696 24
+274 inception_4d_5_5_reduce/BiasAdd BiasAdd 4367 24
+275 inception_4d_5_5_reduce/Relu Relu 673 24
+276 inception_4d_5_5/W VariableV2 3 25
+277 inception_4d_5_5/W/read Identity 3 25
+278 inception_4d_5_5/b VariableV2 4 25
+279 inception_4d_5_5/b/read Identity 6 25
+280 inception_4d_5_5/Conv2D Conv2D 19927 25
+281 inception_4d_5_5/BiasAdd BiasAdd 4675 25
+282 inception_4d_5_5/Relu Relu 1249 25
+283 inception_4d_pool/MaxPool MaxPool 14606 24
+284 inception_4d_pool_1_1/W VariableV2 4 25
+285 inception_4d_pool_1_1/W/read Identity 3 25
+286 inception_4d_pool_1_1/b VariableV2 4 25
+287 inception_4d_pool_1_1/b/read Identity 3 25
+288 inception_4d_pool_1_1/Conv2D Conv2D 15455 25
+289 inception_4d_pool_1_1/BiasAdd BiasAdd 1383 25
+290 inception_4d_pool_1_1/Relu Relu 5130 25
+291 inception_4d_output/concat ConcatV2 3830 26
+292 inception_4e_1_1/W VariableV2 5 27
+293 inception_4e_1_1/W/read Identity 6 27
+294 inception_4e_1_1/b VariableV2 2 27
+295 inception_4e_1_1/b/read Identity 2 27
+296 inception_4e_1_1/Conv2D Conv2D 32355 27
+297 inception_4e_1_1/BiasAdd BiasAdd 3104 27
+298 inception_4e_1_1/Relu Relu 7232 27
+299 inception_4e_3_3_reduce/W VariableV2 4 27
+300 inception_4e_3_3_reduce/W/read Identity 4 27
+301 inception_4e_3_3_reduce/b VariableV2 3 27
+302 inception_4e_3_3_reduce/b/read Identity 2 27
+303 inception_4e_3_3_reduce/Conv2D Conv2D 25608 27
+304 inception_4e_3_3_reduce/BiasAdd BiasAdd 4017 27
+305 inception_4e_3_3_reduce/Relu Relu 2128 27
+306 inception_4e_3_3/W VariableV2 6 28
+307 inception_4e_3_3/W/read Identity 2 28
+308 inception_4e_3_3/b VariableV2 4 28
+309 inception_4e_3_3/b/read Identity 2 28
+310 inception_4e_3_3/Conv2D Conv2D 51161 28
+311 inception_4e_3_3/BiasAdd BiasAdd 1650 28
+312 inception_4e_3_3/Relu Relu 1466 28
+313 inception_4e_5_5_reduce/W VariableV2 4 27
+314 inception_4e_5_5_reduce/W/read Identity 5 27
+315 inception_4e_5_5_reduce/b VariableV2 4 27
+316 inception_4e_5_5_reduce/b/read Identity 2 27
+317 inception_4e_5_5_reduce/Conv2D Conv2D 26431 27
+318 inception_4e_5_5_reduce/BiasAdd BiasAdd 1650 27
+319 inception_4e_5_5_reduce/Relu Relu 1398 27
+320 inception_4e_5_5/W VariableV2 2 28
+321 inception_4e_5_5/W/read Identity 10 28
+322 inception_4e_5_5/b VariableV2 3 28
+323 inception_4e_5_5/b/read Identity 12 28
+324 inception_4e_5_5/Conv2D Conv2D 33683 28
+325 inception_4e_5_5/BiasAdd BiasAdd 1729 28
+326 inception_4e_5_5/Relu Relu 1766 28
+327 inception_4e_pool/MaxPool MaxPool 16380 27
+328 inception_4e_pool_1_1/W VariableV2 5 28
+329 inception_4e_pool_1_1/W/read Identity 3 28
+330 inception_4e_pool_1_1/b VariableV2 4 28
+331 inception_4e_pool_1_1/b/read Identity 3 28
+332 inception_4e_pool_1_1/Conv2D Conv2D 20087 28
+333 inception_4e_pool_1_1/BiasAdd BiasAdd 6259 28
+334 inception_4e_pool_1_1/Relu Relu 4356 28
+335 Merge_1/concat ConcatV2 5816 29
+336 pool_3_3/MaxPool MaxPool 3387 30
+337 inception_5a_1_1/W VariableV2 2 31
+338 inception_5a_1_1/W/read Identity 2 31
+339 inception_5a_1_1/b VariableV2 2 31
+340 inception_5a_1_1/b/read Identity 1 31
+341 inception_5a_1_1/Conv2D Conv2D 13821 31
+342 inception_5a_1_1/BiasAdd BiasAdd 1089 31
+343 inception_5a_1_1/Relu Relu 1346 31
+344 inception_5a_3_3_reduce/W VariableV2 2 31
+345 inception_5a_3_3_reduce/W/read Identity 2 31
+346 inception_5a_3_3_reduce/b VariableV2 7 31
+347 inception_5a_3_3_reduce/b/read Identity 3 31
+348 inception_5a_3_3_reduce/Conv2D Conv2D 16609 31
+349 inception_5a_3_3_reduce/BiasAdd BiasAdd 348 31
+350 inception_5a_3_3_reduce/Relu Relu 265 31
+351 inception_5a_3_3/W VariableV2 3 32
+352 inception_5a_3_3/W/read Identity 1 32
+353 inception_5a_3_3/b VariableV2 5 32
+354 inception_5a_3_3/b/read Identity 4 32
+355 inception_5a_3_3/Conv2D Conv2D 10999 32
+356 inception_5a_3_3/BiasAdd BiasAdd 193 32
+357 inception_5a_3_3/Relu Relu 88 32
+358 inception_5a_5_5_reduce/W VariableV2 2 31
+359 inception_5a_5_5_reduce/W/read Identity 2 31
+360 inception_5a_5_5_reduce/b VariableV2 5 31
+361 inception_5a_5_5_reduce/b/read Identity 2 31
+362 inception_5a_5_5_reduce/Conv2D Conv2D 7596 31
+363 inception_5a_5_5_reduce/BiasAdd BiasAdd 1321 31
+364 inception_5a_5_5_reduce/Relu Relu 2283 31
+365 inception_5a_5_5/W VariableV2 3 32
+366 inception_5a_5_5/W/read Identity 2 32
+367 inception_5a_5_5/b VariableV2 3 32
+368 inception_5a_5_5/b/read Identity 2 32
+369 inception_5a_5_5/Conv2D Conv2D 7180 32
+370 inception_5a_5_5/BiasAdd BiasAdd 639 32
+371 inception_5a_5_5/Relu Relu 747 32
+372 inception_5a_pool/MaxPool MaxPool 5255 31
+373 inception_5a_pool_1_1/W VariableV2 4 32
+374 inception_5a_pool_1_1/W/read Identity 3 32
+375 inception_5a_pool_1_1/b VariableV2 4 32
+376 inception_5a_pool_1_1/b/read Identity 2 32
+377 inception_5a_pool_1_1/Conv2D Conv2D 9621 32
+378 inception_5a_pool_1_1/BiasAdd BiasAdd 721 32
+379 inception_5a_pool_1_1/Relu Relu 783 32
+380 Merge_2/concat ConcatV2 1640 33
+381 inception_5b_1_1/W VariableV2 3 34
+382 inception_5b_1_1/W/read Identity 2 34
+383 inception_5b_1_1/b VariableV2 4 34
+384 inception_5b_1_1/b/read Identity 2 34
+385 inception_5b_1_1/Conv2D Conv2D 25174 34
+386 inception_5b_1_1/BiasAdd BiasAdd 1300 34
+387 inception_5b_1_1/Relu Relu 1029 34
+388 inception_5b_3_3_reduce/W VariableV2 3 34
+389 inception_5b_3_3_reduce/W/read Identity 6 34
+390 inception_5b_3_3_reduce/b VariableV2 2 34
+391 inception_5b_3_3_reduce/b/read Identity 2 34
+392 inception_5b_3_3_reduce/Conv2D Conv2D 14715 34
+393 inception_5b_3_3_reduce/BiasAdd BiasAdd 1470 34
+394 inception_5b_3_3_reduce/Relu Relu 1592 34
+395 inception_5b_3_3/W VariableV2 2 35
+396 inception_5b_3_3/W/read Identity 7 35
+397 inception_5b_3_3/b VariableV2 2 35
+398 inception_5b_3_3/b/read Identity 2 35
+399 inception_5b_3_3/Conv2D Conv2D 19570 35
+400 inception_5b_3_3/BiasAdd BiasAdd 163 35
+401 inception_5b_3_3/Relu Relu 57 35
+402 inception_5b_5_5_reduce/W VariableV2 3 34
+403 inception_5b_5_5_reduce/W/read Identity 7 34
+404 inception_5b_5_5_reduce/b VariableV2 2 34
+405 inception_5b_5_5_reduce/b/read Identity 2 34
+406 inception_5b_5_5_reduce/Conv2D Conv2D 8368 34
+407 inception_5b_5_5_reduce/BiasAdd BiasAdd 1963 34
+408 inception_5b_5_5_reduce/Relu Relu 245 34
+409 inception_5b_5_5/W VariableV2 2 35
+410 inception_5b_5_5/W/read Identity 2 35
+411 inception_5b_5_5/b VariableV2 2 35
+412 inception_5b_5_5/b/read Identity 1 35
+413 inception_5b_5_5/Conv2D Conv2D 13773 35
+414 inception_5b_5_5/BiasAdd BiasAdd 456 35
+415 inception_5b_5_5/Relu Relu 1050 35
+416 inception_5b_pool/MaxPool MaxPool 2756 34
+417 inception_5b_pool_1_1/W VariableV2 4 35
+418 inception_5b_pool_1_1/W/read Identity 3 35
+419 inception_5b_pool_1_1/b VariableV2 4 35
+420 inception_5b_pool_1_1/b/read Identity 2 35
+421 inception_5b_pool_1_1/Conv2D Conv2D 14160 35
+422 inception_5b_pool_1_1/BiasAdd BiasAdd 811 35
+423 inception_5b_pool_1_1/Relu Relu 460 35
+424 Merge_3/concat ConcatV2 1959 36
+425 AvgPool2D/AvgPool AvgPool 5062 37
+426 Dropout/cond/Switch Switch 3 38
+427 Dropout/cond/switch_t Identity 2 38
+428 Dropout/cond/dropout/keep_prob Const 3 38
+429 Dropout/cond/dropout/Shape Shape 6 38
+430 Dropout/cond/dropout/random_uniform/RandomUniform RandomUniform 4093 38
+431 Dropout/cond/dropout/add Add 986 38
+432 Dropout/cond/dropout/Floor Floor 1155 38
+433 Dropout/cond/dropout/mul Mul 2908 38
+434 Dropout/cond/Switch_1 Switch 5 38
+435 Dropout/cond/Merge Merge 7 38
+436 FullyConnected/W VariableV2 4 39
+437 FullyConnected/W/read Identity 6 39
+438 FullyConnected/b VariableV2 2 39
+439 FullyConnected/b/read Identity 3 39
+440 FullyConnected/Reshape/shape Const 3 39
+441 FullyConnected/Reshape Reshape 4 39
+442 FullyConnected/MatMul MatMul 3569 39
+443 FullyConnected/BiasAdd BiasAdd 6 39
+444 FullyConnected/Softmax Softmax 25 39
+445 Accuracy/ArgMax ArgMax 10 40
+446 Accuracy/ArgMax_1 ArgMax 9 40
+447 Accuracy/Equal Equal 5 40
+448 Accuracy/Cast Cast 3 40
+449 Accuracy/Mean Mean 5 40
+450 Crossentropy/Sum/reduction_indices Const 3 40
+451 Crossentropy/Sum Sum 8 40
+452 Crossentropy/truediv RealDiv 46 40
+453 Crossentropy/Cast/x Const 3 40
+454 Crossentropy/Cast_1/x Const 2 40
+455 Crossentropy/clip_by_value/Minimum Minimum 5 40
+456 Crossentropy/clip_by_value Maximum 5 40
+457 Crossentropy/Log Log 4 40
+458 Crossentropy/mul Mul 3 40
+459 Crossentropy/Sum_1 Sum 3 40
+460 Crossentropy/Neg Neg 2 40
+461 Crossentropy/Const Const 3 40
+462 Crossentropy/Mean Mean 2 40
+463 Training_step VariableV2 2 1
+464 Training_step/read Identity 2 1
+465 Accuracy/Mean/moving_avg VariableV2 3 40
+466 Accuracy/Mean/moving_avg/read Identity 3 40
+467 moving_avg/AssignMovingAvg/sub/x Const 2 41
+468 moving_avg/AssignMovingAvg/sub Sub 2 41
+469 moving_avg/AssignMovingAvg/sub_1 Sub 4 41
+470 moving_avg/AssignMovingAvg/mul Mul 3 41
+471 moving_avg/AssignMovingAvg AssignSub 8 41
+472 Crossentropy/Mean/moving_avg VariableV2 7 40
+473 Crossentropy/Mean/moving_avg/read Identity 3 40
+474 Momentum/moving_avg/decay Const 6 41
+475 Momentum/moving_avg/add Add 2 41
+476 Momentum/moving_avg/add_1/x Const 2 41
+477 Momentum/moving_avg/add_1 Add 7 41
+478 Momentum/moving_avg/truediv RealDiv 4 41
+479 Momentum/moving_avg/Minimum Minimum 3 41
+480 Momentum/moving_avg/AssignMovingAvg/sub/x Const 2 41
+481 Momentum/moving_avg/AssignMovingAvg/sub Sub 3 41
+482 Momentum/moving_avg/AssignMovingAvg/sub_1 Sub 2 41
+483 Momentum/moving_avg/AssignMovingAvg/mul Mul 3 41
+484 Momentum/moving_avg/AssignMovingAvg AssignSub 13 41
+485 Loss/tags Const 3 41
+486 Loss ScalarSummary 4 41
+487 Momentum/Loss/raw/tags Const 2 41
+488 Momentum/Loss/raw ScalarSummary 5 41
+489 Momentum/gradients/Crossentropy/Mean_grad/Shape Shape 1 41
+490 Momentum/gradients/Crossentropy/Mean_grad/Tile Tile 6 41
+491 Momentum/gradients/Crossentropy/Mean_grad/Const Const 2 41
+492 Momentum/gradients/Crossentropy/Mean_grad/Prod Prod 2 41
+493 Momentum/gradients/Crossentropy/Mean_grad/Cast Cast 3 41
+494 Momentum/gradients/Crossentropy/Mean_grad/truediv RealDiv 3 41
+495 Momentum/gradients/Crossentropy/Neg_grad/Neg Neg 1 41
+496 Momentum/gradients/Crossentropy/Sum_1_grad/Shape Shape 2 41
+497 Momentum/gradients/Crossentropy/Sum_1_grad/DynamicStitch DynamicStitch 6 41
+498 Momentum/gradients/Crossentropy/Sum_1_grad/Maximum/y Const 2 41
+499 Momentum/gradients/Crossentropy/Sum_1_grad/Maximum Maximum 4 41
+500 Momentum/gradients/Crossentropy/Sum_1_grad/floordiv FloorDiv 3 41
+501 Momentum/gradients/Crossentropy/Sum_1_grad/Reshape Reshape 2 41
+502 Momentum/gradients/Crossentropy/Sum_1_grad/Tile Tile 29 41
+503 Momentum/gradients/Crossentropy/mul_grad/Shape Shape 1 41
+504 Momentum/gradients/Crossentropy/mul_grad/Shape_1 Shape 2 41
+505 Momentum/gradients/Crossentropy/mul_grad/BroadcastGradientArgs BroadcastGradientArgs 2 41
+506 Momentum/gradients/Crossentropy/mul_grad/Mul_1 Mul 3 41
+507 Momentum/gradients/Crossentropy/mul_grad/Sum_1 Sum 3 41
+508 Momentum/gradients/Crossentropy/mul_grad/Reshape_1 Reshape 3 41
+509 Momentum/gradients/Crossentropy/Log_grad/Reciprocal Reciprocal 26 41
+510 Momentum/gradients/Crossentropy/Log_grad/mul Mul 4 41
+511 Momentum/gradients/Crossentropy/clip_by_value_grad/Shape Shape 2 41
+512 Momentum/gradients/Crossentropy/clip_by_value_grad/Shape_2 Shape 2 41
+513 Momentum/gradients/Crossentropy/clip_by_value_grad/zeros Fill 4 41
+514 Momentum/gradients/Crossentropy/clip_by_value_grad/GreaterEqual GreaterEqual 10 41
+515 Momentum/gradients/Crossentropy/clip_by_value_grad/BroadcastGradientArgs BroadcastGradientArgs 2 41
+516 Momentum/gradients/Crossentropy/clip_by_value_grad/Select Select 8 41
+517 Momentum/gradients/Crossentropy/clip_by_value_grad/Sum Sum 2 41
+518 Momentum/gradients/Crossentropy/clip_by_value_grad/Reshape Reshape 2 41
+519 Momentum/gradients/Crossentropy/clip_by_value/Minimum_grad/Shape Shape 2 41
+520 Momentum/gradients/Crossentropy/clip_by_value/Minimum_grad/Shape_2 Shape 3 41
+521 Momentum/gradients/Crossentropy/clip_by_value/Minimum_grad/zeros Fill 3 41
+522 Momentum/gradients/Crossentropy/clip_by_value/Minimum_grad/LessEqual LessEqual 4 41
+523 Momentum/gradients/Crossentropy/clip_by_value/Minimum_grad/BroadcastGradientArgs BroadcastGradientArgs 2 41
+524 Momentum/gradients/Crossentropy/clip_by_value/Minimum_grad/Select Select 5 41
+525 Momentum/gradients/Crossentropy/clip_by_value/Minimum_grad/Sum Sum 2 41
+526 Momentum/gradients/Crossentropy/clip_by_value/Minimum_grad/Reshape Reshape 3 41
+527 Momentum/gradients/Crossentropy/truediv_grad/Shape Shape 2 41
+528 Momentum/gradients/Crossentropy/truediv_grad/RealDiv RealDiv 50 41
+529 Momentum/gradients/Crossentropy/truediv_grad/Neg Neg 7 41
+530 Momentum/gradients/Crossentropy/truediv_grad/RealDiv_1 RealDiv 50 41
+531 Momentum/gradients/Crossentropy/truediv_grad/RealDiv_2 RealDiv 34 41
+532 Momentum/gradients/Crossentropy/truediv_grad/mul Mul 4 41
+533 Momentum/gradients/Crossentropy/truediv_grad/Sum_1 Sum 5 41
+534 Momentum/gradients/Crossentropy/Sum_grad/DynamicStitch DynamicStitch 3 41
+535 Momentum/gradients/Crossentropy/Sum_grad/Maximum/y Const 2 41
+536 Momentum/gradients/Crossentropy/Sum_grad/Maximum Maximum 3 41
+537 Momentum/gradients/Crossentropy/Sum_grad/floordiv FloorDiv 2 41
+538 Momentum/gradients/Crossentropy/Sum_grad/Reshape Reshape 4 41
+539 Momentum/gradients/Crossentropy/Sum_grad/Tile Tile 33 41
+540 Momentum/gradients/AddN AddN 6 41
+541 Momentum/gradients/FullyConnected/Softmax_grad/mul Mul 4 41
+542 Momentum/gradients/FullyConnected/Softmax_grad/Sum/reduction_indices Const 2 41
+543 Momentum/gradients/FullyConnected/Softmax_grad/Sum Sum 4 41
+544 Momentum/gradients/FullyConnected/Softmax_grad/Reshape/shape Const 2 41
+545 Momentum/gradients/FullyConnected/Softmax_grad/Reshape Reshape 4 41
+546 Momentum/gradients/FullyConnected/Softmax_grad/sub Sub 16 41
+547 Momentum/gradients/FullyConnected/Softmax_grad/mul_1 Mul 6 41
+548 Momentum/gradients/FullyConnected/BiasAdd_grad/BiasAddGrad BiasAddGrad 30 41
+549 Momentum/gradients/FullyConnected/MatMul_grad/MatMul MatMul 7718 41
+550 Momentum/gradients/FullyConnected/MatMul_grad/MatMul_1 MatMul 4503 41
+551 Momentum/gradients/FullyConnected/Reshape_grad/Shape Shape 1 41
+552 Momentum/gradients/FullyConnected/Reshape_grad/Reshape Reshape 6 41
+553 Momentum/gradients/Dropout/cond/Merge_grad/cond_grad Switch 2 41
+554 Momentum/gradients/Switch Switch 2 41
+555 Momentum/gradients/Shape_1 Shape 2 41
+556 Momentum/gradients/zeros/Const Const 1 41
+557 Momentum/gradients/zeros Fill 1414 41
+558 Momentum/gradients/Dropout/cond/Switch_1_grad/cond_grad Merge 29 41
+559 Momentum/gradients/Dropout/cond/dropout/mul_grad/Shape Shape 850 41
+560 Momentum/gradients/Dropout/cond/dropout/mul_grad/Shape_1 Shape 2 41
+561 Momentum/gradients/Dropout/cond/dropout/mul_grad/BroadcastGradientArgs BroadcastGradientArgs 3 41
+562 Momentum/gradients/Dropout/cond/dropout/mul_grad/Mul Mul 2522 41
+563 Momentum/gradients/Dropout/cond/dropout/mul_grad/Sum Sum 4 41
+564 Momentum/gradients/Dropout/cond/dropout/mul_grad/Reshape Reshape 3 41
+565 Momentum/gradients/Dropout/cond/dropout/div_grad/Shape Shape 2 41
+566 Momentum/gradients/Dropout/cond/dropout/div_grad/Shape_1 Const 3 41
+567 Momentum/gradients/Dropout/cond/dropout/div_grad/BroadcastGradientArgs BroadcastGradientArgs 3 41
+568 Momentum/gradients/Dropout/cond/dropout/div_grad/Sum Sum 4 41
+569 Momentum/gradients/Dropout/cond/dropout/div_grad/Reshape Reshape 3 41
+570 Momentum/gradients/Dropout/cond/dropout/Shape/Switch_grad/cond_grad Merge 3 41
+571 Momentum/gradients/AddN_1 AddN 2689 41
+572 Momentum/gradients/AvgPool2D/AvgPool_grad/Shape Shape 2 41
+573 Momentum/gradients/AvgPool2D/AvgPool_grad/AvgPoolGrad AvgPoolGrad 12369 41
+574 Momentum/gradients/Merge_3/concat_grad/ShapeN ShapeN 4 41
+575 Momentum/gradients/Merge_3/concat_grad/ConcatOffset ConcatOffset 3 41
+576 Momentum/gradients/Merge_3/concat_grad/Slice Slice 6556 41
+577 Momentum/gradients/Merge_3/concat_grad/Slice_1 Slice 4017 41
+578 Momentum/gradients/Merge_3/concat_grad/Slice_2 Slice 792 41
+579 Momentum/gradients/Merge_3/concat_grad/Slice_3 Slice 1671 41
+580 Momentum/gradients/inception_5b_1_1/Relu_grad/ReluGrad ReluGrad 3508 41
+581 Momentum/gradients/inception_5b_3_3/Relu_grad/ReluGrad ReluGrad 4923 41
+582 Momentum/gradients/inception_5b_5_5/Relu_grad/ReluGrad ReluGrad 562 41
+583 Momentum/gradients/inception_5b_pool_1_1/Relu_grad/ReluGrad ReluGrad 2529 41
+584 Momentum/gradients/inception_5b_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 15978 41
+585 Momentum/gradients/inception_5b_3_3/BiasAdd_grad/BiasAddGrad BiasAddGrad 7009 41
+586 Momentum/gradients/inception_5b_5_5/BiasAdd_grad/BiasAddGrad BiasAddGrad 1236 41
+587 Momentum/gradients/inception_5b_pool_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 2074 41
+588 Momentum/gradients/inception_5b_1_1/Conv2D_grad/ShapeN ShapeN 2 41
+589 Momentum/gradients/inception_5b_1_1/Conv2D_grad/Const Const 1 41
+590 Momentum/gradients/inception_5b_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 64685 41
+591 Momentum/gradients/inception_5b_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 78663 41
+592 Momentum/gradients/inception_5b_3_3/Conv2D_grad/ShapeN ShapeN 2 41
+593 Momentum/gradients/inception_5b_3_3/Conv2D_grad/Const Const 1 41
+594 Momentum/gradients/inception_5b_3_3/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 107812 41
+595 Momentum/gradients/inception_5b_3_3/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 90636 41
+596 Momentum/gradients/inception_5b_5_5/Conv2D_grad/ShapeN ShapeN 2 41
+597 Momentum/gradients/inception_5b_5_5/Conv2D_grad/Const Const 1 41
+598 Momentum/gradients/inception_5b_5_5/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 27229 41
+599 Momentum/gradients/inception_5b_5_5/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 80877 41
+600 Momentum/gradients/inception_5b_pool_1_1/Conv2D_grad/ShapeN ShapeN 2 41
+601 Momentum/gradients/inception_5b_pool_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 37488 41
+602 Momentum/gradients/inception_5b_pool_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 69745 41
+603 Momentum/gradients/inception_5b_3_3_reduce/Relu_grad/ReluGrad ReluGrad 538 41
+604 Momentum/gradients/inception_5b_5_5_reduce/Relu_grad/ReluGrad ReluGrad 8145 41
+605 Momentum/gradients/inception_5b_pool/MaxPool_grad/MaxPoolGrad MaxPoolGrad 26284 41
+606 Momentum/gradients/inception_5b_3_3_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 3200 41
+607 Momentum/gradients/inception_5b_5_5_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 755 41
+608 Momentum/gradients/inception_5b_3_3_reduce/Conv2D_grad/ShapeN ShapeN 2 41
+609 Momentum/gradients/inception_5b_3_3_reduce/Conv2D_grad/Const Const 2 41
+610 Momentum/gradients/inception_5b_3_3_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 9996 41
+611 Momentum/gradients/inception_5b_3_3_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 26985 41
+612 Momentum/gradients/inception_5b_5_5_reduce/Conv2D_grad/ShapeN ShapeN 2 41
+613 Momentum/gradients/inception_5b_5_5_reduce/Conv2D_grad/Const Const 1 41
+614 Momentum/gradients/inception_5b_5_5_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 24737 41
+615 Momentum/gradients/inception_5b_5_5_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 37701 41
+616 Momentum/gradients/AddN_2 AddN 6014 41
+617 Momentum/gradients/Merge_2/concat_grad/ShapeN ShapeN 5 41
+618 Momentum/gradients/Merge_2/concat_grad/ConcatOffset ConcatOffset 4 41
+619 Momentum/gradients/Merge_2/concat_grad/Slice Slice 1236 41
+620 Momentum/gradients/Merge_2/concat_grad/Slice_1 Slice 6116 41
+621 Momentum/gradients/Merge_2/concat_grad/Slice_2 Slice 5780 41
+622 Momentum/gradients/Merge_2/concat_grad/Slice_3 Slice 1171 41
+623 Momentum/gradients/inception_5a_1_1/Relu_grad/ReluGrad ReluGrad 917 41
+624 Momentum/gradients/inception_5a_3_3/Relu_grad/ReluGrad ReluGrad 7338 41
+625 Momentum/gradients/inception_5a_5_5/Relu_grad/ReluGrad ReluGrad 3500 41
+626 Momentum/gradients/inception_5a_pool_1_1/Relu_grad/ReluGrad ReluGrad 780 41
+627 Momentum/gradients/inception_5a_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 6758 41
+628 Momentum/gradients/inception_5a_3_3/BiasAdd_grad/BiasAddGrad BiasAddGrad 3677 41
+629 Momentum/gradients/inception_5a_5_5/BiasAdd_grad/BiasAddGrad BiasAddGrad 1764 41
+630 Momentum/gradients/inception_5a_pool_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 1468 41
+631 Momentum/gradients/inception_5a_1_1/Conv2D_grad/ShapeN ShapeN 2 41
+632 Momentum/gradients/inception_5a_1_1/Conv2D_grad/Const Const 2 41
+633 Momentum/gradients/inception_5a_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 66146 41
+634 Momentum/gradients/inception_5a_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 85349 41
+635 Momentum/gradients/inception_5a_3_3/Conv2D_grad/ShapeN ShapeN 3 41
+636 Momentum/gradients/inception_5a_3_3/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 78575 41
+637 Momentum/gradients/inception_5a_3_3/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 94474 41
+638 Momentum/gradients/inception_5a_5_5/Conv2D_grad/ShapeN ShapeN 2 41
+639 Momentum/gradients/inception_5a_5_5/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 31801 41
+640 Momentum/gradients/inception_5a_5_5/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 75136 41
+641 Momentum/gradients/inception_5a_pool_1_1/Conv2D_grad/ShapeN ShapeN 2 41
+642 Momentum/gradients/inception_5a_pool_1_1/Conv2D_grad/Const Const 2 41
+643 Momentum/gradients/inception_5a_pool_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 23898 41
+644 Momentum/gradients/inception_5a_pool_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 74927 41
+645 Momentum/gradients/inception_5a_3_3_reduce/Relu_grad/ReluGrad ReluGrad 678 41
+646 Momentum/gradients/inception_5a_5_5_reduce/Relu_grad/ReluGrad ReluGrad 1402 41
+647 Momentum/gradients/inception_5a_pool/MaxPool_grad/MaxPoolGrad MaxPoolGrad 32677 41
+648 Momentum/gradients/inception_5a_3_3_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 2997 41
+649 Momentum/gradients/inception_5a_5_5_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 465 41
+650 Momentum/gradients/inception_5a_3_3_reduce/Conv2D_grad/ShapeN ShapeN 2 41
+651 Momentum/gradients/inception_5a_3_3_reduce/Conv2D_grad/Const Const 1 41
+652 Momentum/gradients/inception_5a_3_3_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 11039 41
+653 Momentum/gradients/inception_5a_3_3_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 33471 41
+654 Momentum/gradients/inception_5a_5_5_reduce/Conv2D_grad/ShapeN ShapeN 2 41
+655 Momentum/gradients/inception_5a_5_5_reduce/Conv2D_grad/Const Const 1 41
+656 Momentum/gradients/inception_5a_5_5_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 19456 41
+657 Momentum/gradients/inception_5a_5_5_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 36831 41
+658 Momentum/gradients/AddN_3 AddN 6781 41
+659 Momentum/gradients/pool_3_3/MaxPool_grad/MaxPoolGrad MaxPoolGrad 18242 41
+660 Momentum/gradients/Merge_1/concat_grad/ShapeN ShapeN 3 41
+661 Momentum/gradients/Merge_1/concat_grad/ConcatOffset ConcatOffset 3 41
+662 Momentum/gradients/Merge_1/concat_grad/Slice Slice 19083 41
+663 Momentum/gradients/Merge_1/concat_grad/Slice_1 Slice 24027 41
+664 Momentum/gradients/Merge_1/concat_grad/Slice_2 Slice 3928 41
+665 Momentum/gradients/Merge_1/concat_grad/Slice_3 Slice 3978 41
+666 Momentum/gradients/inception_4e_1_1/Relu_grad/ReluGrad ReluGrad 14820 41
+667 Momentum/gradients/inception_4e_3_3/Relu_grad/ReluGrad ReluGrad 19973 41
+668 Momentum/gradients/inception_4e_5_5/Relu_grad/ReluGrad ReluGrad 2944 41
+669 Momentum/gradients/inception_4e_pool_1_1/Relu_grad/ReluGrad ReluGrad 2544 41
+670 Momentum/gradients/inception_4e_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 71262 41
+671 Momentum/gradients/inception_4e_3_3/BiasAdd_grad/BiasAddGrad BiasAddGrad 46307 41
+672 Momentum/gradients/inception_4e_5_5/BiasAdd_grad/BiasAddGrad BiasAddGrad 26956 41
+673 Momentum/gradients/inception_4e_pool_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 16497 41
+674 Momentum/gradients/inception_4e_1_1/Conv2D_grad/ShapeN ShapeN 2 41
+675 Momentum/gradients/inception_4e_1_1/Conv2D_grad/Const Const 2 41
+676 Momentum/gradients/inception_4e_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 133167 41
+677 Momentum/gradients/inception_4e_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 182948 41
+678 Momentum/gradients/inception_4e_3_3/Conv2D_grad/ShapeN ShapeN 2 41
+679 Momentum/gradients/inception_4e_3_3/Conv2D_grad/Const Const 2 41
+680 Momentum/gradients/inception_4e_3_3/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 229800 41
+681 Momentum/gradients/inception_4e_3_3/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 210441 41
+682 Momentum/gradients/inception_4e_5_5/Conv2D_grad/ShapeN ShapeN 2 41
+683 Momentum/gradients/inception_4e_5_5/Conv2D_grad/Const Const 1 41
+684 Momentum/gradients/inception_4e_5_5/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 98270 41
+685 Momentum/gradients/inception_4e_5_5/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 208162 41
+686 Momentum/gradients/inception_4e_pool_1_1/Conv2D_grad/ShapeN ShapeN 2 41
+687 Momentum/gradients/inception_4e_pool_1_1/Conv2D_grad/Const Const 2 41
+688 Momentum/gradients/inception_4e_pool_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 79100 41
+689 Momentum/gradients/inception_4e_pool_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 182587 41
+690 Momentum/gradients/inception_4e_3_3_reduce/Relu_grad/ReluGrad ReluGrad 1609 41
+691 Momentum/gradients/inception_4e_5_5_reduce/Relu_grad/ReluGrad ReluGrad 15367 41
+692 Momentum/gradients/inception_4e_pool/MaxPool_grad/MaxPoolGrad MaxPoolGrad 79585 41
+693 Momentum/gradients/inception_4e_3_3_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 3510 41
+694 Momentum/gradients/inception_4e_5_5_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 2189 41
+695 Momentum/gradients/inception_4e_3_3_reduce/Conv2D_grad/ShapeN ShapeN 2 41
+696 Momentum/gradients/inception_4e_3_3_reduce/Conv2D_grad/Const Const 1 41
+697 Momentum/gradients/inception_4e_3_3_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 21260 41
+698 Momentum/gradients/inception_4e_3_3_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 102662 41
+699 Momentum/gradients/inception_4e_5_5_reduce/Conv2D_grad/ShapeN ShapeN 2 41
+700 Momentum/gradients/inception_4e_5_5_reduce/Conv2D_grad/Const Const 1 41
+701 Momentum/gradients/inception_4e_5_5_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 57681 41
+702 Momentum/gradients/inception_4e_5_5_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 75183 41
+703 Momentum/gradients/AddN_4 AddN 12662 41
+704 Momentum/gradients/inception_4d_output/concat_grad/ShapeN ShapeN 3 41
+705 Momentum/gradients/inception_4d_output/concat_grad/ConcatOffset ConcatOffset 4 41
+706 Momentum/gradients/inception_4d_output/concat_grad/Slice Slice 3862 41
+707 Momentum/gradients/inception_4d_output/concat_grad/Slice_1 Slice 26154 41
+708 Momentum/gradients/inception_4d_output/concat_grad/Slice_2 Slice 4485 41
+709 Momentum/gradients/inception_4d_output/concat_grad/Slice_3 Slice 2266 41
+710 Momentum/gradients/inception_4d_1_1/Relu_grad/ReluGrad ReluGrad 7736 41
+711 Momentum/gradients/inception_4d_3_3/Relu_grad/ReluGrad ReluGrad 22791 41
+712 Momentum/gradients/inception_4d_5_5/Relu_grad/ReluGrad ReluGrad 9082 41
+713 Momentum/gradients/inception_4d_pool_1_1/Relu_grad/ReluGrad ReluGrad 886 41
+714 Momentum/gradients/inception_4d_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 22719 41
+715 Momentum/gradients/inception_4d_3_3/BiasAdd_grad/BiasAddGrad BiasAddGrad 80590 41
+716 Momentum/gradients/inception_4d_5_5/BiasAdd_grad/BiasAddGrad BiasAddGrad 12005 41
+717 Momentum/gradients/inception_4d_pool_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 7457 41
+718 Momentum/gradients/inception_4d_1_1/Conv2D_grad/ShapeN ShapeN 3 41
+719 Momentum/gradients/inception_4d_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 125219 41
+720 Momentum/gradients/inception_4d_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 153271 41
+721 Momentum/gradients/inception_4d_3_3/Conv2D_grad/ShapeN ShapeN 2 41
+722 Momentum/gradients/inception_4d_3_3/Conv2D_grad/Const Const 2 41
+723 Momentum/gradients/inception_4d_3_3/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 147313 41
+724 Momentum/gradients/inception_4d_3_3/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 210468 41
+725 Momentum/gradients/inception_4d_5_5/Conv2D_grad/ShapeN ShapeN 2 41
+726 Momentum/gradients/inception_4d_5_5/Conv2D_grad/Const Const 1 41
+727 Momentum/gradients/inception_4d_5_5/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 69062 41
+728 Momentum/gradients/inception_4d_5_5/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 162474 41
+729 Momentum/gradients/inception_4d_pool_1_1/Conv2D_grad/ShapeN ShapeN 2 41
+730 Momentum/gradients/inception_4d_pool_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 45458 41
+731 Momentum/gradients/inception_4d_pool_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 131618 41
+732 Momentum/gradients/inception_4d_3_3_reduce/Relu_grad/ReluGrad ReluGrad 5168 41
+733 Momentum/gradients/inception_4d_5_5_reduce/Relu_grad/ReluGrad ReluGrad 21606 41
+734 Momentum/gradients/inception_4d_pool/MaxPool_grad/MaxPoolGrad MaxPoolGrad 115402 41
+735 Momentum/gradients/inception_4d_3_3_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 18835 41
+736 Momentum/gradients/inception_4d_5_5_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 2079 41
+737 Momentum/gradients/inception_4d_3_3_reduce/Conv2D_grad/ShapeN ShapeN 2 41
+738 Momentum/gradients/inception_4d_3_3_reduce/Conv2D_grad/Const Const 2 41
+739 Momentum/gradients/inception_4d_3_3_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 30095 41
+740 Momentum/gradients/inception_4d_3_3_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 55905 41
+741 Momentum/gradients/inception_4d_5_5_reduce/Conv2D_grad/ShapeN ShapeN 2 41
+742 Momentum/gradients/inception_4d_5_5_reduce/Conv2D_grad/Const Const 2 41
+743 Momentum/gradients/inception_4d_5_5_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 49145 41
+744 Momentum/gradients/inception_4d_5_5_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 73170 41
+745 Momentum/gradients/AddN_5 AddN 15087 41
+746 Momentum/gradients/inception_4c_output/concat_grad/ShapeN ShapeN 3 41
+747 Momentum/gradients/inception_4c_output/concat_grad/ConcatOffset ConcatOffset 6 41
+748 Momentum/gradients/inception_4c_output/concat_grad/Slice Slice 3931 41
+749 Momentum/gradients/inception_4c_output/concat_grad/Slice_1 Slice 10832 41
+750 Momentum/gradients/inception_4c_output/concat_grad/Slice_2 Slice 5586 41
+751 Momentum/gradients/inception_4c_output/concat_grad/Slice_3 Slice 18191 41
+752 Momentum/gradients/inception_4c_1_1/Relu_grad/ReluGrad ReluGrad 4405 41
+753 Momentum/gradients/inception_4c_3_3/Relu_grad/ReluGrad ReluGrad 10658 41
+754 Momentum/gradients/inception_4c_5_5/Relu_grad/ReluGrad ReluGrad 6620 41
+755 Momentum/gradients/inception_4c_pool_1_1/Relu_grad/ReluGrad ReluGrad 14695 41
+756 Momentum/gradients/inception_4c_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 7497 41
+757 Momentum/gradients/inception_4c_3_3/BiasAdd_grad/BiasAddGrad BiasAddGrad 70648 41
+758 Momentum/gradients/inception_4c_5_5/BiasAdd_grad/BiasAddGrad BiasAddGrad 7592 41
+759 Momentum/gradients/inception_4c_pool_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 8443 41
+760 Momentum/gradients/inception_4c_1_1/Conv2D_grad/ShapeN ShapeN 2 41
+761 Momentum/gradients/inception_4c_1_1/Conv2D_grad/Const Const 1 41
+762 Momentum/gradients/inception_4c_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 69269 41
+763 Momentum/gradients/inception_4c_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 171478 41
+764 Momentum/gradients/inception_4c_3_3/Conv2D_grad/ShapeN ShapeN 3 41
+765 Momentum/gradients/inception_4c_3_3/Conv2D_grad/Const Const 1 41
+766 Momentum/gradients/inception_4c_3_3/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 160354 41
+767 Momentum/gradients/inception_4c_3_3/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 391927 41
+768 Momentum/gradients/inception_4c_5_5/Conv2D_grad/ShapeN ShapeN 2 41
+769 Momentum/gradients/inception_4c_5_5/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 51074 41
+770 Momentum/gradients/inception_4c_5_5/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 157853 41
+771 Momentum/gradients/inception_4c_pool_1_1/Conv2D_grad/ShapeN ShapeN 2 41
+772 Momentum/gradients/inception_4c_pool_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 79047 41
+773 Momentum/gradients/inception_4c_pool_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 126751 41
+774 Momentum/gradients/inception_4c_3_3_reduce/Relu_grad/ReluGrad ReluGrad 1468 41
+775 Momentum/gradients/inception_4c_5_5_reduce/Relu_grad/ReluGrad ReluGrad 3529 41
+776 Momentum/gradients/MaxPool2D_1/MaxPool_grad/MaxPoolGrad MaxPoolGrad 61756 41
+777 Momentum/gradients/inception_4c_3_3_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 6397 41
+778 Momentum/gradients/inception_4c_5_5_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 2418 41
+779 Momentum/gradients/inception_4c_3_3_reduce/Conv2D_grad/ShapeN ShapeN 2 41
+780 Momentum/gradients/inception_4c_3_3_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 24066 41
+781 Momentum/gradients/inception_4c_3_3_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 44731 41
+782 Momentum/gradients/inception_4c_5_5_reduce/Conv2D_grad/ShapeN ShapeN 2 41
+783 Momentum/gradients/inception_4c_5_5_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 52992 41
+784 Momentum/gradients/inception_4c_5_5_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 80007 41
+785 Momentum/gradients/AddN_6 AddN 12739 41
+786 Momentum/gradients/inception_4b_output/concat_grad/ShapeN ShapeN 4 41
+787 Momentum/gradients/inception_4b_output/concat_grad/ConcatOffset ConcatOffset 3 41
+788 Momentum/gradients/inception_4b_output/concat_grad/Slice Slice 6987 41
+789 Momentum/gradients/inception_4b_output/concat_grad/Slice_1 Slice 16747 41
+790 Momentum/gradients/inception_4b_output/concat_grad/Slice_2 Slice 6622 41
+791 Momentum/gradients/inception_4b_output/concat_grad/Slice_3 Slice 6623 41
+792 Momentum/gradients/inception_4a_1_1_1/Relu_grad/ReluGrad ReluGrad 18010 41
+793 Momentum/gradients/inception_4b_3_3/Relu_grad/ReluGrad ReluGrad 17369 41
+794 Momentum/gradients/inception_4b_5_5/Relu_grad/ReluGrad ReluGrad 4571 41
+795 Momentum/gradients/inception_4b_pool_1_1/Relu_grad/ReluGrad ReluGrad 3608 41
+796 Momentum/gradients/inception_4a_1_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 19773 41
+797 Momentum/gradients/inception_4b_3_3/BiasAdd_grad/BiasAddGrad BiasAddGrad 14415 41
+798 Momentum/gradients/inception_4b_5_5/BiasAdd_grad/BiasAddGrad BiasAddGrad 16259 41
+799 Momentum/gradients/inception_4b_pool_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 14474 41
+800 Momentum/gradients/inception_4a_1_1_1/Conv2D_grad/ShapeN ShapeN 2 41
+801 Momentum/gradients/inception_4a_1_1_1/Conv2D_grad/Const Const 2 41
+802 Momentum/gradients/inception_4a_1_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 136791 41
+803 Momentum/gradients/inception_4a_1_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 194020 41
+804 Momentum/gradients/inception_4b_3_3/Conv2D_grad/ShapeN ShapeN 2 41
+805 Momentum/gradients/inception_4b_3_3/Conv2D_grad/Const Const 2 41
+806 Momentum/gradients/inception_4b_3_3/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 150845 41
+807 Momentum/gradients/inception_4b_3_3/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 260742 41
+808 Momentum/gradients/inception_4b_5_5/Conv2D_grad/ShapeN ShapeN 2 41
+809 Momentum/gradients/inception_4b_5_5/Conv2D_grad/Const Const 2 41
+810 Momentum/gradients/inception_4b_5_5/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 55677 41
+811 Momentum/gradients/inception_4b_5_5/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 155466 41
+812 Momentum/gradients/inception_4b_pool_1_1/Conv2D_grad/ShapeN ShapeN 2 41
+813 Momentum/gradients/inception_4b_pool_1_1/Conv2D_grad/Const Const 1 41
+814 Momentum/gradients/inception_4b_pool_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 47565 41
+815 Momentum/gradients/inception_4b_pool_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 122994 41
+816 Momentum/gradients/inception_4b_3_3_reduce/Relu_grad/ReluGrad ReluGrad 1983 41
+817 Momentum/gradients/inception_4b_5_5_reduce/Relu_grad/ReluGrad ReluGrad 38659 41
+818 Momentum/gradients/inception_4b_pool/MaxPool_grad/MaxPoolGrad MaxPoolGrad 122072 41
+819 Momentum/gradients/inception_4b_3_3_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 2010 41
+820 Momentum/gradients/inception_4b_5_5_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 2885 41
+821 Momentum/gradients/inception_4b_3_3_reduce/Conv2D_grad/ShapeN ShapeN 2 41
+822 Momentum/gradients/inception_4b_3_3_reduce/Conv2D_grad/Const Const 1 41
+823 Momentum/gradients/inception_4b_3_3_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 25136 41
+824 Momentum/gradients/inception_4b_3_3_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 115085 41
+825 Momentum/gradients/inception_4b_5_5_reduce/Conv2D_grad/ShapeN ShapeN 2 41
+826 Momentum/gradients/inception_4b_5_5_reduce/Conv2D_grad/Const Const 1 41
+827 Momentum/gradients/inception_4b_5_5_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 68282 41
+828 Momentum/gradients/inception_4b_5_5_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 69960 41
+829 Momentum/gradients/AddN_7 AddN 12469 41
+830 Momentum/gradients/inception_4a_output/concat_grad/ShapeN ShapeN 3 41
+831 Momentum/gradients/inception_4a_output/concat_grad/ConcatOffset ConcatOffset 4 41
+832 Momentum/gradients/inception_4a_output/concat_grad/Slice Slice 13034 41
+833 Momentum/gradients/inception_4a_output/concat_grad/Slice_1 Slice 17117 41
+834 Momentum/gradients/inception_4a_output/concat_grad/Slice_2 Slice 6420 41
+835 Momentum/gradients/inception_4a_output/concat_grad/Slice_3 Slice 6432 41
+836 Momentum/gradients/inception_4a_1_1/Relu_grad/ReluGrad ReluGrad 12495 41
+837 Momentum/gradients/inception_4a_3_3/Relu_grad/ReluGrad ReluGrad 15829 41
+838 Momentum/gradients/inception_4a_5_5/Relu_grad/ReluGrad ReluGrad 1281 41
+839 Momentum/gradients/inception_4a_pool_1_1/Relu_grad/ReluGrad ReluGrad 1472 41
+840 Momentum/gradients/inception_4a_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 61093 41
+841 Momentum/gradients/inception_4a_3_3/BiasAdd_grad/BiasAddGrad BiasAddGrad 11818 41
+842 Momentum/gradients/inception_4a_5_5/BiasAdd_grad/BiasAddGrad BiasAddGrad 5244 41
+843 Momentum/gradients/inception_4a_pool_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 12771 41
+844 Momentum/gradients/inception_4a_1_1/Conv2D_grad/ShapeN ShapeN 3 41
+845 Momentum/gradients/inception_4a_1_1/Conv2D_grad/Const Const 1 41
+846 Momentum/gradients/inception_4a_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 91577 41
+847 Momentum/gradients/inception_4a_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 183668 41
+848 Momentum/gradients/inception_4a_3_3/Conv2D_grad/ShapeN ShapeN 2 41
+849 Momentum/gradients/inception_4a_3_3/Conv2D_grad/Const Const 1 41
+850 Momentum/gradients/inception_4a_3_3/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 103344 41
+851 Momentum/gradients/inception_4a_3_3/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 213251 41
+852 Momentum/gradients/inception_4a_5_5/Conv2D_grad/ShapeN ShapeN 2 41
+853 Momentum/gradients/inception_4a_5_5/Conv2D_grad/Const Const 1 41
+854 Momentum/gradients/inception_4a_5_5/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 32489 41
+855 Momentum/gradients/inception_4a_5_5/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 94244 41
+856 Momentum/gradients/inception_4a_pool_1_1/Conv2D_grad/ShapeN ShapeN 2 41
+857 Momentum/gradients/inception_4a_pool_1_1/Conv2D_grad/Const Const 2 41
+858 Momentum/gradients/inception_4a_pool_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 114592 41
+859 Momentum/gradients/inception_4a_pool_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 122841 41
+860 Momentum/gradients/inception_4a_3_3_reduce/Relu_grad/ReluGrad ReluGrad 11600 41
+861 Momentum/gradients/inception_4a_5_5_reduce/Relu_grad/ReluGrad ReluGrad 17877 41
+862 Momentum/gradients/inception_4a_pool/MaxPool_grad/MaxPoolGrad MaxPoolGrad 48835 41
+863 Momentum/gradients/inception_4a_3_3_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 10938 41
+864 Momentum/gradients/inception_4a_5_5_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 1197 41
+865 Momentum/gradients/inception_4a_3_3_reduce/Conv2D_grad/ShapeN ShapeN 2 41
+866 Momentum/gradients/inception_4a_3_3_reduce/Conv2D_grad/Const Const 2 41
+867 Momentum/gradients/inception_4a_3_3_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 26364 41
+868 Momentum/gradients/inception_4a_3_3_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 91166 41
+869 Momentum/gradients/inception_4a_5_5_reduce/Conv2D_grad/ShapeN ShapeN 3 41
+870 Momentum/gradients/inception_4a_5_5_reduce/Conv2D_grad/Const Const 2 41
+871 Momentum/gradients/inception_4a_5_5_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 35997 41
+872 Momentum/gradients/inception_4a_5_5_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 74606 41
+873 Momentum/gradients/AddN_8 AddN 12194 41
+874 Momentum/gradients/pool3_3_3/MaxPool_grad/MaxPoolGrad MaxPoolGrad 58118 41
+875 Momentum/gradients/inception_3b_output/concat_grad/ShapeN ShapeN 6 41
+876 Momentum/gradients/inception_3b_output/concat_grad/ConcatOffset ConcatOffset 4 41
+877 Momentum/gradients/inception_3b_output/concat_grad/Slice Slice 63166 41
+878 Momentum/gradients/inception_3b_output/concat_grad/Slice_1 Slice 84923 41
+879 Momentum/gradients/inception_3b_output/concat_grad/Slice_2 Slice 7856 41
+880 Momentum/gradients/inception_3b_output/concat_grad/Slice_3 Slice 14337 41
+881 Momentum/gradients/inception_3b_1_1/Relu_grad/ReluGrad ReluGrad 22028 41
+882 Momentum/gradients/inception_3b_3_3/Relu_grad/ReluGrad ReluGrad 79203 41
+883 Momentum/gradients/inception_3b_5_5/BiasAdd_grad/BiasAddGrad BiasAddGrad 30713 41
+884 Momentum/gradients/inception_3b_pool_1_1/Relu_grad/ReluGrad ReluGrad 11116 41
+885 Momentum/gradients/inception_3b_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 92900 41
+886 Momentum/gradients/inception_3b_3_3/BiasAdd_grad/BiasAddGrad BiasAddGrad 101770 41
+887 Momentum/gradients/inception_3b_5_5/Conv2D_grad/ShapeN ShapeN 2 41
+888 Momentum/gradients/inception_3b_5_5/Conv2D_grad/Const Const 2 41
+889 Momentum/gradients/inception_3b_5_5/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 391765 41
+890 Momentum/gradients/inception_3b_5_5/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 451484 41
+891 Momentum/gradients/inception_3b_pool_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 34178 41
+892 Momentum/gradients/inception_3b_1_1/Conv2D_grad/ShapeN ShapeN 2 41
+893 Momentum/gradients/inception_3b_1_1/Conv2D_grad/Const Const 1 41
+894 Momentum/gradients/inception_3b_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 182766 41
+895 Momentum/gradients/inception_3b_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 261860 41
+896 Momentum/gradients/inception_3b_3_3/Conv2D_grad/ShapeN ShapeN 3 41
+897 Momentum/gradients/inception_3b_3_3/Conv2D_grad/Const Const 2 41
+898 Momentum/gradients/inception_3b_3_3/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 378037 41
+899 Momentum/gradients/inception_3b_3_3/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 369671 41
+900 Momentum/gradients/inception_3b_5_5_reduce/Relu_grad/ReluGrad ReluGrad 1690 41
+901 Momentum/gradients/inception_3b_pool_1_1/Conv2D_grad/ShapeN ShapeN 2 41
+902 Momentum/gradients/inception_3b_pool_1_1/Conv2D_grad/Const Const 2 41
+903 Momentum/gradients/inception_3b_pool_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 56831 41
+904 Momentum/gradients/inception_3b_pool_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 159198 41
+905 Momentum/gradients/inception_3b_3_3_reduce/Relu_grad/ReluGrad ReluGrad 5520 41
+906 Momentum/gradients/inception_3b_5_5_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 11175 41
+907 Momentum/gradients/inception_3b_pool/MaxPool_grad/MaxPoolGrad MaxPoolGrad 225587 41
+908 Momentum/gradients/inception_3b_3_3_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 32414 41
+909 Momentum/gradients/inception_3b_5_5_reduce/Conv2D_grad/ShapeN ShapeN 2 41
+910 Momentum/gradients/inception_3b_5_5_reduce/Conv2D_grad/Const Const 1 41
+911 Momentum/gradients/inception_3b_5_5_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 42176 41
+912 Momentum/gradients/inception_3b_5_5_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 64975 41
+913 Momentum/gradients/inception_3b_3_3_reduce/Conv2D_grad/ShapeN ShapeN 2 41
+914 Momentum/gradients/inception_3b_3_3_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 55529 41
+915 Momentum/gradients/inception_3b_3_3_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 83633 41
+916 Momentum/gradients/AddN_9 AddN 24099 41
+917 Momentum/gradients/Merge/concat_grad/ShapeN ShapeN 3 41
+918 Momentum/gradients/Merge/concat_grad/ConcatOffset ConcatOffset 4 41
+919 Momentum/gradients/Merge/concat_grad/Slice Slice 15466 41
+920 Momentum/gradients/Merge/concat_grad/Slice_1 Slice 36050 41
+921 Momentum/gradients/Merge/concat_grad/Slice_2 Slice 7447 41
+922 Momentum/gradients/Merge/concat_grad/Slice_3 Slice 13249 41
+923 Momentum/gradients/inception_3a_1_1/Relu_grad/ReluGrad ReluGrad 11085 41
+924 Momentum/gradients/inception_3a_3_3/Relu_grad/ReluGrad ReluGrad 35787 41
+925 Momentum/gradients/inception_3a_5_5/Relu_grad/ReluGrad ReluGrad 1630 41
+926 Momentum/gradients/inception_3a_pool_1_1/Relu_grad/ReluGrad ReluGrad 6840 41
+927 Momentum/gradients/inception_3a_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 79447 41
+928 Momentum/gradients/inception_3a_3_3/BiasAdd_grad/BiasAddGrad BiasAddGrad 112958 41
+929 Momentum/gradients/inception_3a_5_5/BiasAdd_grad/BiasAddGrad BiasAddGrad 13037 41
+930 Momentum/gradients/inception_3a_pool_1_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 41894 41
+931 Momentum/gradients/inception_3a_1_1/Conv2D_grad/ShapeN ShapeN 2 41
+932 Momentum/gradients/inception_3a_1_1/Conv2D_grad/Const Const 1 41
+933 Momentum/gradients/inception_3a_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 145319 41
+934 Momentum/gradients/inception_3a_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 209214 41
+935 Momentum/gradients/inception_3a_3_3/Conv2D_grad/ShapeN ShapeN 2 41
+936 Momentum/gradients/inception_3a_3_3/Conv2D_grad/Const Const 2 41
+937 Momentum/gradients/inception_3a_3_3/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 249048 41
+938 Momentum/gradients/inception_3a_3_3/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 242459 41
+939 Momentum/gradients/inception_3a_5_5/Conv2D_grad/ShapeN ShapeN 3 41
+940 Momentum/gradients/inception_3a_5_5/Conv2D_grad/Const Const 1 41
+941 Momentum/gradients/inception_3a_5_5/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 118822 41
+942 Momentum/gradients/inception_3a_5_5/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 219825 41
+943 Momentum/gradients/inception_3a_pool_1_1/Conv2D_grad/ShapeN ShapeN 2 41
+944 Momentum/gradients/inception_3a_pool_1_1/Conv2D_grad/Const Const 2 41
+945 Momentum/gradients/inception_3a_pool_1_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 103333 41
+946 Momentum/gradients/inception_3a_pool_1_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 176884 41
+947 Momentum/gradients/inception_3a_3_3_reduce/Relu_grad/ReluGrad ReluGrad 3776 41
+948 Momentum/gradients/inception_3a_5_5_reduce/Relu_grad/ReluGrad ReluGrad 68746 41
+949 Momentum/gradients/inception_3a_pool/MaxPool_grad/MaxPoolGrad MaxPoolGrad 114379 41
+950 Momentum/gradients/inception_3a_3_3_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 22703 41
+951 Momentum/gradients/inception_3a_5_5_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 22813 41
+952 Momentum/gradients/inception_3a_3_3_reduce/Conv2D_grad/ShapeN ShapeN 2 41
+953 Momentum/gradients/inception_3a_3_3_reduce/Conv2D_grad/Const Const 1 41
+954 Momentum/gradients/inception_3a_3_3_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 35505 41
+955 Momentum/gradients/inception_3a_3_3_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 52118 41
+956 Momentum/gradients/inception_3a_5_5_reduce/Conv2D_grad/ShapeN ShapeN 17 41
+957 Momentum/gradients/inception_3a_5_5_reduce/Conv2D_grad/Const Const 1 41
+958 Momentum/gradients/inception_3a_5_5_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 39676 41
+959 Momentum/gradients/inception_3a_5_5_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 58321 41
+960 Momentum/gradients/AddN_10 AddN 16563 41
+961 Momentum/gradients/pool2_3_3_s2/MaxPool_grad/MaxPoolGrad MaxPoolGrad 65049 41
+962 Momentum/gradients/LocalResponseNormalization_1/LocalResponseNormalization_grad/LRNGrad LRNGrad 539975 41
+963 Momentum/gradients/conv2_3_3/Relu_grad/ReluGrad ReluGrad 29068 41
+964 Momentum/gradients/conv2_3_3/BiasAdd_grad/BiasAddGrad BiasAddGrad 160631 41
+965 Momentum/gradients/conv2_3_3/Conv2D_grad/ShapeN ShapeN 2 41
+966 Momentum/gradients/conv2_3_3/Conv2D_grad/Const Const 2 41
+967 Momentum/gradients/conv2_3_3/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 462207 41
+968 Momentum/gradients/conv2_3_3/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 544230 41
+969 Momentum/gradients/conv2_3_3_reduce/Relu_grad/ReluGrad ReluGrad 8633 41
+970 Momentum/gradients/conv2_3_3_reduce/BiasAdd_grad/BiasAddGrad BiasAddGrad 64778 41
+971 Momentum/gradients/conv2_3_3_reduce/Conv2D_grad/ShapeN ShapeN 3 41
+972 Momentum/gradients/conv2_3_3_reduce/Conv2D_grad/Const Const 2 41
+973 Momentum/gradients/conv2_3_3_reduce/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 59395 41
+974 Momentum/gradients/conv2_3_3_reduce/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 179284 41
+975 Momentum/gradients/LocalResponseNormalization/LocalResponseNormalization_grad/LRNGrad LRNGrad 186283 41
+976 Momentum/gradients/MaxPool2D/MaxPool_grad/MaxPoolGrad MaxPoolGrad 87574 41
+977 Momentum/gradients/conv1_7_7_s2/Relu_grad/ReluGrad ReluGrad 37788 41
+978 Momentum/gradients/conv1_7_7_s2/BiasAdd_grad/BiasAddGrad BiasAddGrad 147245 41
+979 Momentum/gradients/conv1_7_7_s2/Conv2D_grad/Const Const 2 41
+980 Momentum/gradients/conv1_7_7_s2/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 240544 41
+981 Momentum/global_norm/L2Loss L2Loss 12 41
+982 Momentum/global_norm/L2Loss_1 L2Loss 19 41
+983 Momentum/global_norm/L2Loss_2 L2Loss 11 41
+984 Momentum/global_norm/L2Loss_3 L2Loss 7 41
+985 Momentum/global_norm/L2Loss_4 L2Loss 44320 41
+986 Momentum/global_norm/L2Loss_5 L2Loss 9 41
+987 Momentum/global_norm/L2Loss_6 L2Loss 35 41
+988 Momentum/global_norm/L2Loss_7 L2Loss 53 41
+989 Momentum/global_norm/L2Loss_8 L2Loss 48 41
+990 Momentum/global_norm/L2Loss_9 L2Loss 12 41
+991 Momentum/global_norm/L2Loss_10 L2Loss 51 41
+992 Momentum/global_norm/L2Loss_11 L2Loss 53 41
+993 Momentum/global_norm/L2Loss_12 L2Loss 9 41
+994 Momentum/global_norm/L2Loss_13 L2Loss 38 41
+995 Momentum/global_norm/L2Loss_14 L2Loss 15 41
+996 Momentum/global_norm/L2Loss_15 L2Loss 26 41
+997 Momentum/global_norm/L2Loss_16 L2Loss 29 41
+998 Momentum/global_norm/L2Loss_17 L2Loss 38 41
+999 Momentum/global_norm/L2Loss_18 L2Loss 191 41
+1000 Momentum/global_norm/L2Loss_19 L2Loss 37 41
+1001 Momentum/global_norm/L2Loss_20 L2Loss 55 41
+1002 Momentum/global_norm/L2Loss_21 L2Loss 14 41
+1003 Momentum/global_norm/L2Loss_22 L2Loss 192 41
+1004 Momentum/global_norm/L2Loss_23 L2Loss 33 41
+1005 Momentum/global_norm/L2Loss_24 L2Loss 12 41
+1006 Momentum/global_norm/L2Loss_25 L2Loss 39 41
+1007 Momentum/global_norm/L2Loss_26 L2Loss 35 41
+1008 Momentum/global_norm/L2Loss_27 L2Loss 25 41
+1009 Momentum/global_norm/L2Loss_28 L2Loss 83 41
+1010 Momentum/global_norm/L2Loss_29 L2Loss 44 41
+1011 Momentum/global_norm/L2Loss_30 L2Loss 383 41
+1012 Momentum/global_norm/L2Loss_31 L2Loss 42 41
+1013 Momentum/global_norm/L2Loss_32 L2Loss 25 41
+1014 Momentum/global_norm/L2Loss_33 L2Loss 46 41
+1015 Momentum/global_norm/L2Loss_34 L2Loss 199 41
+1016 Momentum/global_norm/L2Loss_35 L2Loss 37 41
+1017 Momentum/global_norm/L2Loss_36 L2Loss 29 41
+1018 Momentum/global_norm/L2Loss_37 L2Loss 14 41
+1019 Momentum/global_norm/L2Loss_38 L2Loss 74 41
+1020 Momentum/global_norm/L2Loss_39 L2Loss 22 41
+1021 Momentum/global_norm/L2Loss_40 L2Loss 90 41
+1022 Momentum/global_norm/L2Loss_41 L2Loss 37 41
+1023 Momentum/global_norm/L2Loss_42 L2Loss 382 41
+1024 Momentum/global_norm/L2Loss_43 L2Loss 32 41
+1025 Momentum/global_norm/L2Loss_44 L2Loss 206 41
+1026 Momentum/global_norm/L2Loss_45 L2Loss 22 41
+1027 Momentum/global_norm/L2Loss_46 L2Loss 1396 41
+1028 Momentum/global_norm/L2Loss_47 L2Loss 50 41
+1029 Momentum/global_norm/L2Loss_48 L2Loss 18 41
+1030 Momentum/global_norm/L2Loss_49 L2Loss 35 41
+1031 Momentum/global_norm/L2Loss_50 L2Loss 192 41
+1032 Momentum/global_norm/L2Loss_51 L2Loss 12 41
+1033 Momentum/global_norm/L2Loss_52 L2Loss 143 41
+1034 Momentum/global_norm/L2Loss_53 L2Loss 19 41
+1035 Momentum/global_norm/L2Loss_54 L2Loss 143 41
+1036 Momentum/global_norm/L2Loss_55 L2Loss 48 41
+1037 Momentum/global_norm/L2Loss_56 L2Loss 199 41
+1038 Momentum/global_norm/L2Loss_57 L2Loss 31 41
+1039 Momentum/global_norm/L2Loss_58 L2Loss 1003 41
+1040 Momentum/global_norm/L2Loss_59 L2Loss 44 41
+1041 Momentum/global_norm/L2Loss_60 L2Loss 48 41
+1042 Momentum/global_norm/L2Loss_61 L2Loss 24 41
+1043 Momentum/global_norm/L2Loss_62 L2Loss 16 41
+1044 Momentum/global_norm/L2Loss_63 L2Loss 28 41
+1045 Momentum/global_norm/L2Loss_64 L2Loss 25 41
+1046 Momentum/global_norm/L2Loss_65 L2Loss 35 41
+1047 Momentum/global_norm/L2Loss_66 L2Loss 50 41
+1048 Momentum/global_norm/L2Loss_67 L2Loss 33 41
+1049 Momentum/global_norm/L2Loss_68 L2Loss 98 41
+1050 Momentum/global_norm/L2Loss_69 L2Loss 8 41
+1051 Momentum/global_norm/L2Loss_70 L2Loss 3142 41
+1052 Momentum/global_norm/L2Loss_71 L2Loss 34 41
+1053 Momentum/global_norm/L2Loss_72 L2Loss 19 41
+1054 Momentum/global_norm/L2Loss_73 L2Loss 31 41
+1055 Momentum/global_norm/L2Loss_74 L2Loss 303 41
+1056 Momentum/global_norm/L2Loss_75 L2Loss 35 41
+1057 Momentum/global_norm/L2Loss_76 L2Loss 110 41
+1058 Momentum/global_norm/L2Loss_77 L2Loss 17 41
+1059 Momentum/global_norm/L2Loss_78 L2Loss 228 41
+1060 Momentum/global_norm/L2Loss_79 L2Loss 18 41
+1061 Momentum/global_norm/L2Loss_80 L2Loss 228 41
+1062 Momentum/global_norm/L2Loss_81 L2Loss 38 41
+1063 Momentum/global_norm/L2Loss_82 L2Loss 198 41
+1064 Momentum/global_norm/L2Loss_83 L2Loss 33 41
+1065 Momentum/global_norm/L2Loss_84 L2Loss 29 41
+1066 Momentum/global_norm/L2Loss_85 L2Loss 26 41
+1067 Momentum/global_norm/L2Loss_86 L2Loss 82 41
+1068 Momentum/global_norm/L2Loss_87 L2Loss 34 41
+1069 Momentum/global_norm/L2Loss_88 L2Loss 81 41
+1070 Momentum/global_norm/L2Loss_89 L2Loss 44 41
+1071 Momentum/global_norm/L2Loss_90 L2Loss 131 41
+1072 Momentum/global_norm/L2Loss_91 L2Loss 22 41
+1073 Momentum/global_norm/L2Loss_92 L2Loss 136 41
+1074 Momentum/global_norm/L2Loss_93 L2Loss 43 41
+1075 Momentum/global_norm/L2Loss_94 L2Loss 220 41
+1076 Momentum/global_norm/L2Loss_95 L2Loss 49 41
+1077 Momentum/global_norm/L2Loss_96 L2Loss 89 41
+1078 Momentum/global_norm/L2Loss_97 L2Loss 10 41
+1079 Momentum/global_norm/L2Loss_98 L2Loss 154 41
+1080 Momentum/global_norm/L2Loss_99 L2Loss 29 41
+1081 Momentum/global_norm/L2Loss_100 L2Loss 206 41
+1082 Momentum/global_norm/L2Loss_101 L2Loss 16 41
+1083 Momentum/global_norm/L2Loss_102 L2Loss 140 41
+1084 Momentum/global_norm/L2Loss_103 L2Loss 40 41
+1085 Momentum/global_norm/L2Loss_104 L2Loss 1663 41
+1086 Momentum/global_norm/L2Loss_105 L2Loss 32 41
+1087 Momentum/global_norm/L2Loss_106 L2Loss 189 41
+1088 Momentum/global_norm/L2Loss_107 L2Loss 26 41
+1089 Momentum/global_norm/L2Loss_108 L2Loss 44 41
+1090 Momentum/global_norm/L2Loss_109 L2Loss 14 41
+1091 Momentum/global_norm/L2Loss_110 L2Loss 219 41
+1092 Momentum/global_norm/L2Loss_111 L2Loss 18 41
+1093 Momentum/global_norm/L2Loss_112 L2Loss 391 41
+1094 Momentum/global_norm/L2Loss_113 L2Loss 25 41
+1095 Momentum/global_norm/L2Loss_114 L2Loss 384 41
+1096 Momentum/global_norm/L2Loss_115 L2Loss 4 41
+1097 Momentum/global_norm/stack Pack 50 41
+1098 Momentum/global_norm/Sum Sum 7 41
+1099 Momentum/global_norm/Const_1 Const 3 41
+1100 Momentum/global_norm/mul Mul 6 41
+1101 Momentum/global_norm/global_norm Sqrt 2 41
+1102 Momentum/clip_by_global_norm/Minimum Minimum 2 41
+1103 Momentum/clip_by_global_norm/mul/x Const 2 41
+1104 Momentum/clip_by_global_norm/mul Mul 7 41
+1105 Momentum/clip_by_global_norm/mul_1 Mul 12 41
+1106 Momentum/clip_by_global_norm/mul_2 Mul 9 41
+1107 Momentum/clip_by_global_norm/mul_3 Mul 12 41
+1108 Momentum/clip_by_global_norm/mul_4 Mul 9 41
+1109 Momentum/clip_by_global_norm/mul_5 Mul 112 41
+1110 Momentum/clip_by_global_norm/mul_6 Mul 8 41
+1111 Momentum/clip_by_global_norm/mul_7 Mul 20 41
+1112 Momentum/clip_by_global_norm/mul_8 Mul 4 41
+1113 Momentum/clip_by_global_norm/mul_9 Mul 26 41
+1114 Momentum/clip_by_global_norm/mul_10 Mul 4 41
+1115 Momentum/clip_by_global_norm/mul_11 Mul 123 41
+1116 Momentum/clip_by_global_norm/mul_12 Mul 5 41
+1117 Momentum/clip_by_global_norm/mul_13 Mul 7 41
+1118 Momentum/clip_by_global_norm/mul_14 Mul 4 41
+1119 Momentum/clip_by_global_norm/mul_15 Mul 31 41
+1120 Momentum/clip_by_global_norm/mul_16 Mul 5 41
+1121 Momentum/clip_by_global_norm/mul_17 Mul 22 41
+1122 Momentum/clip_by_global_norm/mul_18 Mul 7 41
+1123 Momentum/clip_by_global_norm/mul_19 Mul 58 41
+1124 Momentum/clip_by_global_norm/mul_20 Mul 8 41
+1125 Momentum/clip_by_global_norm/mul_21 Mul 77 41
+1126 Momentum/clip_by_global_norm/mul_22 Mul 7 41
+1127 Momentum/clip_by_global_norm/mul_23 Mul 198 41
+1128 Momentum/clip_by_global_norm/mul_24 Mul 9 41
+1129 Momentum/clip_by_global_norm/mul_25 Mul 23 41
+1130 Momentum/clip_by_global_norm/mul_26 Mul 5 41
+1131 Momentum/clip_by_global_norm/mul_27 Mul 77 41
+1132 Momentum/clip_by_global_norm/mul_28 Mul 7 41
+1133 Momentum/clip_by_global_norm/mul_29 Mul 7 41
+1134 Momentum/clip_by_global_norm/mul_30 Mul 3 41
+1135 Momentum/clip_by_global_norm/mul_31 Mul 31 41
+1136 Momentum/clip_by_global_norm/mul_32 Mul 2 41
+1137 Momentum/clip_by_global_norm/mul_33 Mul 16 41
+1138 Momentum/clip_by_global_norm/mul_34 Mul 3 41
+1139 Momentum/clip_by_global_norm/mul_35 Mul 65 41
+1140 Momentum/clip_by_global_norm/mul_36 Mul 5 41
+1141 Momentum/clip_by_global_norm/mul_37 Mul 6 41
+1142 Momentum/clip_by_global_norm/mul_38 Mul 3 41
+1143 Momentum/clip_by_global_norm/mul_39 Mul 9 41
+1144 Momentum/clip_by_global_norm/mul_40 Mul 4 41
+1145 Momentum/clip_by_global_norm/mul_41 Mul 13 41
+1146 Momentum/clip_by_global_norm/mul_42 Mul 3 41
+1147 Momentum/clip_by_global_norm/mul_43 Mul 25 41
+1148 Momentum/clip_by_global_norm/mul_44 Mul 3 41
+1149 Momentum/clip_by_global_norm/mul_45 Mul 23 41
+1150 Momentum/clip_by_global_norm/mul_46 Mul 3 41
+1151 Momentum/clip_by_global_norm/mul_47 Mul 71 41
+1152 Momentum/clip_by_global_norm/mul_48 Mul 4 41
+1153 Momentum/clip_by_global_norm/mul_49 Mul 11 41
+1154 Momentum/clip_by_global_norm/mul_50 Mul 5 41
+1155 Momentum/clip_by_global_norm/mul_51 Mul 20 41
+1156 Momentum/clip_by_global_norm/mul_52 Mul 6 41
+1157 Momentum/clip_by_global_norm/mul_53 Mul 27 41
+1158 Momentum/clip_by_global_norm/mul_54 Mul 3 41
+1159 Momentum/clip_by_global_norm/mul_55 Mul 27 41
+1160 Momentum/clip_by_global_norm/mul_56 Mul 4 41
+1161 Momentum/clip_by_global_norm/mul_57 Mul 25 41
+1162 Momentum/clip_by_global_norm/mul_58 Mul 4 41
+1163 Momentum/clip_by_global_norm/mul_59 Mul 170 41
+1164 Momentum/clip_by_global_norm/mul_60 Mul 7 41
+1165 Momentum/clip_by_global_norm/mul_61 Mul 22 41
+1166 Momentum/clip_by_global_norm/mul_62 Mul 5 41
+1167 Momentum/clip_by_global_norm/mul_63 Mul 31 41
+1168 Momentum/clip_by_global_norm/mul_64 Mul 4 41
+1169 Momentum/clip_by_global_norm/mul_65 Mul 34 41
+1170 Momentum/clip_by_global_norm/mul_66 Mul 3 41
+1171 Momentum/clip_by_global_norm/mul_67 Mul 44 41
+1172 Momentum/clip_by_global_norm/mul_68 Mul 4 41
+1173 Momentum/clip_by_global_norm/mul_69 Mul 60 41
+1174 Momentum/clip_by_global_norm/mul_70 Mul 4 41
+1175 Momentum/clip_by_global_norm/mul_71 Mul 556 41
+1176 Momentum/clip_by_global_norm/mul_72 Mul 5 41
+1177 Momentum/clip_by_global_norm/mul_73 Mul 21 41
+1178 Momentum/clip_by_global_norm/mul_74 Mul 5 41
+1179 Momentum/clip_by_global_norm/mul_75 Mul 58 41
+1180 Momentum/clip_by_global_norm/mul_76 Mul 6 41
+1181 Momentum/clip_by_global_norm/mul_77 Mul 51 41
+1182 Momentum/clip_by_global_norm/mul_78 Mul 5 41
+1183 Momentum/clip_by_global_norm/mul_79 Mul 141 41
+1184 Momentum/clip_by_global_norm/mul_80 Mul 4 41
+1185 Momentum/clip_by_global_norm/mul_81 Mul 31 41
+1186 Momentum/clip_by_global_norm/mul_82 Mul 3 41
+1187 Momentum/clip_by_global_norm/mul_83 Mul 205 41
+1188 Momentum/clip_by_global_norm/mul_84 Mul 5 41
+1189 Momentum/clip_by_global_norm/mul_85 Mul 9 41
+1190 Momentum/clip_by_global_norm/mul_86 Mul 4 41
+1191 Momentum/clip_by_global_norm/mul_87 Mul 32 41
+1192 Momentum/clip_by_global_norm/mul_88 Mul 4 41
+1193 Momentum/clip_by_global_norm/mul_89 Mul 27 41
+1194 Momentum/clip_by_global_norm/mul_90 Mul 3 41
+1195 Momentum/clip_by_global_norm/mul_91 Mul 93 41
+1196 Momentum/clip_by_global_norm/mul_92 Mul 3 41
+1197 Momentum/clip_by_global_norm/mul_93 Mul 38 41
+1198 Momentum/clip_by_global_norm/mul_94 Mul 4 41
+1199 Momentum/clip_by_global_norm/mul_95 Mul 218 41
+1200 Momentum/clip_by_global_norm/mul_96 Mul 5 41
+1201 Momentum/clip_by_global_norm/mul_97 Mul 24 41
+1202 Momentum/clip_by_global_norm/mul_98 Mul 3 41
+1203 Momentum/clip_by_global_norm/mul_99 Mul 40 41
+1204 Momentum/clip_by_global_norm/mul_100 Mul 3 41
+1205 Momentum/clip_by_global_norm/mul_101 Mul 42 41
+1206 Momentum/clip_by_global_norm/mul_102 Mul 3 41
+1207 Momentum/clip_by_global_norm/mul_103 Mul 244 41
+1208 Momentum/clip_by_global_norm/mul_104 Mul 6 41
+1209 Momentum/clip_by_global_norm/mul_105 Mul 233 41
+1210 Momentum/clip_by_global_norm/mul_106 Mul 6 41
+1211 Momentum/clip_by_global_norm/mul_107 Mul 543 41
+1212 Momentum/clip_by_global_norm/mul_108 Mul 5 41
+1213 Momentum/clip_by_global_norm/mul_109 Mul 17 41
+1214 Momentum/clip_by_global_norm/mul_110 Mul 5 41
+1215 Momentum/clip_by_global_norm/mul_111 Mul 173 41
+1216 Momentum/clip_by_global_norm/mul_112 Mul 4 41
+1217 Momentum/clip_by_global_norm/mul_113 Mul 42 41
+1218 Momentum/clip_by_global_norm/mul_114 Mul 4 41
+1219 Momentum/clip_by_global_norm/mul_115 Mul 6331 41
+1220 Momentum/clip_by_global_norm/mul_116 Mul 4 41
+1221 conv1_7_7_s2/W/Momentum VariableV2 8 1
+1222 conv1_7_7_s2/b/Momentum VariableV2 9 1
+1223 conv2_3_3_reduce/W/Momentum VariableV2 10 4
+1224 conv2_3_3_reduce/b/Momentum VariableV2 7 4
+1225 conv2_3_3/W/Momentum VariableV2 3 5
+1226 conv2_3_3/b/Momentum VariableV2 3 5
+1227 inception_3a_1_1/W/Momentum VariableV2 3 8
+1228 inception_3a_1_1/b/Momentum VariableV2 3 8
+1229 inception_3a_3_3_reduce/W/Momentum VariableV2 6 8
+1230 inception_3a_3_3_reduce/b/Momentum VariableV2 10 8
+1231 inception_3a_3_3/W/Momentum VariableV2 4 9
+1232 inception_3a_3_3/b/Momentum VariableV2 8 9
+1233 inception_3a_5_5_reduce/W/Momentum VariableV2 5 8
+1234 inception_3a_5_5_reduce/b/Momentum VariableV2 6 8
+1235 inception_3a_5_5/W/Momentum VariableV2 10 9
+1236 inception_3a_5_5/b/Momentum VariableV2 10 9
+1237 inception_3a_pool_1_1/W/Momentum VariableV2 8 9
+1238 inception_3a_pool_1_1/b/Momentum VariableV2 4 9
+1239 inception_3b_1_1/W/Momentum VariableV2 5 11
+1240 inception_3b_1_1/b/Momentum VariableV2 6 11
+1241 inception_3b_3_3_reduce/W/Momentum VariableV2 4 11
+1242 inception_3b_3_3_reduce/b/Momentum VariableV2 4 11
+1243 inception_3b_3_3/W/Momentum VariableV2 5 12
+1244 inception_3b_3_3/b/Momentum VariableV2 3 12
+1245 inception_3b_5_5_reduce/W/Momentum VariableV2 4 11
+1246 inception_3b_5_5_reduce/b/Momentum VariableV2 3 11
+1247 inception_3b_5_5/W/Momentum VariableV2 5 12
+1248 inception_3b_5_5/b/Momentum VariableV2 4 12
+1249 inception_3b_pool_1_1/W/Momentum VariableV2 3 12
+1250 inception_3b_pool_1_1/b/Momentum VariableV2 4 12
+1251 inception_4a_1_1/W/Momentum VariableV2 4 15
+1252 inception_4a_1_1/b/Momentum VariableV2 3 15
+1253 inception_4a_3_3_reduce/W/Momentum VariableV2 3 15
+1254 inception_4a_3_3_reduce/b/Momentum VariableV2 3 15
+1255 inception_4a_3_3/W/Momentum VariableV2 5 16
+1256 inception_4a_3_3/b/Momentum VariableV2 2 16
+1257 inception_4a_5_5_reduce/W/Momentum VariableV2 4 15
+1258 inception_4a_5_5_reduce/b/Momentum VariableV2 2 15
+1259 inception_4a_5_5/W/Momentum VariableV2 4 16
+1260 inception_4a_5_5/b/Momentum VariableV2 2 16
+1261 inception_4a_pool_1_1/W/Momentum VariableV2 3 16
+1262 inception_4a_pool_1_1/b/Momentum VariableV2 6 16
+1263 inception_4a_1_1_1/W/Momentum VariableV2 4 18
+1264 inception_4a_1_1_1/b/Momentum VariableV2 2 18
+1265 inception_4b_3_3_reduce/W/Momentum VariableV2 2 18
+1266 inception_4b_3_3_reduce/b/Momentum VariableV2 2 18
+1267 inception_4b_3_3/W/Momentum VariableV2 3 19
+1268 inception_4b_3_3/b/Momentum VariableV2 2 19
+1269 inception_4b_5_5_reduce/W/Momentum VariableV2 2 18
+1270 inception_4b_5_5_reduce/b/Momentum VariableV2 2 18
+1271 inception_4b_5_5/W/Momentum VariableV2 3 19
+1272 inception_4b_5_5/b/Momentum VariableV2 2 19
+1273 inception_4b_pool_1_1/W/Momentum VariableV2 7 19
+1274 inception_4b_pool_1_1/b/Momentum VariableV2 2 19
+1275 inception_4c_1_1/W/Momentum VariableV2 2 21
+1276 inception_4c_1_1/b/Momentum VariableV2 3 21
+1277 inception_4c_3_3_reduce/W/Momentum VariableV2 5 21
+1278 inception_4c_3_3_reduce/b/Momentum VariableV2 3 21
+1279 inception_4c_3_3/W/Momentum VariableV2 5 22
+1280 inception_4c_3_3/b/Momentum VariableV2 6 22
+1281 inception_4c_5_5_reduce/W/Momentum VariableV2 2 21
+1282 inception_4c_5_5_reduce/b/Momentum VariableV2 2 21
+1283 inception_4c_5_5/W/Momentum VariableV2 2 22
+1284 inception_4c_5_5/b/Momentum VariableV2 2 22
+1285 inception_4c_pool_1_1/W/Momentum VariableV2 3 22
+1286 inception_4c_pool_1_1/b/Momentum VariableV2 3 22
+1287 inception_4d_1_1/W/Momentum VariableV2 3 24
+1288 inception_4d_1_1/b/Momentum VariableV2 2 24
+1289 inception_4d_3_3_reduce/W/Momentum VariableV2 2 24
+1290 inception_4d_3_3_reduce/b/Momentum VariableV2 2 24
+1291 inception_4d_3_3/W/Momentum VariableV2 3 25
+1292 inception_4d_3_3/b/Momentum VariableV2 3 25
+1293 inception_4d_5_5_reduce/W/Momentum VariableV2 3 24
+1294 inception_4d_5_5_reduce/b/Momentum VariableV2 2 24
+1295 inception_4d_5_5/W/Momentum VariableV2 3 25
+1296 inception_4d_5_5/b/Momentum VariableV2 3 25
+1297 inception_4d_pool_1_1/W/Momentum VariableV2 2 25
+1298 inception_4d_pool_1_1/b/Momentum VariableV2 2 25
+1299 inception_4e_1_1/W/Momentum VariableV2 2 27
+1300 inception_4e_1_1/b/Momentum VariableV2 2 27
+1301 inception_4e_3_3_reduce/W/Momentum VariableV2 2 27
+1302 inception_4e_3_3_reduce/b/Momentum VariableV2 2 27
+1303 inception_4e_3_3/W/Momentum VariableV2 2 28
+1304 inception_4e_3_3/b/Momentum VariableV2 2 28
+1305 inception_4e_5_5_reduce/W/Momentum VariableV2 7 27
+1306 inception_4e_5_5_reduce/b/Momentum VariableV2 2 27
+1307 inception_4e_5_5/W/Momentum VariableV2 2 28
+1308 inception_4e_5_5/b/Momentum VariableV2 2 28
+1309 inception_4e_pool_1_1/W/Momentum VariableV2 2 28
+1310 inception_4e_pool_1_1/b/Momentum VariableV2 2 28
+1311 inception_5a_1_1/W/Momentum VariableV2 2 31
+1312 inception_5a_1_1/b/Momentum VariableV2 3 31
+1313 inception_5a_3_3_reduce/W/Momentum VariableV2 2 31
+1314 inception_5a_3_3_reduce/b/Momentum VariableV2 2 31
+1315 inception_5a_3_3/W/Momentum VariableV2 3 32
+1316 inception_5a_3_3/b/Momentum VariableV2 3 32
+1317 inception_5a_5_5_reduce/W/Momentum VariableV2 2 31
+1318 inception_5a_5_5_reduce/b/Momentum VariableV2 2 31
+1319 inception_5a_5_5/W/Momentum VariableV2 3 32
+1320 inception_5a_5_5/b/Momentum VariableV2 2 32
+1321 inception_5a_pool_1_1/W/Momentum VariableV2 3 32
+1322 inception_5a_pool_1_1/b/Momentum VariableV2 2 32
+1323 inception_5b_1_1/W/Momentum VariableV2 2 34
+1324 inception_5b_1_1/b/Momentum VariableV2 2 34
+1325 inception_5b_3_3_reduce/W/Momentum VariableV2 2 34
+1326 inception_5b_3_3_reduce/b/Momentum VariableV2 3 34
+1327 inception_5b_3_3/W/Momentum VariableV2 8 35
+1328 inception_5b_3_3/b/Momentum VariableV2 2 35
+1329 inception_5b_5_5_reduce/W/Momentum VariableV2 2 34
+1330 inception_5b_5_5_reduce/b/Momentum VariableV2 4 34
+1331 inception_5b_5_5/W/Momentum VariableV2 5 35
+1332 inception_5b_5_5/b/Momentum VariableV2 2 35
+1333 inception_5b_pool_1_1/W/Momentum VariableV2 3 35
+1334 inception_5b_pool_1_1/b/Momentum VariableV2 3 35
+1335 FullyConnected/W/Momentum VariableV2 5 39
+1336 FullyConnected/b/Momentum VariableV2 6 39
+1337 Momentum/apply_grad_op_0/learning_rate Const 9 41
+1338 Momentum/apply_grad_op_0/update_conv1_7_7_s2/W/ApplyMomentum ApplyMomentum 33 41
+1339 Momentum/apply_grad_op_0/update_conv1_7_7_s2/b/ApplyMomentum ApplyMomentum 13 41
+1340 Momentum/apply_grad_op_0/update_conv2_3_3_reduce/W/ApplyMomentum ApplyMomentum 19 41
+1341 Momentum/apply_grad_op_0/update_conv2_3_3_reduce/b/ApplyMomentum ApplyMomentum 7 41
+1342 Momentum/apply_grad_op_0/update_conv2_3_3/W/ApplyMomentum ApplyMomentum 588 41
+1343 Momentum/apply_grad_op_0/update_conv2_3_3/b/ApplyMomentum ApplyMomentum 7 41
+1344 Momentum/apply_grad_op_0/update_inception_3a_1_1/W/ApplyMomentum ApplyMomentum 31 41
+1345 Momentum/apply_grad_op_0/update_inception_3a_1_1/b/ApplyMomentum ApplyMomentum 4 41
+1346 Momentum/apply_grad_op_0/update_inception_3a_3_3_reduce/W/ApplyMomentum ApplyMomentum 54 41
+1347 Momentum/apply_grad_op_0/update_inception_3a_3_3_reduce/b/ApplyMomentum ApplyMomentum 4 41
+1348 Momentum/apply_grad_op_0/update_inception_3a_3_3/W/ApplyMomentum ApplyMomentum 1144 41
+1349 Momentum/apply_grad_op_0/update_inception_3a_3_3/b/ApplyMomentum ApplyMomentum 4 41
+1350 Momentum/apply_grad_op_0/update_inception_3a_5_5_reduce/W/ApplyMomentum ApplyMomentum 13 41
+1351 Momentum/apply_grad_op_0/update_inception_3a_5_5_reduce/b/ApplyMomentum ApplyMomentum 5 41
+1352 Momentum/apply_grad_op_0/update_inception_3a_5_5/W/ApplyMomentum ApplyMomentum 61 41
+1353 Momentum/apply_grad_op_0/update_inception_3a_5_5/b/ApplyMomentum ApplyMomentum 6 41
+1354 Momentum/apply_grad_op_0/update_inception_3a_pool_1_1/W/ApplyMomentum ApplyMomentum 39 41
+1355 Momentum/apply_grad_op_0/update_inception_3a_pool_1_1/b/ApplyMomentum ApplyMomentum 6 41
+1356 Momentum/apply_grad_op_0/update_inception_3b_1_1/W/ApplyMomentum ApplyMomentum 134 41
+1357 Momentum/apply_grad_op_0/update_inception_3b_1_1/b/ApplyMomentum ApplyMomentum 7 41
+1358 Momentum/apply_grad_op_0/update_inception_3b_3_3_reduce/W/ApplyMomentum ApplyMomentum 171 41
+1359 Momentum/apply_grad_op_0/update_inception_3b_3_3_reduce/b/ApplyMomentum ApplyMomentum 6 41
+1360 Momentum/apply_grad_op_0/update_inception_3b_3_3/W/ApplyMomentum ApplyMomentum 249 41
+1361 Momentum/apply_grad_op_0/update_inception_3b_3_3/b/ApplyMomentum ApplyMomentum 8 41
+1362 Momentum/apply_grad_op_0/update_inception_3b_5_5_reduce/W/ApplyMomentum ApplyMomentum 47 41
+1363 Momentum/apply_grad_op_0/update_inception_3b_5_5_reduce/b/ApplyMomentum ApplyMomentum 5 41
+1364 Momentum/apply_grad_op_0/update_inception_3b_5_5/W/ApplyMomentum ApplyMomentum 191 41
+1365 Momentum/apply_grad_op_0/update_inception_3b_5_5/b/ApplyMomentum ApplyMomentum 6 41
+1366 Momentum/apply_grad_op_0/update_inception_3b_pool_1_1/W/ApplyMomentum ApplyMomentum 11 41
+1367 Momentum/apply_grad_op_0/update_inception_3b_pool_1_1/b/ApplyMomentum ApplyMomentum 4 41
+1368 Momentum/apply_grad_op_0/update_inception_4a_1_1/W/ApplyMomentum ApplyMomentum 90 41
+1369 Momentum/apply_grad_op_0/update_inception_4a_1_1/b/ApplyMomentum ApplyMomentum 2 41
+1370 Momentum/apply_grad_op_0/update_inception_4a_3_3_reduce/W/ApplyMomentum ApplyMomentum 32 41
+1371 Momentum/apply_grad_op_0/update_inception_4a_3_3_reduce/b/ApplyMomentum ApplyMomentum 3 41
+1372 Momentum/apply_grad_op_0/update_inception_4a_3_3/W/ApplyMomentum ApplyMomentum 154 41
+1373 Momentum/apply_grad_op_0/update_inception_4a_3_3/b/ApplyMomentum ApplyMomentum 5 41
+1374 Momentum/apply_grad_op_0/update_inception_4a_5_5_reduce/W/ApplyMomentum ApplyMomentum 8 41
+1375 Momentum/apply_grad_op_0/update_inception_4a_5_5_reduce/b/ApplyMomentum ApplyMomentum 4 41
+1376 Momentum/apply_grad_op_0/update_inception_4a_5_5/W/ApplyMomentum ApplyMomentum 16 41
+1377 Momentum/apply_grad_op_0/update_inception_4a_5_5/b/ApplyMomentum ApplyMomentum 4 41
+1378 Momentum/apply_grad_op_0/update_inception_4a_pool_1_1/W/ApplyMomentum ApplyMomentum 24 41
+1379 Momentum/apply_grad_op_0/update_inception_4a_pool_1_1/b/ApplyMomentum ApplyMomentum 2 41
+1380 Momentum/apply_grad_op_0/update_inception_4a_1_1_1/W/ApplyMomentum ApplyMomentum 59 41
+1381 Momentum/apply_grad_op_0/update_inception_4a_1_1_1/b/ApplyMomentum ApplyMomentum 3 41
+1382 Momentum/apply_grad_op_0/update_inception_4b_3_3_reduce/W/ApplyMomentum ApplyMomentum 44 41
+1383 Momentum/apply_grad_op_0/update_inception_4b_3_3_reduce/b/ApplyMomentum ApplyMomentum 3 41
+1384 Momentum/apply_grad_op_0/update_inception_4b_3_3/W/ApplyMomentum ApplyMomentum 188 41
+1385 Momentum/apply_grad_op_0/update_inception_4b_3_3/b/ApplyMomentum ApplyMomentum 3 41
+1386 Momentum/apply_grad_op_0/update_inception_4b_5_5_reduce/W/ApplyMomentum ApplyMomentum 15 41
+1387 Momentum/apply_grad_op_0/update_inception_4b_5_5_reduce/b/ApplyMomentum ApplyMomentum 3 41
+1388 Momentum/apply_grad_op_0/update_inception_4b_5_5/W/ApplyMomentum ApplyMomentum 44 41
+1389 Momentum/apply_grad_op_0/update_inception_4b_5_5/b/ApplyMomentum ApplyMomentum 5 41
+1390 Momentum/apply_grad_op_0/update_inception_4b_pool_1_1/W/ApplyMomentum ApplyMomentum 28 41
+1391 Momentum/apply_grad_op_0/update_inception_4b_pool_1_1/b/ApplyMomentum ApplyMomentum 3 41
+1392 Momentum/apply_grad_op_0/update_inception_4c_1_1/W/ApplyMomentum ApplyMomentum 54 41
+1393 Momentum/apply_grad_op_0/update_inception_4c_1_1/b/ApplyMomentum ApplyMomentum 4 41
+1394 Momentum/apply_grad_op_0/update_inception_4c_3_3_reduce/W/ApplyMomentum ApplyMomentum 49 41
+1395 Momentum/apply_grad_op_0/update_inception_4c_3_3_reduce/b/ApplyMomentum ApplyMomentum 3 41
+1396 Momentum/apply_grad_op_0/update_inception_4c_3_3/W/ApplyMomentum ApplyMomentum 354 41
+1397 Momentum/apply_grad_op_0/update_inception_4c_3_3/b/ApplyMomentum ApplyMomentum 6 41
+1398 Momentum/apply_grad_op_0/update_inception_4c_5_5_reduce/W/ApplyMomentum ApplyMomentum 36 41
+1399 Momentum/apply_grad_op_0/update_inception_4c_5_5_reduce/b/ApplyMomentum ApplyMomentum 5 41
+1400 Momentum/apply_grad_op_0/update_inception_4c_5_5/W/ApplyMomentum ApplyMomentum 95 41
+1401 Momentum/apply_grad_op_0/update_inception_4c_5_5/b/ApplyMomentum ApplyMomentum 4 41
+1402 Momentum/apply_grad_op_0/update_inception_4c_pool_1_1/W/ApplyMomentum ApplyMomentum 73 41
+1403 Momentum/apply_grad_op_0/update_inception_4c_pool_1_1/b/ApplyMomentum ApplyMomentum 3 41
+1404 Momentum/apply_grad_op_0/update_inception_4d_1_1/W/ApplyMomentum ApplyMomentum 107 41
+1405 Momentum/apply_grad_op_0/update_inception_4d_1_1/b/ApplyMomentum ApplyMomentum 5 41
+1406 Momentum/apply_grad_op_0/update_inception_4d_3_3_reduce/W/ApplyMomentum ApplyMomentum 135 41
+1407 Momentum/apply_grad_op_0/update_inception_4d_3_3_reduce/b/ApplyMomentum ApplyMomentum 4 41
+1408 Momentum/apply_grad_op_0/update_inception_4d_3_3/W/ApplyMomentum ApplyMomentum 1212 41
+1409 Momentum/apply_grad_op_0/update_inception_4d_3_3/b/ApplyMomentum ApplyMomentum 6 41
+1410 Momentum/apply_grad_op_0/update_inception_4d_5_5_reduce/W/ApplyMomentum ApplyMomentum 47 41
+1411 Momentum/apply_grad_op_0/update_inception_4d_5_5_reduce/b/ApplyMomentum ApplyMomentum 5 41
+1412 Momentum/apply_grad_op_0/update_inception_4d_5_5/W/ApplyMomentum ApplyMomentum 127 41
+1413 Momentum/apply_grad_op_0/update_inception_4d_5_5/b/ApplyMomentum ApplyMomentum 6 41
+1414 Momentum/apply_grad_op_0/update_inception_4d_pool_1_1/W/ApplyMomentum ApplyMomentum 81 41
+1415 Momentum/apply_grad_op_0/update_inception_4d_pool_1_1/b/ApplyMomentum ApplyMomentum 4 41
+1416 Momentum/apply_grad_op_0/update_inception_4e_1_1/W/ApplyMomentum ApplyMomentum 6134 41
+1417 Momentum/apply_grad_op_0/update_inception_4e_1_1/b/ApplyMomentum ApplyMomentum 4 41
+1418 Momentum/apply_grad_op_0/update_inception_4e_3_3_reduce/W/ApplyMomentum ApplyMomentum 100 41
+1419 Momentum/apply_grad_op_0/update_inception_4e_3_3_reduce/b/ApplyMomentum ApplyMomentum 3 41
+1420 Momentum/apply_grad_op_0/update_inception_4e_3_3/W/ApplyMomentum ApplyMomentum 502 41
+1421 Momentum/apply_grad_op_0/update_inception_4e_3_3/b/ApplyMomentum ApplyMomentum 6 41
+1422 Momentum/apply_grad_op_0/update_inception_4e_5_5_reduce/W/ApplyMomentum ApplyMomentum 16 41
+1423 Momentum/apply_grad_op_0/update_inception_4e_5_5_reduce/b/ApplyMomentum ApplyMomentum 3 41
+1424 Momentum/apply_grad_op_0/update_inception_4e_5_5/W/ApplyMomentum ApplyMomentum 99 41
+1425 Momentum/apply_grad_op_0/update_inception_4e_5_5/b/ApplyMomentum ApplyMomentum 3 41
+1426 Momentum/apply_grad_op_0/update_inception_4e_pool_1_1/W/ApplyMomentum ApplyMomentum 53 41
+1427 Momentum/apply_grad_op_0/update_inception_4e_pool_1_1/b/ApplyMomentum ApplyMomentum 3 41
+1428 Momentum/apply_grad_op_0/update_inception_5a_1_1/W/ApplyMomentum ApplyMomentum 215 41
+1429 Momentum/apply_grad_op_0/update_inception_5a_1_1/b/ApplyMomentum ApplyMomentum 4 41
+1430 Momentum/apply_grad_op_0/update_inception_5a_3_3_reduce/W/ApplyMomentum ApplyMomentum 138 41
+1431 Momentum/apply_grad_op_0/update_inception_5a_3_3_reduce/b/ApplyMomentum ApplyMomentum 4 41
+1432 Momentum/apply_grad_op_0/update_inception_5a_3_3/W/ApplyMomentum ApplyMomentum 478 41
+1433 Momentum/apply_grad_op_0/update_inception_5a_3_3/b/ApplyMomentum ApplyMomentum 6 41
+1434 Momentum/apply_grad_op_0/update_inception_5a_5_5_reduce/W/ApplyMomentum ApplyMomentum 50 41
+1435 Momentum/apply_grad_op_0/update_inception_5a_5_5_reduce/b/ApplyMomentum ApplyMomentum 4 41
+1436 Momentum/apply_grad_op_0/update_inception_5a_5_5/W/ApplyMomentum ApplyMomentum 103 41
+1437 Momentum/apply_grad_op_0/update_inception_5a_5_5/b/ApplyMomentum ApplyMomentum 3 41
+1438 Momentum/apply_grad_op_0/update_inception_5a_pool_1_1/W/ApplyMomentum ApplyMomentum 106 41
+1439 Momentum/apply_grad_op_0/update_inception_5a_pool_1_1/b/ApplyMomentum ApplyMomentum 3 41
+1440 Momentum/apply_grad_op_0/update_inception_5b_1_1/W/ApplyMomentum ApplyMomentum 784 41
+1441 Momentum/apply_grad_op_0/update_inception_5b_1_1/b/ApplyMomentum ApplyMomentum 5 41
+1442 Momentum/apply_grad_op_0/update_inception_5b_3_3_reduce/W/ApplyMomentum ApplyMomentum 389 41
+1443 Momentum/apply_grad_op_0/update_inception_5b_3_3_reduce/b/ApplyMomentum ApplyMomentum 5 41
+1444 Momentum/apply_grad_op_0/update_inception_5b_3_3/W/ApplyMomentum ApplyMomentum 654 41
+1445 Momentum/apply_grad_op_0/update_inception_5b_3_3/b/ApplyMomentum ApplyMomentum 4 41
+1446 Momentum/apply_grad_op_0/update_inception_5b_5_5_reduce/W/ApplyMomentum ApplyMomentum 31 41
+1447 Momentum/apply_grad_op_0/update_inception_5b_5_5_reduce/b/ApplyMomentum ApplyMomentum 4 41
+1448 Momentum/apply_grad_op_0/update_inception_5b_5_5/W/ApplyMomentum ApplyMomentum 580 41
+1449 Momentum/apply_grad_op_0/update_inception_5b_5_5/b/ApplyMomentum ApplyMomentum 3 41
+1450 Momentum/apply_grad_op_0/update_inception_5b_pool_1_1/W/ApplyMomentum ApplyMomentum 343 41
+1451 Momentum/apply_grad_op_0/update_inception_5b_pool_1_1/b/ApplyMomentum ApplyMomentum 4 41
+1452 Momentum/apply_grad_op_0/update_FullyConnected/W/ApplyMomentum ApplyMomentum 2324 41
+1453 Momentum/apply_grad_op_0/update_FullyConnected/b/ApplyMomentum ApplyMomentum 5 41
+1454 Momentum/apply_grad_op_0/value Const 4 41
+1455 Momentum/apply_grad_op_0 AssignAdd 3 41
+1456 Momentum/conv1_7_7_s2/W/tag Const 2 41
+1457 Momentum/conv1_7_7_s2/W HistogramSummary 13095 41
+1458 Momentum/conv1_7_7_s2/b/tag Const 3 41
+1459 Momentum/conv1_7_7_s2/b HistogramSummary 363 41
+1460 Momentum/conv2_3_3_reduce/W/tag Const 6 41
+1461 Momentum/conv2_3_3_reduce/W HistogramSummary 11637 41
+1462 Momentum/conv2_3_3_reduce/b/tag Const 2 41
+1463 Momentum/conv2_3_3_reduce/b HistogramSummary 16 41
+1464 Momentum/conv2_3_3/W/tag Const 5 41
+1465 Momentum/conv2_3_3/W HistogramSummary 4333 41
+1466 Momentum/conv2_3_3/b/tag Const 2 41
+1467 Momentum/conv2_3_3/b HistogramSummary 19 41
+1468 Momentum/inception_3a_1_1/W/tag Const 5 41
+1469 Momentum/inception_3a_1_1/W HistogramSummary 11937 41
+1470 Momentum/inception_3a_1_1/b/tag Const 7 41
+1471 Momentum/inception_3a_1_1/b HistogramSummary 22 41
+1472 Momentum/inception_3a_3_3_reduce/W/tag Const 3 41
+1473 Momentum/inception_3a_3_3_reduce/W HistogramSummary 828 41
+1474 Momentum/inception_3a_3_3_reduce/b/tag Const 6 41
+1475 Momentum/inception_3a_3_3_reduce/b HistogramSummary 26 41
+1476 Momentum/inception_3a_3_3/W/tag Const 3 41
+1477 Momentum/inception_3a_3_3/W HistogramSummary 4340 41
+1478 Momentum/inception_3a_3_3/b/tag Const 3 41
+1479 Momentum/inception_3a_3_3/b HistogramSummary 18 41
+1480 Momentum/inception_3a_5_5_reduce/W/tag Const 2 41
+1481 Momentum/inception_3a_5_5_reduce/W HistogramSummary 917 41
+1482 Momentum/inception_3a_5_5_reduce/b/tag Const 2 41
+1483 Momentum/inception_3a_5_5_reduce/b HistogramSummary 136 41
+1484 Momentum/inception_3a_5_5/W/tag Const 3 41
+1485 Momentum/inception_3a_5_5/W HistogramSummary 629 41
+1486 Momentum/inception_3a_5_5/b/tag Const 2 41
+1487 Momentum/inception_3a_5_5/b HistogramSummary 10 41
+1488 Momentum/inception_3a_pool_1_1/W/tag Const 9 41
+1489 Momentum/inception_3a_pool_1_1/W HistogramSummary 244 41
+1490 Momentum/inception_3a_pool_1_1/b/tag Const 4 41
+1491 Momentum/inception_3a_pool_1_1/b HistogramSummary 14 41
+1492 Momentum/inception_3b_1_1/W/tag Const 3 41
+1493 Momentum/inception_3b_1_1/W HistogramSummary 1417 41
+1494 Momentum/inception_3b_1_1/b/tag Const 4 41
+1495 Momentum/inception_3b_1_1/b HistogramSummary 20 41
+1496 Momentum/inception_3b_3_3_reduce/W/tag Const 4 41
+1497 Momentum/inception_3b_3_3_reduce/W HistogramSummary 1421 41
+1498 Momentum/inception_3b_3_3_reduce/b/tag Const 3 41
+1499 Momentum/inception_3b_3_3_reduce/b HistogramSummary 20 41
+1500 Momentum/inception_3b_3_3/W/tag Const 3 41
+1501 Momentum/inception_3b_3_3/W HistogramSummary 8772 41
+1502 Momentum/inception_3b_3_3/b/tag Const 4 41
+1503 Momentum/inception_3b_3_3/b HistogramSummary 21 41
+1504 Momentum/inception_3b_5_5_reduce/W/tag Const 4 41
+1505 Momentum/inception_3b_5_5_reduce/W HistogramSummary 335 41
+1506 Momentum/inception_3b_5_5_reduce/b/tag Const 3 41
+1507 Momentum/inception_3b_5_5_reduce/b HistogramSummary 13 41
+1508 Momentum/inception_3b_5_5/W/tag Const 5 41
+1509 Momentum/inception_3b_5_5/W HistogramSummary 3016 41
+1510 Momentum/inception_3b_5_5/b/tag Const 4 41
+1511 Momentum/inception_3b_5_5/b HistogramSummary 16 41
+1512 Momentum/inception_3b_pool_1_1/W/tag Const 4 41
+1513 Momentum/inception_3b_pool_1_1/W HistogramSummary 706 41
+1514 Momentum/inception_3b_pool_1_1/b/tag Const 2 41
+1515 Momentum/inception_3b_pool_1_1/b HistogramSummary 14 41
+1516 Momentum/inception_4a_1_1/W/tag Const 2 41
+1517 Momentum/inception_4a_1_1/W HistogramSummary 3627 41
+1518 Momentum/inception_4a_1_1/b/tag Const 3 41
+1519 Momentum/inception_4a_1_1/b HistogramSummary 23 41
+1520 Momentum/inception_4a_3_3_reduce/W/tag Const 2 41
+1521 Momentum/inception_4a_3_3_reduce/W HistogramSummary 1852 41
+1522 Momentum/inception_4a_3_3_reduce/b/tag Const 2 41
+1523 Momentum/inception_4a_3_3_reduce/b HistogramSummary 16 41
+1524 Momentum/inception_4a_3_3/W/tag Const 2 41
+1525 Momentum/inception_4a_3_3/W HistogramSummary 7576 41
+1526 Momentum/inception_4a_3_3/b/tag Const 3 41
+1527 Momentum/inception_4a_3_3/b HistogramSummary 23 41
+1528 Momentum/inception_4a_5_5_reduce/W/tag Const 3 41
+1529 Momentum/inception_4a_5_5_reduce/W HistogramSummary 314 41
+1530 Momentum/inception_4a_5_5_reduce/b/tag Const 2 41
+1531 Momentum/inception_4a_5_5_reduce/b HistogramSummary 11 41
+1532 Momentum/inception_4a_5_5/W/tag Const 3 41
+1533 Momentum/inception_4a_5_5/W HistogramSummary 768 41
+1534 Momentum/inception_4a_5_5/b/tag Const 3 41
+1535 Momentum/inception_4a_5_5/b HistogramSummary 14 41
+1536 Momentum/inception_4a_pool_1_1/W/tag Const 4 41
+1537 Momentum/inception_4a_pool_1_1/W HistogramSummary 1219 41
+1538 Momentum/inception_4a_pool_1_1/b/tag Const 3 41
+1539 Momentum/inception_4a_pool_1_1/b HistogramSummary 15 41
+1540 Momentum/inception_4a_1_1_1/W/tag Const 4 41
+1541 Momentum/inception_4a_1_1_1/W HistogramSummary 3464 41
+1542 Momentum/inception_4a_1_1_1/b/tag Const 4 41
+1543 Momentum/inception_4a_1_1_1/b HistogramSummary 20 41
+1544 Momentum/inception_4b_3_3_reduce/W/tag Const 4 41
+1545 Momentum/inception_4b_3_3_reduce/W HistogramSummary 2253 41
+1546 Momentum/inception_4b_3_3_reduce/b/tag Const 3 41
+1547 Momentum/inception_4b_3_3_reduce/b HistogramSummary 16 41
+1548 Momentum/inception_4b_3_3/W/tag Const 3 41
+1549 Momentum/inception_4b_3_3/W HistogramSummary 24916 41
+1550 Momentum/inception_4b_3_3/b/tag Const 3 41
+1551 Momentum/inception_4b_3_3/b HistogramSummary 23 41
+1552 Momentum/inception_4b_5_5_reduce/W/tag Const 4 41
+1553 Momentum/inception_4b_5_5_reduce/W HistogramSummary 20522 41
+1554 Momentum/inception_4b_5_5_reduce/b/tag Const 2 41
+1555 Momentum/inception_4b_5_5_reduce/b HistogramSummary 12 41
+1556 Momentum/inception_4b_5_5/W/tag Const 2 41
+1557 Momentum/inception_4b_5_5/W HistogramSummary 1509 41
+1558 Momentum/inception_4b_5_5/b/tag Const 3 41
+1559 Momentum/inception_4b_5_5/b HistogramSummary 16 41
+1560 Momentum/inception_4b_pool_1_1/W/tag Const 3 41
+1561 Momentum/inception_4b_pool_1_1/W HistogramSummary 1390 41
+1562 Momentum/inception_4b_pool_1_1/b/tag Const 2 41
+1563 Momentum/inception_4b_pool_1_1/b HistogramSummary 15 41
+1564 Momentum/inception_4c_1_1/W/tag Const 3 41
+1565 Momentum/inception_4c_1_1/W HistogramSummary 14807 41
+1566 Momentum/inception_4c_1_1/b/tag Const 3 41
+1567 Momentum/inception_4c_1_1/b HistogramSummary 17 41
+1568 Momentum/inception_4c_3_3_reduce/W/tag Const 3 41
+1569 Momentum/inception_4c_3_3_reduce/W HistogramSummary 2654 41
+1570 Momentum/inception_4c_3_3_reduce/b/tag Const 4 41
+1571 Momentum/inception_4c_3_3_reduce/b HistogramSummary 20 41
+1572 Momentum/inception_4c_3_3/W/tag Const 2 41
+1573 Momentum/inception_4c_3_3/W HistogramSummary 11680 41
+1574 Momentum/inception_4c_3_3/b/tag Const 2 41
+1575 Momentum/inception_4c_3_3/b HistogramSummary 25 41
+1576 Momentum/inception_4c_5_5_reduce/W/tag Const 2 41
+1577 Momentum/inception_4c_5_5_reduce/W HistogramSummary 493 41
+1578 Momentum/inception_4c_5_5_reduce/b/tag Const 2 41
+1579 Momentum/inception_4c_5_5_reduce/b HistogramSummary 12 41
+1580 Momentum/inception_4c_5_5/W/tag Const 3 41
+1581 Momentum/inception_4c_5_5/W HistogramSummary 1521 41
+1582 Momentum/inception_4c_5_5/b/tag Const 2 41
+1583 Momentum/inception_4c_5_5/b HistogramSummary 15 41
+1584 Momentum/inception_4c_pool_1_1/W/tag Const 3 41
+1585 Momentum/inception_4c_pool_1_1/W HistogramSummary 1289 41
+1586 Momentum/inception_4c_pool_1_1/b/tag Const 3 41
+1587 Momentum/inception_4c_pool_1_1/b HistogramSummary 15 41
+1588 Momentum/inception_4d_1_1/W/tag Const 2 41
+1589 Momentum/inception_4d_1_1/W HistogramSummary 2263 41
+1590 Momentum/inception_4d_1_1/b/tag Const 2 41
+1591 Momentum/inception_4d_1_1/b HistogramSummary 18 41
+1592 Momentum/inception_4d_3_3_reduce/W/tag Const 3 41
+1593 Momentum/inception_4d_3_3_reduce/W HistogramSummary 3091 41
+1594 Momentum/inception_4d_3_3_reduce/b/tag Const 2 41
+1595 Momentum/inception_4d_3_3_reduce/b HistogramSummary 19 41
+1596 Momentum/inception_4d_3_3/W/tag Const 3 41
+1597 Momentum/inception_4d_3_3/W HistogramSummary 15891 41
+1598 Momentum/inception_4d_3_3/b/tag Const 2 41
+1599 Momentum/inception_4d_3_3/b HistogramSummary 26 41
+1600 Momentum/inception_4d_5_5_reduce/W/tag Const 2 41
+1601 Momentum/inception_4d_5_5_reduce/W HistogramSummary 650 41
+1602 Momentum/inception_4d_5_5_reduce/b/tag Const 2 41
+1603 Momentum/inception_4d_5_5_reduce/b HistogramSummary 12 41
+1604 Momentum/inception_4d_5_5/W/tag Const 3 41
+1605 Momentum/inception_4d_5_5/W HistogramSummary 2171 41
+1606 Momentum/inception_4d_5_5/b/tag Const 2 41
+1607 Momentum/inception_4d_5_5/b HistogramSummary 14 41
+1608 Momentum/inception_4d_pool_1_1/W/tag Const 3 41
+1609 Momentum/inception_4d_pool_1_1/W HistogramSummary 1376 41
+1610 Momentum/inception_4d_pool_1_1/b/tag Const 3 41
+1611 Momentum/inception_4d_pool_1_1/b HistogramSummary 15 41
+1612 Momentum/inception_4e_1_1/W/tag Const 2 41
+1613 Momentum/inception_4e_1_1/W HistogramSummary 5266 41
+1614 Momentum/inception_4e_1_1/b/tag Const 2 41
+1615 Momentum/inception_4e_1_1/b HistogramSummary 25 41
+1616 Momentum/inception_4e_3_3_reduce/W/tag Const 3 41
+1617 Momentum/inception_4e_3_3_reduce/W HistogramSummary 3299 41
+1618 Momentum/inception_4e_3_3_reduce/b/tag Const 3 41
+1619 Momentum/inception_4e_3_3_reduce/b HistogramSummary 19 41
+1620 Momentum/inception_4e_3_3/W/tag Const 2 41
+1621 Momentum/inception_4e_3_3/W HistogramSummary 18145 41
+1622 Momentum/inception_4e_3_3/b/tag Const 2 41
+1623 Momentum/inception_4e_3_3/b HistogramSummary 29 41
+1624 Momentum/inception_4e_5_5_reduce/W/tag Const 3 41
+1625 Momentum/inception_4e_5_5_reduce/W HistogramSummary 723 41
+1626 Momentum/inception_4e_5_5_reduce/b/tag Const 2 41
+1627 Momentum/inception_4e_5_5_reduce/b HistogramSummary 11 41
+1628 Momentum/inception_4e_5_5/W/tag Const 3 41
+1629 Momentum/inception_4e_5_5/W HistogramSummary 4303 41
+1630 Momentum/inception_4e_5_5/b/tag Const 2 41
+1631 Momentum/inception_4e_5_5/b HistogramSummary 18 41
+1632 Momentum/inception_4e_pool_1_1/W/tag Const 2 41
+1633 Momentum/inception_4e_pool_1_1/W HistogramSummary 2636 41
+1634 Momentum/inception_4e_pool_1_1/b/tag Const 3 41
+1635 Momentum/inception_4e_pool_1_1/b HistogramSummary 18 41
+1636 Momentum/inception_5a_1_1/W/tag Const 3 41
+1637 Momentum/inception_5a_1_1/W HistogramSummary 8929 41
+1638 Momentum/inception_5a_1_1/b/tag Const 3 41
+1639 Momentum/inception_5a_1_1/b HistogramSummary 24 41
+1640 Momentum/inception_5a_3_3_reduce/W/tag Const 2 41
+1641 Momentum/inception_5a_3_3_reduce/W HistogramSummary 5203 41
+1642 Momentum/inception_5a_3_3_reduce/b/tag Const 2 41
+1643 Momentum/inception_5a_3_3_reduce/b HistogramSummary 19 41
+1644 Momentum/inception_5a_3_3/W/tag Const 2 41
+1645 Momentum/inception_5a_3_3/W HistogramSummary 34146 41
+1646 Momentum/inception_5a_3_3/b/tag Const 2 41
+1647 Momentum/inception_5a_3_3/b HistogramSummary 29 41
+1648 Momentum/inception_5a_5_5_reduce/W/tag Const 3 41
+1649 Momentum/inception_5a_5_5_reduce/W HistogramSummary 1130 41
+1650 Momentum/inception_5a_5_5_reduce/b/tag Const 3 41
+1651 Momentum/inception_5a_5_5_reduce/b HistogramSummary 12 41
+1652 Momentum/inception_5a_5_5/W/tag Const 2 41
+1653 Momentum/inception_5a_5_5/W HistogramSummary 4310 41
+1654 Momentum/inception_5a_5_5/b/tag Const 2 41
+1655 Momentum/inception_5a_5_5/b HistogramSummary 17 41
+1656 Momentum/inception_5a_pool_1_1/W/tag Const 2 41
+1657 Momentum/inception_5a_pool_1_1/W HistogramSummary 4564 41
+1658 Momentum/inception_5a_pool_1_1/b/tag Const 3 41
+1659 Momentum/inception_5a_pool_1_1/b HistogramSummary 17 41
+1660 Momentum/inception_5b_1_1/W/tag Const 3 41
+1661 Momentum/inception_5b_1_1/W HistogramSummary 16273 41
+1662 Momentum/inception_5b_1_1/b/tag Const 3 41
+1663 Momentum/inception_5b_1_1/b HistogramSummary 31 41
+1664 Momentum/inception_5b_3_3_reduce/W/tag Const 2 41
+1665 Momentum/inception_5b_3_3_reduce/W HistogramSummary 22295 41
+1666 Momentum/inception_5b_3_3_reduce/b/tag Const 3 41
+1667 Momentum/inception_5b_3_3_reduce/b HistogramSummary 23 41
+1668 Momentum/inception_5b_3_3/W/tag Const 3 41
+1669 Momentum/inception_5b_3_3/W HistogramSummary 28233 41
+1670 Momentum/inception_5b_3_3/b/tag Const 2 41
+1671 Momentum/inception_5b_3_3/b HistogramSummary 33 41
+1672 Momentum/inception_5b_5_5_reduce/W/tag Const 2 41
+1673 Momentum/inception_5b_5_5_reduce/W HistogramSummary 1692 41
+1674 Momentum/inception_5b_5_5_reduce/b/tag Const 3 41
+1675 Momentum/inception_5b_5_5_reduce/b HistogramSummary 13 41
+1676 Momentum/inception_5b_5_5/W/tag Const 2 41
+1677 Momentum/inception_5b_5_5/W HistogramSummary 21955 41
+1678 Momentum/inception_5b_5_5/b/tag Const 3 41
+1679 Momentum/inception_5b_5_5/b HistogramSummary 18 41
+1680 Momentum/inception_5b_pool_1_1/W/tag Const 3 41
+1681 Momentum/inception_5b_pool_1_1/W HistogramSummary 4181 41
+1682 Momentum/inception_5b_pool_1_1/b/tag Const 2 41
+1683 Momentum/inception_5b_pool_1_1/b HistogramSummary 18 41
+1684 Momentum/FullyConnected/W/tag Const 2 41
+1685 Momentum/FullyConnected/W HistogramSummary 53035 41
+1686 Momentum/FullyConnected/b/tag Const 3 41
+1687 Momentum/FullyConnected/b HistogramSummary 11 41
+1688 conv1_7_7_s2/W/Gradients/tag Const 2 1
+1689 conv1_7_7_s2/W/Gradients HistogramSummary 503 1
+1690 conv1_7_7_s2/b/Gradients/tag Const 3 1
+1691 conv1_7_7_s2/b/Gradients HistogramSummary 48 1
+1692 conv2_3_3_reduce/W/Gradients/tag Const 3 4
+1693 conv2_3_3_reduce/W/Gradients HistogramSummary 203 4
+1694 conv2_3_3_reduce/b/Gradients/tag Const 2 4
+1695 conv2_3_3_reduce/b/Gradients HistogramSummary 32 4
+1696 conv2_3_3/W/Gradients/tag Const 3 5
+1697 conv2_3_3/W/Gradients HistogramSummary 5265 5
+1698 conv2_3_3/b/Gradients/tag Const 3 5
+1699 conv2_3_3/b/Gradients HistogramSummary 30 5
+1700 inception_3a_1_1/W/Gradients/tag Const 2 8
+1701 inception_3a_1_1/W/Gradients HistogramSummary 509 8
+1702 inception_3a_1_1/b/Gradients/tag Const 2 8
+1703 inception_3a_1_1/b/Gradients HistogramSummary 20 8
+1704 inception_3a_3_3_reduce/W/Gradients/tag Const 3 8
+1705 inception_3a_3_3_reduce/W/Gradients HistogramSummary 977 8
+1706 inception_3a_3_3_reduce/b/Gradients/tag Const 3 8
+1707 inception_3a_3_3_reduce/b/Gradients HistogramSummary 20 8
+1708 inception_3a_3_3/W/Gradients/tag Const 3 9
+1709 inception_3a_3_3/W/Gradients HistogramSummary 5425 9
+1710 inception_3a_3_3/b/Gradients/tag Const 2 9
+1711 inception_3a_3_3/b/Gradients HistogramSummary 22 9
+1712 inception_3a_5_5_reduce/W/Gradients/tag Const 3 8
+1713 inception_3a_5_5_reduce/W/Gradients HistogramSummary 200 8
+1714 inception_3a_5_5_reduce/b/Gradients/tag Const 2 8
+1715 inception_3a_5_5_reduce/b/Gradients HistogramSummary 12 8
+1716 inception_3a_5_5/W/Gradients/tag Const 2 9
+1717 inception_3a_5_5/W/Gradients HistogramSummary 559 9
+1718 inception_3a_5_5/b/Gradients/tag Const 2 9
+1719 inception_3a_5_5/b/Gradients HistogramSummary 15 9
+1720 inception_3a_pool_1_1/W/Gradients/tag Const 2 9
+1721 inception_3a_pool_1_1/W/Gradients HistogramSummary 266 9
+1722 inception_3a_pool_1_1/b/Gradients/tag Const 2 9
+1723 inception_3a_pool_1_1/b/Gradients HistogramSummary 16 9
+1724 inception_3b_1_1/W/Gradients/tag Const 1 11
+1725 inception_3b_1_1/W/Gradients HistogramSummary 1661 11
+1726 inception_3b_1_1/b/Gradients/tag Const 2 11
+1727 inception_3b_1_1/b/Gradients HistogramSummary 23 11
+1728 inception_3b_3_3_reduce/W/Gradients/tag Const 3 11
+1729 inception_3b_3_3_reduce/W/Gradients HistogramSummary 1712 11
+1730 inception_3b_3_3_reduce/b/Gradients/tag Const 2 11
+1731 inception_3b_3_3_reduce/b/Gradients HistogramSummary 23 11
+1732 inception_3b_3_3/W/Gradients/tag Const 2 12
+1733 inception_3b_3_3/W/Gradients HistogramSummary 10955 12
+1734 inception_3b_3_3/b/Gradients/tag Const 2 12
+1735 inception_3b_3_3/b/Gradients HistogramSummary 35 12
+1736 inception_3b_5_5_reduce/W/Gradients/tag Const 2 11
+1737 inception_3b_5_5_reduce/W/Gradients HistogramSummary 455 11
+1738 inception_3b_5_5_reduce/b/Gradients/tag Const 2 11
+1739 inception_3b_5_5_reduce/b/Gradients HistogramSummary 16 11
+1740 inception_3b_5_5/W/Gradients/tag Const 2 12
+1741 inception_3b_5_5/W/Gradients HistogramSummary 2740 12
+1742 inception_3b_5_5/b/Gradients/tag Const 2 12
+1743 inception_3b_5_5/b/Gradients HistogramSummary 17 12
+1744 inception_3b_pool_1_1/W/Gradients/tag Const 3 12
+1745 inception_3b_pool_1_1/W/Gradients HistogramSummary 655 12
+1746 inception_3b_pool_1_1/b/Gradients/tag Const 2 12
+1747 inception_3b_pool_1_1/b/Gradients HistogramSummary 15 12
+1748 inception_4a_1_1/W/Gradients/tag Const 2 15
+1749 inception_4a_1_1/W/Gradients HistogramSummary 4522 15
+1750 inception_4a_1_1/b/Gradients/tag Const 2 15
+1751 inception_4a_1_1/b/Gradients HistogramSummary 17 15
+1752 inception_4a_3_3_reduce/W/Gradients/tag Const 2 15
+1753 inception_4a_3_3_reduce/W/Gradients HistogramSummary 1683 15
+1754 inception_4a_3_3_reduce/b/Gradients/tag Const 2 15
+1755 inception_4a_3_3_reduce/b/Gradients HistogramSummary 12 15
+1756 inception_4a_3_3/W/Gradients/tag Const 2 16
+1757 inception_4a_3_3/W/Gradients HistogramSummary 6977 16
+1758 inception_4a_3_3/b/Gradients/tag Const 2 16
+1759 inception_4a_3_3/b/Gradients HistogramSummary 23 16
+1760 inception_4a_5_5_reduce/W/Gradients/tag Const 2 15
+1761 inception_4a_5_5_reduce/W/Gradients HistogramSummary 380 15
+1762 inception_4a_5_5_reduce/b/Gradients/tag Const 2 15
+1763 inception_4a_5_5_reduce/b/Gradients HistogramSummary 10 15
+1764 inception_4a_5_5/W/Gradients/tag Const 2 16
+1765 inception_4a_5_5/W/Gradients HistogramSummary 830 16
+1766 inception_4a_5_5/b/Gradients/tag Const 2 16
+1767 inception_4a_5_5/b/Gradients HistogramSummary 14 16
+1768 inception_4a_pool_1_1/W/Gradients/tag Const 2 16
+1769 inception_4a_pool_1_1/W/Gradients HistogramSummary 1489 16
+1770 inception_4a_pool_1_1/b/Gradients/tag Const 2 16
+1771 inception_4a_pool_1_1/b/Gradients HistogramSummary 9 16
+1772 inception_4a_1_1_1/W/Gradients/tag Const 3 18
+1773 inception_4a_1_1_1/W/Gradients HistogramSummary 3544 18
+1774 inception_4a_1_1_1/b/Gradients/tag Const 2 18
+1775 inception_4a_1_1_1/b/Gradients HistogramSummary 20 18
+1776 inception_4b_3_3_reduce/W/Gradients/tag Const 1 18
+1777 inception_4b_3_3_reduce/W/Gradients HistogramSummary 2654 18
+1778 inception_4b_3_3_reduce/b/Gradients/tag Const 2 18
+1779 inception_4b_3_3_reduce/b/Gradients HistogramSummary 13 18
+1780 inception_4b_3_3/W/Gradients/tag Const 2 19
+1781 inception_4b_3_3/W/Gradients HistogramSummary 8962 19
+1782 inception_4b_3_3/b/Gradients/tag Const 3 19
+1783 inception_4b_3_3/b/Gradients HistogramSummary 34 19
+1784 inception_4b_5_5_reduce/W/Gradients/tag Const 3 18
+1785 inception_4b_5_5_reduce/W/Gradients HistogramSummary 607 18
+1786 inception_4b_5_5_reduce/b/Gradients/tag Const 3 18
+1787 inception_4b_5_5_reduce/b/Gradients HistogramSummary 17 18
+1788 inception_4b_5_5/W/Gradients/tag Const 2 19
+1789 inception_4b_5_5/W/Gradients HistogramSummary 1854 19
+1790 inception_4b_5_5/b/Gradients/tag Const 2 19
+1791 inception_4b_5_5/b/Gradients HistogramSummary 17 19
+1792 inception_4b_pool_1_1/W/Gradients/tag Const 2 19
+1793 inception_4b_pool_1_1/W/Gradients HistogramSummary 1527 19
+1794 inception_4b_pool_1_1/b/Gradients/tag Const 2 19
+1795 inception_4b_pool_1_1/b/Gradients HistogramSummary 14 19
+1796 inception_4c_1_1/W/Gradients/tag Const 2 21
+1797 inception_4c_1_1/W/Gradients HistogramSummary 3050 21
+1798 inception_4c_1_1/b/Gradients/tag Const 2 21
+1799 inception_4c_1_1/b/Gradients HistogramSummary 17 21
+1800 inception_4c_3_3_reduce/W/Gradients/tag Const 2 21
+1801 inception_4c_3_3_reduce/W/Gradients HistogramSummary 2837 21
+1802 inception_4c_3_3_reduce/b/Gradients/tag Const 2 21
+1803 inception_4c_3_3_reduce/b/Gradients HistogramSummary 20 21
+1804 inception_4c_3_3/W/Gradients/tag Const 3 22
+1805 inception_4c_3_3/W/Gradients HistogramSummary 13100 22
+1806 inception_4c_3_3/b/Gradients/tag Const 2 22
+1807 inception_4c_3_3/b/Gradients HistogramSummary 27 22
+1808 inception_4c_5_5_reduce/W/Gradients/tag Const 2 21
+1809 inception_4c_5_5_reduce/W/Gradients HistogramSummary 609 21
+1810 inception_4c_5_5_reduce/b/Gradients/tag Const 3 21
+1811 inception_4c_5_5_reduce/b/Gradients HistogramSummary 13 21
+1812 inception_4c_5_5/W/Gradients/tag Const 2 22
+1813 inception_4c_5_5/W/Gradients HistogramSummary 1753 22
+1814 inception_4c_5_5/b/Gradients/tag Const 2 22
+1815 inception_4c_5_5/b/Gradients HistogramSummary 16 22
+1816 inception_4c_pool_1_1/W/Gradients/tag Const 2 22
+1817 inception_4c_pool_1_1/W/Gradients HistogramSummary 1502 22
+1818 inception_4c_pool_1_1/b/Gradients/tag Const 3 22
+1819 inception_4c_pool_1_1/b/Gradients HistogramSummary 16 22
+1820 inception_4d_1_1/W/Gradients/tag Const 2 24
+1821 inception_4d_1_1/W/Gradients HistogramSummary 2537 24
+1822 inception_4d_1_1/b/Gradients/tag Const 4 24
+1823 inception_4d_1_1/b/Gradients HistogramSummary 19 24
+1824 inception_4d_3_3_reduce/W/Gradients/tag Const 2 24
+1825 inception_4d_3_3_reduce/W/Gradients HistogramSummary 3466 24
+1826 inception_4d_3_3_reduce/b/Gradients/tag Const 3 24
+1827 inception_4d_3_3_reduce/b/Gradients HistogramSummary 21 24
+1828 inception_4d_3_3/W/Gradients/tag Const 2 25
+1829 inception_4d_3_3/W/Gradients HistogramSummary 16904 25
+1830 inception_4d_3_3/b/Gradients/tag Const 2 25
+1831 inception_4d_3_3/b/Gradients HistogramSummary 25 25
+1832 inception_4d_5_5_reduce/W/Gradients/tag Const 2 24
+1833 inception_4d_5_5_reduce/W/Gradients HistogramSummary 724 24
+1834 inception_4d_5_5_reduce/b/Gradients/tag Const 3 24
+1835 inception_4d_5_5_reduce/b/Gradients HistogramSummary 13 24
+1836 inception_4d_5_5/W/Gradients/tag Const 2 25
+1837 inception_4d_5_5/W/Gradients HistogramSummary 2446 25
+1838 inception_4d_5_5/b/Gradients/tag Const 12166 25
+1839 inception_4d_5_5/b/Gradients HistogramSummary 16 25
+1840 inception_4d_pool_1_1/W/Gradients/tag Const 4 25
+1841 inception_4d_pool_1_1/W/Gradients HistogramSummary 1551 25
+1842 inception_4d_pool_1_1/b/Gradients/tag Const 2 25
+1843 inception_4d_pool_1_1/b/Gradients HistogramSummary 17 25
+1844 inception_4e_1_1/W/Gradients/tag Const 3 27
+1845 inception_4e_1_1/W/Gradients HistogramSummary 5253 27
+1846 inception_4e_1_1/b/Gradients/tag Const 3 27
+1847 inception_4e_1_1/b/Gradients HistogramSummary 26 27
+1848 inception_4e_3_3_reduce/W/Gradients/tag Const 3 27
+1849 inception_4e_3_3_reduce/W/Gradients HistogramSummary 4018 27
+1850 inception_4e_3_3_reduce/b/Gradients/tag Const 3 27
+1851 inception_4e_3_3_reduce/b/Gradients HistogramSummary 14 27
+1852 inception_4e_3_3/W/Gradients/tag Const 3 28
+1853 inception_4e_3_3/W/Gradients HistogramSummary 17754 28
+1854 inception_4e_3_3/b/Gradients/tag Const 3 28
+1855 inception_4e_3_3/b/Gradients HistogramSummary 29 28
+1856 inception_4e_5_5_reduce/W/Gradients/tag Const 2 27
+1857 inception_4e_5_5_reduce/W/Gradients HistogramSummary 818 27
+1858 inception_4e_5_5_reduce/b/Gradients/tag Const 2 27
+1859 inception_4e_5_5_reduce/b/Gradients HistogramSummary 11 27
+1860 inception_4e_5_5/W/Gradients/tag Const 2 28
+1861 inception_4e_5_5/W/Gradients HistogramSummary 4581 28
+1862 inception_4e_5_5/b/Gradients/tag Const 3 28
+1863 inception_4e_5_5/b/Gradients HistogramSummary 19 28
+1864 inception_4e_pool_1_1/W/Gradients/tag Const 2 28
+1865 inception_4e_pool_1_1/W/Gradients HistogramSummary 3036 28
+1866 inception_4e_pool_1_1/b/Gradients/tag Const 3 28
+1867 inception_4e_pool_1_1/b/Gradients HistogramSummary 17 28
+1868 inception_5a_1_1/W/Gradients/tag Const 3 31
+1869 inception_5a_1_1/W/Gradients HistogramSummary 9914 31
+1870 inception_5a_1_1/b/Gradients/tag Const 2 31
+1871 inception_5a_1_1/b/Gradients HistogramSummary 26 31
+1872 inception_5a_3_3_reduce/W/Gradients/tag Const 2 31
+1873 inception_5a_3_3_reduce/W/Gradients HistogramSummary 6046 31
+1874 inception_5a_3_3_reduce/b/Gradients/tag Const 2 31
+1875 inception_5a_3_3_reduce/b/Gradients HistogramSummary 19 31
+1876 inception_5a_3_3/W/Gradients/tag Const 2 32
+1877 inception_5a_3_3/W/Gradients HistogramSummary 18378 32
+1878 inception_5a_3_3/b/Gradients/tag Const 3 32
+1879 inception_5a_3_3/b/Gradients HistogramSummary 30 32
+1880 inception_5a_5_5_reduce/W/Gradients/tag Const 2 31
+1881 inception_5a_5_5_reduce/W/Gradients HistogramSummary 1180 31
+1882 inception_5a_5_5_reduce/b/Gradients/tag Const 2 31
+1883 inception_5a_5_5_reduce/b/Gradients HistogramSummary 12 31
+1884 inception_5a_5_5/W/Gradients/tag Const 2 32
+1885 inception_5a_5_5/W/Gradients HistogramSummary 3560 32
+1886 inception_5a_5_5/b/Gradients/tag Const 2 32
+1887 inception_5a_5_5/b/Gradients HistogramSummary 18 32
+1888 inception_5a_pool_1_1/W/Gradients/tag Const 2 32
+1889 inception_5a_pool_1_1/W/Gradients HistogramSummary 4496 32
+1890 inception_5a_pool_1_1/b/Gradients/tag Const 2 32
+1891 inception_5a_pool_1_1/b/Gradients HistogramSummary 18 32
+1892 inception_5b_1_1/W/Gradients/tag Const 2 34
+1893 inception_5b_1_1/W/Gradients HistogramSummary 12738 34
+1894 inception_5b_1_1/b/Gradients/tag Const 2 34
+1895 inception_5b_1_1/b/Gradients HistogramSummary 38 34
+1896 inception_5b_3_3_reduce/W/Gradients/tag Const 2 34
+1897 inception_5b_3_3_reduce/W/Gradients HistogramSummary 6941 34
+1898 inception_5b_3_3_reduce/b/Gradients/tag Const 2 34
+1899 inception_5b_3_3_reduce/b/Gradients HistogramSummary 23 34
+1900 inception_5b_3_3/W/Gradients/tag Const 2 35
+1901 inception_5b_3_3/W/Gradients HistogramSummary 24256 35
+1902 inception_5b_3_3/b/Gradients/tag Const 2 35
+1903 inception_5b_3_3/b/Gradients HistogramSummary 33 35
+1904 inception_5b_5_5_reduce/W/Gradients/tag Const 3 34
+1905 inception_5b_5_5_reduce/W/Gradients HistogramSummary 1772 34
+1906 inception_5b_5_5_reduce/b/Gradients/tag Const 2 34
+1907 inception_5b_5_5_reduce/b/Gradients HistogramSummary 14 34
+1908 inception_5b_5_5/W/Gradients/tag Const 2 35
+1909 inception_5b_5_5/W/Gradients HistogramSummary 6740 35
+1910 inception_5b_5_5/b/Gradients/tag Const 2 35
+1911 inception_5b_5_5/b/Gradients HistogramSummary 19 35
+1912 inception_5b_pool_1_1/W/Gradients/tag Const 3 35
+1913 inception_5b_pool_1_1/W/Gradients HistogramSummary 3329 35
+1914 inception_5b_pool_1_1/b/Gradients/tag Const 2 35
+1915 inception_5b_pool_1_1/b/Gradients HistogramSummary 18 35
+1916 FullyConnected/W/Gradients/tag Const 2 39
+1917 FullyConnected/W/Gradients HistogramSummary 37571 39
+1918 FullyConnected/b/Gradients/tag Const 2 39
+1919 FullyConnected/b/Gradients HistogramSummary 11 39
+1920 Momentum/train_op_0 NoOp 2 41
+0 1 1
+2 3 37632
+4 5 256
+3 6 37632
+6 7 212926464
+5 7 256
+7 8 212926464
+8 9 212926464
+9 10 53231616
+11 12 16384
+13 14 256
+10 15 53231616
+12 15 16384
+15 16 53231616
+14 16 256
+16 17 53231616
+18 19 442368
+20 21 768
+17 22 53231616
+19 22 442368
+22 23 159694848
+21 23 768
+23 24 159694848
+24 25 159694848
+25 26 159694848
+27 28 49152
+29 30 256
+26 31 41336832
+28 31 49152
+31 32 13778944
+30 32 256
+32 33 13778944
+34 35 73728
+36 37 384
+26 38 41336832
+35 38 73728
+38 39 20668416
+37 39 384
+39 40 20668416
+41 42 442368
+43 44 512
+40 45 20668416
+42 45 442368
+45 46 27557888
+44 46 512
+46 47 27557888
+48 49 12288
+50 51 64
+26 52 41336832
+49 52 12288
+52 53 3444736
+51 53 64
+53 54 3444736
+55 56 51200
+57 58 128
+54 59 3444736
+56 59 51200
+59 60 6889472
+58 60 128
+60 61 6889472
+26 62 41336832
+63 64 24576
+65 66 128
+62 67 41336832
+64 67 24576
+67 68 6889472
+66 68 128
+68 69 6889472
+33 71 13778944
+47 71 27557888
+61 71 6889472
+69 71 6889472
+70 71 4
+72 73 131072
+74 75 512
+71 76 55115776
+73 76 131072
+76 77 27557888
+75 77 512
+77 78 27557888
+79 80 131072
+81 82 512
+71 83 55115776
+80 83 131072
+83 84 27557888
+82 84 512
+84 85 27557888
+86 87 884736
+88 89 768
+85 90 27557888
+87 90 884736
+90 91 41336832
+89 91 768
+91 92 41336832
+93 94 32768
+95 96 128
+71 97 55115776
+94 97 32768
+97 98 6889472
+96 98 128
+98 99 6889472
+100 101 307200
+102 103 384
+99 104 6889472
+101 104 307200
+104 105 20668416
+103 105 384
+71 106 55115776
+107 108 65536
+109 110 256
+106 111 55115776
+108 111 65536
+111 112 13778944
+110 112 256
+112 113 13778944
+78 114 27557888
+92 114 41336832
+105 114 20668416
+113 114 13778944
+114 115 103342080
+116 117 368640
+118 119 768
+115 120 27648000
+117 120 368640
+120 121 11059200
+119 121 768
+121 122 11059200
+123 124 184320
+125 126 384
+115 127 27648000
+124 127 184320
+127 128 5529600
+126 128 384
+128 129 5529600
+130 131 718848
+132 133 832
+129 134 5529600
+131 134 718848
+134 135 11980800
+133 135 832
+135 136 11980800
+137 138 30720
+139 140 64
+115 141 27648000
+138 141 30720
+141 142 921600
+140 142 64
+142 143 921600
+144 145 76800
+146 147 192
+143 148 921600
+145 148 76800
+148 149 2764800
+147 149 192
+149 150 2764800
+115 151 27648000
+152 153 122880
+154 155 256
+151 156 27648000
+153 156 122880
+156 157 3686400
+155 157 256
+157 158 3686400
+122 159 11059200
+136 159 11980800
+150 159 2764800
+158 159 3686400
+160 161 327680
+162 163 640
+159 164 29491200
+161 164 327680
+164 165 9216000
+163 165 640
+165 166 9216000
+167 168 229376
+169 170 448
+159 171 29491200
+168 171 229376
+171 172 6451200
+170 172 448
+172 173 6451200
+174 175 903168
+176 177 896
+173 178 6451200
+175 178 903168
+178 179 12902400
+177 179 896
+179 180 12902400
+181 182 49152
+183 184 96
+159 185 29491200
+182 185 49152
+185 186 1382400
+184 186 96
+186 187 1382400
+188 189 153600
+190 191 256
+187 192 1382400
+189 192 153600
+192 193 3686400
+191 193 256
+193 194 3686400
+159 195 29491200
+196 197 131072
+198 199 256
+195 200 29491200
+197 200 131072
+200 201 3686400
+199 201 256
+201 202 3686400
+166 203 9216000
+180 203 12902400
+194 203 3686400
+202 203 3686400
+204 205 262144
+206 207 512
+203 208 29491200
+205 208 262144
+208 209 7372800
+207 209 512
+209 210 7372800
+211 212 262144
+213 214 512
+203 215 29491200
+212 215 262144
+215 216 7372800
+214 216 512
+216 217 7372800
+218 219 1179648
+220 221 1024
+217 222 7372800
+219 222 1179648
+222 223 14745600
+221 223 1024
+223 224 14745600
+225 226 49152
+227 228 96
+203 229 29491200
+226 229 49152
+229 230 1382400
+228 230 96
+230 231 1382400
+232 233 153600
+234 235 256
+231 236 1382400
+233 236 153600
+236 237 3686400
+235 237 256
+237 238 3686400
+203 239 29491200
+240 241 131072
+242 243 256
+239 244 29491200
+241 244 131072
+244 245 3686400
+243 245 256
+245 246 3686400
+210 247 7372800
+224 247 14745600
+238 247 3686400
+246 247 3686400
+248 249 229376
+250 251 448
+247 252 29491200
+249 252 229376
+252 253 6451200
+251 253 448
+253 254 6451200
+255 256 294912
+257 258 576
+247 259 29491200
+256 259 294912
+259 260 8294400
+258 260 576
+260 261 8294400
+262 263 1492992
+264 265 1152
+261 266 8294400
+263 266 1492992
+266 267 16588800
+265 267 1152
+267 268 16588800
+269 270 65536
+271 272 128
+247 273 29491200
+270 273 65536
+273 274 1843200
+272 274 128
+274 275 1843200
+276 277 204800
+278 279 256
+275 280 1843200
+277 280 204800
+280 281 3686400
+279 281 256
+281 282 3686400
+247 283 29491200
+284 285 131072
+286 287 256
+283 288 29491200
+285 288 131072
+288 289 3686400
+287 289 256
+289 290 3686400
+254 291 6451200
+268 291 16588800
+282 291 3686400
+290 291 3686400
+292 293 540672
+294 295 1024
+291 296 30412800
+293 296 540672
+296 297 14745600
+295 297 1024
+297 298 14745600
+299 300 337920
+301 302 640
+291 303 30412800
+300 303 337920
+303 304 9216000
+302 304 640
+304 305 9216000
+306 307 1843200
+308 309 1280
+305 310 9216000
+307 310 1843200
+310 311 18432000
+309 311 1280
+311 312 18432000
+313 314 67584
+315 316 128
+291 317 30412800
+314 317 67584
+317 318 1843200
+316 318 128
+318 319 1843200
+320 321 409600
+322 323 512
+319 324 1843200
+321 324 409600
+324 325 7372800
+323 325 512
+325 326 7372800
+291 327 30412800
+328 329 270336
+330 331 512
+327 332 30412800
+329 332 270336
+332 333 7372800
+331 333 512
+333 334 7372800
+298 335 14745600
+312 335 18432000
+326 335 7372800
+334 335 7372800
+335 336 47923200
+337 338 851968
+339 340 1024
+336 341 13631488
+338 341 851968
+341 342 4194304
+340 342 1024
+342 343 4194304
+344 345 532480
+346 347 640
+336 348 13631488
+345 348 532480
+348 349 2621440
+347 349 640
+349 350 2621440
+351 352 1843200
+353 354 1280
+350 355 2621440
+352 355 1843200
+355 356 5242880
+354 356 1280
+356 357 5242880
+358 359 106496
+360 361 128
+336 362 13631488
+359 362 106496
+362 363 524288
+361 363 128
+363 364 524288
+365 366 409600
+367 368 512
+364 369 524288
+366 369 409600
+369 370 2097152
+368 370 512
+370 371 2097152
+336 372 13631488
+373 374 425984
+375 376 512
+372 377 13631488
+374 377 425984
+377 378 2097152
+376 378 512
+378 379 2097152
+343 380 4194304
+357 380 5242880
+371 380 2097152
+379 380 2097152
+381 382 1277952
+383 384 1536
+380 385 13631488
+382 385 1277952
+385 386 6291456
+384 386 1536
+386 387 6291456
+388 389 638976
+390 391 768
+380 392 13631488
+389 392 638976
+392 393 3145728
+391 393 768
+393 394 3145728
+395 396 2654208
+397 398 1536
+394 399 3145728
+396 399 2654208
+399 400 6291456
+398 400 1536
+400 401 6291456
+402 403 159744
+404 405 192
+380 406 13631488
+403 406 159744
+406 407 786432
+405 407 192
+407 408 786432
+409 410 614400
+411 412 512
+408 413 786432
+410 413 614400
+413 414 2097152
+412 414 512
+414 415 2097152
+380 416 13631488
+417 418 425984
+419 420 512
+416 421 13631488
+418 421 425984
+421 422 2097152
+420 422 512
+422 423 2097152
+387 424 6291456
+401 424 6291456
+415 424 2097152
+423 424 2097152
+424 425 16777216
+0 426 1
+1 426 1
+429 430 16
+428 431 4
+431 432 16777216
+432 433 16777216
+425 434 16777216
+434 435 16777216
+433 435 16777216
+436 437 4456448
+438 439 68
+435 441 4
+440 441 8
+441 442 16777216
+437 442 4456448
+442 443 4352
+439 443 68
+443 444 4352
+444 445 4352
+445 447 512
+446 447 512
+447 448 64
+448 449 256
+444 451 4352
+450 451 4
+444 452 4352
+451 452 256
+452 455 4352
+454 455 4
+455 456 4352
+453 456 4
+456 457 4352
+457 458 4352
+458 459 4352
+459 460 256
+460 462 256
+461 462 4
+463 464 4
+465 466 4
+467 468 4
+466 469 4
+449 469 4
+469 470 4
+468 470 4
+465 471 4
+470 471 4
+472 473 4
+464 475 4
+476 477 4
+464 477 4
+475 478 4
+477 478 4
+474 479 4
+478 479 4
+480 481 4
+479 481 4
+473 482 4
+462 482 4
+482 483 4
+481 483 4
+472 484 4
+483 484 4
+485 486 8
+473 486 4
+487 488 8
+462 488 4
+460 489 256
+489 490 4
+491 492 4
+490 494 256
+493 494 4
+494 495 256
+458 496 4352
+496 497 8
+497 499 8
+498 499 4
+496 500 8
+499 500 8
+495 501 256
+497 501 8
+501 502 256
+500 502 8
+457 504 4352
+503 505 8
+504 505 8
+502 506 4352
+506 507 4352
+507 508 4352
+504 508 8
+456 509 4352
+508 510 4352
+509 510 4352
+455 511 4352
+510 512 4352
+512 513 8
+455 514 4352
+453 514 4
+511 515 8
+514 516 1088
+510 516 4352
+513 516 4352
+516 517 4352
+515 517 8
+517 518 4352
+511 518 8
+452 519 4352
+518 520 4352
+520 521 8
+452 522 4352
+454 522 4
+519 523 8
+522 524 1088
+518 524 4352
+521 524 4352
+524 525 4352
+523 525 8
+525 526 4352
+519 526 8
+444 527 4352
+526 528 4352
+451 528 256
+444 529 4352
+529 530 4352
+451 530 256
+530 531 4352
+451 531 256
+526 532 4352
+531 532 4352
+532 533 4352
+534 536 8
+535 536 4
+536 537 8
+534 538 8
+538 539 256
+537 539 8
+539 540 4352
+540 541 4352
+444 541 4352
+541 543 4352
+542 543 4
+543 545 256
+544 545 8
+540 546 4352
+545 546 256
+546 547 4352
+444 547 4352
+547 548 4352
+547 549 4352
+437 549 4456448
+441 550 16777216
+547 550 4352
+435 551 4
+549 552 16777216
+551 552 16
+552 553 16777216
+425 554 16777216
+555 557 16
+556 557 4
+553 558 16777216
+557 558 16777216
+432 560 16777216
+559 561 16
+560 561 16
+432 562 16777216
+562 563 16777216
+561 563 0
+563 564 16777216
+559 564 16
+565 567 16
+566 567 0
+567 568 16
+568 569 16777216
+565 569 16
+569 570 16777216
+558 571 4
+570 571 4
+424 572 16777216
+572 573 16
+571 573 16777216
+387 574 6291456
+401 574 6291456
+415 574 2097152
+423 574 2097152
+574 575 16
+573 576 16777216
+575 576 16
+574 576 16
+573 577 16777216
+573 578 16777216
+573 579 16777216
+576 580 6291456
+387 580 6291456
+577 581 6291456
+401 581 6291456
+578 582 2097152
+415 582 2097152
+579 583 2097152
+423 583 2097152
+580 584 6291456
+581 585 6291456
+582 586 2097152
+583 587 2097152
+380 588 13631488
+382 588 1277952
+588 590 16
+382 590 1277952
+580 590 6291456
+380 591 13631488
+589 591 16
+580 591 6291456
+394 592 3145728
+396 592 2654208
+592 594 16
+396 594 2654208
+581 594 6291456
+394 595 3145728
+593 595 16
+581 595 6291456
+408 596 786432
+410 596 614400
+596 598 16
+410 598 614400
+582 598 2097152
+408 599 786432
+597 599 16
+582 599 2097152
+416 600 13631488
+418 600 425984
+600 601 16
+418 601 425984
+583 601 2097152
+416 602 13631488
+583 602 2097152
+594 603 3145728
+394 603 3145728
+598 604 786432
+408 604 786432
+380 605 13631488
+416 605 13631488
+601 605 13631488
+603 606 3145728
+604 607 786432
+380 608 13631488
+389 608 638976
+608 610 16
+389 610 638976
+603 610 3145728
+380 611 13631488
+609 611 16
+603 611 3145728
+380 612 13631488
+403 612 159744
+612 614 16
+403 614 159744
+604 614 786432
+380 615 13631488
+613 615 16
+604 615 786432
+590 616 13631488
+605 616 13631488
+610 616 13631488
+614 616 13631488
+343 617 4194304
+357 617 5242880
+371 617 2097152
+379 617 2097152
+617 618 16
+616 619 13631488
+618 619 16
+617 619 16
+616 620 13631488
+616 621 13631488
+616 622 13631488
+619 623 4194304
+343 623 4194304
+620 624 5242880
+357 624 5242880
+621 625 2097152
+371 625 2097152
+622 626 2097152
+379 626 2097152
+623 627 4194304
+624 628 5242880
+625 629 2097152
+626 630 2097152
+336 631 13631488
+338 631 851968
+631 633 16
+338 633 851968
+623 633 4194304
+336 634 13631488
+632 634 16
+623 634 4194304
+350 635 2621440
+352 635 1843200
+635 636 16
+352 636 1843200
+624 636 5242880
+350 637 2621440
+624 637 5242880
+364 638 524288
+366 638 409600
+638 639 16
+366 639 409600
+625 639 2097152
+364 640 524288
+625 640 2097152
+372 641 13631488
+374 641 425984
+641 643 16
+374 643 425984
+626 643 2097152
+372 644 13631488
+642 644 16
+626 644 2097152
+636 645 2621440
+350 645 2621440
+639 646 524288
+364 646 524288
+336 647 13631488
+372 647 13631488
+643 647 13631488
+645 648 2621440
+646 649 524288
+336 650 13631488
+345 650 532480
+650 652 16
+345 652 532480
+645 652 2621440
+336 653 13631488
+651 653 16
+645 653 2621440
+336 654 13631488
+359 654 106496
+654 656 16
+359 656 106496
+646 656 524288
+336 657 13631488
+655 657 16
+646 657 524288
+633 658 13631488
+647 658 13631488
+652 658 13631488
+656 658 13631488
+335 659 47923200
+336 659 13631488
+658 659 13631488
+298 660 14745600
+312 660 18432000
+326 660 7372800
+334 660 7372800
+660 661 16
+659 662 47923200
+661 662 16
+660 662 16
+659 663 47923200
+659 664 47923200
+659 665 47923200
+662 666 14745600
+298 666 14745600
+663 667 18432000
+312 667 18432000
+664 668 7372800
+326 668 7372800
+665 669 7372800
+334 669 7372800
+666 670 14745600
+667 671 18432000
+668 672 7372800
+669 673 7372800
+291 674 30412800
+293 674 540672
+674 676 16
+293 676 540672
+666 676 14745600
+291 677 30412800
+675 677 16
+666 677 14745600
+305 678 9216000
+307 678 1843200
+678 680 16
+307 680 1843200
+667 680 18432000
+305 681 9216000
+679 681 16
+667 681 18432000
+319 682 1843200
+321 682 409600
+682 684 16
+321 684 409600
+668 684 7372800
+319 685 1843200
+683 685 16
+668 685 7372800
+327 686 30412800
+329 686 270336
+686 688 16
+329 688 270336
+669 688 7372800
+327 689 30412800
+687 689 16
+669 689 7372800
+680 690 9216000
+305 690 9216000
+684 691 1843200
+319 691 1843200
+291 692 30412800
+327 692 30412800
+688 692 30412800
+690 693 9216000
+691 694 1843200
+291 695 30412800
+300 695 337920
+695 697 16
+300 697 337920
+690 697 9216000
+291 698 30412800
+696 698 16
+690 698 9216000
+291 699 30412800
+314 699 67584
+699 701 16
+314 701 67584
+691 701 1843200
+291 702 30412800
+700 702 16
+691 702 1843200
+676 703 30412800
+692 703 30412800
+697 703 30412800
+701 703 30412800
+254 704 6451200
+268 704 16588800
+282 704 3686400
+290 704 3686400
+704 705 16
+703 706 30412800
+705 706 16
+704 706 16
+703 707 30412800
+703 708 30412800
+703 709 30412800
+706 710 6451200
+254 710 6451200
+707 711 16588800
+268 711 16588800
+708 712 3686400
+282 712 3686400
+709 713 3686400
+290 713 3686400
+710 714 6451200
+711 715 16588800
+712 716 3686400
+713 717 3686400
+247 718 29491200
+249 718 229376
+718 719 16
+249 719 229376
+710 719 6451200
+247 720 29491200
+710 720 6451200
+261 721 8294400
+263 721 1492992
+721 723 16
+263 723 1492992
+711 723 16588800
+261 724 8294400
+722 724 16
+711 724 16588800
+275 725 1843200
+277 725 204800
+725 727 16
+277 727 204800
+712 727 3686400
+275 728 1843200
+726 728 16
+712 728 3686400
+283 729 29491200
+285 729 131072
+729 730 16
+285 730 131072
+713 730 3686400
+283 731 29491200
+713 731 3686400
+723 732 8294400
+261 732 8294400
+727 733 1843200
+275 733 1843200
+247 734 29491200
+283 734 29491200
+730 734 29491200
+732 735 8294400
+733 736 1843200
+247 737 29491200
+256 737 294912
+737 739 16
+256 739 294912
+732 739 8294400
+247 740 29491200
+738 740 16
+732 740 8294400
+247 741 29491200
+270 741 65536
+741 743 16
+270 743 65536
+733 743 1843200
+247 744 29491200
+742 744 16
+733 744 1843200
+719 745 29491200
+734 745 29491200
+739 745 29491200
+743 745 29491200
+210 746 7372800
+224 746 14745600
+238 746 3686400
+246 746 3686400
+746 747 16
+745 748 29491200
+747 748 16
+746 748 16
+745 749 29491200
+745 750 29491200
+745 751 29491200
+748 752 7372800
+210 752 7372800
+749 753 14745600
+224 753 14745600
+750 754 3686400
+238 754 3686400
+751 755 3686400
+246 755 3686400
+752 756 7372800
+753 757 14745600
+754 758 3686400
+755 759 3686400
+203 760 29491200
+205 760 262144
+760 762 16
+205 762 262144
+752 762 7372800
+203 763 29491200
+761 763 16
+752 763 7372800
+217 764 7372800
+219 764 1179648
+764 766 16
+219 766 1179648
+753 766 14745600
+217 767 7372800
+765 767 16
+753 767 14745600
+231 768 1382400
+233 768 153600
+768 769 16
+233 769 153600
+754 769 3686400
+231 770 1382400
+754 770 3686400
+239 771 29491200
+241 771 131072
+771 772 16
+241 772 131072
+755 772 3686400
+239 773 29491200
+755 773 3686400
+766 774 7372800
+217 774 7372800
+769 775 1382400
+231 775 1382400
+203 776 29491200
+239 776 29491200
+772 776 29491200
+774 777 7372800
+775 778 1382400
+203 779 29491200
+212 779 262144
+779 780 16
+212 780 262144
+774 780 7372800
+203 781 29491200
+774 781 7372800
+203 782 29491200
+226 782 49152
+782 783 16
+226 783 49152
+775 783 1382400
+203 784 29491200
+775 784 1382400
+762 785 29491200
+776 785 29491200
+780 785 29491200
+783 785 29491200
+166 786 9216000
+180 786 12902400
+194 786 3686400
+202 786 3686400
+786 787 16
+785 788 29491200
+787 788 16
+786 788 16
+785 789 29491200
+785 790 29491200
+785 791 29491200
+788 792 9216000
+166 792 9216000
+789 793 12902400
+180 793 12902400
+790 794 3686400
+194 794 3686400
+791 795 3686400
+202 795 3686400
+792 796 9216000
+793 797 12902400
+794 798 3686400
+795 799 3686400
+159 800 29491200
+161 800 327680
+800 802 16
+161 802 327680
+792 802 9216000
+159 803 29491200
+801 803 16
+792 803 9216000
+173 804 6451200
+175 804 903168
+804 806 16
+175 806 903168
+793 806 12902400
+173 807 6451200
+805 807 16
+793 807 12902400
+187 808 1382400
+189 808 153600
+808 810 16
+189 810 153600
+794 810 3686400
+187 811 1382400
+809 811 16
+794 811 3686400
+195 812 29491200
+197 812 131072
+812 814 16
+197 814 131072
+795 814 3686400
+195 815 29491200
+813 815 16
+795 815 3686400
+806 816 6451200
+173 816 6451200
+810 817 1382400
+187 817 1382400
+159 818 29491200
+195 818 29491200
+814 818 29491200
+816 819 6451200
+817 820 1382400
+159 821 29491200
+168 821 229376
+821 823 16
+168 823 229376
+816 823 6451200
+159 824 29491200
+822 824 16
+816 824 6451200
+159 825 29491200
+182 825 49152
+825 827 16
+182 827 49152
+817 827 1382400
+159 828 29491200
+826 828 16
+817 828 1382400
+802 829 29491200
+818 829 29491200
+823 829 29491200
+827 829 29491200
+122 830 11059200
+136 830 11980800
+150 830 2764800
+158 830 3686400
+830 831 16
+829 832 29491200
+831 832 16
+830 832 16
+829 833 29491200
+829 834 29491200
+829 835 29491200
+832 836 11059200
+122 836 11059200
+833 837 11980800
+136 837 11980800
+834 838 2764800
+150 838 2764800
+835 839 3686400
+158 839 3686400
+836 840 11059200
+837 841 11980800
+838 842 2764800
+839 843 3686400
+115 844 27648000
+117 844 368640
+844 846 16
+117 846 368640
+836 846 11059200
+115 847 27648000
+845 847 16
+836 847 11059200
+129 848 5529600
+131 848 718848
+848 850 16
+131 850 718848
+837 850 11980800
+129 851 5529600
+849 851 16
+837 851 11980800
+143 852 921600
+145 852 76800
+852 854 16
+145 854 76800
+838 854 2764800
+143 855 921600
+853 855 16
+838 855 2764800
+151 856 27648000
+153 856 122880
+856 858 16
+153 858 122880
+839 858 3686400
+151 859 27648000
+857 859 16
+839 859 3686400
+850 860 5529600
+129 860 5529600
+854 861 921600
+143 861 921600
+115 862 27648000
+151 862 27648000
+858 862 27648000
+860 863 5529600
+861 864 921600
+115 865 27648000
+124 865 184320
+865 867 16
+124 867 184320
+860 867 5529600
+115 868 27648000
+866 868 16
+860 868 5529600
+115 869 27648000
+138 869 30720
+869 871 16
+138 871 30720
+861 871 921600
+115 872 27648000
+870 872 16
+861 872 921600
+846 873 27648000
+862 873 27648000
+867 873 27648000
+871 873 27648000
+114 874 103342080
+115 874 27648000
+873 874 27648000
+78 875 27557888
+92 875 41336832
+105 875 20668416
+113 875 13778944
+875 876 16
+874 877 103342080
+876 877 16
+875 877 16
+874 878 103342080
+874 879 103342080
+874 880 103342080
+877 881 27557888
+78 881 27557888
+878 882 41336832
+92 882 41336832
+879 883 20668416
+880 884 13778944
+113 884 13778944
+881 885 27557888
+882 886 41336832
+99 887 6889472
+101 887 307200
+887 889 16
+101 889 307200
+879 889 20668416
+99 890 6889472
+888 890 16
+879 890 20668416
+884 891 13778944
+71 892 55115776
+73 892 131072
+892 894 16
+73 894 131072
+881 894 27557888
+71 895 55115776
+893 895 16
+881 895 27557888
+85 896 27557888
+87 896 884736
+896 898 16
+87 898 884736
+882 898 41336832
+85 899 27557888
+897 899 16
+882 899 41336832
+889 900 6889472
+99 900 6889472
+106 901 55115776
+108 901 65536
+901 903 16
+108 903 65536
+884 903 13778944
+106 904 55115776
+902 904 16
+884 904 13778944
+898 905 27557888
+85 905 27557888
+900 906 6889472
+71 907 55115776
+106 907 55115776
+903 907 55115776
+905 908 27557888
+71 909 55115776
+94 909 32768
+909 911 16
+94 911 32768
+900 911 6889472
+71 912 55115776
+910 912 16
+900 912 6889472
+71 913 55115776
+80 913 131072
+913 914 16
+80 914 131072
+905 914 27557888
+71 915 55115776
+905 915 27557888
+894 916 55115776
+907 916 55115776
+911 916 55115776
+914 916 55115776
+33 917 13778944
+47 917 27557888
+61 917 6889472
+69 917 6889472
+917 918 16
+916 919 55115776
+918 919 16
+917 919 16
+916 920 55115776
+916 921 55115776
+916 922 55115776
+919 923 13778944
+33 923 13778944
+920 924 27557888
+47 924 27557888
+921 925 6889472
+61 925 6889472
+922 926 6889472
+69 926 6889472
+923 927 13778944
+924 928 27557888
+925 929 6889472
+926 930 6889472
+26 931 41336832
+28 931 49152
+931 933 16
+28 933 49152
+923 933 13778944
+26 934 41336832
+932 934 16
+923 934 13778944
+40 935 20668416
+42 935 442368
+935 937 16
+42 937 442368
+924 937 27557888
+40 938 20668416
+936 938 16
+924 938 27557888
+54 939 3444736
+56 939 51200
+939 941 16
+56 941 51200
+925 941 6889472
+54 942 3444736
+940 942 16
+925 942 6889472
+62 943 41336832
+64 943 24576
+943 945 16
+64 945 24576
+926 945 6889472
+62 946 41336832
+944 946 16
+926 946 6889472
+937 947 20668416
+40 947 20668416
+941 948 3444736
+54 948 3444736
+26 949 41336832
+62 949 41336832
+945 949 41336832
+947 950 20668416
+948 951 3444736
+26 952 41336832
+35 952 73728
+952 954 16
+35 954 73728
+947 954 20668416
+26 955 41336832
+953 955 16
+947 955 20668416
+26 956 41336832
+49 956 12288
+956 958 16
+49 958 12288
+948 958 3444736
+26 959 41336832
+957 959 16
+948 959 3444736
+933 960 41336832
+949 960 41336832
+954 960 41336832
+958 960 41336832
+25 961 159694848
+26 961 41336832
+960 961 41336832
+961 962 159694848
+24 962 159694848
+25 962 159694848
+962 963 159694848
+24 963 159694848
+963 964 159694848
+17 965 53231616
+19 965 442368
+965 967 16
+19 967 442368
+963 967 159694848
+17 968 53231616
+966 968 16
+963 968 159694848
+967 969 53231616
+17 969 53231616
+969 970 53231616
+10 971 53231616
+12 971 16384
+971 973 16
+12 973 16384
+969 973 53231616
+10 974 53231616
+972 974 16
+969 974 53231616
+973 975 53231616
+9 975 53231616
+10 975 53231616
+8 976 212926464
+9 976 53231616
+975 976 53231616
+976 977 212926464
+8 977 212926464
+977 978 212926464
+979 980 16
+977 980 212926464
+980 981 37632
+978 982 256
+974 983 16384
+970 984 256
+968 985 442368
+964 986 768
+934 987 49152
+927 988 256
+955 989 73728
+950 990 384
+938 991 442368
+928 992 512
+959 993 12288
+951 994 64
+942 995 51200
+929 996 128
+946 997 24576
+930 998 128
+895 999 131072
+885 1000 512
+915 1001 131072
+908 1002 512
+899 1003 884736
+886 1004 768
+912 1005 32768
+906 1006 128
+890 1007 307200
+883 1008 384
+904 1009 65536
+891 1010 256
+847 1011 368640
+840 1012 768
+868 1013 184320
+863 1014 384
+851 1015 718848
+841 1016 832
+872 1017 30720
+864 1018 64
+855 1019 76800
+842 1020 192
+859 1021 122880
+843 1022 256
+803 1023 327680
+796 1024 640
+824 1025 229376
+819 1026 448
+807 1027 903168
+797 1028 896
+828 1029 49152
+820 1030 96
+811 1031 153600
+798 1032 256
+815 1033 131072
+799 1034 256
+763 1035 262144
+756 1036 512
+781 1037 262144
+777 1038 512
+767 1039 1179648
+757 1040 1024
+784 1041 49152
+778 1042 96
+770 1043 153600
+758 1044 256
+773 1045 131072
+759 1046 256
+720 1047 229376
+714 1048 448
+740 1049 294912
+735 1050 576
+724 1051 1492992
+715 1052 1152
+744 1053 65536
+736 1054 128
+728 1055 204800
+716 1056 256
+731 1057 131072
+717 1058 256
+677 1059 540672
+670 1060 1024
+698 1061 337920
+693 1062 640
+681 1063 1843200
+671 1064 1280
+702 1065 67584
+694 1066 128
+685 1067 409600
+672 1068 512
+689 1069 270336
+673 1070 512
+634 1071 851968
+627 1072 1024
+653 1073 532480
+648 1074 640
+637 1075 1843200
+628 1076 1280
+657 1077 106496
+649 1078 128
+640 1079 409600
+629 1080 512
+644 1081 425984
+630 1082 512
+591 1083 1277952
+584 1084 1536
+611 1085 638976
+606 1086 768
+595 1087 2654208
+585 1088 1536
+615 1089 159744
+607 1090 192
+599 1091 614400
+586 1092 512
+602 1093 425984
+587 1094 512
+550 1095 4456448
+548 1096 68
+981 1097 4
+982 1097 4
+983 1097 4
+984 1097 4
+985 1097 4
+986 1097 4
+987 1097 4
+988 1097 4
+989 1097 4
+990 1097 4
+991 1097 4
+992 1097 4
+993 1097 4
+994 1097 4
+995 1097 4
+996 1097 4
+997 1097 4
+998 1097 4
+999 1097 4
+1000 1097 4
+1001 1097 4
+1002 1097 4
+1003 1097 4
+1004 1097 4
+1005 1097 4
+1006 1097 4
+1007 1097 4
+1008 1097 4
+1009 1097 4
+1010 1097 4
+1011 1097 4
+1012 1097 4
+1013 1097 4
+1014 1097 4
+1015 1097 4
+1016 1097 4
+1017 1097 4
+1018 1097 4
+1019 1097 4
+1020 1097 4
+1021 1097 4
+1022 1097 4
+1023 1097 4
+1024 1097 4
+1025 1097 4
+1026 1097 4
+1027 1097 4
+1028 1097 4
+1029 1097 4
+1030 1097 4
+1031 1097 4
+1032 1097 4
+1033 1097 4
+1034 1097 4
+1035 1097 4
+1036 1097 4
+1037 1097 4
+1038 1097 4
+1039 1097 4
+1040 1097 4
+1041 1097 4
+1042 1097 4
+1043 1097 4
+1044 1097 4
+1045 1097 4
+1046 1097 4
+1047 1097 4
+1048 1097 4
+1049 1097 4
+1050 1097 4
+1051 1097 4
+1052 1097 4
+1053 1097 4
+1054 1097 4
+1055 1097 4
+1056 1097 4
+1057 1097 4
+1058 1097 4
+1059 1097 4
+1060 1097 4
+1061 1097 4
+1062 1097 4
+1063 1097 4
+1064 1097 4
+1065 1097 4
+1066 1097 4
+1067 1097 4
+1068 1097 4
+1069 1097 4
+1070 1097 4
+1071 1097 4
+1072 1097 4
+1073 1097 4
+1074 1097 4
+1075 1097 4
+1076 1097 4
+1077 1097 4
+1078 1097 4
+1079 1097 4
+1080 1097 4
+1081 1097 4
+1082 1097 4
+1083 1097 4
+1084 1097 4
+1085 1097 4
+1086 1097 4
+1087 1097 4
+1088 1097 4
+1089 1097 4
+1090 1097 4
+1091 1097 4
+1092 1097 4
+1093 1097 4
+1094 1097 4
+1095 1097 4
+1096 1097 4
+1097 1098 464
+1098 1100 4
+1099 1100 4
+1100 1101 4
+1103 1104 4
+1102 1104 4
+980 1105 37632
+1104 1105 4
+978 1106 256
+1104 1106 4
+974 1107 16384
+1104 1107 4
+970 1108 256
+1104 1108 4
+968 1109 442368
+1104 1109 4
+964 1110 768
+1104 1110 4
+934 1111 49152
+1104 1111 4
+927 1112 256
+1104 1112 4
+955 1113 73728
+1104 1113 4
+950 1114 384
+1104 1114 4
+938 1115 442368
+1104 1115 4
+928 1116 512
+1104 1116 4
+959 1117 12288
+1104 1117 4
+951 1118 64
+1104 1118 4
+942 1119 51200
+1104 1119 4
+929 1120 128
+1104 1120 4
+946 1121 24576
+1104 1121 4
+930 1122 128
+1104 1122 4
+895 1123 131072
+1104 1123 4
+885 1124 512
+1104 1124 4
+915 1125 131072
+1104 1125 4
+908 1126 512
+1104 1126 4
+899 1127 884736
+1104 1127 4
+886 1128 768
+1104 1128 4
+912 1129 32768
+1104 1129 4
+906 1130 128
+1104 1130 4
+890 1131 307200
+1104 1131 4
+883 1132 384
+1104 1132 4
+904 1133 65536
+1104 1133 4
+891 1134 256
+1104 1134 4
+847 1135 368640
+1104 1135 4
+840 1136 768
+1104 1136 4
+868 1137 184320
+1104 1137 4
+863 1138 384
+1104 1138 4
+851 1139 718848
+1104 1139 4
+841 1140 832
+1104 1140 4
+872 1141 30720
+1104 1141 4
+864 1142 64
+1104 1142 4
+855 1143 76800
+1104 1143 4
+842 1144 192
+1104 1144 4
+859 1145 122880
+1104 1145 4
+843 1146 256
+1104 1146 4
+803 1147 327680
+1104 1147 4
+796 1148 640
+1104 1148 4
+824 1149 229376
+1104 1149 4
+819 1150 448
+1104 1150 4
+807 1151 903168
+1104 1151 4
+797 1152 896
+1104 1152 4
+828 1153 49152
+1104 1153 4
+820 1154 96
+1104 1154 4
+811 1155 153600
+1104 1155 4
+798 1156 256
+1104 1156 4
+815 1157 131072
+1104 1157 4
+799 1158 256
+1104 1158 4
+763 1159 262144
+1104 1159 4
+756 1160 512
+1104 1160 4
+781 1161 262144
+1104 1161 4
+777 1162 512
+1104 1162 4
+767 1163 1179648
+1104 1163 4
+757 1164 1024
+1104 1164 4
+784 1165 49152
+1104 1165 4
+778 1166 96
+1104 1166 4
+770 1167 153600
+1104 1167 4
+758 1168 256
+1104 1168 4
+773 1169 131072
+1104 1169 4
+759 1170 256
+1104 1170 4
+720 1171 229376
+1104 1171 4
+714 1172 448
+1104 1172 4
+740 1173 294912
+1104 1173 4
+735 1174 576
+1104 1174 4
+724 1175 1492992
+1104 1175 4
+715 1176 1152
+1104 1176 4
+744 1177 65536
+1104 1177 4
+736 1178 128
+1104 1178 4
+728 1179 204800
+1104 1179 4
+716 1180 256
+1104 1180 4
+731 1181 131072
+1104 1181 4
+717 1182 256
+1104 1182 4
+677 1183 540672
+1104 1183 4
+670 1184 1024
+1104 1184 4
+698 1185 337920
+1104 1185 4
+693 1186 640
+1104 1186 4
+681 1187 1843200
+1104 1187 4
+671 1188 1280
+1104 1188 4
+702 1189 67584
+1104 1189 4
+694 1190 128
+1104 1190 4
+685 1191 409600
+1104 1191 4
+672 1192 512
+1104 1192 4
+689 1193 270336
+1104 1193 4
+673 1194 512
+1104 1194 4
+634 1195 851968
+1104 1195 4
+627 1196 1024
+1104 1196 4
+653 1197 532480
+1104 1197 4
+648 1198 640
+1104 1198 4
+637 1199 1843200
+1104 1199 4
+628 1200 1280
+1104 1200 4
+657 1201 106496
+1104 1201 4
+649 1202 128
+1104 1202 4
+640 1203 409600
+1104 1203 4
+629 1204 512
+1104 1204 4
+644 1205 425984
+1104 1205 4
+630 1206 512
+1104 1206 4
+591 1207 1277952
+1104 1207 4
+584 1208 1536
+1104 1208 4
+611 1209 638976
+1104 1209 4
+606 1210 768
+1104 1210 4
+595 1211 2654208
+1104 1211 4
+585 1212 1536
+1104 1212 4
+615 1213 159744
+1104 1213 4
+607 1214 192
+1104 1214 4
+599 1215 614400
+1104 1215 4
+586 1216 512
+1104 1216 4
+602 1217 425984
+1104 1217 4
+587 1218 512
+1104 1218 4
+550 1219 4456448
+1104 1219 4
+548 1220 68
+1104 1220 4
+2 1338 37632
+1221 1338 37632
+1337 1338 4
+4 1339 256
+1222 1339 256
+1337 1339 4
+11 1340 16384
+1223 1340 16384
+1337 1340 4
+13 1341 256
+1224 1341 256
+1337 1341 4
+18 1342 442368
+1225 1342 442368
+1337 1342 4
+20 1343 768
+1226 1343 768
+1337 1343 4
+27 1344 49152
+1227 1344 49152
+1337 1344 4
+29 1345 256
+1228 1345 256
+1337 1345 4
+34 1346 73728
+1229 1346 73728
+1337 1346 4
+36 1347 384
+1230 1347 384
+1337 1347 4
+41 1348 442368
+1231 1348 442368
+1337 1348 4
+43 1349 512
+1232 1349 512
+1337 1349 4
+48 1350 12288
+1233 1350 12288
+1337 1350 4
+50 1351 64
+1234 1351 64
+1337 1351 4
+55 1352 51200
+1235 1352 51200
+1337 1352 4
+57 1353 128
+1236 1353 128
+1337 1353 4
+63 1354 24576
+1237 1354 24576
+1337 1354 4
+65 1355 128
+1238 1355 128
+1337 1355 4
+72 1356 131072
+1239 1356 131072
+1337 1356 4
+74 1357 512
+1240 1357 512
+1337 1357 4
+79 1358 131072
+1241 1358 131072
+1337 1358 4
+81 1359 512
+1242 1359 512
+1337 1359 4
+86 1360 884736
+1243 1360 884736
+1337 1360 4
+88 1361 768
+1244 1361 768
+1337 1361 4
+93 1362 32768
+1245 1362 32768
+1337 1362 4
+95 1363 128
+1246 1363 128
+1337 1363 4
+100 1364 307200
+1247 1364 307200
+1337 1364 4
+102 1365 384
+1248 1365 384
+1337 1365 4
+107 1366 65536
+1249 1366 65536
+1337 1366 4
+109 1367 256
+1250 1367 256
+1337 1367 4
+116 1368 368640
+1251 1368 368640
+1337 1368 4
+118 1369 768
+1252 1369 768
+1337 1369 4
+123 1370 184320
+1253 1370 184320
+1337 1370 4
+125 1371 384
+1254 1371 384
+1337 1371 4
+130 1372 718848
+1255 1372 718848
+1337 1372 4
+132 1373 832
+1256 1373 832
+1337 1373 4
+137 1374 30720
+1257 1374 30720
+1337 1374 4
+139 1375 64
+1258 1375 64
+1337 1375 4
+144 1376 76800
+1259 1376 76800
+1337 1376 4
+146 1377 192
+1260 1377 192
+1337 1377 4
+152 1378 122880
+1261 1378 122880
+1337 1378 4
+154 1379 256
+1262 1379 256
+1337 1379 4
+160 1380 327680
+1263 1380 327680
+1337 1380 4
+162 1381 640
+1264 1381 640
+1337 1381 4
+167 1382 229376
+1265 1382 229376
+1337 1382 4
+169 1383 448
+1266 1383 448
+1337 1383 4
+174 1384 903168
+1267 1384 903168
+1337 1384 4
+176 1385 896
+1268 1385 896
+1337 1385 4
+181 1386 49152
+1269 1386 49152
+1337 1386 4
+183 1387 96
+1270 1387 96
+1337 1387 4
+188 1388 153600
+1271 1388 153600
+1337 1388 4
+190 1389 256
+1272 1389 256
+1337 1389 4
+196 1390 131072
+1273 1390 131072
+1337 1390 4
+198 1391 256
+1274 1391 256
+1337 1391 4
+204 1392 262144
+1275 1392 262144
+1337 1392 4
+206 1393 512
+1276 1393 512
+1337 1393 4
+211 1394 262144
+1277 1394 262144
+1337 1394 4
+213 1395 512
+1278 1395 512
+1337 1395 4
+218 1396 1179648
+1279 1396 1179648
+1337 1396 4
+220 1397 1024
+1280 1397 1024
+1337 1397 4
+225 1398 49152
+1281 1398 49152
+1337 1398 4
+227 1399 96
+1282 1399 96
+1337 1399 4
+232 1400 153600
+1283 1400 153600
+1337 1400 4
+234 1401 256
+1284 1401 256
+1337 1401 4
+240 1402 131072
+1285 1402 131072
+1337 1402 4
+242 1403 256
+1286 1403 256
+1337 1403 4
+248 1404 229376
+1287 1404 229376
+1337 1404 4
+250 1405 448
+1288 1405 448
+1337 1405 4
+255 1406 294912
+1289 1406 294912
+1337 1406 4
+257 1407 576
+1290 1407 576
+1337 1407 4
+262 1408 1492992
+1291 1408 1492992
+1337 1408 4
+264 1409 1152
+1292 1409 1152
+1337 1409 4
+269 1410 65536
+1293 1410 65536
+1337 1410 4
+271 1411 128
+1294 1411 128
+1337 1411 4
+276 1412 204800
+1295 1412 204800
+1337 1412 4
+278 1413 256
+1296 1413 256
+1337 1413 4
+284 1414 131072
+1297 1414 131072
+1337 1414 4
+286 1415 256
+1298 1415 256
+1337 1415 4
+292 1416 540672
+1299 1416 540672
+1337 1416 4
+294 1417 1024
+1300 1417 1024
+1337 1417 4
+299 1418 337920
+1301 1418 337920
+1337 1418 4
+301 1419 640
+1302 1419 640
+1337 1419 4
+306 1420 1843200
+1303 1420 1843200
+1337 1420 4
+308 1421 1280
+1304 1421 1280
+1337 1421 4
+313 1422 67584
+1305 1422 67584
+1337 1422 4
+315 1423 128
+1306 1423 128
+1337 1423 4
+320 1424 409600
+1307 1424 409600
+1337 1424 4
+322 1425 512
+1308 1425 512
+1337 1425 4
+328 1426 270336
+1309 1426 270336
+1337 1426 4
+330 1427 512
+1310 1427 512
+1337 1427 4
+337 1428 851968
+1311 1428 851968
+1337 1428 4
+339 1429 1024
+1312 1429 1024
+1337 1429 4
+344 1430 532480
+1313 1430 532480
+1337 1430 4
+346 1431 640
+1314 1431 640
+1337 1431 4
+351 1432 1843200
+1315 1432 1843200
+1337 1432 4
+353 1433 1280
+1316 1433 1280
+1337 1433 4
+358 1434 106496
+1317 1434 106496
+1337 1434 4
+360 1435 128
+1318 1435 128
+1337 1435 4
+365 1436 409600
+1319 1436 409600
+1337 1436 4
+367 1437 512
+1320 1437 512
+1337 1437 4
+373 1438 425984
+1321 1438 425984
+1337 1438 4
+375 1439 512
+1322 1439 512
+1337 1439 4
+381 1440 1277952
+1323 1440 1277952
+1337 1440 4
+383 1441 1536
+1324 1441 1536
+1337 1441 4
+388 1442 638976
+1325 1442 638976
+1337 1442 4
+390 1443 768
+1326 1443 768
+1337 1443 4
+395 1444 2654208
+1327 1444 2654208
+1337 1444 4
+397 1445 1536
+1328 1445 1536
+1337 1445 4
+402 1446 159744
+1329 1446 159744
+1337 1446 4
+404 1447 192
+1330 1447 192
+1337 1447 4
+409 1448 614400
+1331 1448 614400
+1337 1448 4
+411 1449 512
+1332 1449 512
+1337 1449 4
+417 1450 425984
+1333 1450 425984
+1337 1450 4
+419 1451 512
+1334 1451 512
+1337 1451 4
+436 1452 4456448
+1335 1452 4456448
+1337 1452 4
+438 1453 68
+1336 1453 68
+1337 1453 4
+463 1455 4
+1454 1455 4
+1456 1457 8
+3 1457 37632
+1458 1459 8
+5 1459 256
+1460 1461 8
+12 1461 16384
+1462 1463 8
+14 1463 256
+1464 1465 8
+19 1465 442368
+1466 1467 8
+21 1467 768
+1468 1469 8
+28 1469 49152
+1470 1471 8
+30 1471 256
+1472 1473 8
+35 1473 73728
+1474 1475 8
+37 1475 384
+1476 1477 8
+42 1477 442368
+1478 1479 8
+44 1479 512
+1480 1481 8
+49 1481 12288
+1482 1483 8
+51 1483 64
+1484 1485 8
+56 1485 51200
+1486 1487 8
+58 1487 128
+1488 1489 8
+64 1489 24576
+1490 1491 8
+66 1491 128
+1492 1493 8
+73 1493 131072
+1494 1495 8
+75 1495 512
+1496 1497 8
+80 1497 131072
+1498 1499 8
+82 1499 512
+1500 1501 8
+87 1501 884736
+1502 1503 8
+89 1503 768
+1504 1505 8
+94 1505 32768
+1506 1507 8
+96 1507 128
+1508 1509 8
+101 1509 307200
+1510 1511 8
+103 1511 384
+1512 1513 8
+108 1513 65536
+1514 1515 8
+110 1515 256
+1516 1517 8
+117 1517 368640
+1518 1519 8
+119 1519 768
+1520 1521 8
+124 1521 184320
+1522 1523 8
+126 1523 384
+1524 1525 8
+131 1525 718848
+1526 1527 8
+133 1527 832
+1528 1529 8
+138 1529 30720
+1530 1531 8
+140 1531 64
+1532 1533 8
+145 1533 76800
+1534 1535 8
+147 1535 192
+1536 1537 8
+153 1537 122880
+1538 1539 8
+155 1539 256
+1540 1541 8
+161 1541 327680
+1542 1543 8
+163 1543 640
+1544 1545 8
+168 1545 229376
+1546 1547 8
+170 1547 448
+1548 1549 8
+175 1549 903168
+1550 1551 8
+177 1551 896
+1552 1553 8
+182 1553 49152
+1554 1555 8
+184 1555 96
+1556 1557 8
+189 1557 153600
+1558 1559 8
+191 1559 256
+1560 1561 8
+197 1561 131072
+1562 1563 8
+199 1563 256
+1564 1565 8
+205 1565 262144
+1566 1567 8
+207 1567 512
+1568 1569 8
+212 1569 262144
+1570 1571 8
+214 1571 512
+1572 1573 8
+219 1573 1179648
+1574 1575 8
+221 1575 1024
+1576 1577 8
+226 1577 49152
+1578 1579 8
+228 1579 96
+1580 1581 8
+233 1581 153600
+1582 1583 8
+235 1583 256
+1584 1585 8
+241 1585 131072
+1586 1587 8
+243 1587 256
+1588 1589 8
+249 1589 229376
+1590 1591 8
+251 1591 448
+1592 1593 8
+256 1593 294912
+1594 1595 8
+258 1595 576
+1596 1597 8
+263 1597 1492992
+1598 1599 8
+265 1599 1152
+1600 1601 8
+270 1601 65536
+1602 1603 8
+272 1603 128
+1604 1605 8
+277 1605 204800
+1606 1607 8
+279 1607 256
+1608 1609 8
+285 1609 131072
+1610 1611 8
+287 1611 256
+1612 1613 8
+293 1613 540672
+1614 1615 8
+295 1615 1024
+1616 1617 8
+300 1617 337920
+1618 1619 8
+302 1619 640
+1620 1621 8
+307 1621 1843200
+1622 1623 8
+309 1623 1280
+1624 1625 8
+314 1625 67584
+1626 1627 8
+316 1627 128
+1628 1629 8
+321 1629 409600
+1630 1631 8
+323 1631 512
+1632 1633 8
+329 1633 270336
+1634 1635 8
+331 1635 512
+1636 1637 8
+338 1637 851968
+1638 1639 8
+340 1639 1024
+1640 1641 8
+345 1641 532480
+1642 1643 8
+347 1643 640
+1644 1645 8
+352 1645 1843200
+1646 1647 8
+354 1647 1280
+1648 1649 8
+359 1649 106496
+1650 1651 8
+361 1651 128
+1652 1653 8
+366 1653 409600
+1654 1655 8
+368 1655 512
+1656 1657 8
+374 1657 425984
+1658 1659 8
+376 1659 512
+1660 1661 8
+382 1661 1277952
+1662 1663 8
+384 1663 1536
+1664 1665 8
+389 1665 638976
+1666 1667 8
+391 1667 768
+1668 1669 8
+396 1669 2654208
+1670 1671 8
+398 1671 1536
+1672 1673 8
+403 1673 159744
+1674 1675 8
+405 1675 192
+1676 1677 8
+410 1677 614400
+1678 1679 8
+412 1679 512
+1680 1681 8
+418 1681 425984
+1682 1683 8
+420 1683 512
+1684 1685 8
+437 1685 4456448
+1686 1687 8
+439 1687 68
+1688 1689 8
+1690 1691 8
+1692 1693 8
+1694 1695 8
+1696 1697 8
+1698 1699 8
+1700 1701 8
+1702 1703 8
+1704 1705 8
+1706 1707 8
+1708 1709 8
+1710 1711 8
+1712 1713 8
+1714 1715 8
+1716 1717 8
+1718 1719 8
+1720 1721 8
+1722 1723 8
+1724 1725 8
+1726 1727 8
+1728 1729 8
+1730 1731 8
+1732 1733 8
+1734 1735 8
+1736 1737 8
+1738 1739 8
+1740 1741 8
+1742 1743 8
+1744 1745 8
+1746 1747 8
+1748 1749 8
+1750 1751 8
+1752 1753 8
+1754 1755 8
+1756 1757 8
+1758 1759 8
+1760 1761 8
+1762 1763 8
+1764 1765 8
+1766 1767 8
+1768 1769 8
+1770 1771 8
+1772 1773 8
+1774 1775 8
+1776 1777 8
+1778 1779 8
+1780 1781 8
+1782 1783 8
+1784 1785 8
+1786 1787 8
+1788 1789 8
+1790 1791 8
+1792 1793 8
+1794 1795 8
+1796 1797 8
+1798 1799 8
+1800 1801 8
+1802 1803 8
+1804 1805 8
+1806 1807 8
+1808 1809 8
+1810 1811 8
+1812 1813 8
+1814 1815 8
+1816 1817 8
+1818 1819 8
+1820 1821 8
+1822 1823 8
+1824 1825 8
+1826 1827 8
+1828 1829 8
+1830 1831 8
+1832 1833 8
+1834 1835 8
+1836 1837 8
+1838 1839 8
+1840 1841 8
+1842 1843 8
+1844 1845 8
+1846 1847 8
+1848 1849 8
+1850 1851 8
+1852 1853 8
+1854 1855 8
+1856 1857 8
+1858 1859 8
+1860 1861 8
+1862 1863 8
+1864 1865 8
+1866 1867 8
+1868 1869 8
+1870 1871 8
+1872 1873 8
+1874 1875 8
+1876 1877 8
+1878 1879 8
+1880 1881 8
+1882 1883 8
+1884 1885 8
+1886 1887 8
+1888 1889 8
+1890 1891 8
+1892 1893 8
+1894 1895 8
+1896 1897 8
+1898 1899 8
+1900 1901 8
+1902 1903 8
+1904 1905 8
+1906 1907 8
+1908 1909 8
+1910 1911 8
+1912 1913 8
+1914 1915 8
+1916 1917 8
+1918 1919 8

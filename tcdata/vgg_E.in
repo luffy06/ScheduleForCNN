@@ -1,0 +1,1660 @@
+650 1009
+0 is_training VariableV2 4 1
+1 is_training/read Identity 3 1
+2 Conv2D/W VariableV2 2 1
+3 Conv2D/W/read Identity 210 1
+4 Conv2D/b VariableV2 2 1
+5 Conv2D/b/read Identity 1 1
+6 Conv2D/Conv2D Conv2D 72294 1
+7 Conv2D/BiasAdd BiasAdd 35467 1
+8 Conv2D/Relu Relu 35613 1
+9 Conv2D_1/W VariableV2 2 2
+10 Conv2D_1/W/read Identity 1 2
+11 Conv2D_1/b VariableV2 2 2
+12 Conv2D_1/b/read Identity 1 2
+13 Conv2D_1/Conv2D Conv2D 512611 2
+14 Conv2D_1/BiasAdd BiasAdd 35520 2
+15 Conv2D_1/Relu Relu 35746 2
+16 MaxPool2D/MaxPool MaxPool 30086 3
+17 Conv2D_2/W VariableV2 2 4
+18 Conv2D_2/W/read Identity 1 4
+19 Conv2D_2/b VariableV2 2 4
+20 Conv2D_2/b/read Identity 1 4
+21 Conv2D_2/Conv2D Conv2D 211541 4
+22 Conv2D_2/BiasAdd BiasAdd 17725 4
+23 Conv2D_2/Relu Relu 17803 4
+24 Conv2D_3/W VariableV2 2 5
+25 Conv2D_3/W/read Identity 1 5
+26 Conv2D_3/b VariableV2 2 5
+27 Conv2D_3/b/read Identity 1 5
+28 Conv2D_3/Conv2D Conv2D 380649 5
+29 Conv2D_3/BiasAdd BiasAdd 17624 5
+30 Conv2D_3/Relu Relu 17755 5
+31 MaxPool2D_1/MaxPool MaxPool 14668 6
+32 Conv2D_4/W VariableV2 2 7
+33 Conv2D_4/W/read Identity 1 7
+34 Conv2D_4/b VariableV2 2 7
+35 Conv2D_4/b/read Identity 1 7
+36 Conv2D_4/Conv2D Conv2D 172074 7
+37 Conv2D_4/BiasAdd BiasAdd 8797 7
+38 Conv2D_4/Relu Relu 8786 7
+39 Conv2D_5/W VariableV2 2 8
+40 Conv2D_5/W/read Identity 2 8
+41 Conv2D_5/b VariableV2 2 8
+42 Conv2D_5/b/read Identity 1 8
+43 Conv2D_5/Conv2D Conv2D 334186 8
+44 Conv2D_5/BiasAdd BiasAdd 8775 8
+45 Conv2D_5/Relu Relu 8814 8
+46 Conv2D_6/W VariableV2 7 9
+47 Conv2D_6/W/read Identity 26 9
+48 Conv2D_6/b VariableV2 2 9
+49 Conv2D_6/b/read Identity 1 9
+50 Conv2D_6/Conv2D Conv2D 334163 9
+51 Conv2D_6/BiasAdd BiasAdd 8788 9
+52 Conv2D_6/Relu Relu 8780 9
+53 Conv2D_7/W VariableV2 2 10
+54 Conv2D_7/W/read Identity 27 10
+55 Conv2D_7/b VariableV2 3 10
+56 Conv2D_7/b/read Identity 162 10
+57 Conv2D_7/Conv2D Conv2D 334715 10
+58 Conv2D_7/BiasAdd BiasAdd 8770 10
+59 Conv2D_7/Relu Relu 8838 10
+60 MaxPool2D_2/MaxPool MaxPool 6605 11
+61 Conv2D_8/W VariableV2 2 12
+62 Conv2D_8/W/read Identity 180 12
+63 Conv2D_8/b VariableV2 6 12
+64 Conv2D_8/b/read Identity 178 12
+65 Conv2D_8/Conv2D Conv2D 159516 12
+66 Conv2D_8/BiasAdd BiasAdd 4325 12
+67 Conv2D_8/Relu Relu 4243 12
+68 Conv2D_9/W VariableV2 8 13
+69 Conv2D_9/W/read Identity 2 13
+70 Conv2D_9/b VariableV2 5 13
+71 Conv2D_9/b/read Identity 2 13
+72 Conv2D_9/Conv2D Conv2D 311392 13
+73 Conv2D_9/BiasAdd BiasAdd 4167 13
+74 Conv2D_9/Relu Relu 4196 13
+75 Conv2D_10/W VariableV2 3 14
+76 Conv2D_10/W/read Identity 2 14
+77 Conv2D_10/b VariableV2 3 14
+78 Conv2D_10/b/read Identity 2 14
+79 Conv2D_10/Conv2D Conv2D 313535 14
+80 Conv2D_10/BiasAdd BiasAdd 4201 14
+81 Conv2D_10/Relu Relu 4173 14
+82 Conv2D_11/W VariableV2 2 15
+83 Conv2D_11/W/read Identity 15 15
+84 Conv2D_11/b VariableV2 16 15
+85 Conv2D_11/b/read Identity 2 15
+86 Conv2D_11/Conv2D Conv2D 312186 15
+87 Conv2D_11/BiasAdd BiasAdd 4298 15
+88 Conv2D_11/Relu Relu 4251 15
+89 MaxPool2D_3/MaxPool MaxPool 3106 16
+90 Conv2D_12/W VariableV2 3 17
+91 Conv2D_12/W/read Identity 2 17
+92 Conv2D_12/b VariableV2 1 17
+93 Conv2D_12/b/read Identity 2 17
+94 Conv2D_12/Conv2D Conv2D 80063 17
+95 Conv2D_12/BiasAdd BiasAdd 699 17
+96 Conv2D_12/Relu Relu 499 17
+97 Conv2D_13/W VariableV2 3 18
+98 Conv2D_13/W/read Identity 2 18
+99 Conv2D_13/b VariableV2 2 18
+100 Conv2D_13/b/read Identity 14 18
+101 Conv2D_13/Conv2D Conv2D 80848 18
+102 Conv2D_13/BiasAdd BiasAdd 685 18
+103 Conv2D_13/Relu Relu 538 18
+104 Conv2D_14/W VariableV2 15 19
+105 Conv2D_14/W/read Identity 2 19
+106 Conv2D_14/b VariableV2 2 19
+107 Conv2D_14/b/read Identity 1 19
+108 Conv2D_14/Conv2D Conv2D 80170 19
+109 Conv2D_14/BiasAdd BiasAdd 612 19
+110 Conv2D_14/Relu Relu 491 19
+111 Conv2D_15/W VariableV2 3 20
+112 Conv2D_15/W/read Identity 17 20
+113 Conv2D_15/b VariableV2 3 20
+114 Conv2D_15/b/read Identity 16 20
+115 Conv2D_15/Conv2D Conv2D 80823 20
+116 Conv2D_15/BiasAdd BiasAdd 582 20
+117 Conv2D_15/Relu Relu 490 20
+118 MaxPool2D_4/MaxPool MaxPool 524 21
+119 FullyConnected/W VariableV2 2 22
+120 FullyConnected/W/read Identity 1 22
+121 FullyConnected/b VariableV2 4 22
+122 FullyConnected/b/read Identity 2 22
+123 FullyConnected/Reshape/shape Const 2 22
+124 FullyConnected/Reshape Reshape 4 22
+125 FullyConnected/MatMul MatMul 73776 22
+126 FullyConnected/BiasAdd BiasAdd 31 22
+127 FullyConnected/Relu Relu 18 22
+128 Dropout/cond/Switch Switch 2 23
+129 Dropout/cond/switch_t Identity 2 23
+130 Dropout/cond/dropout/Shape Shape 5 23
+131 Dropout/cond/dropout/random_uniform/RandomUniform RandomUniform 141 23
+132 Dropout/cond/dropout/add Add 25 23
+133 Dropout/cond/dropout/Floor Floor 13 23
+134 Dropout/cond/dropout/mul Mul 50 23
+135 Dropout/cond/Switch_1 Switch 4 23
+136 Dropout/cond/Merge Merge 3 23
+137 FullyConnected_1/W VariableV2 98 24
+138 FullyConnected_1/W/read Identity 9 24
+139 FullyConnected_1/b VariableV2 5 24
+140 FullyConnected_1/b/read Identity 2 24
+141 FullyConnected_1/MatMul MatMul 11445 24
+142 FullyConnected_1/BiasAdd BiasAdd 28 24
+143 FullyConnected_1/Relu Relu 17 24
+144 Dropout_1/cond/dropout/Shape Shape 4 25
+145 Dropout_1/cond/dropout/random_uniform/RandomUniform RandomUniform 133 25
+146 Dropout_1/cond/dropout/add Add 26 25
+147 Dropout_1/cond/dropout/Floor Floor 14 25
+148 Dropout_1/cond/dropout/mul Mul 53 25
+149 Dropout_1/cond/Switch_1 Switch 3 25
+150 Dropout_1/cond/Merge Merge 3 25
+151 FullyConnected_2/W VariableV2 6 26
+152 FullyConnected_2/W/read Identity 2 26
+153 FullyConnected_2/b VariableV2 2 26
+154 FullyConnected_2/b/read Identity 2 26
+155 FullyConnected_2/MatMul MatMul 1510 26
+156 FullyConnected_2/BiasAdd BiasAdd 15 26
+157 FullyConnected_2/Relu Relu 5 26
+158 Dropout_2/cond/dropout/keep_prob Const 1 27
+159 Dropout_2/cond/dropout/Shape Shape 3 27
+160 Dropout_2/cond/dropout/random_uniform/RandomUniform RandomUniform 50 27
+161 Dropout_2/cond/dropout/add Add 9 27
+162 Dropout_2/cond/dropout/Floor Floor 4 27
+163 Dropout_2/cond/dropout/mul Mul 31 27
+164 Dropout_2/cond/Switch_1 Switch 3 27
+165 Dropout_2/cond/Merge Merge 3 27
+166 FullyConnected_3/W VariableV2 2 28
+167 FullyConnected_3/W/read Identity 2 28
+168 FullyConnected_3/b VariableV2 3 28
+169 FullyConnected_3/b/read Identity 2 28
+170 FullyConnected_3/MatMul MatMul 33 28
+171 FullyConnected_3/BiasAdd BiasAdd 3 28
+172 FullyConnected_3/Softmax Softmax 15 28
+173 Accuracy/ArgMax ArgMax 5 29
+174 Accuracy/ArgMax_1 ArgMax 8 29
+175 Accuracy/Equal Equal 5 29
+176 Accuracy/Cast Cast 3 29
+177 Accuracy/Mean Mean 4 29
+178 Crossentropy/Sum/reduction_indices Const 2 29
+179 Crossentropy/Sum Sum 8 29
+180 Crossentropy/truediv RealDiv 27 29
+181 Crossentropy/Cast_1/x Const 2 29
+182 Crossentropy/clip_by_value/Minimum Minimum 5 29
+183 Crossentropy/clip_by_value Maximum 3 29
+184 Crossentropy/Log Log 3 29
+185 Crossentropy/mul Mul 5 29
+186 Crossentropy/Sum_1 Sum 3 29
+187 Crossentropy/Neg Neg 3 29
+188 Crossentropy/Const Const 2 29
+189 Crossentropy/Mean Mean 2 29
+190 Training_step VariableV2 2 1
+191 Training_step/read Identity 1 1
+192 Accuracy/Mean/moving_avg VariableV2 186 29
+193 Accuracy/Mean/moving_avg/read Identity 2 29
+194 moving_avg/AssignMovingAvg/sub/x Const 2 30
+195 moving_avg/AssignMovingAvg/sub Sub 4 30
+196 moving_avg/AssignMovingAvg/sub_1 Sub 8 30
+197 moving_avg/AssignMovingAvg/mul Mul 3 30
+198 moving_avg/AssignMovingAvg AssignSub 4 30
+199 Crossentropy/Mean/moving_avg VariableV2 2 29
+200 Crossentropy/Mean/moving_avg/read Identity 96 29
+201 RMSProp/moving_avg/add Add 6 30
+202 RMSProp/moving_avg/add_1/x Const 2 30
+203 RMSProp/moving_avg/add_1 Add 5 30
+204 RMSProp/moving_avg/truediv RealDiv 4 30
+205 RMSProp/moving_avg/Minimum Minimum 28 30
+206 RMSProp/moving_avg/AssignMovingAvg/sub/x Const 2 30
+207 RMSProp/moving_avg/AssignMovingAvg/sub Sub 5 30
+208 RMSProp/moving_avg/AssignMovingAvg/sub_1 Sub 3 30
+209 RMSProp/moving_avg/AssignMovingAvg/mul Mul 4 30
+210 RMSProp/moving_avg/AssignMovingAvg AssignSub 5 30
+211 Loss/tags Const 5 30
+212 Loss ScalarSummary 8 30
+213 RMSProp/Loss/raw/tags Const 9 30
+214 RMSProp/Loss/raw ScalarSummary 3 30
+215 RMSProp/gradients/Crossentropy/Mean_grad/Shape Shape 2 30
+216 RMSProp/gradients/Crossentropy/Mean_grad/Tile Tile 5 30
+217 RMSProp/gradients/Crossentropy/Mean_grad/Const Const 3 30
+218 RMSProp/gradients/Crossentropy/Mean_grad/Prod Prod 6 30
+219 RMSProp/gradients/Crossentropy/Mean_grad/Cast Cast 4 30
+220 RMSProp/gradients/Crossentropy/Mean_grad/truediv RealDiv 3 30
+221 RMSProp/gradients/Crossentropy/Neg_grad/Neg Neg 2 30
+222 RMSProp/gradients/Crossentropy/Sum_1_grad/Shape Shape 4 30
+223 RMSProp/gradients/Crossentropy/Sum_1_grad/DynamicStitch DynamicStitch 5 30
+224 RMSProp/gradients/Crossentropy/Sum_1_grad/Maximum/y Const 2 30
+225 RMSProp/gradients/Crossentropy/Sum_1_grad/Maximum Maximum 3 30
+226 RMSProp/gradients/Crossentropy/Sum_1_grad/floordiv FloorDiv 2 30
+227 RMSProp/gradients/Crossentropy/Sum_1_grad/Reshape Reshape 2 30
+228 RMSProp/gradients/Crossentropy/Sum_1_grad/Tile Tile 20 30
+229 RMSProp/gradients/Crossentropy/mul_grad/Shape Shape 2 30
+230 RMSProp/gradients/Crossentropy/mul_grad/Shape_1 Shape 2 30
+231 RMSProp/gradients/Crossentropy/mul_grad/BroadcastGradientArgs BroadcastGradientArgs 2 30
+232 RMSProp/gradients/Crossentropy/mul_grad/Mul_1 Mul 2 30
+233 RMSProp/gradients/Crossentropy/mul_grad/Sum_1 Sum 4 30
+234 RMSProp/gradients/Crossentropy/mul_grad/Reshape_1 Reshape 3 30
+235 RMSProp/gradients/Crossentropy/Log_grad/Reciprocal Reciprocal 3 30
+236 RMSProp/gradients/Crossentropy/Log_grad/mul Mul 4 30
+237 RMSProp/gradients/Crossentropy/clip_by_value_grad/Shape Shape 2 30
+238 RMSProp/gradients/Crossentropy/clip_by_value_grad/Shape_2 Shape 3 30
+239 RMSProp/gradients/Crossentropy/clip_by_value_grad/zeros Fill 3 30
+240 RMSProp/gradients/Crossentropy/clip_by_value_grad/GreaterEqual GreaterEqual 9 30
+241 RMSProp/gradients/Crossentropy/clip_by_value_grad/BroadcastGradientArgs BroadcastGradientArgs 8 30
+242 RMSProp/gradients/Crossentropy/clip_by_value_grad/Select Select 6 30
+243 RMSProp/gradients/Crossentropy/clip_by_value_grad/Sum Sum 2 30
+244 RMSProp/gradients/Crossentropy/clip_by_value_grad/Reshape Reshape 2 30
+245 RMSProp/gradients/Crossentropy/clip_by_value/Minimum_grad/Shape Shape 2 30
+246 RMSProp/gradients/Crossentropy/clip_by_value/Minimum_grad/Shape_2 Shape 3 30
+247 RMSProp/gradients/Crossentropy/clip_by_value/Minimum_grad/zeros Fill 3 30
+248 RMSProp/gradients/Crossentropy/clip_by_value/Minimum_grad/LessEqual LessEqual 8 30
+249 RMSProp/gradients/Crossentropy/clip_by_value/Minimum_grad/BroadcastGradientArgs BroadcastGradientArgs 2 30
+250 RMSProp/gradients/Crossentropy/clip_by_value/Minimum_grad/Select Select 4 30
+251 RMSProp/gradients/Crossentropy/clip_by_value/Minimum_grad/Sum Sum 2 30
+252 RMSProp/gradients/Crossentropy/clip_by_value/Minimum_grad/Reshape Reshape 2 30
+253 RMSProp/gradients/Crossentropy/truediv_grad/Shape Shape 3 30
+254 RMSProp/gradients/Crossentropy/truediv_grad/RealDiv RealDiv 24 30
+255 RMSProp/gradients/Crossentropy/truediv_grad/Neg Neg 7 30
+256 RMSProp/gradients/Crossentropy/truediv_grad/RealDiv_1 RealDiv 20 30
+257 RMSProp/gradients/Crossentropy/truediv_grad/RealDiv_2 RealDiv 18 30
+258 RMSProp/gradients/Crossentropy/truediv_grad/mul Mul 3 30
+259 RMSProp/gradients/Crossentropy/truediv_grad/Sum_1 Sum 5 30
+260 RMSProp/gradients/Crossentropy/Sum_grad/DynamicStitch DynamicStitch 5 30
+261 RMSProp/gradients/Crossentropy/Sum_grad/Maximum/y Const 1 30
+262 RMSProp/gradients/Crossentropy/Sum_grad/Maximum Maximum 4 30
+263 RMSProp/gradients/Crossentropy/Sum_grad/floordiv FloorDiv 4 30
+264 RMSProp/gradients/Crossentropy/Sum_grad/Reshape Reshape 2 30
+265 RMSProp/gradients/Crossentropy/Sum_grad/Tile Tile 19 30
+266 RMSProp/gradients/AddN AddN 4 30
+267 RMSProp/gradients/FullyConnected_3/Softmax_grad/mul Mul 3 30
+268 RMSProp/gradients/FullyConnected_3/Softmax_grad/Sum/reduction_indices Const 2 30
+269 RMSProp/gradients/FullyConnected_3/Softmax_grad/Sum Sum 3 30
+270 RMSProp/gradients/FullyConnected_3/Softmax_grad/Reshape/shape Const 2 30
+271 RMSProp/gradients/FullyConnected_3/Softmax_grad/Reshape Reshape 2 30
+272 RMSProp/gradients/FullyConnected_3/Softmax_grad/sub Sub 8 30
+273 RMSProp/gradients/FullyConnected_3/Softmax_grad/mul_1 Mul 2 30
+274 RMSProp/gradients/FullyConnected_3/BiasAdd_grad/BiasAddGrad BiasAddGrad 4 30
+275 RMSProp/gradients/FullyConnected_3/MatMul_grad/MatMul MatMul 76 30
+276 RMSProp/gradients/FullyConnected_3/MatMul_grad/MatMul_1 MatMul 76 30
+277 RMSProp/gradients/Dropout_2/cond/Merge_grad/cond_grad Switch 2 30
+278 RMSProp/gradients/Switch Switch 2 30
+279 RMSProp/gradients/Shape_1 Shape 1 30
+280 RMSProp/gradients/zeros Fill 35 30
+281 RMSProp/gradients/Dropout_2/cond/Switch_1_grad/cond_grad Merge 3 30
+282 RMSProp/gradients/Dropout_2/cond/dropout/mul_grad/Shape Shape 2 30
+283 RMSProp/gradients/Dropout_2/cond/dropout/mul_grad/Shape_1 Shape 5 30
+284 RMSProp/gradients/Dropout_2/cond/dropout/mul_grad/BroadcastGradientArgs BroadcastGradientArgs 4 30
+285 RMSProp/gradients/Dropout_2/cond/dropout/mul_grad/Mul Mul 8 30
+286 RMSProp/gradients/Dropout_2/cond/dropout/mul_grad/Sum Sum 1 30
+287 RMSProp/gradients/Dropout_2/cond/dropout/mul_grad/Reshape Reshape 1 30
+288 RMSProp/gradients/Dropout_2/cond/dropout/div_grad/Shape Shape 2 30
+289 RMSProp/gradients/Dropout_2/cond/dropout/div_grad/BroadcastGradientArgs BroadcastGradientArgs 3 30
+290 RMSProp/gradients/Dropout_2/cond/dropout/div_grad/Sum Sum 2 30
+291 RMSProp/gradients/Dropout_2/cond/dropout/div_grad/Reshape Reshape 1 30
+292 RMSProp/gradients/Dropout_2/cond/dropout/Shape/Switch_grad/cond_grad Merge 2 30
+293 RMSProp/gradients/AddN_1 AddN 10 30
+294 RMSProp/gradients/FullyConnected_2/Relu_grad/ReluGrad ReluGrad 41 30
+295 RMSProp/gradients/FullyConnected_2/BiasAdd_grad/BiasAddGrad BiasAddGrad 38 30
+296 RMSProp/gradients/FullyConnected_2/MatMul_grad/MatMul MatMul 4506 30
+297 RMSProp/gradients/FullyConnected_2/MatMul_grad/MatMul_1 MatMul 2523 30
+298 RMSProp/gradients/Dropout_1/cond/Merge_grad/cond_grad Switch 4 30
+299 RMSProp/gradients/Switch_2 Switch 1 30
+300 RMSProp/gradients/Shape_3 Shape 2 30
+301 RMSProp/gradients/zeros_2 Fill 119 30
+302 RMSProp/gradients/Dropout_1/cond/Switch_1_grad/cond_grad Merge 3 30
+303 RMSProp/gradients/Dropout_1/cond/dropout/mul_grad/Shape Shape 2 30
+304 RMSProp/gradients/Dropout_1/cond/dropout/mul_grad/Shape_1 Shape 2 30
+305 RMSProp/gradients/Dropout_1/cond/dropout/mul_grad/BroadcastGradientArgs BroadcastGradientArgs 2 30
+306 RMSProp/gradients/Dropout_1/cond/dropout/mul_grad/Mul Mul 135 30
+307 RMSProp/gradients/Dropout_1/cond/dropout/mul_grad/Sum Sum 4 30
+308 RMSProp/gradients/Dropout_1/cond/dropout/mul_grad/Reshape Reshape 4 30
+309 RMSProp/gradients/Dropout_1/cond/dropout/div_grad/Shape Shape 3 30
+310 RMSProp/gradients/Dropout_1/cond/dropout/div_grad/BroadcastGradientArgs BroadcastGradientArgs 8 30
+311 RMSProp/gradients/Dropout_1/cond/dropout/div_grad/Sum Sum 2 30
+312 RMSProp/gradients/Dropout_1/cond/dropout/div_grad/Reshape Reshape 1 30
+313 RMSProp/gradients/Dropout_1/cond/dropout/Shape/Switch_grad/cond_grad Merge 4 30
+314 RMSProp/gradients/AddN_2 AddN 102 30
+315 RMSProp/gradients/FullyConnected_1/Relu_grad/ReluGrad ReluGrad 158 30
+316 RMSProp/gradients/FullyConnected_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 263 30
+317 RMSProp/gradients/FullyConnected_1/MatMul_grad/MatMul MatMul 25095 30
+318 RMSProp/gradients/FullyConnected_1/MatMul_grad/MatMul_1 MatMul 15865 30
+319 RMSProp/gradients/Dropout/cond/Merge_grad/cond_grad Switch 4 30
+320 RMSProp/gradients/Switch_4 Switch 2 30
+321 RMSProp/gradients/Shape_5 Shape 3 30
+322 RMSProp/gradients/zeros_4/Const Const 2 30
+323 RMSProp/gradients/zeros_4 Fill 139 30
+324 RMSProp/gradients/Dropout/cond/Switch_1_grad/cond_grad Merge 4 30
+325 RMSProp/gradients/Dropout/cond/dropout/mul_grad/Shape Shape 2 30
+326 RMSProp/gradients/Dropout/cond/dropout/mul_grad/Shape_1 Shape 2 30
+327 RMSProp/gradients/Dropout/cond/dropout/mul_grad/BroadcastGradientArgs BroadcastGradientArgs 3 30
+328 RMSProp/gradients/Dropout/cond/dropout/mul_grad/Mul Mul 63 30
+329 RMSProp/gradients/Dropout/cond/dropout/mul_grad/Sum Sum 4 30
+330 RMSProp/gradients/Dropout/cond/dropout/mul_grad/Reshape Reshape 3 30
+331 RMSProp/gradients/Dropout/cond/dropout/div_grad/Shape Shape 2 30
+332 RMSProp/gradients/Dropout/cond/dropout/div_grad/Shape_1 Const 2 30
+333 RMSProp/gradients/Dropout/cond/dropout/div_grad/BroadcastGradientArgs BroadcastGradientArgs 3 30
+334 RMSProp/gradients/Dropout/cond/dropout/div_grad/Sum Sum 2 30
+335 RMSProp/gradients/Dropout/cond/dropout/div_grad/Reshape Reshape 2 30
+336 RMSProp/gradients/Dropout/cond/dropout/Shape/Switch_grad/cond_grad Merge 3 30
+337 RMSProp/gradients/AddN_3 AddN 60 30
+338 RMSProp/gradients/FullyConnected/Relu_grad/ReluGrad ReluGrad 136 30
+339 RMSProp/gradients/FullyConnected/BiasAdd_grad/BiasAddGrad BiasAddGrad 264 30
+340 RMSProp/gradients/FullyConnected/MatMul_grad/MatMul MatMul 169517 30
+341 RMSProp/gradients/FullyConnected/MatMul_grad/MatMul_1 MatMul 84876 30
+342 RMSProp/gradients/FullyConnected/Reshape_grad/Shape Shape 1 30
+343 RMSProp/gradients/FullyConnected/Reshape_grad/Reshape Reshape 6 30
+344 RMSProp/gradients/MaxPool2D_4/MaxPool_grad/MaxPoolGrad MaxPoolGrad 2165 30
+345 RMSProp/gradients/Conv2D_15/Relu_grad/ReluGrad ReluGrad 1382 30
+346 RMSProp/gradients/Conv2D_15/BiasAdd_grad/BiasAddGrad BiasAddGrad 10676 30
+347 RMSProp/gradients/Conv2D_15/Conv2D_grad/ShapeN ShapeN 2 30
+348 RMSProp/gradients/Conv2D_15/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 223120 30
+349 RMSProp/gradients/Conv2D_15/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 146892 30
+350 RMSProp/gradients/Conv2D_14/Relu_grad/ReluGrad ReluGrad 1704 30
+351 RMSProp/gradients/Conv2D_14/BiasAdd_grad/BiasAddGrad BiasAddGrad 11523 30
+352 RMSProp/gradients/Conv2D_14/Conv2D_grad/ShapeN ShapeN 3 30
+353 RMSProp/gradients/Conv2D_14/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 220839 30
+354 RMSProp/gradients/Conv2D_14/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 147933 30
+355 RMSProp/gradients/Conv2D_13/Relu_grad/ReluGrad ReluGrad 1760 30
+356 RMSProp/gradients/Conv2D_13/BiasAdd_grad/BiasAddGrad BiasAddGrad 10818 30
+357 RMSProp/gradients/Conv2D_13/Conv2D_grad/ShapeN ShapeN 2 30
+358 RMSProp/gradients/Conv2D_13/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 221114 30
+359 RMSProp/gradients/Conv2D_13/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 149048 30
+360 RMSProp/gradients/Conv2D_12/Relu_grad/ReluGrad ReluGrad 1705 30
+361 RMSProp/gradients/Conv2D_12/BiasAdd_grad/BiasAddGrad BiasAddGrad 11892 30
+362 RMSProp/gradients/Conv2D_12/Conv2D_grad/ShapeN ShapeN 2 30
+363 RMSProp/gradients/Conv2D_12/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 220098 30
+364 RMSProp/gradients/Conv2D_12/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 153952 30
+365 RMSProp/gradients/MaxPool2D_3/MaxPool_grad/MaxPoolGrad MaxPoolGrad 15263 30
+366 RMSProp/gradients/Conv2D_11/Relu_grad/ReluGrad ReluGrad 6476 30
+367 RMSProp/gradients/Conv2D_11/BiasAdd_grad/BiasAddGrad BiasAddGrad 60115 30
+368 RMSProp/gradients/Conv2D_11/Conv2D_grad/ShapeN ShapeN 3 30
+369 RMSProp/gradients/Conv2D_11/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 728775 30
+370 RMSProp/gradients/Conv2D_11/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 709085 30
+371 RMSProp/gradients/Conv2D_10/Relu_grad/ReluGrad ReluGrad 6736 30
+372 RMSProp/gradients/Conv2D_10/BiasAdd_grad/BiasAddGrad BiasAddGrad 64956 30
+373 RMSProp/gradients/Conv2D_10/Conv2D_grad/ShapeN ShapeN 2 30
+374 RMSProp/gradients/Conv2D_10/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 738163 30
+375 RMSProp/gradients/Conv2D_10/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 709812 30
+376 RMSProp/gradients/Conv2D_9/Relu_grad/ReluGrad ReluGrad 6719 30
+377 RMSProp/gradients/Conv2D_9/BiasAdd_grad/BiasAddGrad BiasAddGrad 60481 30
+378 RMSProp/gradients/Conv2D_9/Conv2D_grad/ShapeN ShapeN 3 30
+379 RMSProp/gradients/Conv2D_9/Conv2D_grad/Const Const 1 30
+380 RMSProp/gradients/Conv2D_9/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 742922 30
+381 RMSProp/gradients/Conv2D_9/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 710466 30
+382 RMSProp/gradients/Conv2D_8/Relu_grad/ReluGrad ReluGrad 6746 30
+383 RMSProp/gradients/Conv2D_8/BiasAdd_grad/BiasAddGrad BiasAddGrad 57457 30
+384 RMSProp/gradients/Conv2D_8/Conv2D_grad/ShapeN ShapeN 3 30
+385 RMSProp/gradients/Conv2D_8/Conv2D_grad/Const Const 2 30
+386 RMSProp/gradients/Conv2D_8/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 397060 30
+387 RMSProp/gradients/Conv2D_8/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 375953 30
+388 RMSProp/gradients/MaxPool2D_2/MaxPool_grad/MaxPoolGrad MaxPoolGrad 33934 30
+389 RMSProp/gradients/Conv2D_7/Relu_grad/ReluGrad ReluGrad 13518 30
+390 RMSProp/gradients/Conv2D_7/BiasAdd_grad/BiasAddGrad BiasAddGrad 100176 30
+391 RMSProp/gradients/Conv2D_7/Conv2D_grad/ShapeN ShapeN 3 30
+392 RMSProp/gradients/Conv2D_7/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 698390 30
+393 RMSProp/gradients/Conv2D_7/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 1277778 30
+394 RMSProp/gradients/Conv2D_6/Relu_grad/ReluGrad ReluGrad 14509 30
+395 RMSProp/gradients/Conv2D_6/BiasAdd_grad/BiasAddGrad BiasAddGrad 101340 30
+396 RMSProp/gradients/Conv2D_6/Conv2D_grad/ShapeN ShapeN 3 30
+397 RMSProp/gradients/Conv2D_6/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 791032 30
+398 RMSProp/gradients/Conv2D_6/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 1357809 30
+399 RMSProp/gradients/Conv2D_5/Relu_grad/ReluGrad ReluGrad 16978 30
+400 RMSProp/gradients/Conv2D_5/BiasAdd_grad/BiasAddGrad BiasAddGrad 105058 30
+401 RMSProp/gradients/Conv2D_5/Conv2D_grad/ShapeN ShapeN 3 30
+402 RMSProp/gradients/Conv2D_5/Conv2D_grad/Const Const 2 30
+403 RMSProp/gradients/Conv2D_5/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 796938 30
+404 RMSProp/gradients/Conv2D_5/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 1424062 30
+405 RMSProp/gradients/Conv2D_4/Relu_grad/ReluGrad ReluGrad 15015 30
+406 RMSProp/gradients/Conv2D_4/BiasAdd_grad/BiasAddGrad BiasAddGrad 114989 30
+407 RMSProp/gradients/Conv2D_4/Conv2D_grad/ShapeN ShapeN 3 30
+408 RMSProp/gradients/Conv2D_4/Conv2D_grad/Const Const 2 30
+409 RMSProp/gradients/Conv2D_4/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 511447 30
+410 RMSProp/gradients/Conv2D_4/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 914420 30
+411 RMSProp/gradients/MaxPool2D_1/MaxPool_grad/MaxPoolGrad MaxPoolGrad 87928 30
+412 RMSProp/gradients/Conv2D_3/Relu_grad/ReluGrad ReluGrad 34888 30
+413 RMSProp/gradients/Conv2D_3/BiasAdd_grad/BiasAddGrad BiasAddGrad 190807 30
+414 RMSProp/gradients/Conv2D_3/Conv2D_grad/ShapeN ShapeN 3 30
+415 RMSProp/gradients/Conv2D_3/Conv2D_grad/Const Const 2 30
+416 RMSProp/gradients/Conv2D_3/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 972742 30
+417 RMSProp/gradients/Conv2D_3/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 1453456 30
+418 RMSProp/gradients/Conv2D_2/Relu_grad/ReluGrad ReluGrad 27808 30
+419 RMSProp/gradients/Conv2D_2/BiasAdd_grad/BiasAddGrad BiasAddGrad 198032 30
+420 RMSProp/gradients/Conv2D_2/Conv2D_grad/ShapeN ShapeN 2 30
+421 RMSProp/gradients/Conv2D_2/Conv2D_grad/Const Const 2 30
+422 RMSProp/gradients/Conv2D_2/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 608810 30
+423 RMSProp/gradients/Conv2D_2/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 1113561 30
+424 RMSProp/gradients/MaxPool2D/MaxPool_grad/MaxPoolGrad MaxPoolGrad 158470 30
+425 RMSProp/gradients/Conv2D_1/Relu_grad/ReluGrad ReluGrad 71103 30
+426 RMSProp/gradients/Conv2D_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 333724 30
+427 RMSProp/gradients/Conv2D_1/Conv2D_grad/ShapeN ShapeN 3 30
+428 RMSProp/gradients/Conv2D_1/Conv2D_grad/Const Const 2 30
+429 RMSProp/gradients/Conv2D_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 1488130 30
+430 RMSProp/gradients/Conv2D_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 1473906 30
+431 RMSProp/gradients/Conv2D/Relu_grad/ReluGrad ReluGrad 64606 30
+432 RMSProp/gradients/Conv2D/BiasAdd_grad/BiasAddGrad BiasAddGrad 198634 30
+433 RMSProp/gradients/Conv2D/Conv2D_grad/Const Const 2 30
+434 RMSProp/gradients/Conv2D/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 325865 30
+435 RMSProp/global_norm/L2Loss L2Loss 11 30
+436 RMSProp/global_norm/L2Loss_1 L2Loss 21 30
+437 RMSProp/global_norm/L2Loss_2 L2Loss 16 30
+438 RMSProp/global_norm/L2Loss_3 L2Loss 35 30
+439 RMSProp/global_norm/L2Loss_4 L2Loss 213 30
+440 RMSProp/global_norm/L2Loss_5 L2Loss 13 30
+441 RMSProp/global_norm/L2Loss_6 L2Loss 97 30
+442 RMSProp/global_norm/L2Loss_7 L2Loss 38 30
+443 RMSProp/global_norm/L2Loss_8 L2Loss 116 30
+444 RMSProp/global_norm/L2Loss_9 L2Loss 10 30
+445 RMSProp/global_norm/L2Loss_10 L2Loss 3080 30
+446 RMSProp/global_norm/L2Loss_11 L2Loss 17 30
+447 RMSProp/global_norm/L2Loss_12 L2Loss 1878 30
+448 RMSProp/global_norm/L2Loss_13 L2Loss 25 30
+449 RMSProp/global_norm/L2Loss_14 L2Loss 6264 30
+450 RMSProp/global_norm/L2Loss_15 L2Loss 9 30
+451 RMSProp/global_norm/L2Loss_16 L2Loss 361 30
+452 RMSProp/global_norm/L2Loss_17 L2Loss 10 30
+453 RMSProp/global_norm/L2Loss_18 L2Loss 523 30
+454 RMSProp/global_norm/L2Loss_19 L2Loss 11 30
+455 RMSProp/global_norm/L2Loss_20 L2Loss 529 30
+456 RMSProp/global_norm/L2Loss_21 L2Loss 10 30
+457 RMSProp/global_norm/L2Loss_22 L2Loss 2034 30
+458 RMSProp/global_norm/L2Loss_23 L2Loss 19 30
+459 RMSProp/global_norm/L2Loss_24 L2Loss 1312 30
+460 RMSProp/global_norm/L2Loss_25 L2Loss 12 30
+461 RMSProp/global_norm/L2Loss_26 L2Loss 1789 30
+462 RMSProp/global_norm/L2Loss_27 L2Loss 11 30
+463 RMSProp/global_norm/L2Loss_28 L2Loss 470 30
+464 RMSProp/global_norm/L2Loss_29 L2Loss 39 30
+465 RMSProp/global_norm/L2Loss_30 L2Loss 782 30
+466 RMSProp/global_norm/L2Loss_31 L2Loss 9 30
+467 RMSProp/global_norm/L2Loss_32 L2Loss 37421 30
+468 RMSProp/global_norm/L2Loss_33 L2Loss 5 30
+469 RMSProp/global_norm/L2Loss_34 L2Loss 5078 30
+470 RMSProp/global_norm/L2Loss_35 L2Loss 4 30
+471 RMSProp/global_norm/L2Loss_36 L2Loss 1472 30
+472 RMSProp/global_norm/L2Loss_37 L2Loss 3 30
+473 RMSProp/global_norm/L2Loss_38 L2Loss 4 30
+474 RMSProp/global_norm/L2Loss_39 L2Loss 3 30
+475 RMSProp/global_norm/stack Pack 32 30
+476 RMSProp/global_norm/Sum Sum 6 30
+477 RMSProp/global_norm/Const_1 Const 3 30
+478 RMSProp/global_norm/mul Mul 5 30
+479 RMSProp/global_norm/global_norm Sqrt 1 30
+480 RMSProp/clip_by_global_norm/Minimum Minimum 2 30
+481 RMSProp/clip_by_global_norm/mul/x Const 2 30
+482 RMSProp/clip_by_global_norm/mul Mul 4 30
+483 RMSProp/clip_by_global_norm/mul_1 Mul 26 30
+484 RMSProp/clip_by_global_norm/mul_2 Mul 18 30
+485 RMSProp/clip_by_global_norm/mul_3 Mul 188 30
+486 RMSProp/clip_by_global_norm/mul_4 Mul 18 30
+487 RMSProp/clip_by_global_norm/mul_5 Mul 379 30
+488 RMSProp/clip_by_global_norm/mul_6 Mul 17 30
+489 RMSProp/clip_by_global_norm/mul_7 Mul 1163 30
+490 RMSProp/clip_by_global_norm/mul_8 Mul 13 30
+491 RMSProp/clip_by_global_norm/mul_9 Mul 1427 30
+492 RMSProp/clip_by_global_norm/mul_10 Mul 24 30
+493 RMSProp/clip_by_global_norm/mul_11 Mul 16888 30
+494 RMSProp/clip_by_global_norm/mul_12 Mul 11 30
+495 RMSProp/clip_by_global_norm/mul_13 Mul 17430 30
+496 RMSProp/clip_by_global_norm/mul_14 Mul 10 30
+497 RMSProp/clip_by_global_norm/mul_15 Mul 18005 30
+498 RMSProp/clip_by_global_norm/mul_16 Mul 12 30
+499 RMSProp/clip_by_global_norm/mul_17 Mul 3196 30
+500 RMSProp/clip_by_global_norm/mul_18 Mul 12 30
+501 RMSProp/clip_by_global_norm/mul_19 Mul 4891 30
+502 RMSProp/clip_by_global_norm/mul_20 Mul 8 30
+503 RMSProp/clip_by_global_norm/mul_21 Mul 22484 30
+504 RMSProp/clip_by_global_norm/mul_22 Mul 12 30
+505 RMSProp/clip_by_global_norm/mul_23 Mul 23008 30
+506 RMSProp/clip_by_global_norm/mul_24 Mul 22 30
+507 RMSProp/clip_by_global_norm/mul_25 Mul 7382 30
+508 RMSProp/clip_by_global_norm/mul_26 Mul 17 30
+509 RMSProp/clip_by_global_norm/mul_27 Mul 13564 30
+510 RMSProp/clip_by_global_norm/mul_28 Mul 15 30
+511 RMSProp/clip_by_global_norm/mul_29 Mul 4851 30
+512 RMSProp/clip_by_global_norm/mul_30 Mul 10 30
+513 RMSProp/clip_by_global_norm/mul_31 Mul 10836 30
+514 RMSProp/clip_by_global_norm/mul_32 Mul 32 30
+515 RMSProp/clip_by_global_norm/mul_33 Mul 85580 30
+516 RMSProp/clip_by_global_norm/mul_34 Mul 36 30
+517 RMSProp/clip_by_global_norm/mul_35 Mul 34478 30
+518 RMSProp/clip_by_global_norm/mul_36 Mul 45 30
+519 RMSProp/clip_by_global_norm/mul_37 Mul 9060 30
+520 RMSProp/clip_by_global_norm/mul_38 Mul 16 30
+521 RMSProp/clip_by_global_norm/mul_39 Mul 79 30
+522 RMSProp/clip_by_global_norm/mul_40 Mul 5 30
+523 Conv2D/W/RMSProp VariableV2 36 1
+524 Conv2D/W/RMSProp_1 VariableV2 29 1
+525 Conv2D/b/RMSProp VariableV2 15 1
+526 Conv2D/b/RMSProp_1 VariableV2 5 1
+527 Conv2D_1/W/RMSProp VariableV2 8 2
+528 Conv2D_1/W/RMSProp_1 VariableV2 7 2
+529 Conv2D_1/b/RMSProp VariableV2 8 2
+530 Conv2D_1/b/RMSProp_1 VariableV2 3 2
+531 Conv2D_2/W/RMSProp VariableV2 6 4
+532 Conv2D_2/W/RMSProp_1 VariableV2 4 4
+533 Conv2D_2/b/RMSProp VariableV2 3 4
+534 Conv2D_2/b/RMSProp_1 VariableV2 3 4
+535 Conv2D_3/W/RMSProp VariableV2 3 5
+536 Conv2D_3/W/RMSProp_1 VariableV2 3 5
+537 Conv2D_3/b/RMSProp VariableV2 2 5
+538 Conv2D_3/b/RMSProp_1 VariableV2 4 5
+539 Conv2D_4/W/RMSProp VariableV2 3 7
+540 Conv2D_4/W/RMSProp_1 VariableV2 3 7
+541 Conv2D_4/b/RMSProp VariableV2 2 7
+542 Conv2D_4/b/RMSProp_1 VariableV2 3 7
+543 Conv2D_5/W/RMSProp VariableV2 3 8
+544 Conv2D_5/W/RMSProp_1 VariableV2 3 8
+545 Conv2D_5/b/RMSProp VariableV2 3 8
+546 Conv2D_5/b/RMSProp_1 VariableV2 2 8
+547 Conv2D_6/W/RMSProp VariableV2 3 9
+548 Conv2D_6/W/RMSProp_1 VariableV2 2 9
+549 Conv2D_6/b/RMSProp VariableV2 3 9
+550 Conv2D_6/b/RMSProp_1 VariableV2 3 9
+551 Conv2D_7/W/RMSProp VariableV2 2 10
+552 Conv2D_7/W/RMSProp_1 VariableV2 2 10
+553 Conv2D_7/b/RMSProp VariableV2 3 10
+554 Conv2D_7/b/RMSProp_1 VariableV2 3 10
+555 Conv2D_8/W/RMSProp VariableV2 4 12
+556 Conv2D_8/W/RMSProp_1 VariableV2 3 12
+557 Conv2D_8/b/RMSProp VariableV2 3 12
+558 Conv2D_8/b/RMSProp_1 VariableV2 4 12
+559 Conv2D_9/W/RMSProp VariableV2 3 13
+560 Conv2D_9/W/RMSProp_1 VariableV2 3 13
+561 Conv2D_9/b/RMSProp VariableV2 2 13
+562 Conv2D_9/b/RMSProp_1 VariableV2 2 13
+563 Conv2D_10/W/RMSProp VariableV2 3 14
+564 Conv2D_10/W/RMSProp_1 VariableV2 3 14
+565 Conv2D_10/b/RMSProp VariableV2 3 14
+566 Conv2D_10/b/RMSProp_1 VariableV2 2 14
+567 Conv2D_11/W/RMSProp VariableV2 3 15
+568 Conv2D_11/W/RMSProp_1 VariableV2 12 15
+569 Conv2D_11/b/RMSProp VariableV2 7 15
+570 Conv2D_11/b/RMSProp_1 VariableV2 4 15
+571 Conv2D_12/W/RMSProp VariableV2 3 17
+572 Conv2D_12/W/RMSProp_1 VariableV2 21 17
+573 Conv2D_12/b/RMSProp VariableV2 2 17
+574 Conv2D_12/b/RMSProp_1 VariableV2 2 17
+575 Conv2D_13/W/RMSProp VariableV2 1 18
+576 Conv2D_13/W/RMSProp_1 VariableV2 3 18
+577 Conv2D_13/b/RMSProp VariableV2 3 18
+578 Conv2D_13/b/RMSProp_1 VariableV2 63 18
+579 Conv2D_14/W/RMSProp VariableV2 3 19
+580 Conv2D_14/W/RMSProp_1 VariableV2 3 19
+581 Conv2D_14/b/RMSProp VariableV2 3 19
+582 Conv2D_14/b/RMSProp_1 VariableV2 3 19
+583 Conv2D_15/W/RMSProp VariableV2 116 20
+584 Conv2D_15/W/RMSProp_1 VariableV2 2 20
+585 Conv2D_15/b/RMSProp VariableV2 3 20
+586 Conv2D_15/b/RMSProp_1 VariableV2 3 20
+587 FullyConnected/W/RMSProp VariableV2 4 22
+588 FullyConnected/W/RMSProp_1 VariableV2 3 22
+589 FullyConnected/b/RMSProp VariableV2 2 22
+590 FullyConnected/b/RMSProp_1 VariableV2 2 22
+591 FullyConnected_1/W/RMSProp VariableV2 5 24
+592 FullyConnected_1/W/RMSProp_1 VariableV2 4 24
+593 FullyConnected_1/b/RMSProp VariableV2 2 24
+594 FullyConnected_1/b/RMSProp_1 VariableV2 4 24
+595 FullyConnected_2/W/RMSProp VariableV2 3 26
+596 FullyConnected_2/W/RMSProp_1 VariableV2 2 26
+597 FullyConnected_2/b/RMSProp VariableV2 4 26
+598 FullyConnected_2/b/RMSProp_1 VariableV2 2 26
+599 FullyConnected_3/W/RMSProp VariableV2 2 28
+600 FullyConnected_3/W/RMSProp_1 VariableV2 3 28
+601 FullyConnected_3/b/RMSProp VariableV2 3 28
+602 FullyConnected_3/b/RMSProp_1 VariableV2 2 28
+603 RMSProp/apply_grad_op_0/learning_rate Const 4 30
+604 RMSProp/apply_grad_op_0/decay Const 2 30
+605 RMSProp/apply_grad_op_0/momentum Const 10 30
+606 RMSProp/apply_grad_op_0/epsilon Const 4 30
+607 RMSProp/apply_grad_op_0/update_Conv2D/W/ApplyRMSProp ApplyRMSProp 60 30
+608 RMSProp/apply_grad_op_0/update_Conv2D/b/ApplyRMSProp ApplyRMSProp 22 30
+609 RMSProp/apply_grad_op_0/update_Conv2D_1/W/ApplyRMSProp ApplyRMSProp 5418 30
+610 RMSProp/apply_grad_op_0/update_Conv2D_1/b/ApplyRMSProp ApplyRMSProp 17 30
+611 RMSProp/apply_grad_op_0/update_Conv2D_2/W/ApplyRMSProp ApplyRMSProp 31408 30
+612 RMSProp/apply_grad_op_0/update_Conv2D_2/b/ApplyRMSProp ApplyRMSProp 18 30
+613 RMSProp/apply_grad_op_0/update_Conv2D_3/W/ApplyRMSProp ApplyRMSProp 26925 30
+614 RMSProp/apply_grad_op_0/update_Conv2D_3/b/ApplyRMSProp ApplyRMSProp 21 30
+615 RMSProp/apply_grad_op_0/update_Conv2D_4/W/ApplyRMSProp ApplyRMSProp 44565 30
+616 RMSProp/apply_grad_op_0/update_Conv2D_4/b/ApplyRMSProp ApplyRMSProp 22 30
+617 RMSProp/apply_grad_op_0/update_Conv2D_5/W/ApplyRMSProp ApplyRMSProp 96538 30
+618 RMSProp/apply_grad_op_0/update_Conv2D_5/b/ApplyRMSProp ApplyRMSProp 25 30
+619 RMSProp/apply_grad_op_0/update_Conv2D_6/W/ApplyRMSProp ApplyRMSProp 54681 30
+620 RMSProp/apply_grad_op_0/update_Conv2D_6/b/ApplyRMSProp ApplyRMSProp 24 30
+621 RMSProp/apply_grad_op_0/update_Conv2D_7/W/ApplyRMSProp ApplyRMSProp 52679 30
+622 RMSProp/apply_grad_op_0/update_Conv2D_7/b/ApplyRMSProp ApplyRMSProp 17 30
+623 RMSProp/apply_grad_op_0/update_Conv2D_8/W/ApplyRMSProp ApplyRMSProp 34928 30
+624 RMSProp/apply_grad_op_0/update_Conv2D_8/b/ApplyRMSProp ApplyRMSProp 20 30
+625 RMSProp/apply_grad_op_0/update_Conv2D_9/W/ApplyRMSProp ApplyRMSProp 53017 30
+626 RMSProp/apply_grad_op_0/update_Conv2D_9/b/ApplyRMSProp ApplyRMSProp 13 30
+627 RMSProp/apply_grad_op_0/update_Conv2D_10/W/ApplyRMSProp ApplyRMSProp 46899 30
+628 RMSProp/apply_grad_op_0/update_Conv2D_10/b/ApplyRMSProp ApplyRMSProp 22 30
+629 RMSProp/apply_grad_op_0/update_Conv2D_11/W/ApplyRMSProp ApplyRMSProp 32118 30
+630 RMSProp/apply_grad_op_0/update_Conv2D_11/b/ApplyRMSProp ApplyRMSProp 26 30
+631 RMSProp/apply_grad_op_0/update_Conv2D_12/W/ApplyRMSProp ApplyRMSProp 56138 30
+632 RMSProp/apply_grad_op_0/update_Conv2D_12/b/ApplyRMSProp ApplyRMSProp 25 30
+633 RMSProp/apply_grad_op_0/update_Conv2D_13/W/ApplyRMSProp ApplyRMSProp 52966 30
+634 RMSProp/apply_grad_op_0/update_Conv2D_13/b/ApplyRMSProp ApplyRMSProp 22 30
+635 RMSProp/apply_grad_op_0/update_Conv2D_14/W/ApplyRMSProp ApplyRMSProp 27983 30
+636 RMSProp/apply_grad_op_0/update_Conv2D_14/b/ApplyRMSProp ApplyRMSProp 20 30
+637 RMSProp/apply_grad_op_0/update_Conv2D_15/W/ApplyRMSProp ApplyRMSProp 51538 30
+638 RMSProp/apply_grad_op_0/update_Conv2D_15/b/ApplyRMSProp ApplyRMSProp 31 30
+639 RMSProp/apply_grad_op_0/update_FullyConnected/W/ApplyRMSProp ApplyRMSProp 218527 30
+640 RMSProp/apply_grad_op_0/update_FullyConnected/b/ApplyRMSProp ApplyRMSProp 68 30
+641 RMSProp/apply_grad_op_0/update_FullyConnected_1/W/ApplyRMSProp ApplyRMSProp 115834 30
+642 RMSProp/apply_grad_op_0/update_FullyConnected_1/b/ApplyRMSProp ApplyRMSProp 116 30
+643 RMSProp/apply_grad_op_0/update_FullyConnected_2/W/ApplyRMSProp ApplyRMSProp 65576 30
+644 RMSProp/apply_grad_op_0/update_FullyConnected_2/b/ApplyRMSProp ApplyRMSProp 36 30
+645 RMSProp/apply_grad_op_0/update_FullyConnected_3/W/ApplyRMSProp ApplyRMSProp 304 30
+646 RMSProp/apply_grad_op_0/update_FullyConnected_3/b/ApplyRMSProp ApplyRMSProp 3750 30
+647 RMSProp/apply_grad_op_0/value Const 8 30
+648 RMSProp/apply_grad_op_0 AssignAdd 5 30
+649 RMSProp/train_op_0 NoOp 6 30
+0 1 1
+2 3 6912
+4 5 256
+3 6 6912
+6 7 411041792
+5 7 256
+7 8 411041792
+9 10 147456
+11 12 256
+8 13 411041792
+10 13 147456
+13 14 411041792
+12 14 256
+14 15 411041792
+15 16 411041792
+17 18 294912
+19 20 512
+16 21 102760448
+18 21 294912
+21 22 205520896
+20 22 512
+22 23 205520896
+24 25 589824
+26 27 512
+23 28 205520896
+25 28 589824
+28 29 205520896
+27 29 512
+29 30 205520896
+30 31 205520896
+32 33 1179648
+34 35 1024
+31 36 51380224
+33 36 1179648
+36 37 102760448
+35 37 1024
+37 38 102760448
+39 40 2359296
+41 42 1024
+38 43 102760448
+40 43 2359296
+43 44 102760448
+42 44 1024
+44 45 102760448
+46 47 2359296
+48 49 1024
+45 50 102760448
+47 50 2359296
+50 51 102760448
+49 51 1024
+51 52 102760448
+53 54 2359296
+55 56 1024
+52 57 102760448
+54 57 2359296
+57 58 102760448
+56 58 1024
+58 59 102760448
+59 60 102760448
+61 62 4718592
+63 64 2048
+60 65 25690112
+62 65 4718592
+65 66 51380224
+64 66 2048
+66 67 51380224
+68 69 9437184
+70 71 2048
+67 72 51380224
+69 72 9437184
+72 73 51380224
+71 73 2048
+73 74 51380224
+75 76 9437184
+77 78 2048
+74 79 51380224
+76 79 9437184
+79 80 51380224
+78 80 2048
+80 81 51380224
+82 83 9437184
+84 85 2048
+81 86 51380224
+83 86 9437184
+86 87 51380224
+85 87 2048
+87 88 51380224
+88 89 51380224
+90 91 9437184
+92 93 2048
+89 94 12845056
+91 94 9437184
+94 95 12845056
+93 95 2048
+95 96 12845056
+97 98 9437184
+99 100 2048
+96 101 12845056
+98 101 9437184
+101 102 12845056
+100 102 2048
+102 103 12845056
+104 105 9437184
+106 107 2048
+103 108 12845056
+105 108 9437184
+108 109 12845056
+107 109 2048
+109 110 12845056
+111 112 9437184
+113 114 2048
+110 115 12845056
+112 115 9437184
+115 116 12845056
+114 116 2048
+116 117 12845056
+117 118 12845056
+119 120 411041792
+121 122 16384
+118 124 3211264
+123 124 8
+124 125 3211264
+120 125 411041792
+125 126 524288
+122 126 16384
+126 127 524288
+0 128 1
+1 128 1
+130 131 8
+132 133 524288
+133 134 524288
+127 135 524288
+135 136 524288
+134 136 524288
+137 138 67108864
+139 140 16384
+136 141 4
+138 141 67108864
+141 142 524288
+140 142 16384
+142 143 524288
+144 145 8
+146 147 524288
+147 148 524288
+143 149 524288
+149 150 524288
+148 150 524288
+151 152 16384000
+153 154 4000
+150 155 4
+152 155 16384000
+155 156 128000
+154 156 4000
+156 157 128000
+159 160 8
+158 161 4
+161 162 128000
+162 163 128000
+157 164 128000
+164 165 128000
+163 165 128000
+166 167 68000
+168 169 68
+165 170 4
+167 170 68000
+170 171 2176
+169 171 68
+171 172 2176
+172 173 2176
+173 175 256
+174 175 256
+175 176 32
+176 177 128
+172 179 2176
+178 179 4
+172 180 2176
+179 180 128
+180 182 2176
+181 182 4
+182 183 2176
+183 184 2176
+184 185 2176
+185 186 2176
+186 187 128
+187 189 128
+188 189 4
+190 191 4
+192 193 4
+194 195 4
+193 196 4
+177 196 4
+196 197 4
+195 197 4
+192 198 4
+197 198 4
+199 200 4
+191 201 4
+202 203 4
+191 203 4
+201 204 4
+203 204 4
+204 205 4
+206 207 4
+205 207 4
+200 208 4
+189 208 4
+208 209 4
+207 209 4
+199 210 4
+209 210 4
+211 212 8
+200 212 4
+213 214 8
+189 214 4
+187 215 128
+215 216 4
+217 218 4
+216 220 128
+219 220 4
+220 221 128
+185 222 2176
+222 223 8
+223 225 8
+224 225 4
+222 226 8
+225 226 8
+221 227 128
+223 227 8
+227 228 128
+226 228 8
+184 230 2176
+229 231 8
+230 231 8
+228 232 2176
+232 233 2176
+233 234 2176
+230 234 8
+183 235 2176
+234 236 2176
+235 236 2176
+182 237 2176
+236 238 2176
+238 239 8
+182 240 2176
+237 241 8
+240 242 544
+236 242 2176
+239 242 2176
+242 243 2176
+241 243 8
+243 244 2176
+237 244 8
+180 245 2176
+244 246 2176
+246 247 8
+180 248 2176
+181 248 4
+245 249 8
+248 250 544
+244 250 2176
+247 250 2176
+250 251 2176
+249 251 8
+251 252 2176
+245 252 8
+172 253 2176
+252 254 2176
+179 254 128
+172 255 2176
+255 256 2176
+179 256 128
+256 257 2176
+179 257 128
+252 258 2176
+257 258 2176
+258 259 2176
+260 262 8
+261 262 4
+262 263 8
+260 264 8
+264 265 128
+263 265 8
+265 266 2176
+266 267 2176
+172 267 2176
+267 269 2176
+268 269 4
+269 271 128
+270 271 8
+266 272 2176
+271 272 128
+272 273 2176
+172 273 2176
+273 274 2176
+273 275 2176
+167 275 68000
+165 276 4
+273 276 2176
+275 277 128000
+157 278 128000
+279 280 8
+277 281 128000
+280 281 128000
+162 283 128000
+282 284 8
+283 284 8
+162 285 128000
+285 286 128000
+284 286 0
+286 287 128000
+282 287 8
+288 289 8
+289 290 8
+290 291 128000
+288 291 8
+291 292 128000
+281 293 4
+292 293 4
+293 294 128000
+157 294 128000
+294 295 128000
+294 296 128000
+152 296 16384000
+150 297 4
+294 297 128000
+296 298 524288
+143 299 524288
+300 301 8
+298 302 524288
+301 302 524288
+147 304 524288
+303 305 8
+304 305 8
+147 306 524288
+306 307 524288
+305 307 0
+307 308 524288
+303 308 8
+309 310 8
+310 311 8
+311 312 524288
+309 312 8
+312 313 524288
+302 314 4
+313 314 4
+314 315 524288
+143 315 524288
+315 316 524288
+315 317 524288
+138 317 67108864
+136 318 4
+315 318 524288
+317 319 524288
+127 320 524288
+321 323 8
+322 323 4
+319 324 524288
+323 324 524288
+133 326 524288
+325 327 8
+326 327 8
+133 328 524288
+328 329 524288
+327 329 0
+329 330 524288
+325 330 8
+331 333 8
+332 333 0
+333 334 8
+334 335 524288
+331 335 8
+335 336 524288
+324 337 4
+336 337 4
+337 338 524288
+127 338 524288
+338 339 524288
+338 340 524288
+120 340 411041792
+124 341 3211264
+338 341 524288
+118 342 3211264
+340 343 3211264
+342 343 16
+117 344 12845056
+118 344 3211264
+343 344 3211264
+344 345 12845056
+117 345 12845056
+345 346 12845056
+110 347 12845056
+112 347 9437184
+347 348 16
+112 348 9437184
+345 348 12845056
+110 349 12845056
+345 349 12845056
+348 350 12845056
+110 350 12845056
+350 351 12845056
+103 352 12845056
+105 352 9437184
+352 353 16
+105 353 9437184
+350 353 12845056
+103 354 12845056
+350 354 12845056
+353 355 12845056
+103 355 12845056
+355 356 12845056
+96 357 12845056
+98 357 9437184
+357 358 16
+98 358 9437184
+355 358 12845056
+96 359 12845056
+355 359 12845056
+358 360 12845056
+96 360 12845056
+360 361 12845056
+89 362 12845056
+91 362 9437184
+362 363 16
+91 363 9437184
+360 363 12845056
+89 364 12845056
+360 364 12845056
+88 365 51380224
+89 365 12845056
+363 365 12845056
+365 366 51380224
+88 366 51380224
+366 367 51380224
+81 368 51380224
+83 368 9437184
+368 369 16
+83 369 9437184
+366 369 51380224
+81 370 51380224
+366 370 51380224
+369 371 51380224
+81 371 51380224
+371 372 51380224
+74 373 51380224
+76 373 9437184
+373 374 16
+76 374 9437184
+371 374 51380224
+74 375 51380224
+371 375 51380224
+374 376 51380224
+74 376 51380224
+376 377 51380224
+67 378 51380224
+69 378 9437184
+378 380 16
+69 380 9437184
+376 380 51380224
+67 381 51380224
+379 381 16
+376 381 51380224
+380 382 51380224
+67 382 51380224
+382 383 51380224
+60 384 25690112
+62 384 4718592
+384 386 16
+62 386 4718592
+382 386 51380224
+60 387 25690112
+385 387 16
+382 387 51380224
+59 388 102760448
+60 388 25690112
+386 388 25690112
+388 389 102760448
+59 389 102760448
+389 390 102760448
+52 391 102760448
+54 391 2359296
+391 392 16
+54 392 2359296
+389 392 102760448
+52 393 102760448
+389 393 102760448
+392 394 102760448
+52 394 102760448
+394 395 102760448
+45 396 102760448
+47 396 2359296
+396 397 16
+47 397 2359296
+394 397 102760448
+45 398 102760448
+394 398 102760448
+397 399 102760448
+45 399 102760448
+399 400 102760448
+38 401 102760448
+40 401 2359296
+401 403 16
+40 403 2359296
+399 403 102760448
+38 404 102760448
+402 404 16
+399 404 102760448
+403 405 102760448
+38 405 102760448
+405 406 102760448
+31 407 51380224
+33 407 1179648
+407 409 16
+33 409 1179648
+405 409 102760448
+31 410 51380224
+408 410 16
+405 410 102760448
+30 411 205520896
+31 411 51380224
+409 411 51380224
+411 412 205520896
+30 412 205520896
+412 413 205520896
+23 414 205520896
+25 414 589824
+414 416 16
+25 416 589824
+412 416 205520896
+23 417 205520896
+415 417 16
+412 417 205520896
+416 418 205520896
+23 418 205520896
+418 419 205520896
+16 420 102760448
+18 420 294912
+420 422 16
+18 422 294912
+418 422 205520896
+16 423 102760448
+421 423 16
+418 423 205520896
+15 424 411041792
+16 424 102760448
+422 424 102760448
+424 425 411041792
+15 425 411041792
+425 426 411041792
+8 427 411041792
+10 427 147456
+427 429 16
+10 429 147456
+425 429 411041792
+8 430 411041792
+428 430 16
+425 430 411041792
+429 431 411041792
+8 431 411041792
+431 432 411041792
+433 434 16
+431 434 411041792
+434 435 6912
+432 436 256
+430 437 147456
+426 438 256
+423 439 294912
+419 440 512
+417 441 589824
+413 442 512
+410 443 1179648
+406 444 1024
+404 445 2359296
+400 446 1024
+398 447 2359296
+395 448 1024
+393 449 2359296
+390 450 1024
+387 451 4718592
+383 452 2048
+381 453 9437184
+377 454 2048
+375 455 9437184
+372 456 2048
+370 457 9437184
+367 458 2048
+364 459 9437184
+361 460 2048
+359 461 9437184
+356 462 2048
+354 463 9437184
+351 464 2048
+349 465 9437184
+346 466 2048
+341 467 411041792
+339 468 16384
+318 469 67108864
+316 470 16384
+297 471 16384000
+295 472 4000
+276 473 68000
+274 474 68
+435 475 4
+436 475 4
+437 475 4
+438 475 4
+439 475 4
+440 475 4
+441 475 4
+442 475 4
+443 475 4
+444 475 4
+445 475 4
+446 475 4
+447 475 4
+448 475 4
+449 475 4
+450 475 4
+451 475 4
+452 475 4
+453 475 4
+454 475 4
+455 475 4
+456 475 4
+457 475 4
+458 475 4
+459 475 4
+460 475 4
+461 475 4
+462 475 4
+463 475 4
+464 475 4
+465 475 4
+466 475 4
+467 475 4
+468 475 4
+469 475 4
+470 475 4
+471 475 4
+472 475 4
+473 475 4
+474 475 4
+475 476 160
+476 478 4
+477 478 4
+478 479 4
+481 482 4
+480 482 4
+434 483 6912
+482 483 4
+432 484 256
+482 484 4
+430 485 147456
+482 485 4
+426 486 256
+482 486 4
+423 487 294912
+482 487 4
+419 488 512
+482 488 4
+417 489 589824
+482 489 4
+413 490 512
+482 490 4
+410 491 1179648
+482 491 4
+406 492 1024
+482 492 4
+404 493 2359296
+482 493 4
+400 494 1024
+482 494 4
+398 495 2359296
+482 495 4
+395 496 1024
+482 496 4
+393 497 2359296
+482 497 4
+390 498 1024
+482 498 4
+387 499 4718592
+482 499 4
+383 500 2048
+482 500 4
+381 501 9437184
+482 501 4
+377 502 2048
+482 502 4
+375 503 9437184
+482 503 4
+372 504 2048
+482 504 4
+370 505 9437184
+482 505 4
+367 506 2048
+482 506 4
+364 507 9437184
+482 507 4
+361 508 2048
+482 508 4
+359 509 9437184
+482 509 4
+356 510 2048
+482 510 4
+354 511 9437184
+482 511 4
+351 512 2048
+482 512 4
+349 513 9437184
+482 513 4
+346 514 2048
+482 514 4
+341 515 411041792
+482 515 4
+339 516 16384
+482 516 4
+318 517 67108864
+482 517 4
+316 518 16384
+482 518 4
+297 519 16384000
+482 519 4
+295 520 4000
+482 520 4
+276 521 68000
+482 521 4
+274 522 68
+482 522 4
+2 607 6912
+523 607 6912
+524 607 6912
+603 607 4
+604 607 4
+605 607 4
+606 607 4
+4 608 256
+525 608 256
+526 608 256
+603 608 4
+604 608 4
+605 608 4
+606 608 4
+9 609 147456
+527 609 147456
+528 609 147456
+603 609 4
+604 609 4
+605 609 4
+606 609 4
+11 610 256
+529 610 256
+530 610 256
+603 610 4
+604 610 4
+605 610 4
+606 610 4
+17 611 294912
+531 611 294912
+532 611 294912
+603 611 4
+604 611 4
+605 611 4
+606 611 4
+19 612 512
+533 612 512
+534 612 512
+603 612 4
+604 612 4
+605 612 4
+606 612 4
+24 613 589824
+535 613 589824
+536 613 589824
+603 613 4
+604 613 4
+605 613 4
+606 613 4
+26 614 512
+537 614 512
+538 614 512
+603 614 4
+604 614 4
+605 614 4
+606 614 4
+32 615 1179648
+539 615 1179648
+540 615 1179648
+603 615 4
+604 615 4
+605 615 4
+606 615 4
+34 616 1024
+541 616 1024
+542 616 1024
+603 616 4
+604 616 4
+605 616 4
+606 616 4
+39 617 2359296
+543 617 2359296
+544 617 2359296
+603 617 4
+604 617 4
+605 617 4
+606 617 4
+41 618 1024
+545 618 1024
+546 618 1024
+603 618 4
+604 618 4
+605 618 4
+606 618 4
+46 619 2359296
+547 619 2359296
+548 619 2359296
+603 619 4
+604 619 4
+605 619 4
+606 619 4
+48 620 1024
+549 620 1024
+550 620 1024
+603 620 4
+604 620 4
+605 620 4
+606 620 4
+53 621 2359296
+551 621 2359296
+552 621 2359296
+603 621 4
+604 621 4
+605 621 4
+606 621 4
+55 622 1024
+553 622 1024
+554 622 1024
+603 622 4
+604 622 4
+605 622 4
+606 622 4
+61 623 4718592
+555 623 4718592
+556 623 4718592
+603 623 4
+604 623 4
+605 623 4
+606 623 4
+63 624 2048
+557 624 2048
+558 624 2048
+603 624 4
+604 624 4
+605 624 4
+606 624 4
+68 625 9437184
+559 625 9437184
+560 625 9437184
+603 625 4
+604 625 4
+605 625 4
+606 625 4
+70 626 2048
+561 626 2048
+562 626 2048
+603 626 4
+604 626 4
+605 626 4
+606 626 4
+75 627 9437184
+563 627 9437184
+564 627 9437184
+603 627 4
+604 627 4
+605 627 4
+606 627 4
+77 628 2048
+565 628 2048
+566 628 2048
+603 628 4
+604 628 4
+605 628 4
+606 628 4
+82 629 9437184
+567 629 9437184
+568 629 9437184
+603 629 4
+604 629 4
+605 629 4
+606 629 4
+84 630 2048
+569 630 2048
+570 630 2048
+603 630 4
+604 630 4
+605 630 4
+606 630 4
+90 631 9437184
+571 631 9437184
+572 631 9437184
+603 631 4
+604 631 4
+605 631 4
+606 631 4
+92 632 2048
+573 632 2048
+574 632 2048
+603 632 4
+604 632 4
+605 632 4
+606 632 4
+97 633 9437184
+575 633 9437184
+576 633 9437184
+603 633 4
+604 633 4
+605 633 4
+606 633 4
+99 634 2048
+577 634 2048
+578 634 2048
+603 634 4
+604 634 4
+605 634 4
+606 634 4
+104 635 9437184
+579 635 9437184
+580 635 9437184
+603 635 4
+604 635 4
+605 635 4
+606 635 4
+106 636 2048
+581 636 2048
+582 636 2048
+603 636 4
+604 636 4
+605 636 4
+606 636 4
+111 637 9437184
+583 637 9437184
+584 637 9437184
+603 637 4
+604 637 4
+605 637 4
+606 637 4
+113 638 2048
+585 638 2048
+586 638 2048
+603 638 4
+604 638 4
+605 638 4
+606 638 4
+119 639 411041792
+587 639 411041792
+588 639 411041792
+603 639 4
+604 639 4
+605 639 4
+606 639 4
+121 640 16384
+589 640 16384
+590 640 16384
+603 640 4
+604 640 4
+605 640 4
+606 640 4
+137 641 67108864
+591 641 67108864
+592 641 67108864
+603 641 4
+604 641 4
+605 641 4
+606 641 4
+139 642 16384
+593 642 16384
+594 642 16384
+603 642 4
+604 642 4
+605 642 4
+606 642 4
+151 643 16384000
+595 643 16384000
+596 643 16384000
+603 643 4
+604 643 4
+605 643 4
+606 643 4
+153 644 4000
+597 644 4000
+598 644 4000
+603 644 4
+604 644 4
+605 644 4
+606 644 4
+166 645 68000
+599 645 68000
+600 645 68000
+603 645 4
+604 645 4
+605 645 4
+606 645 4
+168 646 68
+601 646 68
+602 646 68
+603 646 4
+604 646 4
+605 646 4
+606 646 4
+190 648 4
+647 648 4

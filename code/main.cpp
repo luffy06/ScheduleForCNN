@@ -7,6 +7,8 @@
 #include <algorithm>
 #include <cmath>
 #include <cstring>
+#include <ctime>
+#include <chrono>
 
 using namespace std;
 
@@ -186,11 +188,21 @@ void AnalyseGraph() {
   // printf("NeedPE:%d\tMaxLayer:%d\n", NeedPE, Order);
 }
 
+long long GetTime() {
+  std::chrono::milliseconds ms = std::chrono::duration_cast< std::chrono::milliseconds >(
+    std::chrono::system_clock::now().time_since_epoch()
+  );
+  return ms.count();
+}
+
 int main() {
   Input();
   #if THEORY != 0
+    long long t = GetTime();
     FinalResult FR = Solve(TotalPE, PeriodTimes, UpRound);
     FR.Show(TotalNode, TotalEdge);
+    long long cost = GetTime() - t;
+    printf("Cost:%lld\n", cost);
   #else
     AnalyseGraph();
   #endif

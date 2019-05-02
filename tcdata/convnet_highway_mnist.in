@@ -1,0 +1,3155 @@
+1256 1898
+0 is_training VariableV2 7 1
+1 is_training/read Identity 5 1
+2 HighwayConv2D/W VariableV2 2 1
+3 HighwayConv2D/W/read Identity 2 1
+4 HighwayConv2D/b VariableV2 2 1
+5 HighwayConv2D/b/read Identity 1 1
+6 HighwayConv2D/W_T VariableV2 2 1
+7 HighwayConv2D/W_T/read Identity 1 1
+8 HighwayConv2D/b_T VariableV2 2 1
+9 HighwayConv2D/b_T/read Identity 1 1
+10 HighwayConv2D/Conv2D Conv2D 1053 1
+11 HighwayConv2D/add Add 431 1
+12 HighwayConv2D/Elu Elu 598 1
+13 HighwayConv2D/Mul Mul 513 1
+14 HighwayConv2D/add_1 Add 419 1
+15 HighwayConv2D/Sigmoid Sigmoid 160 1
+16 HighwayConv2D/Sub Sub 526 1
+17 HighwayConv2D/Mul_1 Mul 588 1
+18 HighwayConv2D/Mul_2 Mul 553 1
+19 HighwayConv2D/Add Add 415 1
+20 HighwayConv2D_1/W VariableV2 2 2
+21 HighwayConv2D_1/W/read Identity 3 2
+22 HighwayConv2D_1/b VariableV2 2 2
+23 HighwayConv2D_1/b/read Identity 6 2
+24 HighwayConv2D_1/W_T VariableV2 2 2
+25 HighwayConv2D_1/W_T/read Identity 1 2
+26 HighwayConv2D_1/b_T VariableV2 2 2
+27 HighwayConv2D_1/b_T/read Identity 1 2
+28 HighwayConv2D_1/Conv2D Conv2D 1229 2
+29 HighwayConv2D_1/add Add 651 2
+30 HighwayConv2D_1/Elu Elu 461 2
+31 HighwayConv2D_1/Mul Mul 645 2
+32 HighwayConv2D_1/add_1 Add 508 2
+33 HighwayConv2D_1/Sigmoid Sigmoid 203 2
+34 HighwayConv2D_1/Sub Sub 407 2
+35 HighwayConv2D_1/Mul_1 Mul 675 2
+36 HighwayConv2D_1/Mul_2 Mul 683 2
+37 HighwayConv2D_1/Add Add 297 2
+38 HighwayConv2D_2/W VariableV2 2 3
+39 HighwayConv2D_2/W/read Identity 1 3
+40 HighwayConv2D_2/b VariableV2 2 3
+41 HighwayConv2D_2/b/read Identity 1 3
+42 HighwayConv2D_2/W_T VariableV2 2 3
+43 HighwayConv2D_2/W_T/read Identity 1 3
+44 HighwayConv2D_2/b_T VariableV2 6 3
+45 HighwayConv2D_2/b_T/read Identity 2 3
+46 HighwayConv2D_2/Conv2D Conv2D 544 3
+47 HighwayConv2D_2/add Add 425 3
+48 HighwayConv2D_2/Elu Elu 454 3
+49 HighwayConv2D_2/Mul Mul 462 3
+50 HighwayConv2D_2/add_1 Add 463 3
+51 HighwayConv2D_2/Sigmoid Sigmoid 154 3
+52 HighwayConv2D_2/Sub Sub 562 3
+53 HighwayConv2D_2/Mul_1 Mul 570 3
+54 HighwayConv2D_2/Mul_2 Mul 509 3
+55 HighwayConv2D_2/Add Add 328 3
+56 MaxPool2D/MaxPool MaxPool 164 4
+57 BatchNormalization/beta VariableV2 2 5
+58 BatchNormalization/beta/read Identity 1 5
+59 BatchNormalization/gamma VariableV2 3 5
+60 BatchNormalization/gamma/read Identity 5 5
+61 BatchNormalization/moving_mean VariableV2 2 5
+62 BatchNormalization/moving_mean/read Identity 3 5
+63 BatchNormalization/moving_variance VariableV2 4 5
+64 BatchNormalization/moving_variance/read Identity 1 5
+65 BatchNormalization/cond/Switch Switch 49 5
+66 BatchNormalization/cond/switch_t Identity 3 5
+67 BatchNormalization/cond/moments/mean/reduction_indices Const 2 5
+68 BatchNormalization/cond/moments/mean Mean 40 5
+69 BatchNormalization/cond/moments/mean/Switch Switch 4 5
+70 BatchNormalization/cond/moments/SquaredDifference SquaredDifference 192 5
+71 BatchNormalization/cond/moments/variance Mean 29 5
+72 BatchNormalization/cond/moments/Squeeze Squeeze 5 5
+73 BatchNormalization/cond/moments/Squeeze_1 Squeeze 3 5
+74 BatchNormalization/cond/AssignMovingAvg/decay Const 2 5
+75 BatchNormalization/cond/AssignMovingAvg/sub Sub 3 5
+76 BatchNormalization/cond/AssignMovingAvg/mul Mul 3 5
+77 BatchNormalization/cond/AssignMovingAvg AssignSub 5 5
+78 BatchNormalization/cond/AssignMovingAvg/Switch RefSwitch 2 5
+79 BatchNormalization/cond/AssignMovingAvg_1/decay Const 2 5
+80 BatchNormalization/cond/AssignMovingAvg_1/sub Sub 3 5
+81 BatchNormalization/cond/AssignMovingAvg_1/mul Mul 3 5
+82 BatchNormalization/cond/AssignMovingAvg_1 AssignSub 3 5
+83 BatchNormalization/cond/AssignMovingAvg_1/Switch RefSwitch 2 5
+84 BatchNormalization/cond/Identity Identity 2 5
+85 BatchNormalization/cond/Identity_1 Identity 2 5
+86 BatchNormalization/cond/Switch_1 Switch 1 5
+87 BatchNormalization/cond/Switch_2 Switch 3 5
+88 BatchNormalization/cond/Merge Merge 8 5
+89 BatchNormalization/cond/Merge_1 Merge 2 5
+90 BatchNormalization/batchnorm/add/y Const 2 5
+91 BatchNormalization/batchnorm/add Add 2 5
+92 BatchNormalization/batchnorm/Rsqrt Rsqrt 2 5
+93 BatchNormalization/batchnorm/mul Mul 2 5
+94 BatchNormalization/batchnorm/mul_1 Mul 77 5
+95 BatchNormalization/batchnorm/mul_2 Mul 5 5
+96 BatchNormalization/batchnorm/sub Sub 3 5
+97 BatchNormalization/batchnorm/add_1 Add 99 5
+98 HighwayConv2D_3/W VariableV2 3 6
+99 HighwayConv2D_3/W/read Identity 7 6
+100 HighwayConv2D_3/b VariableV2 6 6
+101 HighwayConv2D_3/b/read Identity 2 6
+102 HighwayConv2D_3/W_T VariableV2 3 6
+103 HighwayConv2D_3/W_T/read Identity 2 6
+104 HighwayConv2D_3/b_T VariableV2 3 6
+105 HighwayConv2D_3/b_T/read Identity 2 6
+106 HighwayConv2D_3/Conv2D Conv2D 617 6
+107 HighwayConv2D_3/add Add 137 6
+108 HighwayConv2D_3/Elu Elu 127 6
+109 HighwayConv2D_3/Mul Mul 128 6
+110 HighwayConv2D_3/add_1 Add 130 6
+111 HighwayConv2D_3/Sigmoid Sigmoid 57 6
+112 HighwayConv2D_3/Sub Sub 122 6
+113 HighwayConv2D_3/Mul_1 Mul 102 6
+114 HighwayConv2D_3/Mul_2 Mul 74 6
+115 HighwayConv2D_3/Add Add 75 6
+116 HighwayConv2D_4/W VariableV2 14 7
+117 HighwayConv2D_4/W/read Identity 3 7
+118 HighwayConv2D_4/b VariableV2 2 7
+119 HighwayConv2D_4/b/read Identity 2 7
+120 HighwayConv2D_4/W_T VariableV2 7 7
+121 HighwayConv2D_4/W_T/read Identity 2 7
+122 HighwayConv2D_4/b_T VariableV2 6 7
+123 HighwayConv2D_4/b_T/read Identity 2 7
+124 HighwayConv2D_4/Conv2D Conv2D 309 7
+125 HighwayConv2D_4/add Add 125 7
+126 HighwayConv2D_4/Elu Elu 77 7
+127 HighwayConv2D_4/Mul Mul 203 7
+128 HighwayConv2D_4/add_1 Add 81 7
+129 HighwayConv2D_4/Sigmoid Sigmoid 48 7
+130 HighwayConv2D_4/Sub Sub 117 7
+131 HighwayConv2D_4/Mul_1 Mul 116 7
+132 HighwayConv2D_4/Mul_2 Mul 80 7
+133 HighwayConv2D_4/Add Add 73 7
+134 HighwayConv2D_5/W VariableV2 3 8
+135 HighwayConv2D_5/W/read Identity 9 8
+136 HighwayConv2D_5/b VariableV2 2 8
+137 HighwayConv2D_5/b/read Identity 1 8
+138 HighwayConv2D_5/W_T VariableV2 5 8
+139 HighwayConv2D_5/W_T/read Identity 5 8
+140 HighwayConv2D_5/b_T VariableV2 2 8
+141 HighwayConv2D_5/b_T/read Identity 7 8
+142 HighwayConv2D_5/Conv2D Conv2D 159 8
+143 HighwayConv2D_5/add Add 117 8
+144 HighwayConv2D_5/Elu Elu 138 8
+145 HighwayConv2D_5/Mul Mul 116 8
+146 HighwayConv2D_5/add_1 Add 132 8
+147 HighwayConv2D_5/Sigmoid Sigmoid 55 8
+148 HighwayConv2D_5/Sub Sub 126 8
+149 HighwayConv2D_5/Mul_1 Mul 91 8
+150 HighwayConv2D_5/Mul_2 Mul 71 8
+151 HighwayConv2D_5/Add Add 82 8
+152 MaxPool2D_1/MaxPool MaxPool 214 9
+153 BatchNormalization_1/beta VariableV2 2 10
+154 BatchNormalization_1/beta/read Identity 2 10
+155 BatchNormalization_1/gamma VariableV2 12 10
+156 BatchNormalization_1/gamma/read Identity 3 10
+157 BatchNormalization_1/moving_mean VariableV2 3 10
+158 BatchNormalization_1/moving_mean/read Identity 2 10
+159 BatchNormalization_1/moving_variance VariableV2 3 10
+160 BatchNormalization_1/moving_variance/read Identity 2 10
+161 BatchNormalization_1/cond/moments/mean Mean 12 10
+162 BatchNormalization_1/cond/moments/mean/Switch Switch 3 10
+163 BatchNormalization_1/cond/moments/SquaredDifference SquaredDifference 81 10
+164 BatchNormalization_1/cond/moments/variance Mean 15 10
+165 BatchNormalization_1/cond/moments/Squeeze Squeeze 4 10
+166 BatchNormalization_1/cond/moments/Squeeze_1 Squeeze 3 10
+167 BatchNormalization_1/cond/AssignMovingAvg/decay Const 2 10
+168 BatchNormalization_1/cond/AssignMovingAvg/sub Sub 3 10
+169 BatchNormalization_1/cond/AssignMovingAvg/mul Mul 3 10
+170 BatchNormalization_1/cond/AssignMovingAvg AssignSub 4 10
+171 BatchNormalization_1/cond/AssignMovingAvg/Switch RefSwitch 2 10
+172 BatchNormalization_1/cond/AssignMovingAvg_1/decay Const 2 10
+173 BatchNormalization_1/cond/AssignMovingAvg_1/sub Sub 3 10
+174 BatchNormalization_1/cond/AssignMovingAvg_1/mul Mul 3 10
+175 BatchNormalization_1/cond/AssignMovingAvg_1 AssignSub 3 10
+176 BatchNormalization_1/cond/AssignMovingAvg_1/Switch RefSwitch 2 10
+177 BatchNormalization_1/cond/Identity Identity 1 10
+178 BatchNormalization_1/cond/Identity_1 Identity 2 10
+179 BatchNormalization_1/cond/Switch_1 Switch 2 10
+180 BatchNormalization_1/cond/Switch_2 Switch 4 10
+181 BatchNormalization_1/cond/Merge Merge 2 10
+182 BatchNormalization_1/cond/Merge_1 Merge 2 10
+183 BatchNormalization_1/batchnorm/add Add 3 10
+184 BatchNormalization_1/batchnorm/Rsqrt Rsqrt 2 10
+185 BatchNormalization_1/batchnorm/mul Mul 2 10
+186 BatchNormalization_1/batchnorm/mul_1 Mul 46 10
+187 BatchNormalization_1/batchnorm/mul_2 Mul 2 10
+188 BatchNormalization_1/batchnorm/sub Sub 2 10
+189 BatchNormalization_1/batchnorm/add_1 Add 33 10
+190 HighwayConv2D_6/W VariableV2 3 11
+191 HighwayConv2D_6/W/read Identity 1 11
+192 HighwayConv2D_6/b VariableV2 4 11
+193 HighwayConv2D_6/b/read Identity 2 11
+194 HighwayConv2D_6/W_T VariableV2 3 11
+195 HighwayConv2D_6/W_T/read Identity 2 11
+196 HighwayConv2D_6/b_T VariableV2 2 11
+197 HighwayConv2D_6/b_T/read Identity 2 11
+198 HighwayConv2D_6/Conv2D Conv2D 246 11
+199 HighwayConv2D_6/add Add 43 11
+200 HighwayConv2D_6/Elu Elu 33 11
+201 HighwayConv2D_6/Mul Mul 51 11
+202 HighwayConv2D_6/add_1 Add 34 11
+203 HighwayConv2D_6/Sigmoid Sigmoid 51 11
+204 HighwayConv2D_6/Sub Sub 49 11
+205 HighwayConv2D_6/Mul_1 Mul 50 11
+206 HighwayConv2D_6/Mul_2 Mul 45 11
+207 HighwayConv2D_6/Add Add 47 11
+208 HighwayConv2D_7/W VariableV2 2 12
+209 HighwayConv2D_7/W/read Identity 1 12
+210 HighwayConv2D_7/b VariableV2 3 12
+211 HighwayConv2D_7/b/read Identity 2 12
+212 HighwayConv2D_7/W_T VariableV2 3 12
+213 HighwayConv2D_7/W_T/read Identity 5 12
+214 HighwayConv2D_7/b_T VariableV2 2 12
+215 HighwayConv2D_7/b_T/read Identity 10 12
+216 HighwayConv2D_7/Conv2D Conv2D 106 12
+217 HighwayConv2D_7/add Add 88 12
+218 HighwayConv2D_7/Elu Elu 53 12
+219 HighwayConv2D_7/Mul Mul 70 12
+220 HighwayConv2D_7/add_1 Add 64 12
+221 HighwayConv2D_7/Sigmoid Sigmoid 48 12
+222 HighwayConv2D_7/Sub Sub 49 12
+223 HighwayConv2D_7/Mul_1 Mul 47 12
+224 HighwayConv2D_7/Mul_2 Mul 45 12
+225 HighwayConv2D_7/Add Add 46 12
+226 HighwayConv2D_8/W VariableV2 3 13
+227 HighwayConv2D_8/W/read Identity 2 13
+228 HighwayConv2D_8/b VariableV2 2 13
+229 HighwayConv2D_8/b/read Identity 2 13
+230 HighwayConv2D_8/W_T VariableV2 3 13
+231 HighwayConv2D_8/W_T/read Identity 5 13
+232 HighwayConv2D_8/b_T VariableV2 3 13
+233 HighwayConv2D_8/b_T/read Identity 2 13
+234 HighwayConv2D_8/Conv2D Conv2D 85 13
+235 HighwayConv2D_8/add Add 57 13
+236 HighwayConv2D_8/Elu Elu 65 13
+237 HighwayConv2D_8/Mul Mul 54 13
+238 HighwayConv2D_8/add_1 Add 59 13
+239 HighwayConv2D_8/Sigmoid Sigmoid 48 13
+240 HighwayConv2D_8/Sub Sub 48 13
+241 HighwayConv2D_8/Mul_1 Mul 50 13
+242 HighwayConv2D_8/Mul_2 Mul 45 13
+243 HighwayConv2D_8/Add Add 54 13
+244 MaxPool2D_2/MaxPool MaxPool 60 14
+245 BatchNormalization_2/beta VariableV2 2 15
+246 BatchNormalization_2/beta/read Identity 2 15
+247 BatchNormalization_2/gamma VariableV2 3 15
+248 BatchNormalization_2/gamma/read Identity 15 15
+249 BatchNormalization_2/moving_mean VariableV2 14 15
+250 BatchNormalization_2/moving_mean/read Identity 2 15
+251 BatchNormalization_2/moving_variance VariableV2 6 15
+252 BatchNormalization_2/moving_variance/read Identity 6 15
+253 BatchNormalization_2/cond/moments/mean Mean 6 15
+254 BatchNormalization_2/cond/moments/mean/Switch Switch 2 15
+255 BatchNormalization_2/cond/moments/SquaredDifference SquaredDifference 76 15
+256 BatchNormalization_2/cond/moments/variance Mean 7 15
+257 BatchNormalization_2/cond/moments/Squeeze Squeeze 3 15
+258 BatchNormalization_2/cond/moments/Squeeze_1 Squeeze 4 15
+259 BatchNormalization_2/cond/AssignMovingAvg/decay Const 2 15
+260 BatchNormalization_2/cond/AssignMovingAvg/sub Sub 3 15
+261 BatchNormalization_2/cond/AssignMovingAvg/mul Mul 2 15
+262 BatchNormalization_2/cond/AssignMovingAvg AssignSub 3 15
+263 BatchNormalization_2/cond/AssignMovingAvg/Switch RefSwitch 3 15
+264 BatchNormalization_2/cond/AssignMovingAvg_1/decay Const 2 15
+265 BatchNormalization_2/cond/AssignMovingAvg_1/sub Sub 2 15
+266 BatchNormalization_2/cond/AssignMovingAvg_1/mul Mul 3 15
+267 BatchNormalization_2/cond/AssignMovingAvg_1 AssignSub 2 15
+268 BatchNormalization_2/cond/AssignMovingAvg_1/Switch RefSwitch 2 15
+269 BatchNormalization_2/cond/Identity Identity 1 15
+270 BatchNormalization_2/cond/Identity_1 Identity 2 15
+271 BatchNormalization_2/cond/Switch_1 Switch 6 15
+272 BatchNormalization_2/cond/Switch_2 Switch 3 15
+273 BatchNormalization_2/cond/Merge Merge 2 15
+274 BatchNormalization_2/cond/Merge_1 Merge 2 15
+275 BatchNormalization_2/batchnorm/add Add 3 15
+276 BatchNormalization_2/batchnorm/Rsqrt Rsqrt 2 15
+277 BatchNormalization_2/batchnorm/mul Mul 2 15
+278 BatchNormalization_2/batchnorm/mul_1 Mul 32 15
+279 BatchNormalization_2/batchnorm/mul_2 Mul 2 15
+280 BatchNormalization_2/batchnorm/sub Sub 2 15
+281 BatchNormalization_2/batchnorm/add_1 Add 31 15
+282 FullyConnected/W VariableV2 3 16
+283 FullyConnected/W/read Identity 3 16
+284 FullyConnected/b VariableV2 4 16
+285 FullyConnected/b/read Identity 2 16
+286 FullyConnected/Reshape/shape Const 4 16
+287 FullyConnected/Reshape Reshape 3 16
+288 FullyConnected/MatMul MatMul 88 16
+289 FullyConnected/BiasAdd BiasAdd 5 16
+290 FullyConnected/Elu Elu 17 16
+291 FullyConnected_1/W VariableV2 51 17
+292 FullyConnected_1/W/read Identity 5 17
+293 FullyConnected_1/b VariableV2 3 17
+294 FullyConnected_1/b/read Identity 1 17
+295 FullyConnected_1/MatMul MatMul 68 17
+296 FullyConnected_1/BiasAdd BiasAdd 8 17
+297 FullyConnected_1/Elu Elu 33 17
+298 FullyConnected_2/W VariableV2 3 18
+299 FullyConnected_2/W/read Identity 1 18
+300 FullyConnected_2/b VariableV2 3 18
+301 FullyConnected_2/b/read Identity 2 18
+302 FullyConnected_2/MatMul MatMul 17 18
+303 FullyConnected_2/BiasAdd BiasAdd 3 18
+304 FullyConnected_2/Softmax Softmax 16 18
+305 Accuracy/ArgMax ArgMax 9 19
+306 Accuracy/ArgMax_1 ArgMax 7 19
+307 Accuracy/Equal Equal 5 19
+308 Accuracy/Cast Cast 3 19
+309 Accuracy/Mean Mean 4 19
+310 Crossentropy/Sum/reduction_indices Const 2 19
+311 Crossentropy/Sum Sum 4 19
+312 Crossentropy/truediv RealDiv 25 19
+313 Crossentropy/Cast/x Const 2 19
+314 Crossentropy/clip_by_value/Minimum Minimum 3 19
+315 Crossentropy/clip_by_value Maximum 4 19
+316 Crossentropy/Log Log 3 19
+317 Crossentropy/mul Mul 3 19
+318 Crossentropy/Sum_1 Sum 2 19
+319 Crossentropy/Neg Neg 1 19
+320 Crossentropy/Const Const 2 19
+321 Crossentropy/Mean Mean 3 19
+322 Training_step VariableV2 2 1
+323 Training_step/read Identity 1 1
+324 Accuracy/Mean/moving_avg VariableV2 6 19
+325 Accuracy/Mean/moving_avg/read Identity 2 19
+326 moving_avg/AssignMovingAvg/sub/x Const 20 20
+327 moving_avg/AssignMovingAvg/sub Sub 2 20
+328 moving_avg/AssignMovingAvg/sub_1 Sub 3 20
+329 moving_avg/AssignMovingAvg/mul Mul 2 20
+330 moving_avg/AssignMovingAvg AssignSub 5 20
+331 Crossentropy/Mean/moving_avg VariableV2 2 19
+332 Crossentropy/Mean/moving_avg/read Identity 2 19
+333 Adam/moving_avg/add/x Const 3 20
+334 Adam/moving_avg/add Add 2 20
+335 Adam/moving_avg/add_1/x Const 3 20
+336 Adam/moving_avg/add_1 Add 5 20
+337 Adam/moving_avg/truediv RealDiv 3 20
+338 Adam/moving_avg/Minimum Minimum 2 20
+339 Adam/moving_avg/AssignMovingAvg/sub/x Const 3 20
+340 Adam/moving_avg/AssignMovingAvg/sub Sub 2 20
+341 Adam/moving_avg/AssignMovingAvg/sub_1 Sub 3 20
+342 Adam/moving_avg/AssignMovingAvg/mul Mul 3 20
+343 Adam/moving_avg/AssignMovingAvg AssignSub 11 20
+344 Loss/tags Const 2 20
+345 Loss ScalarSummary 3 20
+346 Adam/Loss/raw/tags Const 2 20
+347 Adam/Loss/raw ScalarSummary 4 20
+348 Adam/gradients/Crossentropy/Mean_grad/Shape Shape 2 20
+349 Adam/gradients/Crossentropy/Mean_grad/Tile Tile 5 20
+350 Adam/gradients/Crossentropy/Mean_grad/Prod Prod 2 20
+351 Adam/gradients/Crossentropy/Mean_grad/Cast Cast 5 20
+352 Adam/gradients/Crossentropy/Mean_grad/truediv RealDiv 4 20
+353 Adam/gradients/Crossentropy/Neg_grad/Neg Neg 3 20
+354 Adam/gradients/Crossentropy/Sum_1_grad/Shape Shape 2 20
+355 Adam/gradients/Crossentropy/Sum_1_grad/DynamicStitch DynamicStitch 5 20
+356 Adam/gradients/Crossentropy/Sum_1_grad/Maximum/y Const 1 20
+357 Adam/gradients/Crossentropy/Sum_1_grad/Maximum Maximum 3 20
+358 Adam/gradients/Crossentropy/Sum_1_grad/floordiv FloorDiv 3 20
+359 Adam/gradients/Crossentropy/Sum_1_grad/Reshape Reshape 2 20
+360 Adam/gradients/Crossentropy/Sum_1_grad/Tile Tile 28 20
+361 Adam/gradients/Crossentropy/mul_grad/Shape Shape 2 20
+362 Adam/gradients/Crossentropy/mul_grad/Shape_1 Shape 1 20
+363 Adam/gradients/Crossentropy/mul_grad/BroadcastGradientArgs BroadcastGradientArgs 3 20
+364 Adam/gradients/Crossentropy/mul_grad/Mul_1 Mul 4 20
+365 Adam/gradients/Crossentropy/mul_grad/Sum_1 Sum 6 20
+366 Adam/gradients/Crossentropy/mul_grad/Reshape_1 Reshape 3 20
+367 Adam/gradients/Crossentropy/Log_grad/Reciprocal Reciprocal 3 20
+368 Adam/gradients/Crossentropy/Log_grad/mul Mul 3 20
+369 Adam/gradients/Crossentropy/clip_by_value_grad/Shape Shape 2 20
+370 Adam/gradients/Crossentropy/clip_by_value_grad/Shape_2 Shape 3 20
+371 Adam/gradients/Crossentropy/clip_by_value_grad/zeros Fill 4 20
+372 Adam/gradients/Crossentropy/clip_by_value_grad/GreaterEqual GreaterEqual 5 20
+373 Adam/gradients/Crossentropy/clip_by_value_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+374 Adam/gradients/Crossentropy/clip_by_value_grad/Select Select 5 20
+375 Adam/gradients/Crossentropy/clip_by_value_grad/Sum Sum 1 20
+376 Adam/gradients/Crossentropy/clip_by_value_grad/Reshape Reshape 1 20
+377 Adam/gradients/Crossentropy/clip_by_value/Minimum_grad/Shape Shape 2 20
+378 Adam/gradients/Crossentropy/clip_by_value/Minimum_grad/Shape_2 Shape 1 20
+379 Adam/gradients/Crossentropy/clip_by_value/Minimum_grad/zeros Fill 2 20
+380 Adam/gradients/Crossentropy/clip_by_value/Minimum_grad/LessEqual LessEqual 5 20
+381 Adam/gradients/Crossentropy/clip_by_value/Minimum_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+382 Adam/gradients/Crossentropy/clip_by_value/Minimum_grad/Select Select 3 20
+383 Adam/gradients/Crossentropy/clip_by_value/Minimum_grad/Sum Sum 2 20
+384 Adam/gradients/Crossentropy/clip_by_value/Minimum_grad/Reshape Reshape 2 20
+385 Adam/gradients/Crossentropy/truediv_grad/Shape Shape 2 20
+386 Adam/gradients/Crossentropy/truediv_grad/RealDiv RealDiv 25 20
+387 Adam/gradients/Crossentropy/truediv_grad/Neg Neg 3 20
+388 Adam/gradients/Crossentropy/truediv_grad/RealDiv_1 RealDiv 24 20
+389 Adam/gradients/Crossentropy/truediv_grad/RealDiv_2 RealDiv 23 20
+390 Adam/gradients/Crossentropy/truediv_grad/mul Mul 2 20
+391 Adam/gradients/Crossentropy/truediv_grad/Sum_1 Sum 4 20
+392 Adam/gradients/Crossentropy/Sum_grad/DynamicStitch DynamicStitch 5 20
+393 Adam/gradients/Crossentropy/Sum_grad/Maximum/y Const 5 20
+394 Adam/gradients/Crossentropy/Sum_grad/Maximum Maximum 2 20
+395 Adam/gradients/Crossentropy/Sum_grad/floordiv FloorDiv 2 20
+396 Adam/gradients/Crossentropy/Sum_grad/Reshape Reshape 2 20
+397 Adam/gradients/Crossentropy/Sum_grad/Tile Tile 16 20
+398 Adam/gradients/AddN AddN 3 20
+399 Adam/gradients/FullyConnected_2/Softmax_grad/mul Mul 2 20
+400 Adam/gradients/FullyConnected_2/Softmax_grad/Sum/reduction_indices Const 2 20
+401 Adam/gradients/FullyConnected_2/Softmax_grad/Sum Sum 3 20
+402 Adam/gradients/FullyConnected_2/Softmax_grad/Reshape/shape Const 2 20
+403 Adam/gradients/FullyConnected_2/Softmax_grad/Reshape Reshape 2 20
+404 Adam/gradients/FullyConnected_2/Softmax_grad/sub Sub 7 20
+405 Adam/gradients/FullyConnected_2/Softmax_grad/mul_1 Mul 2 20
+406 Adam/gradients/FullyConnected_2/BiasAdd_grad/BiasAddGrad BiasAddGrad 4 20
+407 Adam/gradients/FullyConnected_2/MatMul_grad/MatMul MatMul 39 20
+408 Adam/gradients/FullyConnected_2/MatMul_grad/MatMul_1 MatMul 31 20
+409 Adam/gradients/FullyConnected_1/Elu_grad/EluGrad EluGrad 19 20
+410 Adam/gradients/FullyConnected_1/BiasAdd_grad/BiasAddGrad BiasAddGrad 15 20
+411 Adam/gradients/FullyConnected_1/MatMul_grad/MatMul MatMul 122 20
+412 Adam/gradients/FullyConnected_1/MatMul_grad/MatMul_1 MatMul 157 20
+413 Adam/gradients/FullyConnected/Elu_grad/EluGrad EluGrad 9 20
+414 Adam/gradients/FullyConnected/BiasAdd_grad/BiasAddGrad BiasAddGrad 8 20
+415 Adam/gradients/FullyConnected/MatMul_grad/MatMul MatMul 83 20
+416 Adam/gradients/FullyConnected/MatMul_grad/MatMul_1 MatMul 80 20
+417 Adam/gradients/FullyConnected/Reshape_grad/Shape Shape 1 20
+418 Adam/gradients/FullyConnected/Reshape_grad/Reshape Reshape 3 20
+419 Adam/gradients/BatchNormalization_2/batchnorm/add_1_grad/Shape Shape 2 20
+420 Adam/gradients/BatchNormalization_2/batchnorm/add_1_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+421 Adam/gradients/BatchNormalization_2/batchnorm/add_1_grad/Sum Sum 2 20
+422 Adam/gradients/BatchNormalization_2/batchnorm/add_1_grad/Reshape Reshape 2 20
+423 Adam/gradients/BatchNormalization_2/batchnorm/add_1_grad/Sum_1 Sum 7 20
+424 Adam/gradients/BatchNormalization_2/batchnorm/add_1_grad/Reshape_1 Reshape 1 20
+425 Adam/gradients/BatchNormalization_2/batchnorm/mul_1_grad/Shape Shape 2 20
+426 Adam/gradients/BatchNormalization_2/batchnorm/mul_1_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+427 Adam/gradients/BatchNormalization_2/batchnorm/mul_1_grad/Mul Mul 48 20
+428 Adam/gradients/BatchNormalization_2/batchnorm/mul_1_grad/Sum Sum 3 20
+429 Adam/gradients/BatchNormalization_2/batchnorm/mul_1_grad/Reshape Reshape 3 20
+430 Adam/gradients/BatchNormalization_2/batchnorm/mul_1_grad/Mul_1 Mul 22 20
+431 Adam/gradients/BatchNormalization_2/batchnorm/mul_1_grad/Sum_1 Sum 7 20
+432 Adam/gradients/BatchNormalization_2/batchnorm/mul_1_grad/Reshape_1 Reshape 2 20
+433 Adam/gradients/BatchNormalization_2/batchnorm/sub_grad/Neg Neg 2 20
+434 Adam/gradients/BatchNormalization_2/batchnorm/mul_2_grad/Mul Mul 2 20
+435 Adam/gradients/BatchNormalization_2/batchnorm/mul_2_grad/Mul_1 Mul 3 20
+436 Adam/gradients/BatchNormalization_2/cond/Merge_grad/cond_grad Switch 1 20
+437 Adam/gradients/AddN_1 AddN 3 20
+438 Adam/gradients/BatchNormalization_2/batchnorm/mul_grad/Mul Mul 3 20
+439 Adam/gradients/BatchNormalization_2/batchnorm/mul_grad/Mul_1 Mul 4 20
+440 Adam/gradients/BatchNormalization_2/batchnorm/Rsqrt_grad/RsqrtGrad RsqrtGrad 3 20
+441 Adam/gradients/BatchNormalization_2/cond/Merge_1_grad/cond_grad Switch 2 20
+442 Adam/gradients/BatchNormalization_2/cond/moments/variance_grad/Shape Shape 2 20
+443 Adam/gradients/BatchNormalization_2/cond/moments/variance_grad/DynamicStitch DynamicStitch 4 20
+444 Adam/gradients/BatchNormalization_2/cond/moments/variance_grad/Maximum/y Const 2 20
+445 Adam/gradients/BatchNormalization_2/cond/moments/variance_grad/Maximum Maximum 3 20
+446 Adam/gradients/BatchNormalization_2/cond/moments/variance_grad/floordiv FloorDiv 2 20
+447 Adam/gradients/BatchNormalization_2/cond/moments/variance_grad/Reshape Reshape 2 20
+448 Adam/gradients/BatchNormalization_2/cond/moments/variance_grad/Tile Tile 92 20
+449 Adam/gradients/BatchNormalization_2/cond/moments/variance_grad/Prod Prod 4 20
+450 Adam/gradients/BatchNormalization_2/cond/moments/variance_grad/floordiv_1 FloorDiv 1 20
+451 Adam/gradients/BatchNormalization_2/cond/moments/variance_grad/Cast Cast 3 20
+452 Adam/gradients/BatchNormalization_2/cond/moments/variance_grad/truediv RealDiv 8 20
+453 Adam/gradients/BatchNormalization_2/cond/moments/SquaredDifference_grad/Shape Shape 1 20
+454 Adam/gradients/BatchNormalization_2/cond/moments/SquaredDifference_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+455 Adam/gradients/BatchNormalization_2/cond/moments/SquaredDifference_grad/scalar Const 2 20
+456 Adam/gradients/BatchNormalization_2/cond/moments/SquaredDifference_grad/mul Mul 3 20
+457 Adam/gradients/BatchNormalization_2/cond/moments/SquaredDifference_grad/sub Sub 38 20
+458 Adam/gradients/BatchNormalization_2/cond/moments/SquaredDifference_grad/mul_1 Mul 5 20
+459 Adam/gradients/BatchNormalization_2/cond/moments/SquaredDifference_grad/Sum Sum 2 20
+460 Adam/gradients/BatchNormalization_2/cond/moments/SquaredDifference_grad/Reshape Reshape 2 20
+461 Adam/gradients/BatchNormalization_2/cond/moments/mean_grad/DynamicStitch DynamicStitch 6 20
+462 Adam/gradients/BatchNormalization_2/cond/moments/mean_grad/Maximum/y Const 2 20
+463 Adam/gradients/BatchNormalization_2/cond/moments/mean_grad/Maximum Maximum 4 20
+464 Adam/gradients/BatchNormalization_2/cond/moments/mean_grad/floordiv FloorDiv 5 20
+465 Adam/gradients/BatchNormalization_2/cond/moments/mean_grad/Reshape Reshape 2 20
+466 Adam/gradients/BatchNormalization_2/cond/moments/mean_grad/Tile Tile 79 20
+467 Adam/gradients/BatchNormalization_2/cond/moments/mean_grad/Prod Prod 7 20
+468 Adam/gradients/BatchNormalization_2/cond/moments/mean_grad/floordiv_1 FloorDiv 3 20
+469 Adam/gradients/BatchNormalization_2/cond/moments/mean_grad/Cast Cast 2 20
+470 Adam/gradients/BatchNormalization_2/cond/moments/mean_grad/truediv RealDiv 7 20
+471 Adam/gradients/AddN_2 AddN 5 20
+472 Adam/gradients/Switch Switch 1 20
+473 Adam/gradients/BatchNormalization_2/cond/moments/mean/Switch_grad/cond_grad Merge 3 20
+474 Adam/gradients/AddN_3 AddN 5 20
+475 Adam/gradients/MaxPool2D_2/MaxPool_grad/MaxPoolGrad MaxPoolGrad 239 20
+476 Adam/gradients/HighwayConv2D_8/Add_grad/Shape Shape 2 20
+477 Adam/gradients/HighwayConv2D_8/Add_grad/Shape_1 Shape 2 20
+478 Adam/gradients/HighwayConv2D_8/Add_grad/Reshape Reshape 2 20
+479 Adam/gradients/HighwayConv2D_8/Add_grad/Reshape_1 Reshape 2 20
+480 Adam/gradients/HighwayConv2D_8/Mul_1_grad/Shape Shape 2 20
+481 Adam/gradients/HighwayConv2D_8/Mul_1_grad/Shape_1 Shape 2 20
+482 Adam/gradients/HighwayConv2D_8/Mul_1_grad/Mul Mul 27 20
+483 Adam/gradients/HighwayConv2D_8/Mul_1_grad/Reshape Reshape 3 20
+484 Adam/gradients/HighwayConv2D_8/Mul_1_grad/Mul_1 Mul 56 20
+485 Adam/gradients/HighwayConv2D_8/Mul_1_grad/Reshape_1 Reshape 2 20
+486 Adam/gradients/HighwayConv2D_8/Mul_2_grad/Shape_1 Shape 1 20
+487 Adam/gradients/HighwayConv2D_8/Mul_2_grad/Mul Mul 18 20
+488 Adam/gradients/HighwayConv2D_8/Mul_2_grad/Reshape Reshape 3 20
+489 Adam/gradients/HighwayConv2D_8/Mul_2_grad/Mul_1 Mul 54 20
+490 Adam/gradients/HighwayConv2D_8/Mul_2_grad/Reshape_1 Reshape 3 20
+491 Adam/gradients/HighwayConv2D_8/Elu_grad/EluGrad EluGrad 46 20
+492 Adam/gradients/HighwayConv2D_8/Sub_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+493 Adam/gradients/HighwayConv2D_8/Sub_grad/Sum_1 Sum 2 20
+494 Adam/gradients/HighwayConv2D_8/Sub_grad/Neg Neg 10 20
+495 Adam/gradients/HighwayConv2D_8/Sub_grad/Reshape_1 Reshape 2 20
+496 Adam/gradients/HighwayConv2D_8/add_grad/Shape Shape 1 20
+497 Adam/gradients/HighwayConv2D_8/add_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+498 Adam/gradients/HighwayConv2D_8/add_grad/Sum Sum 2 20
+499 Adam/gradients/HighwayConv2D_8/add_grad/Reshape Reshape 2 20
+500 Adam/gradients/HighwayConv2D_8/add_grad/Sum_1 Sum 11 20
+501 Adam/gradients/HighwayConv2D_8/add_grad/Reshape_1 Reshape 1 20
+502 Adam/gradients/AddN_4 AddN 13 20
+503 Adam/gradients/HighwayConv2D_8/Sigmoid_grad/SigmoidGrad SigmoidGrad 13 20
+504 Adam/gradients/HighwayConv2D_8/add_1_grad/Shape Shape 2 20
+505 Adam/gradients/HighwayConv2D_8/add_1_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+506 Adam/gradients/HighwayConv2D_8/add_1_grad/Sum Sum 2 20
+507 Adam/gradients/HighwayConv2D_8/add_1_grad/Reshape Reshape 2 20
+508 Adam/gradients/HighwayConv2D_8/add_1_grad/Sum_1 Sum 10 20
+509 Adam/gradients/HighwayConv2D_8/add_1_grad/Reshape_1 Reshape 2 20
+510 Adam/gradients/HighwayConv2D_8/Mul_grad/Mul Mul 96 20
+511 Adam/gradients/HighwayConv2D_8/Mul_grad/Sum Sum 3 20
+512 Adam/gradients/HighwayConv2D_8/Mul_grad/Reshape Reshape 2 20
+513 Adam/gradients/HighwayConv2D_8/Mul_grad/Mul_1 Mul 13 20
+514 Adam/gradients/HighwayConv2D_8/Mul_grad/Sum_1 Sum 13 20
+515 Adam/gradients/HighwayConv2D_8/Mul_grad/Reshape_1 Reshape 2 20
+516 Adam/gradients/AddN_5 AddN 16 20
+517 Adam/gradients/HighwayConv2D_8/Conv2D_grad/ShapeN ShapeN 3 20
+518 Adam/gradients/HighwayConv2D_8/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 153 20
+519 Adam/gradients/HighwayConv2D_8/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 276 20
+520 Adam/gradients/HighwayConv2D_7/Add_grad/Shape Shape 2 20
+521 Adam/gradients/HighwayConv2D_7/Add_grad/Shape_1 Shape 2 20
+522 Adam/gradients/HighwayConv2D_7/Add_grad/Reshape Reshape 2 20
+523 Adam/gradients/HighwayConv2D_7/Add_grad/Reshape_1 Reshape 3 20
+524 Adam/gradients/HighwayConv2D_7/Mul_1_grad/Shape Shape 2 20
+525 Adam/gradients/HighwayConv2D_7/Mul_1_grad/Shape_1 Shape 1 20
+526 Adam/gradients/HighwayConv2D_7/Mul_1_grad/Mul Mul 96 20
+527 Adam/gradients/HighwayConv2D_7/Mul_1_grad/Reshape Reshape 5 20
+528 Adam/gradients/HighwayConv2D_7/Mul_1_grad/Mul_1 Mul 26 20
+529 Adam/gradients/HighwayConv2D_7/Mul_1_grad/Reshape_1 Reshape 3 20
+530 Adam/gradients/HighwayConv2D_7/Mul_2_grad/Shape_1 Shape 1 20
+531 Adam/gradients/HighwayConv2D_7/Mul_2_grad/Mul Mul 25 20
+532 Adam/gradients/HighwayConv2D_7/Mul_2_grad/Reshape Reshape 6 20
+533 Adam/gradients/HighwayConv2D_7/Mul_2_grad/Mul_1 Mul 86 20
+534 Adam/gradients/HighwayConv2D_7/Mul_2_grad/Reshape_1 Reshape 3 20
+535 Adam/gradients/HighwayConv2D_7/Elu_grad/EluGrad EluGrad 45 20
+536 Adam/gradients/HighwayConv2D_7/Sub_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+537 Adam/gradients/HighwayConv2D_7/Sub_grad/Sum_1 Sum 3 20
+538 Adam/gradients/HighwayConv2D_7/Sub_grad/Neg Neg 8 20
+539 Adam/gradients/HighwayConv2D_7/Sub_grad/Reshape_1 Reshape 3 20
+540 Adam/gradients/HighwayConv2D_7/add_grad/Shape Shape 1 20
+541 Adam/gradients/HighwayConv2D_7/add_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+542 Adam/gradients/HighwayConv2D_7/add_grad/Sum Sum 3 20
+543 Adam/gradients/HighwayConv2D_7/add_grad/Reshape Reshape 1 20
+544 Adam/gradients/HighwayConv2D_7/add_grad/Sum_1 Sum 14 20
+545 Adam/gradients/HighwayConv2D_7/add_grad/Reshape_1 Reshape 2 20
+546 Adam/gradients/AddN_6 AddN 12 20
+547 Adam/gradients/HighwayConv2D_7/Sigmoid_grad/SigmoidGrad SigmoidGrad 14 20
+548 Adam/gradients/HighwayConv2D_7/add_1_grad/Shape Shape 2 20
+549 Adam/gradients/HighwayConv2D_7/add_1_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+550 Adam/gradients/HighwayConv2D_7/add_1_grad/Sum Sum 3 20
+551 Adam/gradients/HighwayConv2D_7/add_1_grad/Reshape Reshape 3 20
+552 Adam/gradients/HighwayConv2D_7/add_1_grad/Sum_1 Sum 12 20
+553 Adam/gradients/HighwayConv2D_7/add_1_grad/Reshape_1 Reshape 2 20
+554 Adam/gradients/HighwayConv2D_7/Mul_grad/Mul Mul 89 20
+555 Adam/gradients/HighwayConv2D_7/Mul_grad/Sum Sum 3 20
+556 Adam/gradients/HighwayConv2D_7/Mul_grad/Reshape Reshape 2 20
+557 Adam/gradients/HighwayConv2D_7/Mul_grad/Mul_1 Mul 14 20
+558 Adam/gradients/HighwayConv2D_7/Mul_grad/Sum_1 Sum 12 20
+559 Adam/gradients/HighwayConv2D_7/Mul_grad/Reshape_1 Reshape 3 20
+560 Adam/gradients/AddN_7 AddN 15 20
+561 Adam/gradients/HighwayConv2D_7/Conv2D_grad/ShapeN ShapeN 2 20
+562 Adam/gradients/HighwayConv2D_7/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 221 20
+563 Adam/gradients/HighwayConv2D_7/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 555 20
+564 Adam/gradients/HighwayConv2D_6/Add_grad/Shape Shape 3 20
+565 Adam/gradients/HighwayConv2D_6/Add_grad/Shape_1 Shape 3 20
+566 Adam/gradients/HighwayConv2D_6/Add_grad/Reshape Reshape 3 20
+567 Adam/gradients/HighwayConv2D_6/Add_grad/Reshape_1 Reshape 3 20
+568 Adam/gradients/HighwayConv2D_6/Mul_1_grad/Shape Shape 2 20
+569 Adam/gradients/HighwayConv2D_6/Mul_1_grad/Shape_1 Shape 2 20
+570 Adam/gradients/HighwayConv2D_6/Mul_1_grad/Mul Mul 32 20
+571 Adam/gradients/HighwayConv2D_6/Mul_1_grad/Reshape Reshape 4 20
+572 Adam/gradients/HighwayConv2D_6/Mul_1_grad/Mul_1 Mul 28 20
+573 Adam/gradients/HighwayConv2D_6/Mul_1_grad/Reshape_1 Reshape 2 20
+574 Adam/gradients/HighwayConv2D_6/Mul_2_grad/Shape_1 Shape 1 20
+575 Adam/gradients/HighwayConv2D_6/Mul_2_grad/Mul Mul 23 20
+576 Adam/gradients/HighwayConv2D_6/Mul_2_grad/Reshape Reshape 3 20
+577 Adam/gradients/HighwayConv2D_6/Mul_2_grad/Mul_1 Mul 64 20
+578 Adam/gradients/HighwayConv2D_6/Mul_2_grad/Reshape_1 Reshape 2 20
+579 Adam/gradients/HighwayConv2D_6/Elu_grad/EluGrad EluGrad 65 20
+580 Adam/gradients/HighwayConv2D_6/Sub_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+581 Adam/gradients/HighwayConv2D_6/Sub_grad/Sum_1 Sum 2 20
+582 Adam/gradients/HighwayConv2D_6/Sub_grad/Neg Neg 6 20
+583 Adam/gradients/HighwayConv2D_6/Sub_grad/Reshape_1 Reshape 1 20
+584 Adam/gradients/HighwayConv2D_6/add_grad/Shape Shape 2 20
+585 Adam/gradients/HighwayConv2D_6/add_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+586 Adam/gradients/HighwayConv2D_6/add_grad/Sum Sum 3 20
+587 Adam/gradients/HighwayConv2D_6/add_grad/Reshape Reshape 6 20
+588 Adam/gradients/HighwayConv2D_6/add_grad/Sum_1 Sum 16 20
+589 Adam/gradients/HighwayConv2D_6/add_grad/Reshape_1 Reshape 3 20
+590 Adam/gradients/AddN_8 AddN 11 20
+591 Adam/gradients/HighwayConv2D_6/Sigmoid_grad/SigmoidGrad SigmoidGrad 16 20
+592 Adam/gradients/HighwayConv2D_6/add_1_grad/Shape Shape 2 20
+593 Adam/gradients/HighwayConv2D_6/add_1_grad/BroadcastGradientArgs BroadcastGradientArgs 3 20
+594 Adam/gradients/HighwayConv2D_6/add_1_grad/Sum Sum 2 20
+595 Adam/gradients/HighwayConv2D_6/add_1_grad/Reshape Reshape 2 20
+596 Adam/gradients/HighwayConv2D_6/add_1_grad/Sum_1 Sum 13 20
+597 Adam/gradients/HighwayConv2D_6/add_1_grad/Reshape_1 Reshape 2 20
+598 Adam/gradients/HighwayConv2D_6/Mul_grad/Mul Mul 69 20
+599 Adam/gradients/HighwayConv2D_6/Mul_grad/Sum Sum 3 20
+600 Adam/gradients/HighwayConv2D_6/Mul_grad/Reshape Reshape 1 20
+601 Adam/gradients/HighwayConv2D_6/Mul_grad/Mul_1 Mul 15 20
+602 Adam/gradients/HighwayConv2D_6/Mul_grad/Sum_1 Sum 15 20
+603 Adam/gradients/HighwayConv2D_6/Mul_grad/Reshape_1 Reshape 2 20
+604 Adam/gradients/AddN_9 AddN 15 20
+605 Adam/gradients/HighwayConv2D_6/Conv2D_grad/ShapeN ShapeN 2 20
+606 Adam/gradients/HighwayConv2D_6/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 366 20
+607 Adam/gradients/HighwayConv2D_6/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 888 20
+608 Adam/gradients/BatchNormalization_1/batchnorm/add_1_grad/Shape Shape 2 20
+609 Adam/gradients/BatchNormalization_1/batchnorm/add_1_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+610 Adam/gradients/BatchNormalization_1/batchnorm/add_1_grad/Sum Sum 4 20
+611 Adam/gradients/BatchNormalization_1/batchnorm/add_1_grad/Reshape Reshape 2 20
+612 Adam/gradients/BatchNormalization_1/batchnorm/add_1_grad/Sum_1 Sum 12 20
+613 Adam/gradients/BatchNormalization_1/batchnorm/add_1_grad/Reshape_1 Reshape 2 20
+614 Adam/gradients/BatchNormalization_1/batchnorm/mul_1_grad/Shape Shape 2 20
+615 Adam/gradients/BatchNormalization_1/batchnorm/mul_1_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+616 Adam/gradients/BatchNormalization_1/batchnorm/mul_1_grad/Mul Mul 83 20
+617 Adam/gradients/BatchNormalization_1/batchnorm/mul_1_grad/Sum Sum 3 20
+618 Adam/gradients/BatchNormalization_1/batchnorm/mul_1_grad/Reshape Reshape 3 20
+619 Adam/gradients/BatchNormalization_1/batchnorm/mul_1_grad/Mul_1 Mul 55 20
+620 Adam/gradients/BatchNormalization_1/batchnorm/mul_1_grad/Sum_1 Sum 14 20
+621 Adam/gradients/BatchNormalization_1/batchnorm/mul_1_grad/Reshape_1 Reshape 3 20
+622 Adam/gradients/BatchNormalization_1/batchnorm/sub_grad/Neg Neg 3 20
+623 Adam/gradients/BatchNormalization_1/batchnorm/mul_2_grad/Mul Mul 2 20
+624 Adam/gradients/BatchNormalization_1/batchnorm/mul_2_grad/Mul_1 Mul 2 20
+625 Adam/gradients/BatchNormalization_1/cond/Merge_grad/cond_grad Switch 1 20
+626 Adam/gradients/AddN_10 AddN 3 20
+627 Adam/gradients/BatchNormalization_1/batchnorm/mul_grad/Mul Mul 6 20
+628 Adam/gradients/BatchNormalization_1/batchnorm/mul_grad/Mul_1 Mul 4 20
+629 Adam/gradients/BatchNormalization_1/batchnorm/Rsqrt_grad/RsqrtGrad RsqrtGrad 4 20
+630 Adam/gradients/BatchNormalization_1/cond/Merge_1_grad/cond_grad Switch 2 20
+631 Adam/gradients/BatchNormalization_1/cond/moments/variance_grad/Shape Shape 2 20
+632 Adam/gradients/BatchNormalization_1/cond/moments/variance_grad/DynamicStitch DynamicStitch 4 20
+633 Adam/gradients/BatchNormalization_1/cond/moments/variance_grad/Maximum/y Const 2 20
+634 Adam/gradients/BatchNormalization_1/cond/moments/variance_grad/Maximum Maximum 5 20
+635 Adam/gradients/BatchNormalization_1/cond/moments/variance_grad/floordiv FloorDiv 3 20
+636 Adam/gradients/BatchNormalization_1/cond/moments/variance_grad/Reshape Reshape 3 20
+637 Adam/gradients/BatchNormalization_1/cond/moments/variance_grad/Tile Tile 129 20
+638 Adam/gradients/BatchNormalization_1/cond/moments/variance_grad/Prod Prod 4 20
+639 Adam/gradients/BatchNormalization_1/cond/moments/variance_grad/floordiv_1 FloorDiv 2 20
+640 Adam/gradients/BatchNormalization_1/cond/moments/variance_grad/Cast Cast 4 20
+641 Adam/gradients/BatchNormalization_1/cond/moments/variance_grad/truediv RealDiv 13 20
+642 Adam/gradients/BatchNormalization_1/cond/moments/SquaredDifference_grad/Shape Shape 2 20
+643 Adam/gradients/BatchNormalization_1/cond/moments/SquaredDifference_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+644 Adam/gradients/BatchNormalization_1/cond/moments/SquaredDifference_grad/scalar Const 6 20
+645 Adam/gradients/BatchNormalization_1/cond/moments/SquaredDifference_grad/mul Mul 10 20
+646 Adam/gradients/BatchNormalization_1/cond/moments/SquaredDifference_grad/sub Sub 50 20
+647 Adam/gradients/BatchNormalization_1/cond/moments/SquaredDifference_grad/mul_1 Mul 13 20
+648 Adam/gradients/BatchNormalization_1/cond/moments/SquaredDifference_grad/Sum Sum 2 20
+649 Adam/gradients/BatchNormalization_1/cond/moments/SquaredDifference_grad/Reshape Reshape 2 20
+650 Adam/gradients/BatchNormalization_1/cond/moments/mean_grad/DynamicStitch DynamicStitch 5 20
+651 Adam/gradients/BatchNormalization_1/cond/moments/mean_grad/Maximum/y Const 3 20
+652 Adam/gradients/BatchNormalization_1/cond/moments/mean_grad/Maximum Maximum 3 20
+653 Adam/gradients/BatchNormalization_1/cond/moments/mean_grad/floordiv FloorDiv 2 20
+654 Adam/gradients/BatchNormalization_1/cond/moments/mean_grad/Reshape Reshape 2 20
+655 Adam/gradients/BatchNormalization_1/cond/moments/mean_grad/Tile Tile 118 20
+656 Adam/gradients/BatchNormalization_1/cond/moments/mean_grad/Prod Prod 9 20
+657 Adam/gradients/BatchNormalization_1/cond/moments/mean_grad/floordiv_1 FloorDiv 3 20
+658 Adam/gradients/BatchNormalization_1/cond/moments/mean_grad/Cast Cast 3 20
+659 Adam/gradients/BatchNormalization_1/cond/moments/mean_grad/truediv RealDiv 14 20
+660 Adam/gradients/AddN_11 AddN 10 20
+661 Adam/gradients/Switch_1 Switch 1 20
+662 Adam/gradients/BatchNormalization_1/cond/moments/mean/Switch_grad/cond_grad Merge 3 20
+663 Adam/gradients/AddN_12 AddN 10 20
+664 Adam/gradients/MaxPool2D_1/MaxPool_grad/MaxPoolGrad MaxPoolGrad 230 20
+665 Adam/gradients/HighwayConv2D_5/Add_grad/Shape Shape 3 20
+666 Adam/gradients/HighwayConv2D_5/Add_grad/Shape_1 Shape 32 20
+667 Adam/gradients/HighwayConv2D_5/Add_grad/Reshape Reshape 3 20
+668 Adam/gradients/HighwayConv2D_5/Add_grad/Reshape_1 Reshape 3 20
+669 Adam/gradients/HighwayConv2D_5/Mul_1_grad/Shape Shape 1 20
+670 Adam/gradients/HighwayConv2D_5/Mul_1_grad/Shape_1 Shape 2 20
+671 Adam/gradients/HighwayConv2D_5/Mul_1_grad/Mul Mul 357 20
+672 Adam/gradients/HighwayConv2D_5/Mul_1_grad/Reshape Reshape 4 20
+673 Adam/gradients/HighwayConv2D_5/Mul_1_grad/Mul_1 Mul 352 20
+674 Adam/gradients/HighwayConv2D_5/Mul_1_grad/Reshape_1 Reshape 3 20
+675 Adam/gradients/HighwayConv2D_5/Mul_2_grad/Shape_1 Shape 3 20
+676 Adam/gradients/HighwayConv2D_5/Mul_2_grad/Mul Mul 346 20
+677 Adam/gradients/HighwayConv2D_5/Mul_2_grad/Reshape Reshape 2 20
+678 Adam/gradients/HighwayConv2D_5/Mul_2_grad/Mul_1 Mul 342 20
+679 Adam/gradients/HighwayConv2D_5/Mul_2_grad/Reshape_1 Reshape 3 20
+680 Adam/gradients/HighwayConv2D_5/Elu_grad/EluGrad EluGrad 93 20
+681 Adam/gradients/HighwayConv2D_5/Sub_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+682 Adam/gradients/HighwayConv2D_5/Sub_grad/Sum_1 Sum 2 20
+683 Adam/gradients/HighwayConv2D_5/Sub_grad/Neg Neg 28 20
+684 Adam/gradients/HighwayConv2D_5/Sub_grad/Reshape_1 Reshape 4 20
+685 Adam/gradients/HighwayConv2D_5/add_grad/Shape Shape 3 20
+686 Adam/gradients/HighwayConv2D_5/add_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+687 Adam/gradients/HighwayConv2D_5/add_grad/Sum Sum 3 20
+688 Adam/gradients/HighwayConv2D_5/add_grad/Reshape Reshape 2 20
+689 Adam/gradients/HighwayConv2D_5/add_grad/Sum_1 Sum 31 20
+690 Adam/gradients/HighwayConv2D_5/add_grad/Reshape_1 Reshape 4 20
+691 Adam/gradients/AddN_13 AddN 38 20
+692 Adam/gradients/HighwayConv2D_5/Sigmoid_grad/SigmoidGrad SigmoidGrad 71 20
+693 Adam/gradients/HighwayConv2D_5/add_1_grad/Shape Shape 3 20
+694 Adam/gradients/HighwayConv2D_5/add_1_grad/BroadcastGradientArgs BroadcastGradientArgs 1 20
+695 Adam/gradients/HighwayConv2D_5/add_1_grad/Sum Sum 2 20
+696 Adam/gradients/HighwayConv2D_5/add_1_grad/Reshape Reshape 2 20
+697 Adam/gradients/HighwayConv2D_5/add_1_grad/Sum_1 Sum 38 20
+698 Adam/gradients/HighwayConv2D_5/add_1_grad/Reshape_1 Reshape 4 20
+699 Adam/gradients/HighwayConv2D_5/Mul_grad/Mul Mul 188 20
+700 Adam/gradients/HighwayConv2D_5/Mul_grad/Sum Sum 3 20
+701 Adam/gradients/HighwayConv2D_5/Mul_grad/Reshape Reshape 3 20
+702 Adam/gradients/HighwayConv2D_5/Mul_grad/Mul_1 Mul 69 20
+703 Adam/gradients/HighwayConv2D_5/Mul_grad/Sum_1 Sum 44 20
+704 Adam/gradients/HighwayConv2D_5/Mul_grad/Reshape_1 Reshape 2 20
+705 Adam/gradients/AddN_14 AddN 61 20
+706 Adam/gradients/HighwayConv2D_5/Conv2D_grad/ShapeN ShapeN 2 20
+707 Adam/gradients/HighwayConv2D_5/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 223 20
+708 Adam/gradients/HighwayConv2D_5/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 1154 20
+709 Adam/gradients/HighwayConv2D_4/Add_grad/Shape Shape 2 20
+710 Adam/gradients/HighwayConv2D_4/Add_grad/Shape_1 Shape 21 20
+711 Adam/gradients/HighwayConv2D_4/Add_grad/Reshape Reshape 3 20
+712 Adam/gradients/HighwayConv2D_4/Add_grad/Reshape_1 Reshape 2 20
+713 Adam/gradients/HighwayConv2D_4/Mul_1_grad/Shape Shape 2 20
+714 Adam/gradients/HighwayConv2D_4/Mul_1_grad/Shape_1 Shape 1 20
+715 Adam/gradients/HighwayConv2D_4/Mul_1_grad/Mul Mul 333 20
+716 Adam/gradients/HighwayConv2D_4/Mul_1_grad/Reshape Reshape 4 20
+717 Adam/gradients/HighwayConv2D_4/Mul_1_grad/Mul_1 Mul 348 20
+718 Adam/gradients/HighwayConv2D_4/Mul_1_grad/Reshape_1 Reshape 3 20
+719 Adam/gradients/HighwayConv2D_4/Mul_2_grad/Shape_1 Shape 2 20
+720 Adam/gradients/HighwayConv2D_4/Mul_2_grad/Mul Mul 315 20
+721 Adam/gradients/HighwayConv2D_4/Mul_2_grad/Reshape Reshape 11 20
+722 Adam/gradients/HighwayConv2D_4/Mul_2_grad/Mul_1 Mul 417 20
+723 Adam/gradients/HighwayConv2D_4/Mul_2_grad/Reshape_1 Reshape 3 20
+724 Adam/gradients/HighwayConv2D_4/Elu_grad/EluGrad EluGrad 153 20
+725 Adam/gradients/HighwayConv2D_4/Sub_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+726 Adam/gradients/HighwayConv2D_4/Sub_grad/Sum_1 Sum 2 20
+727 Adam/gradients/HighwayConv2D_4/Sub_grad/Neg Neg 33 20
+728 Adam/gradients/HighwayConv2D_4/Sub_grad/Reshape_1 Reshape 2 20
+729 Adam/gradients/HighwayConv2D_4/add_grad/Shape Shape 2 20
+730 Adam/gradients/HighwayConv2D_4/add_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+731 Adam/gradients/HighwayConv2D_4/add_grad/Sum Sum 4 20
+732 Adam/gradients/HighwayConv2D_4/add_grad/Reshape Reshape 4 20
+733 Adam/gradients/HighwayConv2D_4/add_grad/Sum_1 Sum 60 20
+734 Adam/gradients/HighwayConv2D_4/add_grad/Reshape_1 Reshape 2 20
+735 Adam/gradients/AddN_15 AddN 34 20
+736 Adam/gradients/HighwayConv2D_4/Sigmoid_grad/SigmoidGrad SigmoidGrad 61 20
+737 Adam/gradients/HighwayConv2D_4/add_1_grad/Shape Shape 141 20
+738 Adam/gradients/HighwayConv2D_4/add_1_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+739 Adam/gradients/HighwayConv2D_4/add_1_grad/Sum Sum 2 20
+740 Adam/gradients/HighwayConv2D_4/add_1_grad/Reshape Reshape 2 20
+741 Adam/gradients/HighwayConv2D_4/add_1_grad/Sum_1 Sum 47 20
+742 Adam/gradients/HighwayConv2D_4/add_1_grad/Reshape_1 Reshape 4 20
+743 Adam/gradients/HighwayConv2D_4/Mul_grad/Mul Mul 328 20
+744 Adam/gradients/HighwayConv2D_4/Mul_grad/Sum Sum 4 20
+745 Adam/gradients/HighwayConv2D_4/Mul_grad/Reshape Reshape 2 20
+746 Adam/gradients/HighwayConv2D_4/Mul_grad/Mul_1 Mul 98 20
+747 Adam/gradients/HighwayConv2D_4/Mul_grad/Sum_1 Sum 46 20
+748 Adam/gradients/HighwayConv2D_4/Mul_grad/Reshape_1 Reshape 1 20
+749 Adam/gradients/AddN_16 AddN 135 20
+750 Adam/gradients/HighwayConv2D_4/Conv2D_grad/ShapeN ShapeN 2 20
+751 Adam/gradients/HighwayConv2D_4/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 537 20
+752 Adam/gradients/HighwayConv2D_4/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 2507 20
+753 Adam/gradients/HighwayConv2D_3/Add_grad/Shape Shape 2 20
+754 Adam/gradients/HighwayConv2D_3/Add_grad/Shape_1 Shape 2 20
+755 Adam/gradients/HighwayConv2D_3/Add_grad/Reshape Reshape 3 20
+756 Adam/gradients/HighwayConv2D_3/Add_grad/Reshape_1 Reshape 3 20
+757 Adam/gradients/HighwayConv2D_3/Mul_1_grad/Shape Shape 1 20
+758 Adam/gradients/HighwayConv2D_3/Mul_1_grad/Shape_1 Shape 2 20
+759 Adam/gradients/HighwayConv2D_3/Mul_1_grad/Mul Mul 274 20
+760 Adam/gradients/HighwayConv2D_3/Mul_1_grad/Reshape Reshape 8 20
+761 Adam/gradients/HighwayConv2D_3/Mul_1_grad/Mul_1 Mul 380 20
+762 Adam/gradients/HighwayConv2D_3/Mul_1_grad/Reshape_1 Reshape 5 20
+763 Adam/gradients/HighwayConv2D_3/Mul_2_grad/Shape_1 Shape 1 20
+764 Adam/gradients/HighwayConv2D_3/Mul_2_grad/Mul Mul 339 20
+765 Adam/gradients/HighwayConv2D_3/Mul_2_grad/Reshape Reshape 12 20
+766 Adam/gradients/HighwayConv2D_3/Mul_2_grad/Mul_1 Mul 363 20
+767 Adam/gradients/HighwayConv2D_3/Mul_2_grad/Reshape_1 Reshape 6 20
+768 Adam/gradients/HighwayConv2D_3/Elu_grad/EluGrad EluGrad 166 20
+769 Adam/gradients/HighwayConv2D_3/Sub_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+770 Adam/gradients/HighwayConv2D_3/Sub_grad/Sum_1 Sum 7 20
+771 Adam/gradients/HighwayConv2D_3/Sub_grad/Neg Neg 30 20
+772 Adam/gradients/HighwayConv2D_3/Sub_grad/Reshape_1 Reshape 3 20
+773 Adam/gradients/HighwayConv2D_3/add_grad/Shape Shape 2 20
+774 Adam/gradients/HighwayConv2D_3/add_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+775 Adam/gradients/HighwayConv2D_3/add_grad/Sum Sum 4 20
+776 Adam/gradients/HighwayConv2D_3/add_grad/Reshape Reshape 2 20
+777 Adam/gradients/HighwayConv2D_3/add_grad/Sum_1 Sum 36 20
+778 Adam/gradients/HighwayConv2D_3/add_grad/Reshape_1 Reshape 8 20
+779 Adam/gradients/AddN_17 AddN 44 20
+780 Adam/gradients/HighwayConv2D_3/Sigmoid_grad/SigmoidGrad SigmoidGrad 177 20
+781 Adam/gradients/HighwayConv2D_3/add_1_grad/Shape Shape 2 20
+782 Adam/gradients/HighwayConv2D_3/add_1_grad/BroadcastGradientArgs BroadcastGradientArgs 3 20
+783 Adam/gradients/HighwayConv2D_3/add_1_grad/Sum Sum 3 20
+784 Adam/gradients/HighwayConv2D_3/add_1_grad/Reshape Reshape 2 20
+785 Adam/gradients/HighwayConv2D_3/add_1_grad/Sum_1 Sum 112 20
+786 Adam/gradients/HighwayConv2D_3/add_1_grad/Reshape_1 Reshape 4 20
+787 Adam/gradients/HighwayConv2D_3/Mul_grad/Mul Mul 143 20
+788 Adam/gradients/HighwayConv2D_3/Mul_grad/Sum Sum 3 20
+789 Adam/gradients/HighwayConv2D_3/Mul_grad/Reshape Reshape 4 20
+790 Adam/gradients/HighwayConv2D_3/Mul_grad/Mul_1 Mul 147 20
+791 Adam/gradients/HighwayConv2D_3/Mul_grad/Sum_1 Sum 160 20
+792 Adam/gradients/HighwayConv2D_3/Mul_grad/Reshape_1 Reshape 2 20
+793 Adam/gradients/AddN_18 AddN 109 20
+794 Adam/gradients/HighwayConv2D_3/Conv2D_grad/ShapeN ShapeN 2 20
+795 Adam/gradients/HighwayConv2D_3/Conv2D_grad/Const Const 2 20
+796 Adam/gradients/HighwayConv2D_3/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 1270 20
+797 Adam/gradients/HighwayConv2D_3/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 7447 20
+798 Adam/gradients/BatchNormalization/batchnorm/add_1_grad/Shape Shape 2 20
+799 Adam/gradients/BatchNormalization/batchnorm/add_1_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+800 Adam/gradients/BatchNormalization/batchnorm/add_1_grad/Sum Sum 4 20
+801 Adam/gradients/BatchNormalization/batchnorm/add_1_grad/Reshape Reshape 5 20
+802 Adam/gradients/BatchNormalization/batchnorm/add_1_grad/Sum_1 Sum 150 20
+803 Adam/gradients/BatchNormalization/batchnorm/add_1_grad/Reshape_1 Reshape 12 20
+804 Adam/gradients/BatchNormalization/batchnorm/mul_1_grad/Shape Shape 3 20
+805 Adam/gradients/BatchNormalization/batchnorm/mul_1_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+806 Adam/gradients/BatchNormalization/batchnorm/mul_1_grad/Mul Mul 228 20
+807 Adam/gradients/BatchNormalization/batchnorm/mul_1_grad/Sum Sum 4 20
+808 Adam/gradients/BatchNormalization/batchnorm/mul_1_grad/Reshape Reshape 4 20
+809 Adam/gradients/BatchNormalization/batchnorm/mul_1_grad/Mul_1 Mul 252 20
+810 Adam/gradients/BatchNormalization/batchnorm/mul_1_grad/Sum_1 Sum 33 20
+811 Adam/gradients/BatchNormalization/batchnorm/mul_1_grad/Reshape_1 Reshape 2 20
+812 Adam/gradients/BatchNormalization/batchnorm/sub_grad/Neg Neg 12 20
+813 Adam/gradients/BatchNormalization/batchnorm/mul_2_grad/Mul Mul 8 20
+814 Adam/gradients/BatchNormalization/batchnorm/mul_2_grad/Mul_1 Mul 13 20
+815 Adam/gradients/BatchNormalization/cond/Merge_grad/cond_grad Switch 5 20
+816 Adam/gradients/AddN_19 AddN 4 20
+817 Adam/gradients/BatchNormalization/batchnorm/mul_grad/Mul Mul 4 20
+818 Adam/gradients/BatchNormalization/batchnorm/mul_grad/Mul_1 Mul 3 20
+819 Adam/gradients/BatchNormalization/batchnorm/Rsqrt_grad/RsqrtGrad RsqrtGrad 3 20
+820 Adam/gradients/BatchNormalization/cond/Merge_1_grad/cond_grad Switch 2 20
+821 Adam/gradients/BatchNormalization/cond/moments/Squeeze_1_grad/Shape Const 2 20
+822 Adam/gradients/BatchNormalization/cond/moments/variance_grad/Shape Shape 102 20
+823 Adam/gradients/BatchNormalization/cond/moments/variance_grad/DynamicStitch DynamicStitch 2 20
+824 Adam/gradients/BatchNormalization/cond/moments/variance_grad/Maximum/y Const 2 20
+825 Adam/gradients/BatchNormalization/cond/moments/variance_grad/Maximum Maximum 2 20
+826 Adam/gradients/BatchNormalization/cond/moments/variance_grad/floordiv FloorDiv 2 20
+827 Adam/gradients/BatchNormalization/cond/moments/variance_grad/Reshape Reshape 3 20
+828 Adam/gradients/BatchNormalization/cond/moments/variance_grad/Tile Tile 385 20
+829 Adam/gradients/BatchNormalization/cond/moments/variance_grad/Const Const 1 20
+830 Adam/gradients/BatchNormalization/cond/moments/variance_grad/Prod Prod 2 20
+831 Adam/gradients/BatchNormalization/cond/moments/variance_grad/floordiv_1 FloorDiv 1 20
+832 Adam/gradients/BatchNormalization/cond/moments/variance_grad/Cast Cast 2 20
+833 Adam/gradients/BatchNormalization/cond/moments/variance_grad/truediv RealDiv 28 20
+834 Adam/gradients/BatchNormalization/cond/moments/SquaredDifference_grad/Shape Shape 3 20
+835 Adam/gradients/BatchNormalization/cond/moments/SquaredDifference_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+836 Adam/gradients/BatchNormalization/cond/moments/SquaredDifference_grad/scalar Const 3 20
+837 Adam/gradients/BatchNormalization/cond/moments/SquaredDifference_grad/mul Mul 23 20
+838 Adam/gradients/BatchNormalization/cond/moments/SquaredDifference_grad/sub Sub 122 20
+839 Adam/gradients/BatchNormalization/cond/moments/SquaredDifference_grad/mul_1 Mul 27 20
+840 Adam/gradients/BatchNormalization/cond/moments/SquaredDifference_grad/Sum Sum 6 20
+841 Adam/gradients/BatchNormalization/cond/moments/SquaredDifference_grad/Reshape Reshape 2 20
+842 Adam/gradients/BatchNormalization/cond/moments/mean_grad/DynamicStitch DynamicStitch 2 20
+843 Adam/gradients/BatchNormalization/cond/moments/mean_grad/Maximum/y Const 2 20
+844 Adam/gradients/BatchNormalization/cond/moments/mean_grad/Maximum Maximum 2 20
+845 Adam/gradients/BatchNormalization/cond/moments/mean_grad/floordiv FloorDiv 2 20
+846 Adam/gradients/BatchNormalization/cond/moments/mean_grad/Reshape Reshape 2 20
+847 Adam/gradients/BatchNormalization/cond/moments/mean_grad/Tile Tile 401 20
+848 Adam/gradients/BatchNormalization/cond/moments/mean_grad/Prod Prod 2 20
+849 Adam/gradients/BatchNormalization/cond/moments/mean_grad/floordiv_1 FloorDiv 2 20
+850 Adam/gradients/BatchNormalization/cond/moments/mean_grad/Cast Cast 2 20
+851 Adam/gradients/BatchNormalization/cond/moments/mean_grad/truediv RealDiv 30 20
+852 Adam/gradients/AddN_20 AddN 28 20
+853 Adam/gradients/Switch_2 Switch 1 20
+854 Adam/gradients/zeros_2/Const Const 1 20
+855 Adam/gradients/BatchNormalization/cond/moments/mean/Switch_grad/cond_grad Merge 3 20
+856 Adam/gradients/AddN_21 AddN 66 20
+857 Adam/gradients/MaxPool2D/MaxPool_grad/MaxPoolGrad MaxPoolGrad 582 20
+858 Adam/gradients/HighwayConv2D_2/Add_grad/Shape Shape 108 20
+859 Adam/gradients/HighwayConv2D_2/Add_grad/Shape_1 Shape 76 20
+860 Adam/gradients/HighwayConv2D_2/Add_grad/Reshape Reshape 3 20
+861 Adam/gradients/HighwayConv2D_2/Add_grad/Reshape_1 Reshape 6 20
+862 Adam/gradients/HighwayConv2D_2/Mul_1_grad/Shape Shape 1 20
+863 Adam/gradients/HighwayConv2D_2/Mul_1_grad/Shape_1 Shape 2 20
+864 Adam/gradients/HighwayConv2D_2/Mul_1_grad/Mul Mul 2287 20
+865 Adam/gradients/HighwayConv2D_2/Mul_1_grad/Reshape Reshape 9 20
+866 Adam/gradients/HighwayConv2D_2/Mul_1_grad/Mul_1 Mul 1687 20
+867 Adam/gradients/HighwayConv2D_2/Mul_1_grad/Reshape_1 Reshape 22 20
+868 Adam/gradients/HighwayConv2D_2/Mul_2_grad/Shape_1 Shape 2 20
+869 Adam/gradients/HighwayConv2D_2/Mul_2_grad/Mul Mul 1831 20
+870 Adam/gradients/HighwayConv2D_2/Mul_2_grad/Reshape Reshape 4 20
+871 Adam/gradients/HighwayConv2D_2/Mul_2_grad/Mul_1 Mul 1817 20
+872 Adam/gradients/HighwayConv2D_2/Mul_2_grad/Reshape_1 Reshape 20 20
+873 Adam/gradients/HighwayConv2D_2/Elu_grad/EluGrad EluGrad 1049 20
+874 Adam/gradients/HighwayConv2D_2/Sub_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+875 Adam/gradients/HighwayConv2D_2/Sub_grad/Sum_1 Sum 7 20
+876 Adam/gradients/HighwayConv2D_2/Sub_grad/Neg Neg 167 20
+877 Adam/gradients/HighwayConv2D_2/Sub_grad/Reshape_1 Reshape 3 20
+878 Adam/gradients/HighwayConv2D_2/add_grad/Shape Shape 2 20
+879 Adam/gradients/HighwayConv2D_2/add_grad/BroadcastGradientArgs BroadcastGradientArgs 4 20
+880 Adam/gradients/HighwayConv2D_2/add_grad/Sum Sum 4 20
+881 Adam/gradients/HighwayConv2D_2/add_grad/Reshape Reshape 3 20
+882 Adam/gradients/HighwayConv2D_2/add_grad/Sum_1 Sum 212 20
+883 Adam/gradients/HighwayConv2D_2/add_grad/Reshape_1 Reshape 3 20
+884 Adam/gradients/AddN_22 AddN 737 20
+885 Adam/gradients/HighwayConv2D_2/Sigmoid_grad/SigmoidGrad SigmoidGrad 929 20
+886 Adam/gradients/HighwayConv2D_2/add_1_grad/Shape Shape 76 20
+887 Adam/gradients/HighwayConv2D_2/add_1_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+888 Adam/gradients/HighwayConv2D_2/add_1_grad/Sum Sum 3 20
+889 Adam/gradients/HighwayConv2D_2/add_1_grad/Reshape Reshape 4 20
+890 Adam/gradients/HighwayConv2D_2/add_1_grad/Sum_1 Sum 727 20
+891 Adam/gradients/HighwayConv2D_2/add_1_grad/Reshape_1 Reshape 172 20
+892 Adam/gradients/HighwayConv2D_2/Mul_grad/Mul Mul 1043 20
+893 Adam/gradients/HighwayConv2D_2/Mul_grad/Sum Sum 3 20
+894 Adam/gradients/HighwayConv2D_2/Mul_grad/Reshape Reshape 5 20
+895 Adam/gradients/HighwayConv2D_2/Mul_grad/Mul_1 Mul 604 20
+896 Adam/gradients/HighwayConv2D_2/Mul_grad/Sum_1 Sum 363 20
+897 Adam/gradients/HighwayConv2D_2/Mul_grad/Reshape_1 Reshape 3 20
+898 Adam/gradients/AddN_23 AddN 747 20
+899 Adam/gradients/HighwayConv2D_2/Conv2D_grad/ShapeN ShapeN 2 20
+900 Adam/gradients/HighwayConv2D_2/Conv2D_grad/Const Const 2 20
+901 Adam/gradients/HighwayConv2D_2/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 976 20
+902 Adam/gradients/HighwayConv2D_2/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 4087 20
+903 Adam/gradients/HighwayConv2D_1/Add_grad/Shape Shape 90 20
+904 Adam/gradients/HighwayConv2D_1/Add_grad/Shape_1 Shape 113 20
+905 Adam/gradients/HighwayConv2D_1/Add_grad/Reshape Reshape 4 20
+906 Adam/gradients/HighwayConv2D_1/Add_grad/Reshape_1 Reshape 2 20
+907 Adam/gradients/HighwayConv2D_1/Mul_1_grad/Shape Shape 1 20
+908 Adam/gradients/HighwayConv2D_1/Mul_1_grad/Shape_1 Shape 1 20
+909 Adam/gradients/HighwayConv2D_1/Mul_1_grad/Mul Mul 1838 20
+910 Adam/gradients/HighwayConv2D_1/Mul_1_grad/Reshape Reshape 11 20
+911 Adam/gradients/HighwayConv2D_1/Mul_1_grad/Mul_1 Mul 1318 20
+912 Adam/gradients/HighwayConv2D_1/Mul_1_grad/Reshape_1 Reshape 10 20
+913 Adam/gradients/HighwayConv2D_1/Mul_2_grad/Shape_1 Shape 2 20
+914 Adam/gradients/HighwayConv2D_1/Mul_2_grad/Mul Mul 1193 20
+915 Adam/gradients/HighwayConv2D_1/Mul_2_grad/Reshape Reshape 18 20
+916 Adam/gradients/HighwayConv2D_1/Mul_2_grad/Mul_1 Mul 1598 20
+917 Adam/gradients/HighwayConv2D_1/Mul_2_grad/Reshape_1 Reshape 4 20
+918 Adam/gradients/HighwayConv2D_1/Elu_grad/EluGrad EluGrad 1122 20
+919 Adam/gradients/HighwayConv2D_1/Sub_grad/BroadcastGradientArgs BroadcastGradientArgs 3 20
+920 Adam/gradients/HighwayConv2D_1/Sub_grad/Sum_1 Sum 4 20
+921 Adam/gradients/HighwayConv2D_1/Sub_grad/Neg Neg 172 20
+922 Adam/gradients/HighwayConv2D_1/Sub_grad/Reshape_1 Reshape 3 20
+923 Adam/gradients/HighwayConv2D_1/add_grad/Shape Shape 2 20
+924 Adam/gradients/HighwayConv2D_1/add_grad/BroadcastGradientArgs BroadcastGradientArgs 3 20
+925 Adam/gradients/HighwayConv2D_1/add_grad/Sum Sum 7 20
+926 Adam/gradients/HighwayConv2D_1/add_grad/Reshape Reshape 2 20
+927 Adam/gradients/HighwayConv2D_1/add_grad/Sum_1 Sum 358 20
+928 Adam/gradients/HighwayConv2D_1/add_grad/Reshape_1 Reshape 11 20
+929 Adam/gradients/AddN_24 AddN 697 20
+930 Adam/gradients/HighwayConv2D_1/Sigmoid_grad/SigmoidGrad SigmoidGrad 730 20
+931 Adam/gradients/HighwayConv2D_1/add_1_grad/Shape Shape 84 20
+932 Adam/gradients/HighwayConv2D_1/add_1_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+933 Adam/gradients/HighwayConv2D_1/add_1_grad/Sum Sum 5 20
+934 Adam/gradients/HighwayConv2D_1/add_1_grad/Reshape Reshape 5 20
+935 Adam/gradients/HighwayConv2D_1/add_1_grad/Sum_1 Sum 746 20
+936 Adam/gradients/HighwayConv2D_1/add_1_grad/Reshape_1 Reshape 6 20
+937 Adam/gradients/HighwayConv2D_1/Mul_grad/Mul Mul 804 20
+938 Adam/gradients/HighwayConv2D_1/Mul_grad/Sum Sum 3 20
+939 Adam/gradients/HighwayConv2D_1/Mul_grad/Reshape Reshape 2 20
+940 Adam/gradients/HighwayConv2D_1/Mul_grad/Mul_1 Mul 541 20
+941 Adam/gradients/HighwayConv2D_1/Mul_grad/Sum_1 Sum 896 20
+942 Adam/gradients/HighwayConv2D_1/Mul_grad/Reshape_1 Reshape 4 20
+943 Adam/gradients/AddN_25 AddN 800 20
+944 Adam/gradients/HighwayConv2D_1/Conv2D_grad/ShapeN ShapeN 3 20
+945 Adam/gradients/HighwayConv2D_1/Conv2D_grad/Const Const 3 20
+946 Adam/gradients/HighwayConv2D_1/Conv2D_grad/Conv2DBackpropInput Conv2DBackpropInput 2733 20
+947 Adam/gradients/HighwayConv2D_1/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 10743 20
+948 Adam/gradients/HighwayConv2D/Add_grad/Shape Shape 4 20
+949 Adam/gradients/HighwayConv2D/Add_grad/Shape_1 Shape 2 20
+950 Adam/gradients/HighwayConv2D/Add_grad/Reshape Reshape 6 20
+951 Adam/gradients/HighwayConv2D/Add_grad/Reshape_1 Reshape 3 20
+952 Adam/gradients/HighwayConv2D/Mul_1_grad/Shape Shape 3 20
+953 Adam/gradients/HighwayConv2D/Mul_1_grad/Shape_1 Shape 1 20
+954 Adam/gradients/HighwayConv2D/Mul_1_grad/Mul Mul 1958 20
+955 Adam/gradients/HighwayConv2D/Mul_1_grad/Reshape Reshape 6 20
+956 Adam/gradients/HighwayConv2D/Mul_1_grad/Mul_1 Mul 1895 20
+957 Adam/gradients/HighwayConv2D/Mul_1_grad/Reshape_1 Reshape 3 20
+958 Adam/gradients/HighwayConv2D/Mul_2_grad/Shape_1 Shape 2 20
+959 Adam/gradients/HighwayConv2D/Mul_2_grad/Mul Mul 1703 20
+960 Adam/gradients/HighwayConv2D/Mul_2_grad/Reshape Reshape 30 20
+961 Adam/gradients/HighwayConv2D/Mul_2_grad/Mul_1 Mul 2208 20
+962 Adam/gradients/HighwayConv2D/Mul_2_grad/Reshape_1 Reshape 13 20
+963 Adam/gradients/HighwayConv2D/Elu_grad/EluGrad EluGrad 941 20
+964 Adam/gradients/HighwayConv2D/Sub_grad/Shape Const 2 20
+965 Adam/gradients/HighwayConv2D/Sub_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+966 Adam/gradients/HighwayConv2D/Sub_grad/Sum_1 Sum 17 20
+967 Adam/gradients/HighwayConv2D/Sub_grad/Neg Neg 373 20
+968 Adam/gradients/HighwayConv2D/Sub_grad/Reshape_1 Reshape 3 20
+969 Adam/gradients/HighwayConv2D/add_grad/Shape Shape 2 20
+970 Adam/gradients/HighwayConv2D/add_grad/Shape_1 Const 5 20
+971 Adam/gradients/HighwayConv2D/add_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+972 Adam/gradients/HighwayConv2D/add_grad/Sum Sum 6 20
+973 Adam/gradients/HighwayConv2D/add_grad/Reshape Reshape 3 20
+974 Adam/gradients/HighwayConv2D/add_grad/Sum_1 Sum 265 20
+975 Adam/gradients/HighwayConv2D/add_grad/Reshape_1 Reshape 10 20
+976 Adam/gradients/AddN_26 AddN 435 20
+977 Adam/gradients/HighwayConv2D/Sigmoid_grad/SigmoidGrad SigmoidGrad 395 20
+978 Adam/gradients/HighwayConv2D/add_1_grad/Shape Shape 84 20
+979 Adam/gradients/HighwayConv2D/add_1_grad/BroadcastGradientArgs BroadcastGradientArgs 2 20
+980 Adam/gradients/HighwayConv2D/add_1_grad/Sum Sum 6 20
+981 Adam/gradients/HighwayConv2D/add_1_grad/Reshape Reshape 3 20
+982 Adam/gradients/HighwayConv2D/add_1_grad/Sum_1 Sum 397 20
+983 Adam/gradients/HighwayConv2D/add_1_grad/Reshape_1 Reshape 28 20
+984 Adam/gradients/HighwayConv2D/Mul_grad/Mul Mul 740 20
+985 Adam/gradients/HighwayConv2D/Mul_grad/Sum Sum 3 20
+986 Adam/gradients/HighwayConv2D/Mul_grad/Reshape Reshape 2 20
+987 Adam/gradients/HighwayConv2D/Mul_grad/Mul_1 Mul 493 20
+988 Adam/gradients/HighwayConv2D/Mul_grad/Sum_1 Sum 903 20
+989 Adam/gradients/HighwayConv2D/Mul_grad/Reshape_1 Reshape 3 20
+990 Adam/gradients/AddN_27 AddN 778 20
+991 Adam/gradients/HighwayConv2D/Conv2D_grad/Const Const 1 20
+992 Adam/gradients/HighwayConv2D/Conv2D_grad/Conv2DBackpropFilter Conv2DBackpropFilter 1268 20
+993 Adam/global_norm/L2Loss L2Loss 4 20
+994 Adam/global_norm/L2Loss_1 L2Loss 13 20
+995 Adam/global_norm/L2Loss_2 L2Loss 2 20
+996 Adam/global_norm/L2Loss_3 L2Loss 6 20
+997 Adam/global_norm/L2Loss_4 L2Loss 4 20
+998 Adam/global_norm/L2Loss_5 L2Loss 8 20
+999 Adam/global_norm/L2Loss_6 L2Loss 3 20
+1000 Adam/global_norm/L2Loss_7 L2Loss 4 20
+1001 Adam/global_norm/L2Loss_8 L2Loss 4 20
+1002 Adam/global_norm/L2Loss_9 L2Loss 4 20
+1003 Adam/global_norm/L2Loss_10 L2Loss 2 20
+1004 Adam/global_norm/L2Loss_11 L2Loss 3 20
+1005 Adam/global_norm/L2Loss_12 L2Loss 3 20
+1006 Adam/global_norm/L2Loss_13 L2Loss 2 20
+1007 Adam/global_norm/L2Loss_14 L2Loss 5 20
+1008 Adam/global_norm/L2Loss_15 L2Loss 5 20
+1009 Adam/global_norm/L2Loss_16 L2Loss 3 20
+1010 Adam/global_norm/L2Loss_17 L2Loss 3 20
+1011 Adam/global_norm/L2Loss_18 L2Loss 12 20
+1012 Adam/global_norm/L2Loss_19 L2Loss 2 20
+1013 Adam/global_norm/L2Loss_20 L2Loss 1 20
+1014 Adam/global_norm/L2Loss_21 L2Loss 4 20
+1015 Adam/global_norm/L2Loss_22 L2Loss 4 20
+1016 Adam/global_norm/L2Loss_23 L2Loss 3 20
+1017 Adam/global_norm/L2Loss_24 L2Loss 1 20
+1018 Adam/global_norm/L2Loss_25 L2Loss 6 20
+1019 Adam/global_norm/L2Loss_26 L2Loss 7 20
+1020 Adam/global_norm/L2Loss_27 L2Loss 3 20
+1021 Adam/global_norm/L2Loss_28 L2Loss 3 20
+1022 Adam/global_norm/L2Loss_29 L2Loss 3 20
+1023 Adam/global_norm/L2Loss_30 L2Loss 2 20
+1024 Adam/global_norm/L2Loss_31 L2Loss 2 20
+1025 Adam/global_norm/L2Loss_32 L2Loss 4 20
+1026 Adam/global_norm/L2Loss_33 L2Loss 3 20
+1027 Adam/global_norm/L2Loss_34 L2Loss 1 20
+1028 Adam/global_norm/L2Loss_35 L2Loss 2 20
+1029 Adam/global_norm/L2Loss_36 L2Loss 3 20
+1030 Adam/global_norm/L2Loss_37 L2Loss 2 20
+1031 Adam/global_norm/L2Loss_38 L2Loss 2 20
+1032 Adam/global_norm/L2Loss_39 L2Loss 2 20
+1033 Adam/global_norm/L2Loss_40 L2Loss 7 20
+1034 Adam/global_norm/L2Loss_41 L2Loss 2 20
+1035 Adam/global_norm/L2Loss_42 L2Loss 6 20
+1036 Adam/global_norm/L2Loss_43 L2Loss 2 20
+1037 Adam/global_norm/L2Loss_44 L2Loss 8 20
+1038 Adam/global_norm/L2Loss_45 L2Loss 2 20
+1039 Adam/global_norm/L2Loss_46 L2Loss 2 20
+1040 Adam/global_norm/L2Loss_47 L2Loss 2 20
+1041 Adam/global_norm/stack Pack 25 20
+1042 Adam/global_norm/Sum Sum 5 20
+1043 Adam/global_norm/Const_1 Const 2 20
+1044 Adam/global_norm/mul Mul 4 20
+1045 Adam/global_norm/global_norm Sqrt 2 20
+1046 Adam/clip_by_global_norm/Minimum Minimum 2 20
+1047 Adam/clip_by_global_norm/mul/x Const 2 20
+1048 Adam/clip_by_global_norm/mul Mul 4 20
+1049 Adam/clip_by_global_norm/mul_1 Mul 4 20
+1050 Adam/clip_by_global_norm/mul_2 Mul 5 20
+1051 Adam/clip_by_global_norm/mul_3 Mul 3 20
+1052 Adam/clip_by_global_norm/mul_4 Mul 2 20
+1053 Adam/clip_by_global_norm/mul_5 Mul 3 20
+1054 Adam/clip_by_global_norm/mul_6 Mul 3 20
+1055 Adam/clip_by_global_norm/mul_7 Mul 5 20
+1056 Adam/clip_by_global_norm/mul_8 Mul 8 20
+1057 Adam/clip_by_global_norm/mul_9 Mul 3 20
+1058 Adam/clip_by_global_norm/mul_10 Mul 7 20
+1059 Adam/clip_by_global_norm/mul_11 Mul 8 20
+1060 Adam/clip_by_global_norm/mul_12 Mul 2 20
+1061 Adam/clip_by_global_norm/mul_13 Mul 1 20
+1062 Adam/clip_by_global_norm/mul_14 Mul 7 20
+1063 Adam/clip_by_global_norm/mul_15 Mul 3 20
+1064 Adam/clip_by_global_norm/mul_16 Mul 2 20
+1065 Adam/clip_by_global_norm/mul_17 Mul 9 20
+1066 Adam/clip_by_global_norm/mul_18 Mul 3 20
+1067 Adam/clip_by_global_norm/mul_19 Mul 3 20
+1068 Adam/clip_by_global_norm/mul_20 Mul 6 20
+1069 Adam/clip_by_global_norm/mul_21 Mul 5 20
+1070 Adam/clip_by_global_norm/mul_22 Mul 7 20
+1071 Adam/clip_by_global_norm/mul_23 Mul 6 20
+1072 Adam/clip_by_global_norm/mul_24 Mul 4 20
+1073 Adam/clip_by_global_norm/mul_25 Mul 6 20
+1074 Adam/clip_by_global_norm/mul_26 Mul 3 20
+1075 Adam/clip_by_global_norm/mul_27 Mul 4 20
+1076 Adam/clip_by_global_norm/mul_28 Mul 11 20
+1077 Adam/clip_by_global_norm/mul_29 Mul 5 20
+1078 Adam/clip_by_global_norm/mul_30 Mul 7 20
+1079 Adam/clip_by_global_norm/mul_31 Mul 3 20
+1080 Adam/clip_by_global_norm/mul_32 Mul 3 20
+1081 Adam/clip_by_global_norm/mul_33 Mul 4 20
+1082 Adam/clip_by_global_norm/mul_34 Mul 2 20
+1083 Adam/clip_by_global_norm/mul_35 Mul 4 20
+1084 Adam/clip_by_global_norm/mul_36 Mul 3 20
+1085 Adam/clip_by_global_norm/mul_37 Mul 5 20
+1086 Adam/clip_by_global_norm/mul_38 Mul 3 20
+1087 Adam/clip_by_global_norm/mul_39 Mul 4 20
+1088 Adam/clip_by_global_norm/mul_40 Mul 3 20
+1089 Adam/clip_by_global_norm/mul_41 Mul 3 20
+1090 Adam/clip_by_global_norm/mul_42 Mul 3 20
+1091 Adam/clip_by_global_norm/mul_43 Mul 18 20
+1092 Adam/clip_by_global_norm/mul_44 Mul 8 20
+1093 Adam/clip_by_global_norm/mul_45 Mul 28 20
+1094 Adam/clip_by_global_norm/mul_46 Mul 9 20
+1095 Adam/clip_by_global_norm/mul_47 Mul 12 20
+1096 Adam/clip_by_global_norm/mul_48 Mul 3 20
+1097 Adam/beta1_power VariableV2 2 20
+1098 Adam/beta1_power/read Identity 5 20
+1099 Adam/beta2_power VariableV2 7 20
+1100 Adam/beta2_power/read Identity 6 20
+1101 HighwayConv2D/W/Adam VariableV2 3 1
+1102 HighwayConv2D/W/Adam_1 VariableV2 17 1
+1103 HighwayConv2D/b/Adam VariableV2 3 1
+1104 HighwayConv2D/b/Adam_1 VariableV2 15 1
+1105 HighwayConv2D/W_T/Adam VariableV2 3 1
+1106 HighwayConv2D/W_T/Adam_1 VariableV2 3 1
+1107 HighwayConv2D/b_T/Adam VariableV2 2 1
+1108 HighwayConv2D/b_T/Adam_1 VariableV2 2 1
+1109 HighwayConv2D_1/W/Adam VariableV2 3 2
+1110 HighwayConv2D_1/W/Adam_1 VariableV2 3 2
+1111 HighwayConv2D_1/b/Adam VariableV2 4 2
+1112 HighwayConv2D_1/b/Adam_1 VariableV2 4 2
+1113 HighwayConv2D_1/W_T/Adam VariableV2 18 2
+1114 HighwayConv2D_1/W_T/Adam_1 VariableV2 6 2
+1115 HighwayConv2D_1/b_T/Adam VariableV2 7 2
+1116 HighwayConv2D_1/b_T/Adam_1 VariableV2 8 2
+1117 HighwayConv2D_2/W/Adam VariableV2 6 3
+1118 HighwayConv2D_2/W/Adam_1 VariableV2 9 3
+1119 HighwayConv2D_2/b/Adam VariableV2 7 3
+1120 HighwayConv2D_2/b/Adam_1 VariableV2 4 3
+1121 HighwayConv2D_2/W_T/Adam VariableV2 12 3
+1122 HighwayConv2D_2/W_T/Adam_1 VariableV2 3 3
+1123 HighwayConv2D_2/b_T/Adam VariableV2 3 3
+1124 HighwayConv2D_2/b_T/Adam_1 VariableV2 17 3
+1125 BatchNormalization/beta/Adam VariableV2 4 5
+1126 BatchNormalization/beta/Adam_1 VariableV2 3 5
+1127 BatchNormalization/gamma/Adam VariableV2 4 5
+1128 BatchNormalization/gamma/Adam_1 VariableV2 2 5
+1129 HighwayConv2D_3/W/Adam VariableV2 4 6
+1130 HighwayConv2D_3/W/Adam_1 VariableV2 3 6
+1131 HighwayConv2D_3/b/Adam VariableV2 14 6
+1132 HighwayConv2D_3/b/Adam_1 VariableV2 3 6
+1133 HighwayConv2D_3/W_T/Adam VariableV2 3 6
+1134 HighwayConv2D_3/W_T/Adam_1 VariableV2 3 6
+1135 HighwayConv2D_3/b_T/Adam VariableV2 2 6
+1136 HighwayConv2D_3/b_T/Adam_1 VariableV2 19 6
+1137 HighwayConv2D_4/W/Adam VariableV2 3 7
+1138 HighwayConv2D_4/W/Adam_1 VariableV2 3 7
+1139 HighwayConv2D_4/b/Adam VariableV2 3 7
+1140 HighwayConv2D_4/b/Adam_1 VariableV2 3 7
+1141 HighwayConv2D_4/W_T/Adam VariableV2 3 7
+1142 HighwayConv2D_4/W_T/Adam_1 VariableV2 3 7
+1143 HighwayConv2D_4/b_T/Adam VariableV2 4 7
+1144 HighwayConv2D_4/b_T/Adam_1 VariableV2 2 7
+1145 HighwayConv2D_5/W/Adam VariableV2 3 8
+1146 HighwayConv2D_5/W/Adam_1 VariableV2 2 8
+1147 HighwayConv2D_5/b/Adam VariableV2 3 8
+1148 HighwayConv2D_5/b/Adam_1 VariableV2 2 8
+1149 HighwayConv2D_5/W_T/Adam VariableV2 3 8
+1150 HighwayConv2D_5/W_T/Adam_1 VariableV2 13 8
+1151 HighwayConv2D_5/b_T/Adam VariableV2 15 8
+1152 HighwayConv2D_5/b_T/Adam_1 VariableV2 2 8
+1153 BatchNormalization_1/beta/Adam VariableV2 3 10
+1154 BatchNormalization_1/beta/Adam_1 VariableV2 3 10
+1155 BatchNormalization_1/gamma/Adam VariableV2 12 10
+1156 BatchNormalization_1/gamma/Adam_1 VariableV2 3 10
+1157 HighwayConv2D_6/W/Adam VariableV2 4 11
+1158 HighwayConv2D_6/W/Adam_1 VariableV2 4 11
+1159 HighwayConv2D_6/b/Adam VariableV2 2 11
+1160 HighwayConv2D_6/b/Adam_1 VariableV2 3 11
+1161 HighwayConv2D_6/W_T/Adam VariableV2 2 11
+1162 HighwayConv2D_6/W_T/Adam_1 VariableV2 3 11
+1163 HighwayConv2D_6/b_T/Adam VariableV2 2 11
+1164 HighwayConv2D_6/b_T/Adam_1 VariableV2 2 11
+1165 HighwayConv2D_7/W/Adam VariableV2 2 12
+1166 HighwayConv2D_7/W/Adam_1 VariableV2 2 12
+1167 HighwayConv2D_7/b/Adam VariableV2 1 12
+1168 HighwayConv2D_7/b/Adam_1 VariableV2 2 12
+1169 HighwayConv2D_7/W_T/Adam VariableV2 2 12
+1170 HighwayConv2D_7/W_T/Adam_1 VariableV2 2 12
+1171 HighwayConv2D_7/b_T/Adam VariableV2 1 12
+1172 HighwayConv2D_7/b_T/Adam_1 VariableV2 2 12
+1173 HighwayConv2D_8/W/Adam VariableV2 2 13
+1174 HighwayConv2D_8/W/Adam_1 VariableV2 7 13
+1175 HighwayConv2D_8/b/Adam VariableV2 2 13
+1176 HighwayConv2D_8/b/Adam_1 VariableV2 2 13
+1177 HighwayConv2D_8/W_T/Adam VariableV2 2 13
+1178 HighwayConv2D_8/W_T/Adam_1 VariableV2 1 13
+1179 HighwayConv2D_8/b_T/Adam VariableV2 2 13
+1180 HighwayConv2D_8/b_T/Adam_1 VariableV2 2 13
+1181 BatchNormalization_2/beta/Adam VariableV2 2 15
+1182 BatchNormalization_2/beta/Adam_1 VariableV2 2 15
+1183 BatchNormalization_2/gamma/Adam VariableV2 2 15
+1184 BatchNormalization_2/gamma/Adam_1 VariableV2 2 15
+1185 FullyConnected/W/Adam VariableV2 1 16
+1186 FullyConnected/W/Adam_1 VariableV2 2 16
+1187 FullyConnected/b/Adam VariableV2 2 16
+1188 FullyConnected/b/Adam_1 VariableV2 2 16
+1189 FullyConnected_1/W/Adam VariableV2 2 17
+1190 FullyConnected_1/W/Adam_1 VariableV2 2 17
+1191 FullyConnected_1/b/Adam VariableV2 2 17
+1192 FullyConnected_1/b/Adam_1 VariableV2 2 17
+1193 FullyConnected_2/W/Adam VariableV2 2 18
+1194 FullyConnected_2/W/Adam_1 VariableV2 2 18
+1195 FullyConnected_2/b/Adam VariableV2 1 18
+1196 FullyConnected_2/b/Adam_1 VariableV2 2 18
+1197 Adam/apply_grad_op_0/learning_rate Const 9 20
+1198 Adam/apply_grad_op_0/beta1 Const 4 20
+1199 Adam/apply_grad_op_0/beta2 Const 4 20
+1200 Adam/apply_grad_op_0/epsilon Const 4 20
+1201 Adam/apply_grad_op_0/update_HighwayConv2D/W/ApplyAdam ApplyAdam 8 20
+1202 Adam/apply_grad_op_0/update_HighwayConv2D/b/ApplyAdam ApplyAdam 7 20
+1203 Adam/apply_grad_op_0/update_HighwayConv2D/W_T/ApplyAdam ApplyAdam 3 20
+1204 Adam/apply_grad_op_0/update_HighwayConv2D/b_T/ApplyAdam ApplyAdam 4 20
+1205 Adam/apply_grad_op_0/update_HighwayConv2D_1/W/ApplyAdam ApplyAdam 6 20
+1206 Adam/apply_grad_op_0/update_HighwayConv2D_1/b/ApplyAdam ApplyAdam 3 20
+1207 Adam/apply_grad_op_0/update_HighwayConv2D_1/W_T/ApplyAdam ApplyAdam 5 20
+1208 Adam/apply_grad_op_0/update_HighwayConv2D_1/b_T/ApplyAdam ApplyAdam 5 20
+1209 Adam/apply_grad_op_0/update_HighwayConv2D_2/W/ApplyAdam ApplyAdam 4 20
+1210 Adam/apply_grad_op_0/update_HighwayConv2D_2/b/ApplyAdam ApplyAdam 5 20
+1211 Adam/apply_grad_op_0/update_HighwayConv2D_2/W_T/ApplyAdam ApplyAdam 4 20
+1212 Adam/apply_grad_op_0/update_HighwayConv2D_2/b_T/ApplyAdam ApplyAdam 3 20
+1213 Adam/apply_grad_op_0/update_BatchNormalization/beta/ApplyAdam ApplyAdam 3 20
+1214 Adam/apply_grad_op_0/update_BatchNormalization/gamma/ApplyAdam ApplyAdam 9 20
+1215 Adam/apply_grad_op_0/update_HighwayConv2D_3/W/ApplyAdam ApplyAdam 6 20
+1216 Adam/apply_grad_op_0/update_HighwayConv2D_3/b/ApplyAdam ApplyAdam 2 20
+1217 Adam/apply_grad_op_0/update_HighwayConv2D_3/W_T/ApplyAdam ApplyAdam 13 20
+1218 Adam/apply_grad_op_0/update_HighwayConv2D_3/b_T/ApplyAdam ApplyAdam 3 20
+1219 Adam/apply_grad_op_0/update_HighwayConv2D_4/W/ApplyAdam ApplyAdam 4 20
+1220 Adam/apply_grad_op_0/update_HighwayConv2D_4/b/ApplyAdam ApplyAdam 9 20
+1221 Adam/apply_grad_op_0/update_HighwayConv2D_4/W_T/ApplyAdam ApplyAdam 4 20
+1222 Adam/apply_grad_op_0/update_HighwayConv2D_4/b_T/ApplyAdam ApplyAdam 5 20
+1223 Adam/apply_grad_op_0/update_HighwayConv2D_5/W/ApplyAdam ApplyAdam 4 20
+1224 Adam/apply_grad_op_0/update_HighwayConv2D_5/b/ApplyAdam ApplyAdam 6 20
+1225 Adam/apply_grad_op_0/update_HighwayConv2D_5/W_T/ApplyAdam ApplyAdam 5 20
+1226 Adam/apply_grad_op_0/update_HighwayConv2D_5/b_T/ApplyAdam ApplyAdam 3 20
+1227 Adam/apply_grad_op_0/update_BatchNormalization_1/beta/ApplyAdam ApplyAdam 11 20
+1228 Adam/apply_grad_op_0/update_BatchNormalization_1/gamma/ApplyAdam ApplyAdam 6 20
+1229 Adam/apply_grad_op_0/update_HighwayConv2D_6/W/ApplyAdam ApplyAdam 9 20
+1230 Adam/apply_grad_op_0/update_HighwayConv2D_6/b/ApplyAdam ApplyAdam 7 20
+1231 Adam/apply_grad_op_0/update_HighwayConv2D_6/W_T/ApplyAdam ApplyAdam 4 20
+1232 Adam/apply_grad_op_0/update_HighwayConv2D_6/b_T/ApplyAdam ApplyAdam 5 20
+1233 Adam/apply_grad_op_0/update_HighwayConv2D_7/W/ApplyAdam ApplyAdam 6 20
+1234 Adam/apply_grad_op_0/update_HighwayConv2D_7/b/ApplyAdam ApplyAdam 3 20
+1235 Adam/apply_grad_op_0/update_HighwayConv2D_7/W_T/ApplyAdam ApplyAdam 4 20
+1236 Adam/apply_grad_op_0/update_HighwayConv2D_7/b_T/ApplyAdam ApplyAdam 3 20
+1237 Adam/apply_grad_op_0/update_HighwayConv2D_8/W/ApplyAdam ApplyAdam 4 20
+1238 Adam/apply_grad_op_0/update_HighwayConv2D_8/b/ApplyAdam ApplyAdam 4 20
+1239 Adam/apply_grad_op_0/update_HighwayConv2D_8/W_T/ApplyAdam ApplyAdam 4 20
+1240 Adam/apply_grad_op_0/update_HighwayConv2D_8/b_T/ApplyAdam ApplyAdam 4 20
+1241 Adam/apply_grad_op_0/update_BatchNormalization_2/beta/ApplyAdam ApplyAdam 3 20
+1242 Adam/apply_grad_op_0/update_BatchNormalization_2/gamma/ApplyAdam ApplyAdam 4 20
+1243 Adam/apply_grad_op_0/update_FullyConnected/W/ApplyAdam ApplyAdam 65 20
+1244 Adam/apply_grad_op_0/update_FullyConnected/b/ApplyAdam ApplyAdam 7 20
+1245 Adam/apply_grad_op_0/update_FullyConnected_1/W/ApplyAdam ApplyAdam 55 20
+1246 Adam/apply_grad_op_0/update_FullyConnected_1/b/ApplyAdam ApplyAdam 9 20
+1247 Adam/apply_grad_op_0/update_FullyConnected_2/W/ApplyAdam ApplyAdam 13 20
+1248 Adam/apply_grad_op_0/update_FullyConnected_2/b/ApplyAdam ApplyAdam 4 20
+1249 Adam/apply_grad_op_0/mul Mul 4 20
+1250 Adam/apply_grad_op_0/Assign Assign 3 20
+1251 Adam/apply_grad_op_0/mul_1 Mul 4 20
+1252 Adam/apply_grad_op_0/Assign_1 Assign 2 20
+1253 Adam/apply_grad_op_0/value Const 2 20
+1254 Adam/apply_grad_op_0 AssignAdd 2 20
+1255 Adam/train_op_0 NoOp 11 20
+0 1 1
+2 3 576
+4 5 64
+6 7 64
+8 9 64
+3 10 576
+10 11 3211264
+5 11 64
+11 12 3211264
+10 13 3211264
+7 13 64
+13 14 3211264
+9 14 64
+14 15 3211264
+15 16 3211264
+12 17 3211264
+15 17 3211264
+10 18 3211264
+16 18 3211264
+17 19 3211264
+18 19 3211264
+20 21 4096
+22 23 64
+24 25 64
+26 27 64
+19 28 3211264
+21 28 4096
+28 29 3211264
+23 29 64
+29 30 3211264
+28 31 3211264
+25 31 64
+31 32 3211264
+27 32 64
+32 33 3211264
+33 34 3211264
+30 35 3211264
+33 35 3211264
+28 36 3211264
+34 36 3211264
+35 37 3211264
+36 37 3211264
+38 39 1024
+40 41 64
+42 43 64
+44 45 64
+37 46 3211264
+39 46 1024
+46 47 3211264
+41 47 64
+47 48 3211264
+46 49 3211264
+43 49 64
+49 50 3211264
+45 50 64
+50 51 3211264
+51 52 3211264
+48 53 3211264
+51 53 3211264
+46 54 3211264
+52 54 3211264
+53 55 3211264
+54 55 3211264
+55 56 3211264
+57 58 64
+59 60 64
+61 62 64
+63 64 64
+0 65 1
+1 65 1
+67 68 12
+56 69 802816
+70 71 802816
+68 72 64
+71 73 64
+72 75 64
+75 76 64
+74 76 4
+76 77 64
+61 78 64
+73 80 64
+80 81 64
+79 81 4
+81 82 64
+63 83 64
+72 84 64
+73 85 64
+62 86 64
+64 87 64
+86 88 64
+84 88 64
+87 89 64
+85 89 64
+89 91 4
+90 91 4
+91 92 64
+92 93 64
+60 93 64
+56 94 802816
+93 94 64
+88 95 4
+93 95 64
+58 96 64
+95 96 64
+94 97 802816
+96 97 64
+98 99 9216
+100 101 64
+102 103 64
+104 105 64
+97 106 802816
+99 106 9216
+106 107 802816
+101 107 64
+107 108 802816
+106 109 802816
+103 109 64
+109 110 802816
+105 110 64
+110 111 802816
+111 112 802816
+108 113 802816
+111 113 802816
+106 114 802816
+112 114 802816
+113 115 802816
+114 115 802816
+116 117 4096
+118 119 64
+120 121 64
+122 123 64
+115 124 802816
+117 124 4096
+124 125 802816
+119 125 64
+125 126 802816
+124 127 802816
+121 127 64
+127 128 802816
+123 128 64
+128 129 802816
+129 130 802816
+126 131 802816
+129 131 802816
+124 132 802816
+130 132 802816
+131 133 802816
+132 133 802816
+134 135 1024
+136 137 64
+138 139 64
+140 141 64
+133 142 802816
+135 142 1024
+142 143 802816
+137 143 64
+143 144 802816
+142 145 802816
+139 145 64
+145 146 802816
+141 146 64
+146 147 802816
+147 148 802816
+144 149 802816
+147 149 802816
+142 150 802816
+148 150 802816
+149 151 802816
+150 151 802816
+151 152 802816
+153 154 64
+155 156 64
+157 158 64
+159 160 64
+152 162 200704
+163 164 200704
+161 165 64
+164 166 64
+165 168 64
+168 169 64
+167 169 4
+169 170 64
+157 171 64
+166 173 64
+173 174 64
+172 174 4
+174 175 64
+159 176 64
+165 177 64
+166 178 64
+158 179 64
+160 180 64
+179 181 64
+177 181 64
+180 182 64
+178 182 64
+182 183 4
+183 184 64
+184 185 64
+156 185 64
+152 186 200704
+185 186 64
+181 187 4
+185 187 64
+154 188 64
+187 188 64
+186 189 200704
+188 189 64
+190 191 9216
+192 193 64
+194 195 64
+196 197 64
+189 198 200704
+191 198 9216
+198 199 200704
+193 199 64
+199 200 200704
+198 201 200704
+195 201 64
+201 202 200704
+197 202 64
+202 203 200704
+203 204 200704
+200 205 200704
+203 205 200704
+198 206 200704
+204 206 200704
+205 207 200704
+206 207 200704
+208 209 4096
+210 211 64
+212 213 64
+214 215 64
+207 216 200704
+209 216 4096
+216 217 200704
+211 217 64
+217 218 200704
+216 219 200704
+213 219 64
+219 220 200704
+215 220 64
+220 221 200704
+221 222 200704
+218 223 200704
+221 223 200704
+216 224 200704
+222 224 200704
+223 225 200704
+224 225 200704
+226 227 1024
+228 229 64
+230 231 64
+232 233 64
+225 234 200704
+227 234 1024
+234 235 200704
+229 235 64
+235 236 200704
+234 237 200704
+231 237 64
+237 238 200704
+233 238 64
+238 239 200704
+239 240 200704
+236 241 200704
+239 241 200704
+234 242 200704
+240 242 200704
+241 243 200704
+242 243 200704
+243 244 200704
+245 246 64
+247 248 64
+249 250 64
+251 252 64
+244 254 65536
+255 256 65536
+253 257 64
+256 258 64
+257 260 64
+260 261 64
+259 261 4
+261 262 64
+249 263 64
+258 265 64
+265 266 64
+264 266 4
+266 267 64
+251 268 64
+257 269 64
+258 270 64
+250 271 64
+252 272 64
+271 273 64
+269 273 64
+272 274 64
+270 274 64
+274 275 4
+275 276 64
+276 277 64
+248 277 64
+244 278 65536
+277 278 64
+273 279 4
+277 279 64
+246 280 64
+279 280 64
+278 281 65536
+280 281 64
+282 283 131072
+284 285 512
+281 287 65536
+286 287 8
+287 288 65536
+283 288 131072
+288 289 32768
+285 289 512
+289 290 32768
+291 292 131072
+293 294 1024
+290 295 32768
+292 295 131072
+295 296 65536
+294 296 1024
+296 297 65536
+298 299 10240
+300 301 40
+297 302 65536
+299 302 10240
+302 303 2560
+301 303 40
+303 304 2560
+304 305 2560
+305 307 512
+306 307 512
+307 308 64
+308 309 256
+304 311 2560
+310 311 4
+304 312 2560
+311 312 256
+312 314 2560
+314 315 2560
+313 315 4
+315 316 2560
+316 317 2560
+317 318 2560
+318 319 256
+319 321 256
+320 321 4
+322 323 4
+324 325 4
+326 327 4
+325 328 4
+309 328 4
+328 329 4
+327 329 4
+324 330 4
+329 330 4
+331 332 4
+333 334 4
+323 334 4
+335 336 4
+323 336 4
+334 337 4
+336 337 4
+337 338 4
+339 340 4
+338 340 4
+332 341 4
+321 341 4
+341 342 4
+340 342 4
+331 343 4
+342 343 4
+344 345 8
+332 345 4
+346 347 8
+321 347 4
+319 348 256
+348 349 4
+349 352 256
+351 352 4
+352 353 256
+317 354 2560
+354 355 8
+355 357 8
+356 357 4
+354 358 8
+357 358 8
+353 359 256
+355 359 8
+359 360 256
+358 360 8
+316 362 2560
+361 363 8
+362 363 8
+360 364 2560
+364 365 2560
+365 366 2560
+362 366 8
+315 367 2560
+366 368 2560
+367 368 2560
+314 369 2560
+368 370 2560
+370 371 8
+314 372 2560
+313 372 4
+369 373 8
+372 374 640
+368 374 2560
+371 374 2560
+374 375 2560
+373 375 8
+375 376 2560
+369 376 8
+312 377 2560
+376 378 2560
+378 379 8
+312 380 2560
+377 381 8
+380 382 640
+376 382 2560
+379 382 2560
+382 383 2560
+381 383 8
+383 384 2560
+377 384 8
+304 385 2560
+384 386 2560
+311 386 256
+304 387 2560
+387 388 2560
+311 388 256
+388 389 2560
+311 389 256
+384 390 2560
+389 390 2560
+390 391 2560
+392 394 8
+393 394 4
+394 395 8
+392 396 8
+396 397 256
+395 397 8
+397 398 2560
+398 399 2560
+304 399 2560
+399 401 2560
+400 401 4
+401 403 256
+402 403 8
+398 404 2560
+403 404 256
+404 405 2560
+304 405 2560
+405 406 2560
+405 407 2560
+299 407 10240
+297 408 65536
+405 408 2560
+407 409 65536
+297 409 65536
+409 410 65536
+409 411 65536
+292 411 131072
+290 412 32768
+409 412 65536
+411 413 32768
+290 413 32768
+413 414 32768
+413 415 32768
+283 415 131072
+287 416 65536
+413 416 32768
+281 417 65536
+415 418 65536
+417 418 16
+278 419 65536
+419 420 16
+418 421 65536
+420 421 12
+421 422 65536
+419 422 16
+418 423 65536
+423 424 64
+244 425 65536
+425 426 16
+422 427 65536
+277 427 64
+427 428 65536
+426 428 12
+428 429 65536
+425 429 16
+244 430 65536
+422 430 65536
+430 431 65536
+431 432 64
+424 433 64
+433 434 64
+277 434 64
+433 435 64
+273 435 4
+434 436 64
+432 437 64
+435 437 64
+437 438 64
+248 438 64
+437 439 64
+276 439 64
+276 440 64
+438 440 64
+255 442 65536
+442 443 16
+443 445 16
+444 445 4
+442 446 16
+445 446 16
+443 447 16
+447 448 64
+446 448 16
+449 450 4
+450 451 4
+448 452 65536
+451 452 4
+453 454 16
+455 456 4
+452 456 65536
+456 458 65536
+457 458 65536
+458 459 65536
+454 459 12
+459 460 65536
+453 460 16
+461 463 16
+462 463 4
+463 464 16
+461 465 16
+465 466 64
+464 466 16
+467 468 4
+468 469 4
+466 470 65536
+469 470 4
+460 471 65536
+470 471 65536
+244 472 65536
+471 473 65536
+429 474 65536
+473 474 4
+243 475 200704
+244 475 65536
+474 475 65536
+241 476 200704
+242 477 200704
+476 478 16
+477 479 16
+236 480 200704
+239 481 200704
+478 482 200704
+239 482 200704
+480 483 16
+236 484 200704
+478 484 200704
+481 485 16
+240 486 200704
+479 487 200704
+240 487 200704
+234 489 200704
+479 489 200704
+486 490 16
+483 491 200704
+236 491 200704
+490 493 200704
+493 494 200704
+494 495 200704
+234 496 200704
+496 497 16
+491 498 200704
+497 498 12
+498 499 200704
+496 499 16
+491 500 200704
+500 501 64
+485 502 200704
+495 502 200704
+239 503 200704
+502 503 200704
+237 504 200704
+504 505 16
+503 506 200704
+505 506 12
+506 507 200704
+504 507 16
+503 508 200704
+508 509 64
+507 510 200704
+231 510 64
+510 511 200704
+511 512 200704
+234 513 200704
+507 513 200704
+513 514 200704
+514 515 64
+488 516 200704
+499 516 200704
+512 516 200704
+225 517 200704
+227 517 1024
+517 518 16
+227 518 1024
+516 518 200704
+225 519 200704
+516 519 200704
+223 520 200704
+224 521 200704
+520 522 16
+521 523 16
+218 524 200704
+221 525 200704
+522 526 200704
+221 526 200704
+524 527 16
+218 528 200704
+522 528 200704
+525 529 16
+222 530 200704
+523 531 200704
+222 531 200704
+216 533 200704
+523 533 200704
+530 534 16
+527 535 200704
+218 535 200704
+534 537 200704
+537 538 200704
+538 539 200704
+216 540 200704
+540 541 16
+535 542 200704
+541 542 12
+542 543 200704
+540 543 16
+535 544 200704
+544 545 64
+529 546 200704
+539 546 200704
+221 547 200704
+546 547 200704
+219 548 200704
+548 549 16
+547 550 200704
+549 550 12
+550 551 200704
+548 551 16
+547 552 200704
+552 553 64
+551 554 200704
+213 554 64
+554 555 200704
+555 556 200704
+216 557 200704
+551 557 200704
+557 558 200704
+558 559 64
+532 560 200704
+543 560 200704
+556 560 200704
+207 561 200704
+209 561 4096
+561 562 16
+209 562 4096
+560 562 200704
+207 563 200704
+560 563 200704
+205 564 200704
+206 565 200704
+564 566 16
+565 567 16
+200 568 200704
+203 569 200704
+566 570 200704
+203 570 200704
+568 571 16
+200 572 200704
+566 572 200704
+569 573 16
+204 574 200704
+567 575 200704
+204 575 200704
+198 577 200704
+567 577 200704
+574 578 16
+571 579 200704
+200 579 200704
+578 581 200704
+581 582 200704
+582 583 200704
+198 584 200704
+584 585 16
+579 586 200704
+585 586 12
+586 587 200704
+584 587 16
+579 588 200704
+588 589 64
+573 590 200704
+583 590 200704
+203 591 200704
+590 591 200704
+201 592 200704
+592 593 16
+591 594 200704
+593 594 12
+594 595 200704
+592 595 16
+591 596 200704
+596 597 64
+595 598 200704
+195 598 64
+598 599 200704
+599 600 200704
+198 601 200704
+595 601 200704
+601 602 200704
+602 603 64
+576 604 200704
+587 604 200704
+600 604 200704
+189 605 200704
+191 605 9216
+605 606 16
+191 606 9216
+604 606 200704
+189 607 200704
+604 607 200704
+186 608 200704
+608 609 16
+606 610 200704
+609 610 12
+610 611 200704
+608 611 16
+606 612 200704
+612 613 64
+152 614 200704
+614 615 16
+611 616 200704
+185 616 64
+616 617 200704
+615 617 12
+617 618 200704
+614 618 16
+152 619 200704
+611 619 200704
+619 620 200704
+620 621 64
+613 622 64
+622 623 64
+185 623 64
+622 624 64
+181 624 4
+623 625 64
+621 626 64
+624 626 64
+626 627 64
+156 627 64
+626 628 64
+184 628 64
+184 629 64
+627 629 64
+163 631 200704
+631 632 16
+632 634 16
+633 634 4
+631 635 16
+634 635 16
+632 636 16
+636 637 64
+635 637 16
+638 639 4
+639 640 4
+637 641 200704
+640 641 4
+642 643 16
+644 645 4
+641 645 200704
+645 647 200704
+646 647 200704
+647 648 200704
+643 648 12
+648 649 200704
+642 649 16
+650 652 16
+651 652 4
+652 653 16
+650 654 16
+654 655 64
+653 655 16
+656 657 4
+657 658 4
+655 659 200704
+658 659 4
+649 660 200704
+659 660 200704
+152 661 200704
+660 662 200704
+618 663 200704
+662 663 4
+151 664 802816
+152 664 200704
+663 664 200704
+149 665 802816
+150 666 802816
+665 667 16
+666 668 16
+144 669 802816
+147 670 802816
+667 671 802816
+147 671 802816
+669 672 16
+144 673 802816
+667 673 802816
+670 674 16
+148 675 802816
+668 676 802816
+148 676 802816
+142 678 802816
+668 678 802816
+675 679 16
+672 680 802816
+144 680 802816
+679 682 802816
+682 683 802816
+683 684 802816
+142 685 802816
+685 686 16
+680 687 802816
+686 687 12
+687 688 802816
+685 688 16
+680 689 802816
+689 690 64
+674 691 802816
+684 691 802816
+147 692 802816
+691 692 802816
+145 693 802816
+693 694 16
+692 695 802816
+694 695 12
+695 696 802816
+693 696 16
+692 697 802816
+697 698 64
+696 699 802816
+139 699 64
+699 700 802816
+700 701 802816
+142 702 802816
+696 702 802816
+702 703 802816
+703 704 64
+677 705 802816
+688 705 802816
+701 705 802816
+133 706 802816
+135 706 1024
+706 707 16
+135 707 1024
+705 707 802816
+133 708 802816
+705 708 802816
+131 709 802816
+132 710 802816
+709 711 16
+710 712 16
+126 713 802816
+129 714 802816
+711 715 802816
+129 715 802816
+713 716 16
+126 717 802816
+711 717 802816
+714 718 16
+130 719 802816
+712 720 802816
+130 720 802816
+124 722 802816
+712 722 802816
+719 723 16
+716 724 802816
+126 724 802816
+723 726 802816
+726 727 802816
+727 728 802816
+124 729 802816
+729 730 16
+724 731 802816
+730 731 12
+731 732 802816
+729 732 16
+724 733 802816
+733 734 64
+718 735 802816
+728 735 802816
+129 736 802816
+735 736 802816
+127 737 802816
+737 738 16
+736 739 802816
+738 739 12
+739 740 802816
+737 740 16
+736 741 802816
+741 742 64
+740 743 802816
+121 743 64
+743 744 802816
+744 745 802816
+124 746 802816
+740 746 802816
+746 747 802816
+747 748 64
+721 749 802816
+732 749 802816
+745 749 802816
+115 750 802816
+117 750 4096
+750 751 16
+117 751 4096
+749 751 802816
+115 752 802816
+749 752 802816
+113 753 802816
+114 754 802816
+753 755 16
+754 756 16
+108 757 802816
+111 758 802816
+755 759 802816
+111 759 802816
+757 760 16
+108 761 802816
+755 761 802816
+758 762 16
+112 763 802816
+756 764 802816
+112 764 802816
+106 766 802816
+756 766 802816
+763 767 16
+760 768 802816
+108 768 802816
+767 770 802816
+770 771 802816
+771 772 802816
+106 773 802816
+773 774 16
+768 775 802816
+774 775 12
+775 776 802816
+773 776 16
+768 777 802816
+777 778 64
+762 779 802816
+772 779 802816
+111 780 802816
+779 780 802816
+109 781 802816
+781 782 16
+780 783 802816
+782 783 12
+783 784 802816
+781 784 16
+780 785 802816
+785 786 64
+784 787 802816
+103 787 64
+787 788 802816
+788 789 802816
+106 790 802816
+784 790 802816
+790 791 802816
+791 792 64
+765 793 802816
+776 793 802816
+789 793 802816
+97 794 802816
+99 794 9216
+794 796 16
+99 796 9216
+793 796 802816
+97 797 802816
+795 797 16
+793 797 802816
+94 798 802816
+798 799 16
+796 800 802816
+799 800 12
+800 801 802816
+798 801 16
+796 802 802816
+802 803 64
+56 804 802816
+804 805 16
+801 806 802816
+93 806 64
+806 807 802816
+805 807 12
+807 808 802816
+804 808 16
+56 809 802816
+801 809 802816
+809 810 802816
+810 811 64
+803 812 64
+812 813 64
+93 813 64
+812 814 64
+88 814 4
+813 815 64
+811 816 64
+814 816 64
+816 817 64
+60 817 64
+816 818 64
+92 818 64
+92 819 64
+817 819 64
+70 822 802816
+822 823 16
+823 825 16
+824 825 4
+822 826 16
+825 826 16
+823 827 16
+827 828 64
+826 828 16
+829 830 4
+830 831 4
+831 832 4
+828 833 802816
+832 833 4
+834 835 16
+836 837 4
+833 837 802816
+837 839 802816
+838 839 802816
+839 840 802816
+835 840 12
+840 841 802816
+834 841 16
+842 844 16
+843 844 4
+844 845 16
+842 846 16
+846 847 64
+845 847 16
+848 849 4
+849 850 4
+847 851 802816
+850 851 4
+841 852 802816
+851 852 802816
+56 853 802816
+852 855 802816
+808 856 802816
+855 856 4
+55 857 3211264
+56 857 802816
+856 857 802816
+53 858 3211264
+54 859 3211264
+858 860 16
+859 861 16
+48 862 3211264
+51 863 3211264
+860 864 3211264
+51 864 3211264
+862 865 16
+48 866 3211264
+860 866 3211264
+863 867 16
+52 868 3211264
+861 869 3211264
+52 869 3211264
+46 871 3211264
+861 871 3211264
+868 872 16
+865 873 3211264
+48 873 3211264
+872 875 3211264
+875 876 3211264
+876 877 3211264
+46 878 3211264
+878 879 16
+873 880 3211264
+879 880 12
+880 881 3211264
+878 881 16
+873 882 3211264
+882 883 64
+867 884 3211264
+877 884 3211264
+51 885 3211264
+884 885 3211264
+49 886 3211264
+886 887 16
+885 888 3211264
+887 888 12
+888 889 3211264
+886 889 16
+885 890 3211264
+890 891 64
+889 892 3211264
+43 892 64
+892 893 3211264
+893 894 3211264
+46 895 3211264
+889 895 3211264
+895 896 3211264
+896 897 64
+870 898 3211264
+881 898 3211264
+894 898 3211264
+37 899 3211264
+39 899 1024
+899 901 16
+39 901 1024
+898 901 3211264
+37 902 3211264
+900 902 16
+898 902 3211264
+35 903 3211264
+36 904 3211264
+903 905 16
+904 906 16
+30 907 3211264
+33 908 3211264
+905 909 3211264
+33 909 3211264
+907 910 16
+30 911 3211264
+905 911 3211264
+908 912 16
+34 913 3211264
+906 914 3211264
+34 914 3211264
+28 916 3211264
+906 916 3211264
+913 917 16
+910 918 3211264
+30 918 3211264
+917 920 3211264
+920 921 3211264
+921 922 3211264
+28 923 3211264
+923 924 16
+918 925 3211264
+924 925 12
+925 926 3211264
+923 926 16
+918 927 3211264
+927 928 64
+912 929 3211264
+922 929 3211264
+33 930 3211264
+929 930 3211264
+31 931 3211264
+931 932 16
+930 933 3211264
+932 933 12
+933 934 3211264
+931 934 16
+930 935 3211264
+935 936 64
+934 937 3211264
+25 937 64
+937 938 3211264
+938 939 3211264
+28 940 3211264
+934 940 3211264
+940 941 3211264
+941 942 64
+915 943 3211264
+926 943 3211264
+939 943 3211264
+19 944 3211264
+21 944 4096
+944 946 16
+21 946 4096
+943 946 3211264
+19 947 3211264
+945 947 16
+943 947 3211264
+17 948 3211264
+18 949 3211264
+948 950 16
+949 951 16
+12 952 3211264
+15 953 3211264
+950 954 3211264
+15 954 3211264
+952 955 16
+12 956 3211264
+950 956 3211264
+953 957 16
+16 958 3211264
+951 959 3211264
+16 959 3211264
+10 961 3211264
+951 961 3211264
+958 962 16
+955 963 3211264
+12 963 3211264
+964 965 0
+962 966 3211264
+966 967 3211264
+967 968 3211264
+10 969 3211264
+969 971 16
+970 971 4
+963 972 3211264
+971 972 12
+972 973 3211264
+969 973 16
+963 974 3211264
+974 975 64
+970 975 4
+957 976 3211264
+968 976 3211264
+15 977 3211264
+976 977 3211264
+13 978 3211264
+978 979 16
+977 980 3211264
+979 980 12
+980 981 3211264
+978 981 16
+977 982 3211264
+982 983 64
+981 984 3211264
+7 984 64
+984 985 3211264
+985 986 3211264
+10 987 3211264
+981 987 3211264
+987 988 3211264
+988 989 64
+960 990 3211264
+973 990 3211264
+986 990 3211264
+991 992 16
+990 992 3211264
+992 993 576
+975 994 64
+989 995 64
+983 996 64
+947 997 4096
+928 998 64
+942 999 64
+936 1000 64
+902 1001 1024
+883 1002 64
+897 1003 64
+891 1004 64
+803 1005 64
+818 1006 64
+797 1007 9216
+778 1008 64
+792 1009 64
+786 1010 64
+752 1011 4096
+734 1012 64
+748 1013 64
+742 1014 64
+708 1015 1024
+690 1016 64
+704 1017 64
+698 1018 64
+613 1019 64
+628 1020 64
+607 1021 9216
+589 1022 64
+603 1023 64
+597 1024 64
+563 1025 4096
+545 1026 64
+559 1027 64
+553 1028 64
+519 1029 1024
+501 1030 64
+515 1031 64
+509 1032 64
+424 1033 64
+439 1034 64
+416 1035 131072
+414 1036 512
+412 1037 131072
+410 1038 1024
+408 1039 10240
+406 1040 40
+993 1041 4
+994 1041 4
+995 1041 4
+996 1041 4
+997 1041 4
+998 1041 4
+999 1041 4
+1000 1041 4
+1001 1041 4
+1002 1041 4
+1003 1041 4
+1004 1041 4
+1005 1041 4
+1006 1041 4
+1007 1041 4
+1008 1041 4
+1009 1041 4
+1010 1041 4
+1011 1041 4
+1012 1041 4
+1013 1041 4
+1014 1041 4
+1015 1041 4
+1016 1041 4
+1017 1041 4
+1018 1041 4
+1019 1041 4
+1020 1041 4
+1021 1041 4
+1022 1041 4
+1023 1041 4
+1024 1041 4
+1025 1041 4
+1026 1041 4
+1027 1041 4
+1028 1041 4
+1029 1041 4
+1030 1041 4
+1031 1041 4
+1032 1041 4
+1033 1041 4
+1034 1041 4
+1035 1041 4
+1036 1041 4
+1037 1041 4
+1038 1041 4
+1039 1041 4
+1040 1041 4
+1041 1042 192
+1042 1044 4
+1043 1044 4
+1044 1045 4
+1047 1048 4
+1046 1048 4
+992 1049 576
+1048 1049 4
+975 1050 64
+1048 1050 4
+989 1051 64
+1048 1051 4
+983 1052 64
+1048 1052 4
+947 1053 4096
+1048 1053 4
+928 1054 64
+1048 1054 4
+942 1055 64
+1048 1055 4
+936 1056 64
+1048 1056 4
+902 1057 1024
+1048 1057 4
+883 1058 64
+1048 1058 4
+897 1059 64
+1048 1059 4
+891 1060 64
+1048 1060 4
+803 1061 64
+1048 1061 4
+818 1062 64
+1048 1062 4
+797 1063 9216
+1048 1063 4
+778 1064 64
+1048 1064 4
+792 1065 64
+1048 1065 4
+786 1066 64
+1048 1066 4
+752 1067 4096
+1048 1067 4
+734 1068 64
+1048 1068 4
+748 1069 64
+1048 1069 4
+742 1070 64
+1048 1070 4
+708 1071 1024
+1048 1071 4
+690 1072 64
+1048 1072 4
+704 1073 64
+1048 1073 4
+698 1074 64
+1048 1074 4
+613 1075 64
+1048 1075 4
+628 1076 64
+1048 1076 4
+607 1077 9216
+1048 1077 4
+589 1078 64
+1048 1078 4
+603 1079 64
+1048 1079 4
+597 1080 64
+1048 1080 4
+563 1081 4096
+1048 1081 4
+545 1082 64
+1048 1082 4
+559 1083 64
+1048 1083 4
+553 1084 64
+1048 1084 4
+519 1085 1024
+1048 1085 4
+501 1086 64
+1048 1086 4
+515 1087 64
+1048 1087 4
+509 1088 64
+1048 1088 4
+424 1089 64
+1048 1089 4
+439 1090 64
+1048 1090 4
+416 1091 131072
+1048 1091 4
+414 1092 512
+1048 1092 4
+412 1093 131072
+1048 1093 4
+410 1094 1024
+1048 1094 4
+408 1095 10240
+1048 1095 4
+406 1096 40
+1048 1096 4
+1097 1098 4
+1099 1100 4
+2 1201 576
+1101 1201 576
+1102 1201 576
+1098 1201 4
+1100 1201 4
+1197 1201 4
+1198 1201 4
+1199 1201 4
+1200 1201 4
+4 1202 64
+1103 1202 64
+1104 1202 64
+1098 1202 4
+1100 1202 4
+1197 1202 4
+1198 1202 4
+1199 1202 4
+1200 1202 4
+6 1203 64
+1105 1203 64
+1106 1203 64
+1098 1203 4
+1100 1203 4
+1197 1203 4
+1198 1203 4
+1199 1203 4
+1200 1203 4
+8 1204 64
+1107 1204 64
+1108 1204 64
+1098 1204 4
+1100 1204 4
+1197 1204 4
+1198 1204 4
+1199 1204 4
+1200 1204 4
+20 1205 4096
+1109 1205 4096
+1110 1205 4096
+1098 1205 4
+1100 1205 4
+1197 1205 4
+1198 1205 4
+1199 1205 4
+1200 1205 4
+22 1206 64
+1111 1206 64
+1112 1206 64
+1098 1206 4
+1100 1206 4
+1197 1206 4
+1198 1206 4
+1199 1206 4
+1200 1206 4
+24 1207 64
+1113 1207 64
+1114 1207 64
+1098 1207 4
+1100 1207 4
+1197 1207 4
+1198 1207 4
+1199 1207 4
+1200 1207 4
+26 1208 64
+1115 1208 64
+1116 1208 64
+1098 1208 4
+1100 1208 4
+1197 1208 4
+1198 1208 4
+1199 1208 4
+1200 1208 4
+38 1209 1024
+1117 1209 1024
+1118 1209 1024
+1098 1209 4
+1100 1209 4
+1197 1209 4
+1198 1209 4
+1199 1209 4
+1200 1209 4
+40 1210 64
+1119 1210 64
+1120 1210 64
+1098 1210 4
+1100 1210 4
+1197 1210 4
+1198 1210 4
+1199 1210 4
+1200 1210 4
+42 1211 64
+1121 1211 64
+1122 1211 64
+1098 1211 4
+1100 1211 4
+1197 1211 4
+1198 1211 4
+1199 1211 4
+1200 1211 4
+44 1212 64
+1123 1212 64
+1124 1212 64
+1098 1212 4
+1100 1212 4
+1197 1212 4
+1198 1212 4
+1199 1212 4
+1200 1212 4
+57 1213 64
+1125 1213 64
+1126 1213 64
+1098 1213 4
+1100 1213 4
+1197 1213 4
+1198 1213 4
+1199 1213 4
+1200 1213 4
+59 1214 64
+1127 1214 64
+1128 1214 64
+1098 1214 4
+1100 1214 4
+1197 1214 4
+1198 1214 4
+1199 1214 4
+1200 1214 4
+98 1215 9216
+1129 1215 9216
+1130 1215 9216
+1098 1215 4
+1100 1215 4
+1197 1215 4
+1198 1215 4
+1199 1215 4
+1200 1215 4
+100 1216 64
+1131 1216 64
+1132 1216 64
+1098 1216 4
+1100 1216 4
+1197 1216 4
+1198 1216 4
+1199 1216 4
+1200 1216 4
+102 1217 64
+1133 1217 64
+1134 1217 64
+1098 1217 4
+1100 1217 4
+1197 1217 4
+1198 1217 4
+1199 1217 4
+1200 1217 4
+104 1218 64
+1135 1218 64
+1136 1218 64
+1098 1218 4
+1100 1218 4
+1197 1218 4
+1198 1218 4
+1199 1218 4
+1200 1218 4
+116 1219 4096
+1137 1219 4096
+1138 1219 4096
+1098 1219 4
+1100 1219 4
+1197 1219 4
+1198 1219 4
+1199 1219 4
+1200 1219 4
+118 1220 64
+1139 1220 64
+1140 1220 64
+1098 1220 4
+1100 1220 4
+1197 1220 4
+1198 1220 4
+1199 1220 4
+1200 1220 4
+120 1221 64
+1141 1221 64
+1142 1221 64
+1098 1221 4
+1100 1221 4
+1197 1221 4
+1198 1221 4
+1199 1221 4
+1200 1221 4
+122 1222 64
+1143 1222 64
+1144 1222 64
+1098 1222 4
+1100 1222 4
+1197 1222 4
+1198 1222 4
+1199 1222 4
+1200 1222 4
+134 1223 1024
+1145 1223 1024
+1146 1223 1024
+1098 1223 4
+1100 1223 4
+1197 1223 4
+1198 1223 4
+1199 1223 4
+1200 1223 4
+136 1224 64
+1147 1224 64
+1148 1224 64
+1098 1224 4
+1100 1224 4
+1197 1224 4
+1198 1224 4
+1199 1224 4
+1200 1224 4
+138 1225 64
+1149 1225 64
+1150 1225 64
+1098 1225 4
+1100 1225 4
+1197 1225 4
+1198 1225 4
+1199 1225 4
+1200 1225 4
+140 1226 64
+1151 1226 64
+1152 1226 64
+1098 1226 4
+1100 1226 4
+1197 1226 4
+1198 1226 4
+1199 1226 4
+1200 1226 4
+153 1227 64
+1153 1227 64
+1154 1227 64
+1098 1227 4
+1100 1227 4
+1197 1227 4
+1198 1227 4
+1199 1227 4
+1200 1227 4
+155 1228 64
+1155 1228 64
+1156 1228 64
+1098 1228 4
+1100 1228 4
+1197 1228 4
+1198 1228 4
+1199 1228 4
+1200 1228 4
+190 1229 9216
+1157 1229 9216
+1158 1229 9216
+1098 1229 4
+1100 1229 4
+1197 1229 4
+1198 1229 4
+1199 1229 4
+1200 1229 4
+192 1230 64
+1159 1230 64
+1160 1230 64
+1098 1230 4
+1100 1230 4
+1197 1230 4
+1198 1230 4
+1199 1230 4
+1200 1230 4
+194 1231 64
+1161 1231 64
+1162 1231 64
+1098 1231 4
+1100 1231 4
+1197 1231 4
+1198 1231 4
+1199 1231 4
+1200 1231 4
+196 1232 64
+1163 1232 64
+1164 1232 64
+1098 1232 4
+1100 1232 4
+1197 1232 4
+1198 1232 4
+1199 1232 4
+1200 1232 4
+208 1233 4096
+1165 1233 4096
+1166 1233 4096
+1098 1233 4
+1100 1233 4
+1197 1233 4
+1198 1233 4
+1199 1233 4
+1200 1233 4
+210 1234 64
+1167 1234 64
+1168 1234 64
+1098 1234 4
+1100 1234 4
+1197 1234 4
+1198 1234 4
+1199 1234 4
+1200 1234 4
+212 1235 64
+1169 1235 64
+1170 1235 64
+1098 1235 4
+1100 1235 4
+1197 1235 4
+1198 1235 4
+1199 1235 4
+1200 1235 4
+214 1236 64
+1171 1236 64
+1172 1236 64
+1098 1236 4
+1100 1236 4
+1197 1236 4
+1198 1236 4
+1199 1236 4
+1200 1236 4
+226 1237 1024
+1173 1237 1024
+1174 1237 1024
+1098 1237 4
+1100 1237 4
+1197 1237 4
+1198 1237 4
+1199 1237 4
+1200 1237 4
+228 1238 64
+1175 1238 64
+1176 1238 64
+1098 1238 4
+1100 1238 4
+1197 1238 4
+1198 1238 4
+1199 1238 4
+1200 1238 4
+230 1239 64
+1177 1239 64
+1178 1239 64
+1098 1239 4
+1100 1239 4
+1197 1239 4
+1198 1239 4
+1199 1239 4
+1200 1239 4
+232 1240 64
+1179 1240 64
+1180 1240 64
+1098 1240 4
+1100 1240 4
+1197 1240 4
+1198 1240 4
+1199 1240 4
+1200 1240 4
+245 1241 64
+1181 1241 64
+1182 1241 64
+1098 1241 4
+1100 1241 4
+1197 1241 4
+1198 1241 4
+1199 1241 4
+1200 1241 4
+247 1242 64
+1183 1242 64
+1184 1242 64
+1098 1242 4
+1100 1242 4
+1197 1242 4
+1198 1242 4
+1199 1242 4
+1200 1242 4
+282 1243 131072
+1185 1243 131072
+1186 1243 131072
+1098 1243 4
+1100 1243 4
+1197 1243 4
+1198 1243 4
+1199 1243 4
+1200 1243 4
+284 1244 512
+1187 1244 512
+1188 1244 512
+1098 1244 4
+1100 1244 4
+1197 1244 4
+1198 1244 4
+1199 1244 4
+1200 1244 4
+291 1245 131072
+1189 1245 131072
+1190 1245 131072
+1098 1245 4
+1100 1245 4
+1197 1245 4
+1198 1245 4
+1199 1245 4
+1200 1245 4
+293 1246 1024
+1191 1246 1024
+1192 1246 1024
+1098 1246 4
+1100 1246 4
+1197 1246 4
+1198 1246 4
+1199 1246 4
+1200 1246 4
+298 1247 10240
+1193 1247 10240
+1194 1247 10240
+1098 1247 4
+1100 1247 4
+1197 1247 4
+1198 1247 4
+1199 1247 4
+1200 1247 4
+300 1248 40
+1195 1248 40
+1196 1248 40
+1098 1248 4
+1100 1248 4
+1197 1248 4
+1198 1248 4
+1199 1248 4
+1200 1248 4
+1098 1249 4
+1198 1249 4
+1097 1250 4
+1249 1250 4
+1100 1251 4
+1199 1251 4
+1099 1252 4
+1251 1252 4
+322 1254 4
+1253 1254 4
