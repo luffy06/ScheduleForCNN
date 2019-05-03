@@ -7,7 +7,7 @@ suffix=".in"
 algos=(ext date lctes base)
 # algos=(ext algo lctes)
 pes=(16 32 64)
-period_times=(3000)
+period_times=(6000)
 seg=' #################### '
 for pt in ${period_times[*]}; do
   echo $seg'RUN TOTAL_ROUND:'$pt$seg
