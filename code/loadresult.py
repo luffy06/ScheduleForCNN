@@ -3,9 +3,9 @@ import os
 
 resultdir = '../result'
 resultexcel = 'output.xlsx'
-# algorithms = ['ext', 'algo', 'lctes', 'base']
-algorithms = ['ext', 'algo', 'lctes']
-pes = [16, 32, 64, 128]
+algorithms = ['ext', 'date', 'lctes', 'base']
+# algorithms = ['ext', 'algo', 'lctes']
+pes = [16, 32, 64]
 attributes = ['Benchmark', 'Node', 'Edge']
 metrics = ['TotalTime', 'Prelogue', 'RunOnCache', 'CPURatio', 'Cost']
 drop_benchmark = []
