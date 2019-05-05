@@ -56,6 +56,7 @@ struct Iteration {
   int Retiming;
   int RunOnCache;
   int RunOnDRAM;
+  double CacheMemorySum;
   double CacheRatio;
   double MaxRatio;
 
@@ -66,6 +67,7 @@ struct Iteration {
     PENumb = a;
     PhasePE = b;
     TotalNode = c;
+    CacheMemorySum = 0;
     MaxRatio = 0;
   }
 
@@ -426,7 +428,7 @@ void DetectCacheOverflow(Iteration &iteration) {
       assert(MemorySum <= CACHESIZE);
     }
   }
-  iteration.CacheRatio = (CacheMemorySum * 1.0) / (CACHESIZE * iteration.UpBound * iteration.PENumb);
+  iteration.CacheMemorySum = CacheMemorySum;
 }
 
 bool GetStrogePos(int FromId, int FromRound, int ToId, int ToRound) {

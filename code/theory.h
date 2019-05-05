@@ -21,6 +21,7 @@ struct NodeGenerator {
   int Retiming;
   long long RunOnCache;
   long long RunOnDRAM;
+  double CacheMemorySum;
   double CacheRatio;
   double MaxRatio;
   vector<Node> StartTable;
@@ -31,6 +32,7 @@ struct NodeGenerator {
     UpBound = 0;
     Prelogue = -1;
     RunOnCache = RunOnDRAM = 0;
+    CacheMemorySum = 0;
     MaxRatio = CacheRatio = 0;
     StartTable.clear();
   }
@@ -41,6 +43,7 @@ struct NodeGenerator {
     UpBound = 0;
     Prelogue = -1;
     RunOnCache = RunOnDRAM = 0;
+    CacheMemorySum = 0;
     MaxRatio = CacheRatio = 0;
     StartTable.clear();
     CalcBound(MaxRound, NodeList);
@@ -520,7 +523,7 @@ void DetectCacheOverflow(NodeGenerator &ng) {
       assert(MemorySum <= CACHESIZE);
     }
   }
-  ng.CacheRatio = (CacheMemorySum * 1.0) / (CACHESIZE * ng.UpBound * ng.NeedPE);
+  ng.CacheMemorySum = CacheMemorySum;
 }
 
 bool GetStrogePos(int FromId, int FromRound, int ToId, int ToRound) {

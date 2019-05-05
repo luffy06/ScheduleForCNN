@@ -22,6 +22,7 @@ struct NodeGenerator {
   int Retiming;
   long long RunOnCache;
   long long RunOnDRAM;
+  double CacheMemorySum;
   double CacheRatio;
   double MaxRatio;
   vector<Node> StartTable;
@@ -36,6 +37,7 @@ struct NodeGenerator {
     UpBound = 0;
     Prelogue = -1;
     RunOnCache = RunOnDRAM = 0;
+    CacheMemorySum = 0;
     MaxRatio = CacheRatio = 0;
     TotalRound = 0;
     TotalTime = 0;
@@ -49,6 +51,7 @@ struct NodeGenerator {
     UpBound = 0;
     Prelogue = -1;
     RunOnCache = RunOnDRAM = 0;
+    CacheMemorySum = 0;
     MaxRatio = CacheRatio = 0;
     StartTable.clear();
     TotalRound = 0;
@@ -383,7 +386,7 @@ Node FindPreviousNode(int NodeId, long long Memory, Node KeyNode, NodeGenerator 
     vector<int> NodeSizes;
     for (int k = 0; k < SamePENodes.size(); ++ k)
       NodeSizes.push_back(SamePENodes[k].Cost);
-    set<int> ArrangedSet = ArrangeInFixedSize(NodeSizes, BinSize, "Greedy");
+    set<int> ArrangedSet = ArrangeInFixedSize(NodeSizes, BinSize, "Dynamic");
     long long Sum = 0;
     for (set<int>::iterator it = ArrangedSet.begin(); it != ArrangedSet.end(); ++ it)
       Sum = Sum + NodeSizes[(*it)];
@@ -512,7 +515,7 @@ void DetectCacheOverflow(NodeGenerator &ng) {
       vector<int> Memory;
       for (int k = 0; k < Blocks.size(); ++ k)
         Memory.push_back(Blocks[k].Memory);
-      set<int> ArrangedSet = ArrangeInFixedSize(Memory, CACHESIZE, "Greedy");
+      set<int> ArrangedSet = ArrangeInFixedSize(Memory, CACHESIZE, "Dynamic");
       
       for (int k = 0; k < Blocks.size(); ++ k) {
         if (ArrangedSet.find(k) != ArrangedSet.end())
@@ -541,7 +544,7 @@ void DetectCacheOverflow(NodeGenerator &ng) {
       assert(MemorySum <= CACHESIZE);
     }
   }
-  ng.CacheRatio = (CacheMemorySum * 1.0) / (CACHESIZE * ng.UpBound * ng.NeedPE);
+  ng.CacheMemorySum = CacheMemorySum;
 }
 
 bool GetStrogePos(int FromId, int FromRound, int ToId, int ToRound) {
