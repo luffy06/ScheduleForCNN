@@ -659,7 +659,6 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
     }
     FR.Prelogue = NgList[0].Prelogue;
     FR.Retiming = NgList[0].Retiming;
-    FR.CacheRatio = (NgList[0].CacheRatio + NgList[1].CacheRatio) / 2;
     FR.CPURatio = 1.0 * (PeriodTimes * TotalCost) / (FR.TotalTime * TotalPE);
     FR.MAXRatio = (NgList[0].MaxRatio + NgList[1].MaxRatio) / 2;
   }
