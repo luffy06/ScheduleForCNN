@@ -1,8 +1,8 @@
 #!/bin/bash
-datafolder="../caffe_data"
+datafolder="../extdata"
 # datafolder="../tensorflow_data"
 # datafolder="../bigdata"
-resultname="analyse.out"
+resultname="analysis.out"
 suffix=".in"
 seg=' #################### '
 if [[ -f 'config.in' ]]; then

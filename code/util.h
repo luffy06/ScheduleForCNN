@@ -9,11 +9,15 @@
 #define ALPHA 0.8
 const int INF = 0x3f3f3f3f;
 const long long LLINF = 0x3f3f3f3f3f3f3f3f;
-const long long DRAMSPEED = 10000;
-const long long CACHESPEED = 100000;
-// const long long DRAMSPEED = 1;
-// const long long CACHESPEED = 2;
-const long long CACHESIZE = 20480;
+#if TEST == 0
+  const long long DRAMSPEED = 10000;
+  const long long CACHESPEED = 100000;
+  const long long CACHESIZE = 20480;
+#else
+  const long long DRAMSPEED = 1;
+  const long long CACHESPEED = 1;
+  const long long CACHESIZE = 1;
+#endif
 
 typedef pair<int, int> TwoInt;
 

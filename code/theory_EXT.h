@@ -646,18 +646,25 @@ FinalResult Solve(int TotalPE, int PeriodTimes, int UpRound) {
     // printf("%d\t%lld\n", NgList[i].AllRound, NgList[i].Prelogue + (Ceil(Ceil(NgList[i].AllRound, NgList[i].Div), NgList[i].UpRound) - 1) * NgList[i].UpBound);
   }
 
-  sort(NgList.begin(), NgList.end(), [](NodeGenerator a, NodeGenerator b) {
-    return a.Prelogue + (Ceil(Ceil(a.AllRound, a.Div), a.UpRound) - 1) * a.UpBound < b.Prelogue + (Ceil(Ceil(b.AllRound, b.Div), b.UpRound) - 1) * b.UpBound;
-  });
-
   priority_queue<NodeGenerator, vector<NodeGenerator>, NodeGeneratorComparator> q;
   int RestPE = TotalPE;
-  for (int i = 0; i < NgList.size() && RestPE > 0; ++ i) {
-    if (NgList[i].NeedPE > RestPE)
-      continue;
-    q.push(NgList[i]);
-    RestPE = RestPE - (RestPE / NgList[i].NeedPE) * NgList[i].NeedPE;
-    // printf("PUSH:%d\t%d\n", NgList[i].NeedPE, RestPE);
+  bool vis[300];
+  memset(vis, false, sizeof(vis));
+  while (RestPE) {
+    sort(NgList.begin(), NgList.end(), [](NodeGenerator a, NodeGenerator b) {
+      return a.Prelogue + (Ceil(Ceil(a.AllRound, a.Div), a.UpRound) - 1) * a.UpBound < b.Prelogue + (Ceil(Ceil(b.AllRound, b.Div), b.UpRound) - 1) * b.UpBound;
+    });
+
+    for (int i = 0; i < NgList.size(); ++ i) {
+      if (NgList[i].NeedPE > RestPE || vis[NgList[i].NeedPE])
+        continue;
+      vis[NgList[i].NeedPE] = true;
+      NgList[i].Div = (RestPE / NgList[i].NeedPE);
+      RestPE = RestPE - (RestPE / NgList[i].NeedPE) * NgList[i].NeedPE;
+      q.push(NgList[i]);
+      break;
+      // printf("PUSH:%d\t%d\n", NgList[i].NeedPE, RestPE);
+    }
   }
 
   int TotalRound = PeriodTimes;

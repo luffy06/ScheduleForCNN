@@ -12,6 +12,8 @@
 
 using namespace std;
 
+#define TEST 0
+
 #include "util.h"
 
 #if THEORY == 1
@@ -117,7 +119,7 @@ void Input() {
 void AnalyseGraph() {
   printf("Node:%d\tEdge:%d\n", TotalNode, TotalEdge);
   
-  int vis[6000];
+  int vis[20000];
   memset(Degree, 0, sizeof(Degree));
   memset(vis, 0, sizeof(vis));
   for (int i = 1; i <= TotalNode; ++ i) {
