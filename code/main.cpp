@@ -13,6 +13,7 @@
 using namespace std;
 
 #define TEST 0
+#define THEORY 4
 
 #include "util.h"
 

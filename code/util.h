@@ -1,4 +1,3 @@
-#define THEORY 4
 #define MAXM 70000
 #define MAXN 8000
 #define MAXSIZE 5000
