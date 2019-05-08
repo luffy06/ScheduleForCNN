@@ -82,12 +82,12 @@ void Input() {
     MaxCost = max(MaxCost, Cost);
   }
 
-  if (MaxCost >= MAXM) {
-    // printf("Reduce Cost\n");
-    for (int i = 1; i <= TotalNode; i++) {
-      NodeList[i].Cost = ceil((NodeList[i].Cost * 1.0 / MaxCost) * MAXM / 2);
-    }
-  }
+  // if (MaxCost >= MAXM) {
+  //   // printf("Reduce Cost\n");
+  //   for (int i = 1; i <= TotalNode; i++) {
+  //     NodeList[i].Cost = ceil((NodeList[i].Cost * 1.0 / MaxCost) * MAXM / 2);
+  //   }
+  // }
   long long MaxEdge = -1;
   int MaxDis = -1;
   int MinDis = INF;
@@ -132,13 +132,17 @@ void AnalyseGraph() {
   }
 
   int Count = 0, Order = 0, NeedPE = 0;
+  long long CurMax = 0;
   queue<Node> q;
   for (int i = 1; i <= TotalNode; ++ i) {
     if (Degree[i] == 0) {
       q.push(NodeList[i]);
+      CurMax = max(CurMax, NodeList[i].Cost);
       // printf("%d:%s\n", i, NodeList[i].Name);
     }
   }
+  long long TotalTime = CurMax;
+  CurMax = 0;
   NeedPE = Count = q.size();
   // printf("Topo:%d:%d\n", Order, Count);
   vis[Count] = vis[Count] + 1;
@@ -147,6 +151,7 @@ void AnalyseGraph() {
     q.pop();
     NodeList[f.Id].TopoOrder = Order;
     Count = Count - 1;
+    CurMax = max(CurMax, NodeList[f.Id].Cost);
 
     for (int i = 0; i < EdgeList[f.Id].size(); ++ i) {
       Edge e = EdgeList[f.Id][i];
@@ -163,8 +168,11 @@ void AnalyseGraph() {
       Order = Order + 1;
       // printf("Topo:%d:%d\n", Order, Count);
       vis[Count] = vis[Count] + 1;
+      TotalTime = TotalTime + CurMax;
+      CurMax = 0;
     }
   }
+  assert(CurMax == 0);
 
   int MaxCount = vis[0], index = 0;
   for (int i = 1; i < Order; ++ i) {
@@ -173,6 +181,7 @@ void AnalyseGraph() {
       index = i;
     }
   }
+  printf("TotalTime:%lld\n", TotalTime);
   printf("NeedPE:%d\tMaxLayer:%d\tMaxCount:%d\n", NeedPE, Order, index);
 
   // sort(NodeList + 1, NodeList + TotalNode + 1, CmpByLayer);

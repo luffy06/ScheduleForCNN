@@ -1,5 +1,5 @@
-#define MAXM 70000
-#define MAXN 8000
+#define MAXM 20000
+#define MAXN 15000
 #define MAXSIZE 5000
 #define MAXPE 300
 #define MINR 55
