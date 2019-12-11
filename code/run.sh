@@ -1,10 +1,10 @@
 #!/bin/bash
 # datafolder="../caffe_data"
 # datafolder="../tensorflow_data"
-datafolder="../tcdata"
+datafolder="../tpdsdata"
 resultfolder="../result"
 suffix=".in"
-algos=(ext date lctes base)
+algos=(bala resc lctes)
 # algos=(ext algo lctes)
 pes=(16 32 64)
 period_times=(6000)

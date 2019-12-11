@@ -16,33 +16,36 @@ using namespace std;
 #define THEORY 4
 
 #include "util.h"
+#include "memory_manager.h"
 
 #if THEORY == 1
-  #include "theory.h"
+  #include "theory_initial.cpp"
 #elif THEORY == 2
-  #include "theoryLCTES.h"
+  #include "theory_reschedule.cpp"
 #elif THEORY == 3
-  #include "theoryBASE_LS.h"
+  #include "theory_balanced.cpp"
 #elif THEORY == 4
-  #include "theory_EXT.h"
+  #include "theory_lctes.cpp"
+#elif THEORY == 5
+  #include "theory_baseline.h"
 #endif
 
 void ReadConfig() {
   FILE* fp = fopen("config.in", "r");
   char Op[20];
-  fscanf(fp, "%s%d", Op, &TotalPE);
-  fscanf(fp, "%s%d", Op, &PeriodTimes);
-  fscanf(fp, "%s%d", Op, &UpRound);
+  fscanf(fp, "%s%d", Op, &total_pe);
+  fscanf(fp, "%s%d", Op, &total_rounds);
+  fscanf(fp, "%s%d", Op, &round_limit);
   fclose(fp);  
 }
 
 void GenPECommunication() {
   int n = 1;
   int m = 1;
-  for (int i = 1; i <= TotalPE; ++ i) {
-    if (TotalPE % i == 0 && i < TotalPE / i) {
+  for (int i = 1; i <= total_pe; ++ i) {
+    if (total_pe % i == 0 && i < total_pe / i) {
       n = i;
-      m = TotalPE / i;
+      m = total_pe / i;
     }
   }
 
@@ -51,15 +54,15 @@ void GenPECommunication() {
     for (int j = 0; j < m; ++ j)
       points.push_back(make_pair(i, j));
 
-  memset(PEEdge, 0, sizeof(PEEdge));
+  memset(pe_edges, 0, sizeof(pe_edges));
   int max_speed = CACHESPEED * 100;
   for (int i = 0; i < points.size(); ++ i) {
     for (int j = 0; j < points.size(); ++ j) {
       int dis = abs(points[i].first - points[j].first) + abs(points[i].second - points[j].second);
       if (dis == 0)
-        PEEdge[i + 1][j + 1] = 0;
+        pe_edges[i + 1][j + 1] = 0;
       else
-        PEEdge[i + 1][j + 1] = max_speed / dis;
+        pe_edges[i + 1][j + 1] = max_speed / dis;
     }
   }
 }
@@ -67,154 +70,138 @@ void GenPECommunication() {
 void Input() {
   ReadConfig();
   GenPECommunication();
-  scanf("%d%d", &TotalNode, &TotalEdge);
-  long long MaxCost = -1;
-  for (int i = 1; i <= TotalNode; i++) {
-    long long Cost;
-    char Name[200];
-    char Op[200];
-    scanf("%d%s%s%lld%d", &NodeList[i].Id, NodeList[i].Name, Op, &Cost, &NodeList[i].Layer);
-    assert(Cost >= 0);
-    NodeList[i].Id = NodeList[i].Id + 1;
-    Cost = Cost + 1;
-    assert(Cost > 0);
-    NodeList[i].Cost = Cost;
-    MaxCost = max(MaxCost, Cost);
+  scanf("%d%d", &total_node, &total_edge);
+  long long max_cost = -1;
+  total_cost = 0;
+  for (int i = 1; i <= total_node; i++) {
+    long long cost;
+    char name[200];
+    char operation[200];
+    scanf("%d%s%s%lld%d", &node_list[i].id, node_list[i].name, operation, &cost, &node_list[i].layer);
+    assert(cost >= 0);
+    node_list[i].id = node_list[i].id + 1;
+    #if TEST == 0
+      cost = cost + 1;
+    #endif
+    assert(cost > 0);
+    node_list[i].cost = cost;
+    total_cost = total_cost + cost;
+    max_cost = max(max_cost, cost);
   }
 
-  // if (MaxCost >= MAXM) {
-  //   // printf("Reduce Cost\n");
-  //   for (int i = 1; i <= TotalNode; i++) {
-  //     NodeList[i].Cost = ceil((NodeList[i].Cost * 1.0 / MaxCost) * MAXM / 2);
+  // if (max_cost >= MAXM) {
+  //   // printf("Reduce cost\n");
+  //   for (int i = 1; i <= total_node; i++) {
+  //     node_list[i].cost = ceil((node_list[i].cost * 1.0 / max_cost) * MAXM / 2);
   //   }
   // }
-  long long MaxEdge = -1;
-  int MaxDis = -1;
-  int MinDis = INF;
-  for (int i = 0; i < TotalEdge; i++) {
-    int From, To;
-    long long Memory;
-    scanf("%d%d%lld", &From, &To, &Memory);
-    From = From + 1;
-    To = To + 1;
-    Memory = Memory + 1;
-    Edge e = Edge(From, To, Memory);
-    int Dis = Ceil(Memory, CACHESPEED) / NodeList[From].Cost;
-    if (Dis < 0) {
+  long long max_edge = -1;
+  int max_dis = -1;
+  int min_dis = INF;
+  for (int i = 0; i < total_edge; i++) {
+    int from, to;
+    long long memory;
+    scanf("%d%d%lld", &from, &to, &memory);
+    from = from + 1;
+    to = to + 1;
+    #if TEST == 0
+      memory = memory + 1;
+    #endif
+    Edge e = Edge(from, to, 1, memory);
+    int dis = Ceil(memory, CACHESPEED) / node_list[from].cost;
+    if (dis < 0) {
       // printf("Dis:%d\n", Dis);
-      // printf("Cost:%lld\n", NodeList[From].Cost);
+      // printf("cost:%lld\n", node_list[From].cost);
       // e.Show();
     }
-    assert(Dis >= 0);
-    MaxEdge = max(MaxEdge, Memory);
-    MaxDis = max(MaxDis, Dis);
-    MinDis = min(MinDis, Dis);
-    NodeList[From].OutDegree = NodeList[From].OutDegree + 1;
-    NodeList[To].InDegree = NodeList[To].InDegree + 1;
-    EdgeList[From].push_back(e);
-    ReEdgeList[To].push_back(e);
+    assert(dis >= 0);
+    max_edge = max(max_edge, memory);
+    max_dis = max(max_dis, dis);
+    min_dis = min(min_dis, dis);
+    node_list[from].out_degree = node_list[from].out_degree + 1;
+    node_list[to].in_degree = node_list[to].in_degree + 1;
+    edge_list[from].push_back(e);
+    re_edge_list[to].push_back(e);
   }
-  // printf("MinDis:%d\tMaxDis:%d\tMaxEdge:%lld\n", MinDis, MaxDis, MaxEdge);
+  // printf("min_dis:%d\tmax_dis:%d\tmax_edge:%lld\n", min_dis, max_dis, max_edge);
 }
 
 void AnalyseGraph() {
-  printf("Node:%d\tEdge:%d\n", TotalNode, TotalEdge);
+  printf("Node:%d\tEdge:%d\n", total_node, total_edge);
   
   int vis[20000];
-  memset(Degree, 0, sizeof(Degree));
+  memset(degree, 0, sizeof(degree));
   memset(vis, 0, sizeof(vis));
-  for (int i = 1; i <= TotalNode; ++ i) {
-    for (int j = 0; j < EdgeList[i].size(); ++ j) {
-      Edge e = EdgeList[i][j];
-      Degree[e.To] = Degree[e.To] + 1;
-      NodeList[e.From].MaxOutEdge = max(NodeList[e.From].MaxOutEdge, e.Memory);
+  for (int i = 1; i <= total_node; ++ i) {
+    for (int j = 0; j < edge_list[i].size(); ++ j) {
+      Edge e = edge_list[i][j];
+      degree[e.to] = degree[e.to] + 1;
+      node_list[e.from].max_out_edge = max(node_list[e.from].max_out_edge, e.memory);
     }
   }
 
-  int Count = 0, Order = 0, NeedPE = 0;
-  long long CurMax = 0;
+  int count = 0, max_layer = 0, max_concurrency = 0;
+  long long max_cost = 0;
   queue<Node> q;
-  for (int i = 1; i <= TotalNode; ++ i) {
-    if (Degree[i] == 0) {
-      q.push(NodeList[i]);
-      CurMax = max(CurMax, NodeList[i].Cost);
-      // printf("%d:%s\n", i, NodeList[i].Name);
+  for (int i = 1; i <= total_node; ++ i) {
+    if (degree[i] == 0) {
+      q.push(node_list[i]);
+      max_cost = max(max_cost, node_list[i].cost);
+      // printf("%d:%s\n", i, node_list[i].name);
     }
   }
-  long long TotalTime = CurMax;
-  CurMax = 0;
-  NeedPE = Count = q.size();
-  // printf("Topo:%d:%d\n", Order, Count);
-  vis[Count] = vis[Count] + 1;
+  long long total_time = max_cost;
+  max_cost = 0;
+  max_concurrency = count = q.size();
+  // printf("Topo:%d:%d\n", max_layer, count);
+  vis[count] = vis[count] + 1;
   while (!q.empty()) {
     Node f = q.front();
     q.pop();
-    NodeList[f.Id].TopoOrder = Order;
-    Count = Count - 1;
-    CurMax = max(CurMax, NodeList[f.Id].Cost);
+    node_list[f.id].topo_order = max_layer;
+    count = count - 1;
+    max_cost = max(max_cost, node_list[f.id].cost);
 
-    for (int i = 0; i < EdgeList[f.Id].size(); ++ i) {
-      Edge e = EdgeList[f.Id][i];
-      Degree[e.To] = Degree[e.To] - 1;
-      if (Degree[e.To] == 0) {
-        q.push(NodeList[e.To]);
-        // printf("%d:%s\n", e.To, NodeList[e.To].Name);
+    for (int i = 0; i < edge_list[f.id].size(); ++ i) {
+      Edge e = edge_list[f.id][i];
+      degree[e.to] = degree[e.to] - 1;
+      if (degree[e.to] == 0) {
+        q.push(node_list[e.to]);
+        // printf("%d:%s\n", e.to, node_list[e.to].name);
       }
     }
 
-    if (Count == 0) {
-      Count = q.size();
-      NeedPE = max(NeedPE, Count);
-      Order = Order + 1;
-      // printf("Topo:%d:%d\n", Order, Count);
-      vis[Count] = vis[Count] + 1;
-      TotalTime = TotalTime + CurMax;
-      CurMax = 0;
+    if (count == 0) {
+      count = q.size();
+      max_concurrency = max(max_concurrency, count);
+      max_layer = max_layer + 1;
+      // printf("Topo:%d:%d\n", max_layer, count);
+      vis[count] = vis[count] + 1;
+      total_time = total_time + max_cost;
+      max_cost = 0;
     }
   }
-  assert(CurMax == 0);
+  assert(max_cost == 0);
 
-  int MaxCount = vis[0], index = 0;
-  for (int i = 1; i < Order; ++ i) {
-    if (MaxCount < vis[i]) {
-      MaxCount = vis[i];
+  int max_count = vis[0], index = 0;
+  for (int i = 1; i < max_concurrency; ++ i) {
+    if (max_count < vis[i]) {
+      max_count = vis[i];
       index = i;
     }
   }
-  printf("TotalTime:%lld\n", TotalTime);
-  printf("NeedPE:%d\tMaxLayer:%d\tMaxCount:%d\n", NeedPE, Order, index);
-
-  // sort(NodeList + 1, NodeList + TotalNode + 1, CmpByLayer);
-  // Count = 0, Order = 0;
-  // NeedPE = 0;
-  // for (int i = 1; i <= TotalNode; ++ i) {
-  //   if (NodeList[i].Layer != Order) {
-  //     // printf("Layer:%d:%d\n", Order, Count);
-  //     NeedPE = max(NeedPE, Count);
-  //     Count = 0;
-  //     Order = NodeList[i].Layer;
-  //   }
-  //   Count = Count + 1;
-  // }
-  // NeedPE = max(NeedPE, Count);
-  // printf("NeedPE:%d\tMaxLayer:%d\n", NeedPE, Order);
-}
-
-long long GetTime() {
-  std::chrono::milliseconds ms = std::chrono::duration_cast< std::chrono::milliseconds >(
-    std::chrono::system_clock::now().time_since_epoch()
-  );
-  return ms.count();
+  printf("TotalTime:%lld\n", total_time);
+  printf("MaxLayer:%d\t(MaxConcurrency:%d, Count:%d)\t(Concurrency:%d, MaxCount:%d)\n", max_layer, max_concurrency, vis[max_concurrency], index, max_count);
 }
 
 int main() {
   Input();
   #if THEORY != 0
     long long t = GetTime();
-    FinalResult FR = Solve(TotalPE, PeriodTimes, UpRound);
-    FR.Show(TotalNode, TotalEdge);
+    FinalResult final_result = Solve(total_pe, total_rounds, round_limit);
+    final_result.Show(total_node, total_edge);
     long long cost = GetTime() - t;
-    printf("Cost:%lld\n", cost);
+    printf("cost:%lld\n", cost);
   #else
     AnalyseGraph();
   #endif

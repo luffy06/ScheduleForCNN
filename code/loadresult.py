@@ -3,11 +3,10 @@ import os
 
 resultdir = '../result'
 resultexcel = 'output.xlsx'
-algorithms = ['ext', 'date', 'lctes', 'base']
-# algorithms = ['ext', 'algo', 'lctes']
+algorithms = ['lctes', 'resc', 'bala']
 pes = [16, 32, 64]
 attributes = ['Benchmark', 'Node', 'Edge']
-metrics = ['TotalTime', 'Prelogue', 'RunOnCache', 'CPURatio', 'Cost']
+metrics = ['TotalTime', 'Prologue', 'RunOnCacheN', 'CPURatio', 'Cost']
 drop_benchmark = []
 
 def parse_graph(line):
