@@ -201,7 +201,7 @@ int main() {
     FinalResult final_result = Solve(total_pe, total_rounds, round_limit);
     final_result.Show(total_node, total_edge);
     long long cost = GetTime() - t;
-    printf("cost:%lld\n", cost);
+    printf("Cost:%lld\n", cost);
   #else
     AnalyseGraph();
   #endif
