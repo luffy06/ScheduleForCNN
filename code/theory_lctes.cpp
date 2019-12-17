@@ -7,7 +7,7 @@ FinalResult Solve(int total_pe, int total_rounds, int round_limit) {
     memset(rechecked, false, sizeof(rechecked));
     InitIteration(half_phase_round_limit, iter_list[i]);
     CalculateRetiming(iter_list[i]);
-    vector<Edge> dram_edges = LoadInCache(iter_list[i], "Dynamic");
+    vector<Edge> dram_edges = LoadInCache(iter_list[i], "Greedy");
     ReUpdateRetiming(dram_edges, iter_list[i]);
     iter_list[i].CalcPrologue();
   }

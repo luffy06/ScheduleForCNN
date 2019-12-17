@@ -1,5 +1,5 @@
 #define MAXM 20000
-#define MAXN 15000
+#define MAXN 8000
 #define MAXSIZE 5000
 #define MAXPE 300
 #define MINR 55
@@ -247,6 +247,7 @@ int degree[MAXN];
 long long dp_array[MAXN][MAXSIZE + 1];
 bool rechecked[MAXN][MINR];
 bool visited[MAXN][MINR];
+int node_count[MAXN][MINR];
 
 int total_node, total_edge;
 int total_pe, total_rounds, round_limit;
@@ -322,8 +323,10 @@ bool CmpByTime(Node a, Node b) {
 
 // Cost:      big -> small
 // FromId:    small -> big
-bool CmpEdgeByFromCost(Edge a, Edge b) {
-  if (node_list[a.from].cost != node_list[b.from].cost)
+bool CmpPreEdgeByFromCost(Edge a, Edge b) {
+  if (node_list[a.from].topo_order != node_list[b.from].topo_order)
+    return node_list[a.from].topo_order > node_list[b.from].topo_order;
+  else if (node_list[a.from].cost != node_list[b.from].cost)
     return node_list[a.from].cost > node_list[b.from].cost;
   return a.from < b.from;
 }
@@ -344,9 +347,9 @@ struct NodeComparationByEndTime {
   }
 };
 
-// TopoOrder: big -> small
-// cost:      big -> small
-// id:        small -> big
+// // TopoOrder: big -> small
+// // cost:      big -> small
+// // id:        small -> big
 struct NodeComparationByCost {
   bool operator() (const Node &a, const Node &b) const {
     if (a.topo_order != b.topo_order)
@@ -763,7 +766,7 @@ FinalResult CalcFinalResult(vector<NodeGenerator> ng_list) {
   if (ng_list.size() == 1) {
     assert(total_pe % ng_list[0].pe_number == 0);
     int launch_number = total_pe / ng_list[0].pe_number;
-    int period_number = Ceil(Ceil(total_rounds, launch_number), ng_list[0].period_round);
+    int period_number = Floor(Floor(total_rounds, launch_number), ng_list[0].period_round);
     final_result.total_time = ng_list[0].prologue + 1LL * period_number * ng_list[0].period_time;
     final_result.period_time = ng_list[0].period_time;
     final_result.prologue = ng_list[0].prologue;
@@ -780,8 +783,8 @@ FinalResult CalcFinalResult(vector<NodeGenerator> ng_list) {
     int launch_number = total_pe / ng_list[0].pe_number;
     for (int round0 = 0; round0 <= total_rounds; ++ round0) {
       int round1 = total_rounds - round0;
-      int period_number0 = Ceil(Ceil(round0, launch_number), ng_list[0].period_round);
-      int period_number1 = Ceil(round1, ng_list[1].period_round);
+      int period_number0 = Floor(Floor(round0, launch_number), ng_list[0].period_round);
+      int period_number1 = Floor(round1, ng_list[1].period_round);
       long long total_time0 = ng_list[0].prologue + 1LL * period_number0 * ng_list[0].period_time;
       long long total_time1 = ng_list[1].prologue + 1LL * period_number1 * ng_list[1].period_time;
       long long total_time = max(total_time0, total_time1);

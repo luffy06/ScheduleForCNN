@@ -27,6 +27,8 @@ def parse_content(line):
   res = {}
   for l in line.split(' '):
     maps = l.split(':')
+    if len(maps) != 2:
+      print(l)
     assert(len(maps) == 2)
     res[maps[0]] = maps[1]
   return res

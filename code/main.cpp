@@ -96,17 +96,23 @@ void Input() {
   //   }
   // }
   long long max_edge = -1;
-  int max_dis = -1;
-  int min_dis = INF;
+  long long max_memory = -1;
+  long long min_memory = LLINF;
+  long long memory_sum = 0;
+  int count = 0;
   for (int i = 0; i < total_edge; i++) {
     int from, to;
     long long memory;
     scanf("%d%d%lld", &from, &to, &memory);
+    memory = Ceil(memory, 1024L);
     from = from + 1;
     to = to + 1;
     #if TEST == 0
       memory = memory + 1;
     #endif
+    memory_sum = memory_sum + memory;
+    if (memory >= CACHESIZE)
+      count = count + 1;
     Edge e = Edge(from, to, 1, memory);
     int dis = Ceil(memory, CACHESPEED) / node_list[from].cost;
     if (dis < 0) {
@@ -116,13 +122,14 @@ void Input() {
     }
     assert(dis >= 0);
     max_edge = max(max_edge, memory);
-    max_dis = max(max_dis, dis);
-    min_dis = min(min_dis, dis);
+    max_memory = max(max_memory, memory);
+    min_memory = min(min_memory, memory);
     node_list[from].out_degree = node_list[from].out_degree + 1;
     node_list[to].in_degree = node_list[to].in_degree + 1;
     edge_list[from].push_back(e);
     re_edge_list[to].push_back(e);
   }
+  printf("MemorySum:%lld\tMaxMemory:%lld\tMinMemory:%lld\tExceedCount:%d\n", memory_sum, max_memory, min_memory, count);
   // printf("min_dis:%d\tmax_dis:%d\tmax_edge:%lld\n", min_dis, max_dis, max_edge);
 }
 

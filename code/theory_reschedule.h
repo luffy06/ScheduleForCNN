@@ -164,7 +164,7 @@ void BFS(Node key_node, NodeGenerator &ng) {
     q.pop();
     
     vector<Edge> pre_edges = re_edge_list[to_node.id];
-    sort(pre_edges.begin(), pre_edges.end(), CmpEdgeByFromCost);
+    sort(pre_edges.begin(), pre_edges.end(), CmpPreEdgeByFromCost);
     for (int i = 0; i < pre_edges.size(); ++ i) {
       Edge e = pre_edges[i];
       // long long Com = (PEEdge[to_node.pe_id][from_node.pe_id] == 0 ? 0 : Ceil(memory, PEEdge[to_node.pe_id][from_node.pe_id]));
@@ -311,7 +311,7 @@ void ReBFS(Node start_node, vector<Edge> dram_edges, NodeGenerator &ng) {
     rechecked[to_node.id][to_node.round] = false;
 
     vector<Edge> pre_edges = re_edge_list[to_node.id];
-    sort(pre_edges.begin(), pre_edges.end(), CmpEdgeByFromCost);
+    sort(pre_edges.begin(), pre_edges.end(), CmpPreEdgeByFromCost);
     for (int i = 0; i < pre_edges.size(); ++ i) {
       Edge e = pre_edges[i];
       Node from_node = ng.GetNode(pre_edges[i].from, to_node.round);

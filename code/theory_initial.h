@@ -2,26 +2,31 @@ vector<NodeGenerator> ng_list;
 
 void CalculateRetiming(NodeGenerator &ng) {
   queue<Node> q;
+  memset(node_count, 0, sizeof(node_count));
   for (int i = 0; i < ng.node_arr.size(); ++ i) {
-    if (ng.node_arr[i].out_degree == 0) {
-      q.push(ng.node_arr[i]);
-    }
+    Node node = ng.node_arr[i];
+    if (node.out_degree == 0)
+      q.push(node);
   }
   while (!q.empty()) {
     Node to_node = q.front();
     q.pop();
+    to_node = ng.GetNode(to_node.id, to_node.round);
     to_node.certain = true;
     ng.SetNode(to_node);
 
     vector<Edge> pre_edges = re_edge_list[to_node.id];
-    sort(pre_edges.begin(), pre_edges.end(), CmpEdgeByFromCost);
+    sort(pre_edges.begin(), pre_edges.end(), CmpPreEdgeByFromCost);
     for (int i = 0; i < pre_edges.size(); ++ i) {
       Edge e = pre_edges[i];
       long long cost = Ceil(e.memory, CACHESPEED);
       Node from_node = ng.GetNode(e.from, to_node.round);
       if (UpdatePrecursorRetiming(from_node, to_node, ng.period_time, cost))
         ng.SetNode(from_node);
-      q.push(from_node);
+      node_count[from_node.id][from_node.round] = node_count[from_node.id][from_node.round] + 1;
+      if (node_count[from_node.id][from_node.round] == from_node.out_degree) {
+        q.push(from_node);
+      }
     }
   }
   for (int i = 0; i < ng.node_arr.size(); ++ i) {
@@ -140,7 +145,7 @@ void ReBFS(Node start_node, vector<Edge> dram_edges, NodeGenerator &ng) {
     rechecked[to_node.id][to_node.round] = false;
 
     vector<Edge> pre_edges = re_edge_list[to_node.id];
-    sort(pre_edges.begin(), pre_edges.end(), CmpEdgeByFromCost);
+    sort(pre_edges.begin(), pre_edges.end(), CmpPreEdgeByFromCost);
     for (int i = 0; i < pre_edges.size(); ++ i) {
       Edge e = pre_edges[i];
       Node from_node = ng.GetNode(pre_edges[i].from, to_node.round);

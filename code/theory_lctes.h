@@ -1,5 +1,5 @@
 // REFERENCE https://dl.acm.org/citation.cfm?doid=3078633.3081032
-const int PHASEROUNDLIMIT = 10;
+const int PHASEROUNDLIMIT = 2;
 vector<NodeGenerator> iter_list;
 
 // topo_order:         small -> big
@@ -213,26 +213,31 @@ void InitIteration(int half_phase_round_limit, NodeGenerator &iteration) {
 
 void CalculateRetiming(NodeGenerator &iteration) {
   queue<Node> q;
+  memset(node_count, 0, sizeof(node_count));
   for (int i = 0; i < iteration.node_arr.size(); ++ i) {
-    if (iteration.node_arr[i].out_degree == 0) {
-      q.push(iteration.node_arr[i]);
-    }
+    Node node = iteration.node_arr[i];
+    if (node.out_degree == 0)
+      q.push(node);
   }
   while (!q.empty()) {
     Node to_node = q.front();
     q.pop();
+    to_node = iteration.GetNode(to_node.id, to_node.round);
     to_node.certain = true;
     iteration.SetNode(to_node);
 
     vector<Edge> pre_edges = re_edge_list[to_node.id];
-    sort(pre_edges.begin(), pre_edges.end(), CmpEdgeByFromCost);
+    sort(pre_edges.begin(), pre_edges.end(), CmpPreEdgeByFromCost);
     for (int i = 0; i < pre_edges.size(); ++ i) {
       Edge e = pre_edges[i];
       long long cost = Ceil(e.memory, CACHESPEED);
       Node from_node = iteration.GetNode(e.from, to_node.round);
       if (UpdatePrecursorRetiming(from_node, to_node, iteration.period_time, cost))
         iteration.SetNode(from_node);
-      q.push(from_node);
+      node_count[from_node.id][from_node.round] = node_count[from_node.id][from_node.round] + 1;
+      if (node_count[from_node.id][from_node.round] == from_node.out_degree) {
+        q.push(from_node);
+      }
     }
   }
   for (int i = 0; i < iteration.node_arr.size(); ++ i) {
@@ -270,6 +275,7 @@ vector<Edge> LoadInCache(NodeGenerator &iteration, string algo) {
       if (from_node.retiming == to_node.retiming) {
         if (from_node.end_time >= to_node.start_time) {
           printf("### Wrong Retiming ###\n");
+          e.Show();
           from_node.Show();
           to_node.Show();
         }
@@ -351,7 +357,7 @@ void ReBFS(Node start_node, vector<Edge> dram_edges, NodeGenerator &iteration) {
     rechecked[to_node.id][to_node.round] = false;
 
     vector<Edge> pre_edges = re_edge_list[to_node.id];
-    sort(pre_edges.begin(), pre_edges.end(), CmpEdgeByFromCost);
+    sort(pre_edges.begin(), pre_edges.end(), CmpPreEdgeByFromCost);
     for (int i = 0; i < pre_edges.size(); ++ i) {
       Edge e = pre_edges[i];
       Node from_node = iteration.GetNode(pre_edges[i].from, to_node.round);

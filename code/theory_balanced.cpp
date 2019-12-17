@@ -121,8 +121,6 @@ FinalResult Solve(int total_pe, int total_rounds, int round_limit) {
     }
   #endif
 
-
-
   FinalResult final_result = FinalResult();
   long long total_time = 0;
   double period_ratio = 0.;
