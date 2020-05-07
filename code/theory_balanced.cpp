@@ -130,6 +130,7 @@ FinalResult Solve(int total_pe, int total_rounds, int round_limit) {
     if (s.ng.prologue > final_result.prologue) {
       final_result.prologue = s.ng.prologue;
       final_result.retiming = s.ng.retiming;
+      final_result.period_time = s.ng.period_time;
     }
     final_result.run_on_cache_n = final_result.run_on_cache_n + s.ng.run_on_cache_n * s.period_count * s.launch_number;
     final_result.run_on_dram_n = final_result.run_on_dram_n + s.ng.run_on_dram_n * s.period_count * s.launch_number;

@@ -76,8 +76,8 @@ struct FinalResult {
   }
 
   void Show(int total_node, int total_edge) {
-    printf("TotalNode:%d\nTotalEdge:%d\nTotalTime:%lld\nPrologue:%lld\nRetiming:%d\nRunOnCacheN:%lld\nRunOnDRAMN:%lld\nRunOnCache:%lld\nRunOnDRAM:%lld\nPeriodRatio:%.6f\nCPURatio:%.6f\n", 
-            total_node, total_edge, total_time, prologue, retiming, run_on_cache_n, run_on_dram_n, run_on_cache, run_on_dram, period_ratio, cpu_ratio);
+    printf("TotalNode:%d\nTotalEdge:%d\nPeriodTime:%lld\nTotalTime:%lld\nPrologue:%lld\nRetiming:%d\nRunOnCacheN:%lld\nRunOnDRAMN:%lld\nRunOnCache:%lld\nRunOnDRAM:%lld\nPeriodRatio:%.6f\nCPURatio:%.6f\n", 
+            total_node, total_edge, period_time, total_time, prologue, retiming, run_on_cache_n, run_on_dram_n, run_on_cache, run_on_dram, period_ratio, cpu_ratio);
   }
 };
 

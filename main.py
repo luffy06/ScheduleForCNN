@@ -13,15 +13,8 @@ def read_data(filename):
   return datas
 
 def subop(op):
-  res = ''
-  for i in op:
-    try:
-      int(i)
-    except Exception as e:
-      res = res + i
-    else:
-      break
-  return res 
+  ops = op.split('/')
+  return ops[-1]
 
 def main():
   dirname = 'caffe_data'
@@ -29,16 +22,19 @@ def main():
     filename = os.path.join(dirname, file)
     datas = read_data(filename)
     t_map = {}
+    total = 0.
     for d in datas:
       op = subop(d[0])
       t = int(d[1])
+      total = total + t
       if op in t_map:
         t_map[op] = t_map[op] + t
       else:
         t_map[op] = t
     print('File:' + file)
     for k, v in t_map.items():
-      print(k, v)
+      print(k, v, '%.2f' % ((v / total) * 100) )
+    print()
 
 if __name__ == '__main__':
   main()
