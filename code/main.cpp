@@ -88,7 +88,7 @@ void Input() {
 
   // if (max_cost >= MAXM) {
   //   // printf("Reduce cost\n");
-  //   for (int i = 1; i <= total_node; i++) {
+  //   for (int i = 1; i <= total_node; i++ {
   //     node_list[i].cost = ceil((node_list[i].cost * 1.0 / max_cost) * MAXM / 2);
   //   }
   // }
@@ -101,7 +101,7 @@ void Input() {
     int from, to;
     long long memory;
     scanf("%d%d%lld", &from, &to, &memory);
-    memory = Ceil(memory, 1024L);
+    // memory = Ceil(memory, 1024L);
     from = from + 1;
     to = to + 1;
     #if TEST == 0

@@ -72,7 +72,7 @@ void InitHalfPhaseWithPriority(NodeGenerator &phase) {
     interval_que.push(TimeInterval(i, 0, 0));
 
   int index = 1;
-  int cur_topo_order = -1;
+  int cur_layer = -1;
   long long max_end_time = 0;
   do {
     queue<TimeInterval> temp_que;
@@ -89,7 +89,7 @@ void InitHalfPhaseWithPriority(NodeGenerator &phase) {
       interval_que.push(ti);      
     }
 
-    for (; index <= total_node && node_list[index].topo_order == cur_topo_order; ++ index)
+    for (; index <= total_node && node_list[index].layer == cur_layer; ++ index)
       node_que.push(node_list[index]);
 
     while (!node_que.empty()) {
@@ -110,7 +110,7 @@ void InitHalfPhaseWithPriority(NodeGenerator &phase) {
     }
 
     if (index <= total_node)
-      cur_topo_order = node_list[index].topo_order;
+      cur_layer = node_list[index].layer;
   } while (index <= total_node);
 
   phase.period_time = max_end_time;
