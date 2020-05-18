@@ -72,7 +72,7 @@ void InitHalfPhaseWithPriority(NodeGenerator &phase) {
     interval_que.push(TimeInterval(i, 0, 0));
 
   int index = 1;
-  int cur_layer = -1;
+  int cur_topo_order = -1;
   long long max_end_time = 0;
   do {
     queue<TimeInterval> temp_que;
@@ -89,7 +89,7 @@ void InitHalfPhaseWithPriority(NodeGenerator &phase) {
       interval_que.push(ti);      
     }
 
-    for (; index <= total_node && node_list[index].layer == cur_layer; ++ index)
+    for (; index <= total_node && node_list[index].topo_order == cur_topo_order; ++ index)
       node_que.push(node_list[index]);
 
     while (!node_que.empty()) {
@@ -110,7 +110,7 @@ void InitHalfPhaseWithPriority(NodeGenerator &phase) {
     }
 
     if (index <= total_node)
-      cur_layer = node_list[index].layer;
+      cur_topo_order = node_list[index].topo_order;
   } while (index <= total_node);
 
   phase.period_time = max_end_time;
@@ -171,11 +171,13 @@ void InitIteration(int half_phase_round_limit, NodeGenerator &iteration) {
     pe_end_times.push_back(0);
   }
 
-  for (int i = 1; i <= iteration.node_arr.size(); ++ i) {
+  long long max_pe_end_time = 0;
+  for (int i = 0; i < iteration.node_arr.size(); ++ i) {
     Node node = iteration.node_arr[i];
     int pe_id = node.pe_id;
     pe_end_times[pe_id] = max(pe_end_times[pe_id], node.end_time);
     pe_start_times[pe_id] = min(pe_start_times[pe_id], node.start_time);
+    max_pe_end_time = max(max_pe_end_time, pe_end_times[pe_id]);
   }
 
   // 2. 计算另外半个phase对应PE的向前缩进距离
@@ -193,9 +195,10 @@ void InitIteration(int half_phase_round_limit, NodeGenerator &iteration) {
   }
 
   // 3. 添加另外半个phase
-  int size_ = iteration.node_arr.size();
+  NodeGenerator the_other_iteration = iteration;
+  int size_ = the_other_iteration.node_arr.size();
   for (int i = 0; i < size_; ++ i) {
-    Node node = iteration.node_arr[i];
+    Node node = the_other_iteration.node_arr[i];
     int map_pe_id_rev = -1;
     for (int j = 1; j <= iteration.pe_number; ++ j)
       if (shift_map[j] == node.pe_id)
@@ -204,11 +207,10 @@ void InitIteration(int half_phase_round_limit, NodeGenerator &iteration) {
     node.pe_id = map_pe_id_rev;
     node.start_time = node.start_time + shift_distance[map_pe_id_rev];
     node.end_time = node.end_time + shift_distance[map_pe_id_rev];
-    node.round = node.round + iteration.period_round;
-    iteration.node_arr.push_back(node);
+    node.round = node.round;
+    the_other_iteration.SetNode(node);
   }
-  iteration.period_round = iteration.period_round * 2;
-  sort(iteration.node_arr.begin(), iteration.node_arr.end(), CmpById);
+  iteration.Append(the_other_iteration);
 }
 
 void CalculateRetiming(NodeGenerator &iteration) {
@@ -268,8 +270,9 @@ vector<Edge> LoadInCache(NodeGenerator &iteration, string algo) {
     for (int i = 0; i < suf_edges.size(); ++ i) {
       Edge e = suf_edges[i];
       Node to_node = iteration.GetNode(e.to, from_node.round);
-      iteration.run_on_cache = iteration.run_on_cache + e.memory;
-      iteration.run_on_cache_n = iteration.run_on_cache_n + 1;
+      assert(to_node.round < iteration.round_infos.size());
+      iteration.round_infos[to_node.round].run_on_cache += e.memory;
+      iteration.round_infos[to_node.round].run_on_cache_n += 1;
 
       // 单周期内检查内存溢出
       if (from_node.retiming == to_node.retiming) {
@@ -327,10 +330,10 @@ vector<Edge> LoadInCache(NodeGenerator &iteration, string algo) {
     for (int j = 0; j < put_in_dram.size(); ++ j) {
       IntermediateResult ir = put_in_dram[j];
       if (rechecked[ir.to_id][ir.to_round] == false) {
-        iteration.run_on_cache = iteration.run_on_cache - ir.memory;
-        iteration.run_on_cache_n = iteration.run_on_cache_n - 1;
-        iteration.run_on_dram = iteration.run_on_dram + ir.memory;
-        iteration.run_on_dram_n = iteration.run_on_dram_n + 1;
+        iteration.round_infos[ir.to_round].run_on_cache -= ir.memory;
+        iteration.round_infos[ir.to_round].run_on_cache_n -= 1;
+        iteration.round_infos[ir.to_round].run_on_dram += ir.memory;
+        iteration.round_infos[ir.to_round].run_on_dram_n += 1;
       }
       rechecked[ir.to_id][ir.to_round] = true;
       dram_edges.push_back(Edge(ir.from_id, ir.to_id, ir.from_round, ir.memory));
@@ -361,6 +364,7 @@ void ReBFS(Node start_node, vector<Edge> dram_edges, NodeGenerator &iteration) {
     for (int i = 0; i < pre_edges.size(); ++ i) {
       Edge e = pre_edges[i];
       Node from_node = iteration.GetNode(pre_edges[i].from, to_node.round);
+
       long long cost = (StoreInCache(from_node.id, to_node.id, to_node.round, dram_edges) 
                       ? Ceil(e.memory, CACHESPEED) : Ceil(e.memory, DRAMSPEED));
       if (UpdatePrecursorRetiming(from_node, to_node, iteration.period_time, cost)) {

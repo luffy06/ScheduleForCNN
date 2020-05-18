@@ -4,6 +4,7 @@ struct Scheduler {
   NodeGenerator ng;
   int launch_number;
   int period_count;
+  int rounds;
   long long total_time;
 
   Scheduler() { }
@@ -12,6 +13,7 @@ struct Scheduler {
     ng = NodeGenerator(total_node, pe_number);
     launch_number = d;
     period_count = 0;
+    rounds = 0;
     total_time = 0;
   }
 
@@ -81,6 +83,7 @@ vector<Scheduler> SelectSchedulers(int total_pe, int total_rounds) {
 
     s.period_count = s.period_count + 1;
     s.total_time = s.total_time + s.ng.period_time;
+    s.rounds += total_rounds > s.launch_number * s.ng.period_round ? s.launch_number * s.ng.period_round : total_rounds;
     total_rounds = total_rounds - s.launch_number * s.ng.period_round;
     q.push(s);
   }
@@ -123,22 +126,26 @@ FinalResult Solve(int total_pe, int total_rounds, int round_limit) {
 
   FinalResult final_result = FinalResult();
   long long total_time = 0;
+  long long max_launch_number = 0;
   double period_ratio = 0.;
+  vector<double> portion;
+  for (int i = 0; i < choosed.size(); ++ i) {
+    portion.push_back((1.0 * choosed[i].rounds) / total_rounds);
+  }
   for (int i = 0; i < choosed.size(); ++ i) {
     Scheduler s = choosed[i];
-    final_result.total_time = max(final_result.total_time, s.total_time);
-    if (s.ng.prologue > final_result.prologue) {
-      final_result.prologue = s.ng.prologue;
-      final_result.retiming = s.ng.retiming;
-      final_result.period_time = s.ng.period_time;
-    }
-    final_result.run_on_cache_n = final_result.run_on_cache_n + s.ng.run_on_cache_n * s.period_count * s.launch_number;
-    final_result.run_on_dram_n = final_result.run_on_dram_n + s.ng.run_on_dram_n * s.period_count * s.launch_number;
-    final_result.run_on_cache = final_result.run_on_cache + s.ng.run_on_cache * s.period_count * s.launch_number;
-    final_result.run_on_dram = final_result.run_on_dram + s.ng.run_on_dram * s.period_count * s.launch_number;
-    period_ratio = period_ratio + s.ng.period_ratio;
+    FinalResult fr = CalcResultForSchedule(s.launch_number, s.rounds, s.ng);
+    final_result.total_time = max(final_result.total_time, fr.total_time);
+    final_result.period_time += fr.period_time * portion[i];
+    final_result.time_per_round += fr.time_per_round * portion[i];
+    final_result.prologue += fr.prologue * portion[i];
+    final_result.retiming += fr.retiming * portion[i];
+    final_result.period_ratio += fr.period_ratio * portion[i];
+    final_result.run_on_cache_n += fr.run_on_cache_n;
+    final_result.run_on_cache += fr.run_on_cache;
+    final_result.run_on_dram_n += fr.run_on_dram_n;
+    final_result.run_on_dram += fr.run_on_dram;
   }
   final_result.cpu_ratio = (1.0 * total_rounds * total_cost) / (final_result.total_time * total_pe);
-  final_result.period_ratio = period_ratio / choosed.size();
   return final_result;
 }

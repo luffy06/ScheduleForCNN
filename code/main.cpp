@@ -54,15 +54,12 @@ void GenPECommunication() {
     for (int j = 0; j < m; ++ j)
       points.push_back(make_pair(i, j));
 
+  int rand_cost = rand() % 10;
   memset(pe_edges, 0, sizeof(pe_edges));
-  int max_speed = CACHESPEED * 100;
   for (int i = 0; i < points.size(); ++ i) {
     for (int j = 0; j < points.size(); ++ j) {
-      int dis = abs(points[i].first - points[j].first) + abs(points[i].second - points[j].second);
-      if (dis == 0)
-        pe_edges[i + 1][j + 1] = 0;
-      else
-        pe_edges[i + 1][j + 1] = max_speed / dis;
+      int elucid_dis = abs(points[i].first - points[j].first) + abs(points[i].second - points[j].second);
+      pe_edges[i + 1][j + 1] = elucid_dis * rand_cost;
     }
   }
 }

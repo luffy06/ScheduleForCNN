@@ -167,7 +167,7 @@ void BFS(Node key_node, NodeGenerator &ng) {
     sort(pre_edges.begin(), pre_edges.end(), CmpPreEdgeByFromCost);
     for (int i = 0; i < pre_edges.size(); ++ i) {
       Edge e = pre_edges[i];
-      // long long Com = (PEEdge[to_node.pe_id][from_node.pe_id] == 0 ? 0 : Ceil(memory, PEEdge[to_node.pe_id][from_node.pe_id]));
+      // long long Com = (pe_edges[to_node.pe_id][from_node.pe_id] == 0 ? 0 : Ceil(memory, pe_edges[to_node.pe_id][from_node.pe_id]));
       long long cost = Ceil(e.memory, CACHESPEED);
       Node from_node = ReallocatePrecursorNode(ng.GetNode(e.from, to_node.round), to_node, cost, ng);
 
@@ -223,8 +223,8 @@ vector<Edge> LoadInCache(NodeGenerator &ng, string algo) {
     for (int i = 0; i < suf_edges.size(); ++ i) {
       Edge e = suf_edges[i];
       Node to_node = ng.GetNode(e.to, from_node.round);
-      ng.run_on_cache = ng.run_on_cache + e.memory;
-      ng.run_on_cache_n = ng.run_on_cache_n + 1;
+      ng.round_infos[from_node.round].run_on_cache += e.memory;
+      ng.round_infos[from_node.round].run_on_cache_n += 1;
 
       // 单周期内检查内存溢出
       if (from_node.retiming == to_node.retiming) {
@@ -281,10 +281,10 @@ vector<Edge> LoadInCache(NodeGenerator &ng, string algo) {
     for (int j = 0; j < put_in_dram.size(); ++ j) {
       IntermediateResult ir = put_in_dram[j];
       if (rechecked[ir.to_id][ir.to_round] == false) {
-        ng.run_on_cache = ng.run_on_cache - ir.memory;
-        ng.run_on_cache_n = ng.run_on_cache_n - 1;
-        ng.run_on_dram = ng.run_on_dram + ir.memory;
-        ng.run_on_dram_n = ng.run_on_dram_n + 1;
+        ng.round_infos[ir.to_round].run_on_cache -= ir.memory;
+        ng.round_infos[ir.to_round].run_on_cache_n -= 1;
+        ng.round_infos[ir.to_round].run_on_dram += ir.memory;
+        ng.round_infos[ir.to_round].run_on_dram_n += 1;
       }
       rechecked[ir.to_id][ir.to_round] = true;
       dram_edges.push_back(Edge(ir.from_id, ir.to_id, ir.from_round, ir.memory));

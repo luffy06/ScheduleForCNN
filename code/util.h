@@ -52,6 +52,7 @@ struct FinalResult {
   long long total_time;
   long long prologue;
   long long period_time;
+  double time_per_round;
   int retiming;
   long long run_on_cache_n;
   long long run_on_dram_n;
@@ -64,6 +65,7 @@ struct FinalResult {
   FinalResult() {
     total_time = -1;
     period_time = 0;
+    time_per_round = 0;
     prologue = 0;
     retiming = 0;
     run_on_cache_n = 0;
@@ -76,8 +78,8 @@ struct FinalResult {
   }
 
   void Show(int total_node, int total_edge) {
-    printf("TotalNode:%d\nTotalEdge:%d\nPeriodTime:%lld\nTotalTime:%lld\nPrologue:%lld\nRetiming:%d\nRunOnCacheN:%lld\nRunOnDRAMN:%lld\nRunOnCache:%lld\nRunOnDRAM:%lld\nPeriodRatio:%.6f\nCPURatio:%.6f\n", 
-            total_node, total_edge, period_time, total_time, prologue, retiming, run_on_cache_n, run_on_dram_n, run_on_cache, run_on_dram, period_ratio, cpu_ratio);
+    printf("TotalNode:%d\nTotalEdge:%d\nPeriodTime:%lld\nTimePerRound:%.f\nTotalTime:%lld\nPrologue:%lld\nRetiming:%d\nRunOnCacheN:%lld\nRunOnDRAMN:%lld\nRunOnCache:%lld\nRunOnDRAM:%lld\nPeriodRatio:%.6f\nCPURatio:%.6f\n", 
+            total_node, total_edge, period_time, time_per_round, total_time, prologue, retiming, run_on_cache_n, run_on_dram_n, run_on_cache, run_on_dram, period_ratio, cpu_ratio);
   }
 };
 
@@ -239,6 +241,33 @@ struct TimeInterval : PEInterval {
   }
 };
 
+struct RoundInfo {
+  int round;
+  long long last_time;
+  long long run_on_cache_n;
+  long long run_on_dram_n;
+  long long run_on_cache;
+  long long run_on_dram;
+
+  RoundInfo() {
+    round = -1;
+    last_time = 0;
+    run_on_cache_n = 0;
+    run_on_dram_n = 0;
+    run_on_cache = 0;
+    run_on_dram = 0;
+  }
+
+  RoundInfo(int a) {
+    round = a;
+    last_time = 0;
+    run_on_cache_n = 0;
+    run_on_dram_n = 0;
+    run_on_cache = 0;
+    run_on_dram = 0;
+  }
+};
+
 vector<Edge> edge_list[MAXN];
 vector<Edge> re_edge_list[MAXN];
 int pe_edges[MAXPE][MAXPE];
@@ -337,6 +366,14 @@ bool CmpEdge(Edge a, Edge b) {
   return a.to < b.to;
 }
 
+// LastTime:  small -> big
+// Round:     small -> big
+bool CmpByLastTime(RoundInfo a, RoundInfo b) {
+  if (a.last_time != b.last_time)
+    return a.last_time < b.last_time;
+  return a.round < b.round;
+}
+
 // EndTime:   small -> big
 // PEId:      small -> big
 struct NodeComparationByEndTime {
@@ -367,10 +404,11 @@ struct NodeGenerator {
   int period_round;
   long long prologue;
   int retiming;
-  long long run_on_cache_n;
-  long long run_on_dram_n;
-  long long run_on_cache;
-  long long run_on_dram;
+  vector<RoundInfo> round_infos;
+  long long run_on_cache_n_tot;
+  long long run_on_dram_n_tot;
+  long long run_on_cache_tot;
+  long long run_on_dram_tot;
   double cache_ratio;
   double period_ratio;
   vector<Node> node_arr;
@@ -382,9 +420,11 @@ struct NodeGenerator {
     period_round = 0;
     prologue = 0;
     retiming = 0;
-    run_on_cache = run_on_dram = run_on_cache_n = run_on_dram_n = 0;
-    period_ratio = cache_ratio = 0;
+    round_infos.clear();
+    run_on_cache_n_tot = run_on_dram_n_tot = run_on_cache_tot = run_on_dram_tot = 0;
+    period_ratio = cache_ratio = 0.;
     node_arr.clear();
+    round_infos.push_back(RoundInfo());
   }
 
   NodeGenerator(int a, int b) {
@@ -394,9 +434,11 @@ struct NodeGenerator {
     period_round = 0;
     prologue = 0;
     retiming = 0;
-    run_on_cache = run_on_dram = run_on_cache_n = run_on_dram_n = 0;
-    period_ratio = cache_ratio = 0;
+    round_infos.clear();
+    run_on_cache_n_tot = run_on_dram_n_tot = run_on_cache_tot = run_on_dram_tot = 0;
+    period_ratio = cache_ratio = 0.;
     node_arr.clear();
+    round_infos.push_back(RoundInfo());
   }
 
   void AddOneRoundNodes(Node node_list[MAXN]) {
@@ -406,6 +448,7 @@ struct NodeGenerator {
       node.round = period_round;
       node_arr.push_back(node);
     }
+    round_infos.push_back(RoundInfo(period_round));
     sort(node_arr.begin(), node_arr.end(), CmpById);
   }
 
@@ -418,9 +461,13 @@ struct NodeGenerator {
     }
   }
 
-  double GenerateBasedRound(int round, Node node_list[MAXN]) {
+  double GenerateForTargetedRound(int round, Node node_list[MAXN]) {
     priority_queue<Node, vector<Node>, NodeComparationByEndTime> q;
     node_arr.clear();
+    round_infos.clear();
+    round_infos.push_back(RoundInfo());
+    for (int i = 1; i <= round; ++ i)
+      round_infos.push_back(RoundInfo(i));
     for (int i = 1; i <= pe_number; ++ i) {
       Node n = Node(0, 0);
       n.pe_id = i;
@@ -438,6 +485,7 @@ struct NodeGenerator {
         n.round = j;
         n.pe_id = n_top.pe_id;
         n.SetTime(n_top.end_time, n_top.end_time + n.cost);
+        round_infos[n.round].last_time = max(round_infos[n.round].last_time, n.end_time);
         q.push(n);
         period_time = max(period_time, n_top.end_time + n.cost);
         node_arr.push_back(n);
@@ -457,7 +505,7 @@ struct NodeGenerator {
 
   void GeneratePeriodSchedule(int round_limit, Node node_list[MAXN]) {
     for (int i = 1; i <= round_limit; ++ i) {
-      double current_ratio = GenerateBasedRound(i, node_list);
+      double current_ratio = GenerateForTargetedRound(i, node_list);
       if (current_ratio >= LIMITEDRATIO) {
         period_round = i;
         break;
@@ -467,7 +515,7 @@ struct NodeGenerator {
         period_ratio = current_ratio;
       }
     }
-    period_ratio = GenerateBasedRound(period_round, node_list);
+    period_ratio = GenerateForTargetedRound(period_round, node_list);
     sort(node_arr.begin(), node_arr.end(), CmpById);
   }
 
@@ -485,6 +533,7 @@ struct NodeGenerator {
         node_arr[i].SetTime(node.start_time, node.end_time);
         node_arr[i].retiming = node.retiming;
         node_arr[i].certain = node.certain;
+        round_infos[node_arr[i].round].last_time = max(round_infos[node_arr[i].round].last_time, node_arr[i].end_time);
         found = true;
         break;
       }
@@ -542,11 +591,32 @@ struct NodeGenerator {
     return choosed;
   }
 
+  void Append(NodeGenerator ng) {
+    for (int i = 1; i <= ng.period_round; ++ i)
+      round_infos.push_back(RoundInfo(i));
+    for (int i = 0; i < ng.node_arr.size(); ++ i) {
+      Node node = ng.node_arr[i];
+      node.round = node.round + period_round;
+      round_infos[node.round].last_time = max(round_infos[node.round].last_time, node.end_time);
+      node_arr.push_back(node);
+    }
+    period_round += ng.period_round;
+    sort(node_arr.begin(), node_arr.end(), CmpById);
+  }
+
   void CalcPrologue() {
     for (int i = 0; i < node_arr.size(); ++ i)
       retiming = min(retiming, node_arr[i].retiming);
     retiming = -retiming;
     prologue = 1LL * retiming * period_time;
+    run_on_cache_n_tot = run_on_dram_n_tot = run_on_cache_tot = run_on_dram_tot = 0;
+    for (int i = 1; i <= period_round; ++ i) {
+      run_on_cache_n_tot  += round_infos[i].run_on_cache_n;
+      run_on_dram_n_tot   += round_infos[i].run_on_dram_n;
+      run_on_cache_tot    += round_infos[i].run_on_cache;
+      run_on_dram_tot     += round_infos[i].run_on_dram;
+    }
+    sort(round_infos.begin(), round_infos.end(), CmpByLastTime);
   }
 
   void Show() {
@@ -761,46 +831,94 @@ bool UpdatePrecursorRetiming(Node &from_node, Node to_node, long long period_tim
   return false;
 }
 
+FinalResult CalcResultForLaunch(int rounds, NodeGenerator ng) {
+  FinalResult fr;
+  int period_number = rounds / ng.period_round;
+  int period_number_last = rounds % ng.period_round;
+  fr.total_time = ng.prologue + 1LL * period_number * ng.period_time 
+                              + ng.round_infos[period_number_last].last_time;
+  fr.period_time = ng.period_time;
+  fr.time_per_round = ng.period_time * 1.0 / ng.period_round;
+  fr.prologue = ng.prologue;
+  fr.retiming = ng.retiming;
+  fr.cpu_ratio = 1.0 * (rounds * total_cost) / (fr.total_time * ng.pe_number);
+  fr.period_ratio = ng.period_ratio;
+  fr.run_on_cache_n = 1LL * ng.run_on_cache_n_tot * period_number;
+  fr.run_on_cache = 1LL * ng.run_on_cache_tot * period_number;
+  fr.run_on_dram_n = 1LL * ng.run_on_dram_n_tot * period_number;
+  fr.run_on_dram = 1LL * ng.run_on_dram_tot * period_number;
+  for (int i = 1; i <= period_number_last; ++ i) {
+    fr.run_on_cache_n += ng.round_infos[i].run_on_cache_n;
+    fr.run_on_cache += ng.round_infos[i].run_on_cache;
+    fr.run_on_dram_n += ng.round_infos[i].run_on_dram_n;
+    fr.run_on_dram += ng.round_infos[i].run_on_dram;
+  }
+  return fr;
+}
+
+FinalResult CalcResultForSchedule(int launch_number, int rounds, NodeGenerator ng) {
+  FinalResult fr;
+  if (rounds % launch_number == 0) {
+    int launch_rounds = rounds / launch_number;
+    fr = CalcResultForLaunch(launch_rounds, ng);
+    fr.run_on_cache_n *= launch_number;
+    fr.run_on_cache *= launch_number;
+    fr.run_on_dram_n *= launch_number;
+    fr.run_on_dram *= launch_number;
+  }
+  else {
+    int max_rounds = Ceil(rounds, launch_number);
+    int max_launch_number = rounds % launch_number;
+    int min_rounds = rounds / launch_number;
+    int min_launch_number = launch_number - rounds % launch_number;
+    FinalResult fr_max = CalcResultForLaunch(max_rounds, ng);
+    FinalResult fr_min = CalcResultForLaunch(min_rounds, ng);
+    fr.total_time = max(fr_max.total_time, fr_min.total_time);
+    fr.period_time = fr_max.period_time;
+    fr.time_per_round = fr_max.time_per_round;
+    fr.prologue = fr_max.prologue;
+    fr.retiming = fr_max.retiming;
+    fr.cpu_ratio = 1.0 * (rounds * total_cost) / (fr.total_time * launch_number * ng.pe_number);
+    fr.period_ratio = fr.period_ratio;
+    fr.run_on_cache_n = fr_max.run_on_cache_n * max_launch_number + fr_min.run_on_cache_n * min_launch_number;
+    fr.run_on_cache = fr_max.run_on_cache * max_launch_number + fr_min.run_on_cache * min_launch_number;
+    fr.run_on_dram_n = fr_max.run_on_dram_n * max_launch_number + fr_min.run_on_dram_n * min_launch_number;
+    fr.run_on_dram = fr_max.run_on_dram * max_launch_number + fr_min.run_on_dram * min_launch_number;
+  }
+  return fr;
+}
+
 FinalResult CalcFinalResult(vector<NodeGenerator> ng_list) {
   FinalResult final_result;
   if (ng_list.size() == 1) {
     assert(total_pe % ng_list[0].pe_number == 0);
     int launch_number = total_pe / ng_list[0].pe_number;
-    int period_number = Floor(Floor(total_rounds, launch_number), ng_list[0].period_round);
-    final_result.total_time = ng_list[0].prologue + 1LL * period_number * ng_list[0].period_time;
-    final_result.period_time = ng_list[0].period_time;
-    final_result.prologue = ng_list[0].prologue;
-    final_result.retiming = ng_list[0].retiming;
-    final_result.run_on_cache_n = ng_list[0].run_on_cache_n * period_number * launch_number;
-    final_result.run_on_dram_n = ng_list[0].run_on_dram_n * period_number * launch_number;
-    final_result.run_on_cache = ng_list[0].run_on_cache * period_number * launch_number;
-    final_result.run_on_dram = ng_list[0].run_on_dram * period_number * launch_number;
-    final_result.cache_ratio = ng_list[0].cache_ratio;
-    final_result.cpu_ratio = 1.0 * (total_rounds * total_cost) / (final_result.total_time * total_pe);
-    final_result.period_ratio = ng_list[0].period_ratio;
+    final_result = CalcResultForSchedule(launch_number, total_rounds, ng_list[0]);
   }
   else {
     int launch_number = total_pe / ng_list[0].pe_number;
+    vector<double> portion = {1.0, 0.0};
     for (int round0 = 0; round0 <= total_rounds; ++ round0) {
       int round1 = total_rounds - round0;
-      int period_number0 = Floor(Floor(round0, launch_number), ng_list[0].period_round);
-      int period_number1 = Floor(round1, ng_list[1].period_round);
-      long long total_time0 = ng_list[0].prologue + 1LL * period_number0 * ng_list[0].period_time;
-      long long total_time1 = ng_list[1].prologue + 1LL * period_number1 * ng_list[1].period_time;
-      long long total_time = max(total_time0, total_time1);
+      FinalResult fr0 = CalcResultForSchedule(launch_number, round0, ng_list[0]);
+      FinalResult fr1 = CalcResultForSchedule(1, round1, ng_list[1]);
+      long long total_time = max(fr0.total_time, fr1.total_time);
       if (final_result.total_time == -1 || total_time < final_result.total_time) {
+        portion[0] = round0 * 1.0 / total_rounds;
+        portion[1] = round1 * 1.0 / total_rounds;
         final_result.total_time = total_time;
-        final_result.period_time = (ng_list[0].period_time + ng_list[1].period_time) / 2.0;
-        final_result.run_on_cache_n = ng_list[0].run_on_cache_n * period_number0 * launch_number + ng_list[1].run_on_cache_n * period_number1;
-        final_result.run_on_dram_n = ng_list[0].run_on_dram_n * period_number0 * launch_number + ng_list[1].run_on_dram_n * period_number1;
-        final_result.run_on_cache = ng_list[0].run_on_cache * period_number0 * launch_number + ng_list[1].run_on_cache * period_number1;
-        final_result.run_on_dram = ng_list[0].run_on_dram * period_number0 * launch_number + ng_list[1].run_on_dram * period_number1;
+        final_result.period_time = fr0.period_time * portion[0] + fr1.period_time * portion[1];
+        final_result.time_per_round = fr0.time_per_round * portion[0] + fr1.time_per_round * portion[1];
+        final_result.prologue = fr0.prologue * portion[0] + fr1.prologue * portion[1];
+        final_result.retiming = fr0.retiming * portion[0] + fr1.retiming * portion[1];
+        final_result.cpu_ratio = 1.0 * (total_rounds * total_cost) / (final_result.total_time * total_pe);
+        final_result.period_ratio = fr0.period_ratio * portion[0] + fr1.period_ratio * portion[1];
+        final_result.run_on_cache_n = fr0.run_on_cache_n + fr1.run_on_cache_n;
+        final_result.run_on_cache = fr0.run_on_cache + fr1.run_on_cache;
+        final_result.run_on_dram_n = fr0.run_on_dram_n + fr1.run_on_dram_n;
+        final_result.run_on_dram = fr0.run_on_dram + fr1.run_on_dram;
       }
     }
-    final_result.prologue = ng_list[0].prologue;
-    final_result.retiming = ng_list[0].retiming;
-    final_result.cpu_ratio = 1.0 * (total_rounds * total_cost) / (final_result.total_time * total_pe);
-    final_result.period_ratio = (ng_list[0].period_ratio + ng_list[1].period_ratio) / 2;
   }
   return final_result;
 }
