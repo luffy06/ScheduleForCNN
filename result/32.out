@@ -1,52 +1,96 @@
-RUNNING alexnet_mnist-tflearn.in ext
-TotalNode:345 TotalEdge:418 TotalTime:17235212 Kernel:0 Prelogue:915144 Retiming:24 RunOnCache:12978966 RunOnDRAM:4708704 MAXRatio:0.999982 CPURatio:0.948150 CacheRatio:0.000000
-RUNNING alexnet_mnist-tflearn.in algo
-TotalNode:345 TotalEdge:418 TotalTime:17692465 Kernel:87155 Prelogue:1394480 Retiming:16 RunOnCache:1876992 RunOnDRAM:673792 MAXRatio:1.000000 CPURatio:0.923645 CacheRatio:0.823433
-RUNNING alexnet_mnist.in ext
-TotalNode:460 TotalEdge:566 TotalTime:40285674 Kernel:0 Prelogue:1363635 Retiming:35 RunOnCache:13236000 RunOnDRAM:7536000 MAXRatio:0.999990 CPURatio:0.967109 CacheRatio:0.000000
-RUNNING alexnet_mnist.in algo
-TotalNode:460 TotalEdge:566 TotalTime:44259270 Kernel:207790 Prelogue:5402540 Retiming:26 RunOnCache:2141696 RunOnDRAM:1293440 MAXRatio:1.000000 CPURatio:0.880282 CacheRatio:0.546400
-RUNNING alexnet_oxflowers17.in ext
-TotalNode:409 TotalEdge:506 TotalTime:27333552 Kernel:0 Prelogue:1052640 Retiming:30 RunOnCache:8736000 RunOnDRAM:4488000 MAXRatio:0.999986 CPURatio:0.962759 CacheRatio:0.000000
-RUNNING alexnet_oxflowers17.in algo
-TotalNode:409 TotalEdge:506 TotalTime:29754200 Kernel:140350 Prelogue:3508750 Retiming:25 RunOnCache:1870976 RunOnDRAM:1173120 MAXRatio:1.000000 CPURatio:0.884434 CacheRatio:0.884602
-RUNNING cnn_sentence_classif.in ext
-TotalNode:385 TotalEdge:529 TotalTime:21663640 Kernel:0 Prelogue:242930 Retiming:17 RunOnCache:2484000 RunOnDRAM:768000 MAXRatio:0.999913 CPURatio:0.989359 CacheRatio:0.000000
-RUNNING cnn_sentence_classif.in algo
-TotalNode:385 TotalEdge:529 TotalTime:22462308 Kernel:57156 Prelogue:1085964 Retiming:19 RunOnCache:2406000 RunOnDRAM:786000 MAXRatio:0.999983 CPURatio:0.954182 CacheRatio:0.365879
-RUNNING convnet_highway_mnist.in ext
-TotalNode:1256 TotalEdge:1898 TotalTime:22522752 Kernel:0 Prelogue:581728 Retiming:53 RunOnCache:23520000 RunOnDRAM:11430000 MAXRatio:0.999886 CPURatio:0.974548 CacheRatio:0.000000
-RUNNING convnet_highway_mnist.in algo
-TotalNode:1256 TotalEdge:1898 TotalTime:22778088 Kernel:22995 Prelogue:769304 Retiming:46 RunOnCache:7710732 RunOnDRAM:3816000 MAXRatio:0.999966 CPURatio:0.963623 CacheRatio:0.489341
-RUNNING dense_model.in ext
-TotalNode:268 TotalEdge:324 TotalTime:477855 Kernel:0 Prelogue:5670 Retiming:18 RunOnCache:7488000 RunOnDRAM:360000 MAXRatio:0.997222 CPURatio:0.986047 CacheRatio:0.000000
-RUNNING dense_model.in algo
-TotalNode:268 TotalEdge:324 TotalTime:495061 Kernel:2513 Prelogue:25130 Retiming:10 RunOnCache:1858944 RunOnDRAM:114304 MAXRatio:1.000000 CPURatio:0.951777 CacheRatio:1.961679
-RUNNING vgg_A-LEN.in ext
-TotalNode:518 TotalEdge:794 TotalTime:105254670 Kernel:0 Prelogue:3133796 Retiming:46 RunOnCache:3138000 RunOnDRAM:1878000 MAXRatio:1.000000 CPURatio:0.970874 CacheRatio:0.000000
-RUNNING vgg_A-LEN.in algo
-TotalNode:518 TotalEdge:794 TotalTime:121536784 Kernel:545008 Prelogue:19620288 Retiming:36 RunOnCache:2947840 RunOnDRAM:1901056 MAXRatio:1.000000 CPURatio:0.840807 CacheRatio:0.666259
-RUNNING vgg_A.in ext
-TotalNode:472 TotalEdge:695 TotalTime:64777728 Kernel:0 Prelogue:1560401 Retiming:37 RunOnCache:11520000 RunOnDRAM:6288000 MAXRatio:1.000000 CPURatio:0.976562 CacheRatio:0.000000
-RUNNING vgg_A.in algo
-TotalNode:472 TotalEdge:695 TotalTime:74224480 Kernel:337384 Prelogue:11133672 Retiming:33 RunOnCache:2580864 RunOnDRAM:1600256 MAXRatio:1.000000 CPURatio:0.852273 CacheRatio:0.535760
-RUNNING vgg_B.in ext
-TotalNode:518 TotalEdge:775 TotalTime:78974804 Kernel:0 Prelogue:2077272 Retiming:54 RunOnCache:9990000 RunOnDRAM:5400000 MAXRatio:0.999997 CPURatio:0.974181 CacheRatio:0.000000
-RUNNING vgg_B.in algo
-TotalNode:518 TotalEdge:775 TotalTime:91091928 Kernel:410324 Prelogue:14361340 Retiming:35 RunOnCache:2833536 RunOnDRAM:1828864 MAXRatio:1.000000 CPURatio:0.844595 CacheRatio:0.668118
-RUNNING vgg_C.in ext
-TotalNode:586 TotalEdge:894 TotalTime:84054180 Kernel:0 Prelogue:2488983 Retiming:61 RunOnCache:10728000 RunOnDRAM:6426000 MAXRatio:0.999989 CPURatio:0.970863 CacheRatio:0.000000
-RUNNING vgg_C.in algo
-TotalNode:586 TotalEdge:894 TotalTime:99666983 Kernel:435227 Prelogue:18279534 Retiming:42 RunOnCache:3206528 RunOnDRAM:2171776 MAXRatio:1.000000 CPURatio:0.818777 CacheRatio:0.696127
-RUNNING vgg_D.in ext
-TotalNode:584 TotalEdge:892 TotalTime:98156648 Kernel:0 Prelogue:2860320 Retiming:60 RunOnCache:11124000 RunOnDRAM:6426000 MAXRatio:0.999993 CPURatio:0.971339 CacheRatio:0.000000
-RUNNING vgg_D.in algo
-TotalNode:584 TotalEdge:892 TotalTime:116446042 Kernel:508498 Prelogue:21356916 Retiming:42 RunOnCache:3194496 RunOnDRAM:2171776 MAXRatio:1.000000 CPURatio:0.818777 CacheRatio:0.664897
-RUNNING vgg_E.in ext
-TotalNode:650 TotalEdge:1009 TotalTime:135021952 Kernel:0 Prelogue:2778048 Retiming:63 RunOnCache:3930000 RunOnDRAM:2484000 MAXRatio:0.999999 CPURatio:0.979750 CacheRatio:0.000000
-RUNNING vgg_E.in algo
-TotalNode:650 TotalEdge:1009 TotalTime:167917330 Kernel:705535 Prelogue:35982285 Retiming:51 RunOnCache:3555456 RunOnDRAM:2514688 MAXRatio:1.000000 CPURatio:0.787815 CacheRatio:1.329217
-RUNNING vgg_defoult.in ext
-TotalNode:539 TotalEdge:830 TotalTime:98344400 Kernel:0 Prelogue:2912140 Retiming:61 RunOnCache:10212000 RunOnDRAM:5886000 MAXRatio:0.999989 CPURatio:0.970863 CacheRatio:0.000000
-RUNNING vgg_defoult.in algo
-TotalNode:539 TotalEdge:830 TotalTime:115593167 Kernel:509221 Prelogue:20368840 Retiming:40 RunOnCache:3001984 RunOnDRAM:1991296 MAXRatio:1.000000 CPURatio:0.825991 CacheRatio:0.665198
+RUNNING MobileNetSSD.in bala
+MemorySum:140308254 MaxMemory:99355001 MinMemory:1 ExceedCount:97 TotalNode:84 TotalEdge:106 PeriodTime:5065 TimePerRound:5065 TotalTime:15326690 Prologue:131690 Retiming:26 RunOnCacheN:192000 RunOnDRAMN:444000 RunOnCache:50785086000 RunOnDRAM:791064438000 PeriodRatio:0.993756 CPURatio:0.985218 Cost:63
+RUNNING MobileNetSSD.in resc
+MemorySum:140308254 MaxMemory:99355001 MinMemory:1 ExceedCount:97 TotalNode:84 TotalEdge:106 PeriodTime:15052 TimePerRound:15053 TotalTime:15464448 Prologue:351492 Retiming:23 RunOnCacheN:179636 RunOnDRAMN:456364 RunOnCache:47201103916 RunOnDRAM:794648420084 PeriodRatio:0.060661 CPURatio:0.976441 Cost:71
+RUNNING MobileNetSSD.in lctes
+MemorySum:140308254 MaxMemory:99355001 MinMemory:1 ExceedCount:97 TotalNode:84 TotalEdge:106 PeriodTime:77910 TimePerRound:38955 TotalTime:48650820 Prologue:1869842 Retiming:24 RunOnCacheN:179446 RunOnDRAMN:456554 RunOnCache:100318477546 RunOnDRAM:741531046454 PeriodRatio:0.207870 CPURatio:0.310378 Cost:137
+RUNNING alexnet.in bala
+MemorySum:114298930 MaxMemory:79547801 MinMemory:1 ExceedCount:27 TotalNode:26 TotalEdge:30 PeriodTime:34713 TimePerRound:5786 TotalTime:17842482 Prologue:485982 Retiming:14 RunOnCacheN:42000 RunOnDRAMN:138000 RunOnCache:19950522000 RunOnDRAM:665843058000 PeriodRatio:0.999546 CPURatio:0.972321 Cost:55
+RUNNING alexnet.in resc
+MemorySum:114298930 MaxMemory:79547801 MinMemory:1 ExceedCount:27 TotalNode:26 TotalEdge:30 PeriodTime:46263 TimePerRound:46263 TotalTime:17950044 Prologue:601419 Retiming:13 RunOnCacheN:42000 RunOnDRAMN:138000 RunOnCache:13487202000 RunOnDRAM:672306378000 PeriodRatio:1.000000 CPURatio:0.966495 Cost:2
+RUNNING alexnet.in lctes
+MemorySum:114298930 MaxMemory:79547801 MinMemory:1 ExceedCount:27 TotalNode:26 TotalEdge:30 PeriodTime:100400 TimePerRound:45913 TotalTime:26517195 Prologue:1400630 Retiming:14 RunOnCacheN:42000 RunOnDRAMN:138000 RunOnCache:21898835280 RunOnDRAM:663894744720 PeriodRatio:0.092667 CPURatio:0.654241 Cost:69
+RUNNING convnet_highway_mnist.in bala
+MemorySum:739617173 MaxMemory:3211265 MinMemory:1 ExceedCount:635 TotalNode:1256 TotalEdge:1898 PeriodTime:14634 TimePerRound:7317 TotalTime:22799772 Prologue:848772 Retiming:58 RunOnCacheN:6456000 RunOnDRAMN:4932000 RunOnCache:1777665462000 RunOnDRAM:2660037576000 PeriodRatio:0.999932 CPURatio:0.962707 Cost:21837
+RUNNING convnet_highway_mnist.in resc
+MemorySum:739617173 MaxMemory:3211265 MinMemory:1 ExceedCount:635 TotalNode:1256 TotalEdge:1898 PeriodTime:18237 TimePerRound:18238 TotalTime:23045672 Prologue:1090140 Retiming:59 RunOnCacheN:6333212 RunOnDRAMN:5054788 RunOnCache:1800117018796 RunOnDRAM:2637586019204 PeriodRatio:0.999966 CPURatio:0.952435 Cost:2519
+RUNNING convnet_highway_mnist.in lctes
+MemorySum:739617173 MaxMemory:3211265 MinMemory:1 ExceedCount:635 TotalNode:1256 TotalEdge:1898 PeriodTime:146417 TimePerRound:73208 TotalTime:115815847 Prologue:6003097 Retiming:41 RunOnCacheN:7251000 RunOnDRAMN:4137000 RunOnCache:1428204822000 RunOnDRAM:3009498216000 PeriodRatio:0.228098 CPURatio:0.189521 Cost:1201
+RUNNING googlenet_oxflowers17.in bala
+MemorySum:16927266774 MaxMemory:212926465 MinMemory:1 ExceedCount:1289 TotalNode:1921 TotalEdge:2587 PeriodTime:1353857 TimePerRound:1353857 TotalTime:4186125844 Prologue:124554844 Retiming:92 RunOnCacheN:8334000 RunOnDRAMN:7188000 RunOnCache:54087773106000 RunOnDRAM:47475827538000 PeriodRatio:0.999999 CPURatio:0.970245 Cost:75640
+RUNNING googlenet_oxflowers17.in resc
+MemorySum:16927266774 MaxMemory:212926465 MinMemory:1 ExceedCount:1289 TotalNode:1921 TotalEdge:2587 PeriodTime:10830851 TimePerRound:10830851 TotalTime:4938868056 Prologue:877298931 Retiming:81 RunOnCacheN:7746000 RunOnDRAMN:7776000 RunOnCache:58374101832000 RunOnDRAM:43189498812000 PeriodRatio:1.000000 CPURatio:0.822368 Cost:8440
+RUNNING googlenet_oxflowers17.in lctes
+MemorySum:16927266774 MaxMemory:212926465 MinMemory:1 ExceedCount:1289 TotalNode:1921 TotalEdge:2587 PeriodTime:45649165 TimePerRound:11412291 TotalTime:8361416586 Prologue:2058043045 Retiming:44 RunOnCacheN:7804720 RunOnDRAMN:7717280 RunOnCache:51094668899660 RunOnDRAM:50468931744340 PeriodRatio:0.949414 CPURatio:0.485751 Cost:51543
+RUNNING inception_resnet_v2.in bala
+MemorySum:232743263 MaxMemory:2048771 MinMemory:1 ExceedCount:408 TotalNode:294 TotalEdge:410 PeriodTime:46480 TimePerRound:46480 TotalTime:144459840 Prologue:5019840 Retiming:108 RunOnCacheN:714000 RunOnDRAMN:1746000 RunOnCache:318452490000 RunOnDRAM:1078007088000 PeriodRatio:0.996224 CPURatio:0.961606 Cost:366
+RUNNING inception_resnet_v2.in resc
+MemorySum:232743263 MaxMemory:2048771 MinMemory:1 ExceedCount:408 TotalNode:294 TotalEdge:410 PeriodTime:185293 TimePerRound:185293 TotalTime:158054929 Prologue:19085179 Retiming:103 RunOnCacheN:714000 RunOnDRAMN:1746000 RunOnCache:315107310000 RunOnDRAM:1081352268000 PeriodRatio:0.999595 CPURatio:0.878894 Cost:22
+RUNNING inception_resnet_v2.in lctes
+MemorySum:232743263 MaxMemory:2048771 MinMemory:1 ExceedCount:408 TotalNode:294 TotalEdge:410 PeriodTime:765051 TimePerRound:323503 TotalTime:356764905 Prologue:77464262 Retiming:122 RunOnCacheN:714000 RunOnDRAMN:1746000 RunOnCache:354719090420 RunOnDRAM:1041740487580 PeriodRatio:0.159333 CPURatio:0.389370 Cost:636
+RUNNING inception_v1.in bala
+MemorySum:84802683 MaxMemory:2004121 MinMemory:1 ExceedCount:153 TotalNode:75 TotalEdge:155 PeriodTime:22779 TimePerRound:22779 TotalTime:17517051 Prologue:432801 Retiming:19 RunOnCacheN:498000 RunOnDRAMN:432000 RunOnCache:231737112000 RunOnDRAM:277078986000 PeriodRatio:0.997904 CPURatio:0.973248 Cost:89
+RUNNING inception_v1.in resc
+MemorySum:84802683 MaxMemory:2004121 MinMemory:1 ExceedCount:153 TotalNode:75 TotalEdge:155 PeriodTime:22779 TimePerRound:22779 TotalTime:17517051 Prologue:432801 Retiming:19 RunOnCacheN:498000 RunOnDRAMN:432000 RunOnCache:231737112000 RunOnDRAM:277078986000 PeriodRatio:0.997904 CPURatio:0.973248 Cost:6
+RUNNING inception_v1.in lctes
+MemorySum:84802683 MaxMemory:2004121 MinMemory:1 ExceedCount:153 TotalNode:75 TotalEdge:155 PeriodTime:126042 TimePerRound:54898 TotalTime:48863958 Prologue:1683927 Retiming:14 RunOnCacheN:498000 RunOnDRAMN:432000 RunOnCache:242708236428 RunOnDRAM:266107861572 PeriodRatio:0.178667 CPURatio:0.348896 Cost:177
+RUNNING inception_v2.in bala
+MemorySum:102462820 MaxMemory:2011461 MinMemory:1 ExceedCount:181 TotalNode:87 TotalEdge:184 PeriodTime:15622 TimePerRound:7811 TotalTime:23776684 Prologue:343684 Retiming:22 RunOnCacheN:594000 RunOnDRAMN:510000 RunOnCache:294435270000 RunOnDRAM:320341650000 PeriodRatio:0.994567 CPURatio:0.980191 Cost:109
+RUNNING inception_v2.in resc
+MemorySum:102462820 MaxMemory:2011461 MinMemory:1 ExceedCount:181 TotalNode:87 TotalEdge:184 PeriodTime:31123 TimePerRound:31123 TotalTime:24026956 Prologue:684706 Retiming:22 RunOnCacheN:594000 RunOnDRAMN:510000 RunOnCache:289116750000 RunOnDRAM:325660170000 PeriodRatio:0.998434 CPURatio:0.969981 Cost:8
+RUNNING inception_v2.in lctes
+MemorySum:102462820 MaxMemory:2011461 MinMemory:1 ExceedCount:181 TotalNode:87 TotalEdge:184 PeriodTime:187373 TimePerRound:81547 TotalTime:73254963 Prologue:3102481 Retiming:17 RunOnCacheN:594000 RunOnDRAMN:510000 RunOnCache:287576787240 RunOnDRAM:327200132760 PeriodRatio:0.195333 CPURatio:0.318145 Cost:200
+RUNNING inception_v3.in bala
+MemorySum:138147588 MaxMemory:2073640 MinMemory:1 ExceedCount:236 TotalNode:116 TotalEdge:238 PeriodTime:41083 TimePerRound:20542 TotalTime:62774824 Prologue:1150324 Retiming:28 RunOnCacheN:744000 RunOnDRAMN:684000 RunOnCache:425992356000 RunOnDRAM:402893172000 PeriodRatio:0.997201 CPURatio:0.978927 Cost:171
+RUNNING inception_v3.in resc
+MemorySum:138147588 MaxMemory:2073640 MinMemory:1 ExceedCount:236 TotalNode:116 TotalEdge:238 PeriodTime:82045 TimePerRound:82045 TotalTime:63666920 Prologue:2133170 Retiming:26 RunOnCacheN:744000 RunOnDRAMN:684000 RunOnCache:441388842000 RunOnDRAM:387496686000 PeriodRatio:0.998671 CPURatio:0.965211 Cost:9
+RUNNING inception_v3.in lctes
+MemorySum:138147588 MaxMemory:2073640 MinMemory:1 ExceedCount:236 TotalNode:116 TotalEdge:238 PeriodTime:352798 TimePerRound:153457 TotalTime:138406944 Prologue:6878564 Retiming:22 RunOnCacheN:744000 RunOnDRAMN:684000 RunOnCache:438999885600 RunOnDRAM:389885642400 PeriodRatio:0.372156 CPURatio:0.443995 Cost:274
+RUNNING inception_v4.in bala
+MemorySum:185877691 MaxMemory:2021401 MinMemory:1 ExceedCount:365 TotalNode:173 TotalEdge:368 PeriodTime:40462 TimePerRound:40462 TotalTime:123166328 Prologue:1780328 Retiming:44 RunOnCacheN:1182000 RunOnDRAMN:1026000 RunOnCache:589670058000 RunOnDRAM:525596088000 PeriodRatio:0.987243 CPURatio:0.972972 Cost:263
+RUNNING inception_v4.in resc
+MemorySum:185877691 MaxMemory:2021401 MinMemory:1 ExceedCount:365 TotalNode:173 TotalEdge:368 PeriodTime:159932 TimePerRound:159932 TotalTime:126026416 Prologue:6077416 Retiming:38 RunOnCacheN:1182000 RunOnDRAMN:1026000 RunOnCache:559986798000 RunOnDRAM:555279348000 PeriodRatio:0.999070 CPURatio:0.950891 Cost:41
+RUNNING inception_v4.in lctes
+MemorySum:185877691 MaxMemory:2021401 MinMemory:1 ExceedCount:365 TotalNode:173 TotalEdge:368 PeriodTime:1117436 TimePerRound:483940 TotalTime:449949632 Prologue:31395365 Retiming:29 RunOnCacheN:1182000 RunOnDRAMN:1026000 RunOnCache:576083580420 RunOnDRAM:539182565580 PeriodRatio:0.452945 CPURatio:0.266335 Cost:683
+RUNNING resnet_mnist.in bala
+MemorySum:18085266362 MaxMemory:51380225 MinMemory:1 ExceedCount:1239 TotalNode:3748 TotalEdge:4811 PeriodTime:321327 TimePerRound:321327 TotalTime:1035636921 Prologue:71655921 Retiming:223 RunOnCacheN:13518000 RunOnDRAMN:15348000 RunOnCache:52984373172000 RunOnDRAM:55527225000000 PeriodRatio:0.999999 CPURatio:0.930809 Cost:505828
+RUNNING resnet_mnist.in resc
+MemorySum:18085266362 MaxMemory:51380225 MinMemory:1 ExceedCount:1239 TotalNode:3748 TotalEdge:4811 PeriodTime:2570613 TimePerRound:2570613 TotalTime:1514091057 Prologue:550111182 Retiming:214 RunOnCacheN:11874000 RunOnDRAMN:16992000 RunOnCache:56181442824000 RunOnDRAM:52330155348000 PeriodRatio:1.000000 CPURatio:0.636672 Cost:63918
+RUNNING resnet_mnist.in lctes
+MemorySum:18085266362 MaxMemory:51380225 MinMemory:1 ExceedCount:1239 TotalNode:3748 TotalEdge:4811 PeriodTime:10830842 TimePerRound:2707711 TotalTime:3041882314 Prologue:1551483963 Retiming:143 RunOnCacheN:12556216 RunOnDRAMN:16309784 RunOnCache:53737342374832 RunOnDRAM:54774255797168 PeriodRatio:0.116000 CPURatio:0.316902 Cost:399717
+RUNNING squeezenet.in bala
+MemorySum:100018482 MaxMemory:75314701 MinMemory:1 ExceedCount:39 TotalNode:34 TotalEdge:42 PeriodTime:12357 TimePerRound:6178 TotalTime:9465462 Prologue:197712 Retiming:16 RunOnCacheN:66000 RunOnDRAMN:186000 RunOnCache:12602526000 RunOnDRAM:587508366000 PeriodRatio:0.992231 CPURatio:0.971506 Cost:40
+RUNNING squeezenet.in resc
+MemorySum:100018482 MaxMemory:75314701 MinMemory:1 ExceedCount:39 TotalNode:34 TotalEdge:42 PeriodTime:24607 TimePerRound:24607 TotalTime:9572123 Prologue:344498 Retiming:14 RunOnCacheN:66000 RunOnDRAMN:186000 RunOnCache:14283546000 RunOnDRAM:585827346000 PeriodRatio:0.996546 CPURatio:0.960680 Cost:3
+RUNNING squeezenet.in lctes
+MemorySum:100018482 MaxMemory:75314701 MinMemory:1 ExceedCount:39 TotalNode:34 TotalEdge:42 PeriodTime:70806 TimePerRound:32256 TotalTime:19029071 Prologue:1351616 Retiming:20 RunOnCacheN:66000 RunOnDRAMN:186000 RunOnCache:11481937200 RunOnDRAM:588628954800 PeriodRatio:0.622610 CPURatio:0.483247 Cost:85
+RUNNING vgg_A-LEN.in bala
+MemorySum:19045041773 MaxMemory:411041793 MinMemory:1 ExceedCount:312 TotalNode:518 TotalEdge:794 PeriodTime:2680083 TimePerRound:2680083 TotalTime:4172889231 Prologue:152764731 Retiming:57 RunOnCacheN:2958000 RunOnDRAMN:1806000 RunOnCache:44107493250000 RunOnDRAM:70162757388000 PeriodRatio:1.000000 CPURatio:0.963391 Cost:2845
+RUNNING vgg_A-LEN.in resc
+MemorySum:19045041773 MaxMemory:411041793 MinMemory:1 ExceedCount:312 TotalNode:518 TotalEdge:794 PeriodTime:21440661 TimePerRound:21440661 TotalTime:5360165250 Prologue:1329320982 Retiming:62 RunOnCacheN:2748000 RunOnDRAMN:2016000 RunOnCache:58348356618000 RunOnDRAM:55921894020000 PeriodRatio:0.000000 CPURatio:0.750000 Cost:322
+RUNNING vgg_A-LEN.in lctes
+MemorySum:19045041773 MaxMemory:411041793 MinMemory:1 ExceedCount:312 TotalNode:518 TotalEdge:794 PeriodTime:42881322 TimePerRound:10720330 TotalTime:5660334504 Prologue:1629490236 Retiming:38 RunOnCacheN:2810896 RunOnDRAMN:1953104 RunOnCache:54177936772992 RunOnDRAM:60092313865008 PeriodRatio:1.000000 CPURatio:0.710227 Cost:386
+RUNNING vgg_B.in bala
+MemorySum:19783857090 MaxMemory:411041793 MinMemory:1 ExceedCount:300 TotalNode:518 TotalEdge:775 PeriodTime:2447409 TimePerRound:1223704 TotalTime:3815510631 Prologue:144397131 Retiming:59 RunOnCacheN:2748000 RunOnDRAMN:1902000 RunOnCache:56020945128000 RunOnDRAM:62682197412000 PeriodRatio:1.000000 CPURatio:0.962155 Cost:3663
+RUNNING vgg_B.in resc
+MemorySum:19783857090 MaxMemory:411041793 MinMemory:1 ExceedCount:300 TotalNode:518 TotalEdge:775 PeriodTime:19579264 TimePerRound:19579264 TotalTime:4777340416 Prologue:1096438784 Retiming:56 RunOnCacheN:2580000 RunOnDRAMN:2070000 RunOnCache:62102603040000 RunOnDRAM:56600539500000 PeriodRatio:0.000000 CPURatio:0.768443 Cost:277
+RUNNING vgg_B.in lctes
+MemorySum:19783857090 MaxMemory:411041793 MinMemory:1 ExceedCount:300 TotalNode:518 TotalEdge:775 PeriodTime:39158528 TimePerRound:9789632 TotalTime:5129767168 Prologue:1448865536 Retiming:37 RunOnCacheN:2648896 RunOnDRAMN:2001104 RunOnCache:60109841061168 RunOnDRAM:58593301478832 PeriodRatio:1.000000 CPURatio:0.715649 Cost:356
+RUNNING vgg_C.in bala
+MemorySum:21474984241 MaxMemory:411041793 MinMemory:1 ExceedCount:357 TotalNode:586 TotalEdge:894 PeriodTime:2620779 TimePerRound:1310390 TotalTime:4098898356 Prologue:167729856 Retiming:64 RunOnCacheN:3102000 RunOnDRAMN:2262000 RunOnCache:53539710636000 RunOnDRAM:75310194810000 PeriodRatio:1.000000 CPURatio:0.959079 Cost:5404
+RUNNING vgg_C.in resc
+MemorySum:21474984241 MaxMemory:411041793 MinMemory:1 ExceedCount:357 TotalNode:586 TotalEdge:894 PeriodTime:20966228 TimePerRound:20966228 TotalTime:5346388140 Prologue:1404737276 Retiming:67 RunOnCacheN:2982000 RunOnDRAMN:2382000 RunOnCache:69101611938000 RunOnDRAM:59748293508000 PeriodRatio:0.000000 CPURatio:0.735294 Cost:386
+RUNNING vgg_C.in lctes
+MemorySum:21474984241 MaxMemory:411041793 MinMemory:1 ExceedCount:357 TotalNode:586 TotalEdge:894 PeriodTime:41932456 TimePerRound:10483114 TotalTime:5744746472 Prologue:1803095608 Retiming:43 RunOnCacheN:3125904 RunOnDRAMN:2238096 RunOnCache:66163928732288 RunOnDRAM:62685976713712 PeriodRatio:1.000000 CPURatio:0.684307 Cost:458
+RUNNING vgg_D.in bala
+MemorySum:21644853519 MaxMemory:411041793 MinMemory:1 ExceedCount:357 TotalNode:584 TotalEdge:892 PeriodTime:3118026 TimePerRound:3118026 TotalTime:4882828716 Prologue:205789716 Retiming:66 RunOnCacheN:3198000 RunOnDRAMN:2154000 RunOnCache:58944265794000 RunOnDRAM:70924855320000 PeriodRatio:1.000000 CPURatio:0.957854 Cost:3933
+RUNNING vgg_D.in resc
+MemorySum:21644853519 MaxMemory:411041793 MinMemory:1 ExceedCount:357 TotalNode:584 TotalEdge:892 PeriodTime:24944206 TimePerRound:24944206 TotalTime:6360772530 Prologue:1671261802 Retiming:67 RunOnCacheN:2958000 RunOnDRAMN:2394000 RunOnCache:68497119858000 RunOnDRAM:61372001256000 PeriodRatio:0.000000 CPURatio:0.735294 Cost:436
+RUNNING vgg_D.in lctes
+MemorySum:21644853519 MaxMemory:411041793 MinMemory:1 ExceedCount:357 TotalNode:584 TotalEdge:892 PeriodTime:49888412 TimePerRound:12472103 TotalTime:6834712444 Prologue:2145201716 Retiming:43 RunOnCacheN:3080896 RunOnDRAMN:2271104 RunOnCache:66503657685168 RunOnDRAM:63365463428832 PeriodRatio:1.000000 CPURatio:0.684307 Cost:469
+RUNNING vgg_E.in bala
+MemorySum:23505849948 MaxMemory:411041793 MinMemory:1 ExceedCount:414 TotalNode:650 TotalEdge:1009 PeriodTime:1873618 TimePerRound:1873618 TotalTime:5753880878 Prologue:133026878 Retiming:71 RunOnCacheN:3774000 RunOnDRAMN:2280000 RunOnCache:54519182208000 RunOnDRAM:86515917480000 PeriodRatio:1.000000 CPURatio:0.976880 Cost:5619
+RUNNING vgg_E.in resc
+MemorySum:23505849948 MaxMemory:411041793 MinMemory:1 ExceedCount:414 TotalNode:650 TotalEdge:1009 PeriodTime:29977875 TimePerRound:29977875 TotalTime:8034070500 Prologue:2398230000 Retiming:80 RunOnCacheN:3390000 RunOnDRAMN:2664000 RunOnCache:77349348264000 RunOnDRAM:63685751424000 PeriodRatio:0.000000 CPURatio:0.699627 Cost:648
+RUNNING vgg_E.in lctes
+MemorySum:23505849948 MaxMemory:411041793 MinMemory:1 ExceedCount:414 TotalNode:650 TotalEdge:1009 PeriodTime:59955750 TimePerRound:14988938 TotalTime:8573672250 Prologue:2937831750 Retiming:49 RunOnCacheN:3515904 RunOnDRAMN:2538096 RunOnCache:72897495103472 RunOnDRAM:68137604584528 PeriodRatio:1.000000 CPURatio:0.655594 Cost:697
