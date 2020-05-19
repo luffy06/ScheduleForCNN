@@ -6,7 +6,7 @@ resultexcel = 'output.xlsx'
 algorithms = ['lctes', 'resc', 'bala']
 pes = [16, 32, 64]
 attributes = ['Benchmark', 'Node', 'Edge']
-metrics = ['TotalTime', 'Prologue', 'TimePerRound', 'RunOnCacheN', 'CPURatio', 'Cost']
+metrics = ['TotalTime', 'Prologue', 'TimePerRound', 'CPURatio', 'RunOnCacheN', 'RunOnCache', 'Cost']
 drop_benchmark = []
 
 def parse_graph(line):
